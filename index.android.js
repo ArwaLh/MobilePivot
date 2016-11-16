@@ -3,61 +3,56 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-const FBSDK = require('react-native-fbsdk');
-const {
-  LoginButton,
-} = FBSDK;
 import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Navigator,
+  AsyncStorage
 } from 'react-native';
 
-export default class FacebookApp extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <LoginButton
-          publishPermissions={["publish_actions"]}
-          onLoginFinished={
-            (error, result) => {
-              if (error) {
-                alert("Login failed with error: " + result.error);
-              } else if (result.isCancelled) {
-                alert("Login was cancelled");
-              } else {
-                alert("Login was successful with permissions: " + result.grantedPermissions)
-              }
-            }
-          }
-          onLogoutFinished={() => alert("User logged out")}/>
-      </View>
-    );
-  }
-}
+import Signup from './src/pages/signup';
+import Login from './src/pages/login';
+import Account from './src/pages/account';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+import Header from './src/components/header';
+import * as firebase from 'firebase';
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyC7F3pn_tG3LJk-4pPocpvMRyh8SEW-1sQ",
+    authDomain: "katomi-148921.firebaseapp.com",
+    databaseURL: "https://katomi-148921.firebaseio.com",
+    storageBucket: "katomi-148921.appspot.com",
+    messagingSenderId: "229375856602"
+  };
+firebase.initializeApp(config);
+
+import styles from './src/styles/common-styles.js';
+export default class FacebookApp extends Component {
+	constructor(props){
+		super(props);
+		this.state = {
+		  component: null,
+		  loaded: false
+		};
+	}
+	render() {
+		return (
+		  <Navigator
+			  initialRoute={{component: Login}}
+			  configureScene={() => {
+				return Navigator.SceneConfigs.HorizontalSwipeJump;
+			  }}
+			  renderScene={(route, navigator) => {
+				if(route.component){
+				  return React.createElement(route.component, { navigator });
+				}
+			  }}
+			/>
+		);
+	}
+}
 
 AppRegistry.registerComponent('FacebookApp', () => FacebookApp);
