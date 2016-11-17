@@ -1,0 +1,58 @@
+import React, { Component } from 'react'
+import {
+  Text,
+  View,
+  Image,
+  AppRegistry,
+  Dimensions
+} from 'react-native'
+import Swiper from 'react-native-swiper';
+const { width, height } = Dimensions.get('window');
+var styles = {
+  wrapper: {
+  },
+  slide: {
+    flex: 1,
+    backgroundColor: 'transparent'
+  },
+  image: {
+    width,
+    height,
+    flex: 1
+  },
+  text: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold'
+  },
+  backgroundImage: {
+    resizeMode: 'cover', // or 'stretch'
+  },
+}
+export default class didacticiel extends Component {
+
+render() {
+    return (
+		<View>
+          <Swiper style={styles.wrapper}
+            dot={<View style={{backgroundColor: 'rgba(255,255,255,.3)', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
+            activeDot={<View style={{backgroundColor: '#fff', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
+            paginationStyle={{
+              bottom: 70
+            }}
+            loop={false}>
+			<View style={styles.slide}>
+              <Image style={styles.image} source={{uri:'http://localhost:8081/img/didacticiel.png'}} />
+            </View>
+            <View style={styles.slide}>
+              <Image style={styles.image} source={{uri:'http://localhost:8081/img/did2.png'}} />
+            </View>
+            <View style={styles.slide}>
+              <Image style={styles.image} source={{uri:'http://localhost:8081/img/did3.png'}} />
+            </View>
+          </Swiper>
+      </View>
+	);
+  }
+}
+AppRegistry.registerComponent('didacticiel', () => didacticiel);

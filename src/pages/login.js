@@ -1,6 +1,7 @@
 const FBSDK = require('react-native-fbsdk');
 const {
   LoginButton,
+  AccessToken 
 } = FBSDK;
 import React, { Component } from 'react';
 import {
@@ -18,6 +19,7 @@ import Header from '../components/header';
 
 import Signup from './signup';
 import Account from './account';
+import Didacticiel from './didacticiel';
 import * as firebase from 'firebase';
 
 import styles from '../styles/common-styles.js';
@@ -69,6 +71,11 @@ export default class login extends Component {
               } else if (result.isCancelled) {
                 alert("Login was cancelled");
               } else {
+				  AccessToken.getCurrentAccessToken().then(
+                  (data) => {
+                    console.log(data.accessToken.toString())
+                  }
+                )
                 alert("Login was successful with permissions: " + result.grantedPermissions);
 				this.props.navigator.push({
 				  component: Account
@@ -103,7 +110,7 @@ export default class login extends Component {
 		alert('Login success');
         AsyncStorage.setItem('user_data', JSON.stringify(user_data));
         this.props.navigator.push({
-          component: Account
+          component: Didacticiel
         });
     }).catch((error)=>{
 		 alert(error.message);
@@ -138,7 +145,7 @@ export default class login extends Component {
 		alert('Login facebook success');
         AsyncStorage.setItem('user_data', JSON.stringify(result.user));
         this.props.navigator.push({
-          component: Account
+          component: Didacticiel
         });
     }
 	});
