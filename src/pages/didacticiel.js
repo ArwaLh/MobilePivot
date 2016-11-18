@@ -11,6 +11,24 @@ const { width, height } = Dimensions.get('window');
 var styles = {
   wrapper: {
   },
+  slide1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent'
+  },
+  slide2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent'
+  },
+  slide3: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent'
+  },
   slide: {
     flex: 1,
     backgroundColor: 'transparent'
@@ -40,14 +58,14 @@ render() {
             paginationStyle={{
               bottom: 70
             }}
-            loop={false}>
-			<View style={styles.slide}>
+            loop={false} showsButtons>
+			<View style={styles.slide1}>
               <Image style={styles.image} source={{uri:'http://localhost:8081/img/didacticiel.png'}} />
             </View>
-            <View style={styles.slide}>
+            <View style={styles.slide2}>
               <Image style={styles.image} source={{uri:'http://localhost:8081/img/did2.png'}} />
             </View>
-            <View style={styles.slide}>
+            <View style={styles.slide3}>
               <Image style={styles.image} source={{uri:'http://localhost:8081/img/did3.png'}} />
             </View>
           </Swiper>
