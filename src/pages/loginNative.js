@@ -33,7 +33,7 @@ export default class loginNative extends Component {
   }
   render(){
     return (
-	 <Container>
+	 <Container style={styles.body}>
 		<Header text="Authentification" loaded={this.state.loaded} />
         <Content  style={{margin:50}}>
             <Card style={{ flex: 0}}>
@@ -61,7 +61,20 @@ export default class loginNative extends Component {
 					onpress={this.login.bind(this)}
 					button_styles={styles.primary_button}
 					button_text_styles={styles.primary_button_text} />
-					
+				
+				  <Button
+					text="Créer un compte"
+					onpress={this.goToSignup.bind(this)}
+					button_styles={styles.transparent_button}
+					button_text_styles={styles.transparent_button_text} />
+                </CardItem>
+            </Card>
+			 <Card style={{ flex: 0}}>
+                <CardItem>
+                    <Text>Login with social media account</Text>
+                </CardItem>
+
+                <CardItem>  
 				  <LoginButton
 				  publishPermissions={["publish_actions"]}
 				  onLoginFinished={
@@ -84,14 +97,9 @@ export default class loginNative extends Component {
 					}
 				  }
 				  onLogoutFinished={() => alert("User logged out")}/>
-				  <Text style={{marginBottom:5}}></Text>
-				  <Button
-					text="Créer un compte"
-					onpress={this.goToSignup.bind(this)}
-					button_styles={styles.transparent_button}
-					button_text_styles={styles.transparent_button_text} />
-                </CardItem>
-            </Card>
+				  <Text style={{marginBottom:5}}></Text>		
+				</CardItem>
+			</Card>
         </Content>
     </Container>
     );
