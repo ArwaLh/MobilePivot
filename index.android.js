@@ -15,6 +15,8 @@ import {
 
 import Signup from './src/pages/signup';
 import Login from './src/pages/login';
+import LoginNative from './src/pages/loginNative';
+
 import Account from './src/pages/account';
 
 import Header from './src/components/header';
@@ -41,7 +43,7 @@ export default class FacebookApp extends Component {
 	render() {
 		return (
 		  <Navigator
-			  initialRoute={{component: Login}}
+			  initialRoute={{component: LoginNative}}
 			  configureScene={() => {
 				return Navigator.SceneConfigs.HorizontalSwipeJump;
 			  }}
