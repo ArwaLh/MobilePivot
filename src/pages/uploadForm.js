@@ -186,7 +186,7 @@ export default class uploadForm extends Component {
 			</Slider>	
 			</List>
 			<Button
-				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:200,alignItems:'center'}}
+				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:80,marginBottom:50,alignItems:'center'}}
 				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}>Valider</Button>
     </ScrollView> 
 	</View>
@@ -280,6 +280,7 @@ const styles = StyleSheet.create({
   title_upload:{
 	  color:"#fff",
 	  fontSize:18,
+	  padding:10,
 	  height:40,
 	  fontWeight:'bold'
   },
