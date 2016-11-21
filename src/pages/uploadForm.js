@@ -48,7 +48,7 @@ export default class uploadForm extends Component {
     return ( 
 	<ScrollView>
 	<Header style={{backgroundColor: '#53507c'}}>
-		<Text style={{color:"#fff"}}>
+		<Text style={{color:"#fff",fontSize:15,height:40}}>
 			Upload photo
 		</Text>
 	</Header>	
@@ -129,7 +129,7 @@ export default class uploadForm extends Component {
 				})}
 			</RadioForm>
 			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
-					<Text style={{marginTop:10,marginBottom:10,color:"#000"}}>Phototype</Text>
+					<Text style={styles.phototype}>Phototype</Text>
 
 					<Button
 						style={{borderColor: "#53507c",width:200,height:40,marginLeft:30}}
@@ -245,6 +245,12 @@ const styles = StyleSheet.create({
 	fontFamily: 'Arial',
 	fontSize: 15,
 	marginBottom:35  
+  },
+  phototype: {
+	marginTop:10,
+	fontFamily: 'Arial',
+	marginBottom:30,
+	color:"#000"
   },
   bords: {
     color: 'black',
