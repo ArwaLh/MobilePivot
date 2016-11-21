@@ -48,7 +48,7 @@ export default class uploadForm extends Component {
     return ( 
 	<ScrollView>
 	<Header style={{backgroundColor: '#53507c'}}>
-		<Text style={{color:"#fff",fontSize:15,height:40}}>
+		<Text style={styles.title_upload}>
 			Upload photo
 		</Text>
 	</Header>	
@@ -251,6 +251,13 @@ const styles = StyleSheet.create({
 	fontFamily: 'Arial',
 	marginBottom:30,
 	color:"#000"
+  },
+  title_upload:{
+	  color:"#fff",
+	  fontSize:18,
+	  height:40,
+	  padding:10,
+	  fontWeight:'bold'
   },
   bords: {
     color: 'black',
