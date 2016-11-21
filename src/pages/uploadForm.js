@@ -63,7 +63,7 @@ export default class uploadForm extends Component {
 				  var that = this;
 				  var is_selected = this.state.value1Index == i;
 				  return (
-					<View key={i} style={{marginRight: 25, paddingLeft:35}}>
+					<View key={i} style={{marginRight: 25, paddingLeft:39}}>
 					  <RadioButton
 						isSelected={is_selected}
 						obj={obj}
@@ -90,7 +90,7 @@ export default class uploadForm extends Component {
 				  var that = this;
 				  var is_selected = this.state.value2Index == i;
 				  return (
-					<View key={i} style={{marginRight: 30, paddingLeft:16}}>
+					<View key={i} style={{marginRight: 30, paddingLeft:20}}>
 					  <RadioButton
 						isSelected={is_selected}
 						obj={obj}
@@ -117,7 +117,7 @@ export default class uploadForm extends Component {
 				var that = this;
 				var is_selected = this.state.value3Index == i;
 				return (
-					<View key={i} style={{paddingLeft:25,marginRight: 60}}>
+					<View key={i} style={{paddingLeft:29,marginRight: 60}}>
 					  <RadioButton
 						isSelected={is_selected}
 						obj={obj}
@@ -184,10 +184,12 @@ export default class uploadForm extends Component {
 				style={styles.slidee}
 				onValueChange={(value) => this.setState({value})} >
 			</Slider>	
-			</List>
+			<ListItem>
 			<Button
 				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:80,marginBottom:50,alignItems:'center'}}
 				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}>Valider</Button>
+			</ListItem>
+			</List>
     </ScrollView> 
 	</View>
     );
@@ -280,7 +282,7 @@ const styles = StyleSheet.create({
   title_upload:{
 	  color:"#fff",
 	  fontSize:18,
-	  padding:10,
+	  paddingTop:10,
 	  height:40,
 	  fontWeight:'bold'
   },
