@@ -16,7 +16,7 @@ import {
 
 import HeaderUp from '../components/headerUp';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import {Button,Header} from 'native-base';
+import {Button, List, ListItem, Header} from 'native-base';
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
@@ -46,13 +46,15 @@ export default class uploadForm extends Component {
   }
   render() {
     return ( 
-	<ScrollView>
-	<Header style={{backgroundColor: '#53507c',height:100,padding:10}}>
+	<View>
+	<Header style={{backgroundColor: '#53507c',height:70,padding:10}}>
 		<Text style={styles.title_upload}>
 			Upload photo
 		</Text>
 	</Header>	
-		  <View style={{margin: 30}}>
+	<ScrollView>
+		  <List>
+            <ListItem>
 			<RadioForm
 				formHorizontal={true}
 				animation={true}>
@@ -78,6 +80,8 @@ export default class uploadForm extends Component {
 				  )
 				})}
 			</RadioForm>
+			</ListItem>
+            <ListItem>
 			<RadioForm
 				formHorizontal={true}
 				animation={true}>
@@ -103,6 +107,8 @@ export default class uploadForm extends Component {
 				  )
 				})}
 			</RadioForm>
+            </ListItem>
+            <ListItem>
 			<RadioForm
 				formHorizontal={true}
 				animation={true}>
@@ -128,14 +134,18 @@ export default class uploadForm extends Component {
 				)
 				})}
 			</RadioForm>
-			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
-					<Text style={styles.phototype}>Phototype</Text>
+            </ListItem>
+            <ListItem>
 
-					<Button
-						style={{borderColor: "#53507c",width:200,height:40,marginLeft:30}}
-						textStyle={{fontSize: 18, color:'#53507c',fontWeight:"bold"}}
-						bordered>Choisir phototype</Button>
+			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
+				<Text style={styles.phototype}>Phototype</Text>
+				<Button
+					style={{borderColor: "#53507c",width:200,height:40,marginLeft:30}}
+					textStyle={{fontSize: 18, color:'#53507c',fontWeight:"bold"}}
+					bordered>Choisir phototype</Button>
 			</View>
+			</ListItem>
+			<ListItem>
 			<Grid>
 				<Col>
 					<Text style={styles.diametre}>Diamètre</Text>
@@ -165,15 +175,21 @@ export default class uploadForm extends Component {
 							
 					</Picker>
 				</Col>
-			</Grid>			
+			</Grid>
+			</ListItem>						
 			<Text style={styles.suspicion}>Suspicion</Text>
 			<Text style={styles.melanome}> Mélanome: {this.state.value}</Text>
 			<Slider
 				value={this.state.value}
 				style={styles.slidee}
-				onValueChange={(value) => this.setState({value})} />
-		  </View> 
+				onValueChange={(value) => this.setState({value})} >
+			</Slider>	
+			</List>
+			<Button
+				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:200,alignItems:'center'}}
+				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}>Valider</Button>
     </ScrollView> 
+	</View>
     );
   }
     onValueChange = (key: string, value: string) => {
@@ -215,15 +231,19 @@ const styles = StyleSheet.create({
 	color: 'black',
 	textAlign: 'left',
 	padding:0,
-	justifyContent: 'flex-start',
+	marginLeft:20,
+	marginTop:30,
 	fontFamily: 'Arial',
 	fontSize: 15    
   },
   melanome: {
 	color: 'black',
 	textAlign: 'right',
-	bottom:20,
-	justifyContent: 'flex-end',
+	bottom:30,
+	position: 'relative',
+	fontFamily: 'Arial',
+	fontSize: 15,
+	marginTop:10,
 	marginRight:20  	  
   },
   slidee: {
@@ -233,23 +253,27 @@ const styles = StyleSheet.create({
   diametre: {
 	color: 'black',
 	fontFamily: 'Arial',
-	fontSize: 15   
+	fontSize: 15,
+	marginTop:10,	
+	marginBottom:15,	
   },
   asymetrie: {
 	color: 'black',
 	fontFamily: 'Arial',
+	marginTop:10,
 	fontSize: 15  
   },
   couleur: {
     color: 'black',
 	fontFamily: 'Arial',
 	fontSize: 15,
-	marginBottom:35  
+	marginTop:10,
+	marginBottom:15  
   },
   phototype: {
 	marginTop:10,
 	fontFamily: 'Arial',
-	marginBottom:30,
+	marginBottom:15,
 	fontSize: 15,
 	color:"#000"
   },
@@ -263,7 +287,8 @@ const styles = StyleSheet.create({
     color: 'black',
 	fontFamily: 'Arial',
 	fontSize: 15,
-	marginBottom:35}
+	marginTop:10,
+	marginBottom:15}
 });
 
 AppRegistry.registerComponent('uploadForm', () => uploadForm);
