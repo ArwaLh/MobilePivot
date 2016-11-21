@@ -12,6 +12,7 @@
     "react-native": "0.37.0",
     "react-native-fbsdk": "^0.4.0",
     "react-native-gifted-spinner": "^0.1.0",
+    "react-native-splash-screen": "^1.0.9",
     "react-native-swiper": "^1.5.3",
     "react-native-twitter-signin": "0.0.1",
     "react-native-vector-icons": "^3.0.0"

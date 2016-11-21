@@ -13,6 +13,7 @@ import {
   AsyncStorage
 } from 'react-native';
 
+import SplashScreen from 'react-native-splash-screen';
 import Signup from './src/pages/signup';
 import Login from './src/pages/login';
 import Account from './src/pages/account';
@@ -38,6 +39,9 @@ export default class FacebookApp extends Component {
 		  loaded: false
 		};
 	}
+	componentDidMount() {
+        SplashScreen.hide();
+    }
 	render() {
 		return (
 		  <Navigator
