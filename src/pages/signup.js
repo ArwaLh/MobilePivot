@@ -6,13 +6,14 @@ import {
   View
 } from 'react-native';
 
-import Button from '../components/button';
+import ButtonS from '../components/button';
 import Header from '../components/header';
 
 import Login from './login';
 import * as firebase from 'firebase';
 
 import styles from '../styles/common-styles.js';
+import {InputGroup, Input, Button} from 'native-base';
 export default class signup extends Component {
 
   constructor(props){
@@ -90,12 +91,11 @@ export default class signup extends Component {
             placeholder={"Mot de passe"}
           />
           <Button
-            text="S'inscrire"
             onpress={this.signup.bind(this)}
-            button_styles={styles.primary_button}
-            button_text_styles={styles.primary_button_text} />
+            style={styles.primary_button}
+            textStyle={styles.primary_button_text}>S'inscrire</Button>
 
-          <Button
+          <ButtonS
             text="Connexion"
             onpress={this.goToLogin.bind(this)}
             button_styles={styles.transparent_button}

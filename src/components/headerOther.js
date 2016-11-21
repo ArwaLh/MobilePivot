@@ -10,7 +10,7 @@ import {
 
 import GiftedSpinner from 'react-native-gifted-spinner';
 
-export default class header extends Component {
+export default class headerOther extends Component {
 
   render(){
     return (
@@ -35,21 +35,18 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
-	height: 150,
-    flex: 1,
-	backgroundColor: "#3e3a6c",
+    marginBottom: 20,
+	backgroundColor: '#3e3a6c',
+    flex: 1
   },
   header_item: {
-    paddingLeft: 25,
-    paddingRight: 10,
-	position: 'relative',
+    paddingLeft: 10,
+    paddingRight: 10
   },
   header_text: {
-    color: '#FFFFFF',
-	fontSize: 45,
-    margin: 30,
-	textAlign: 'center'
+    color: '#000',
+    fontSize: 18
   }
 });
 
-AppRegistry.registerComponent('header', () => header);
+AppRegistry.registerComponent('headerOther', () => headerOther);

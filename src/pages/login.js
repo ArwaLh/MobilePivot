@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 import ButtonFB from '../components/button_fb';
-import Button from '../components/button';
+import ButtonS from '../components/button';
 import Header from '../components/header';
 
 import Signup from './signup';
@@ -24,7 +24,7 @@ import * as firebase from 'firebase';
 
 import styles from '../styles/common-styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import {InputGroup, Input, Button} from 'native-base';
 export default class login extends Component {
 
   constructor(props){
@@ -40,7 +40,7 @@ export default class login extends Component {
   render(){
     return (
       <View style={styles.container}>
-        <Header text="Authentification" loaded={this.state.loaded} />
+	  <Header text="KatoMobile" loaded={this.state.loaded}/>
         <View style={styles.body}>
           <TextInput
             style={styles.textinput}
@@ -55,13 +55,12 @@ export default class login extends Component {
             secureTextEntry={true}
             placeholder={"Mot de passe"}
           />
-
-          <Button
-            text="Connexion"
-            onpress={this.login.bind(this)}
-            button_styles={styles.primary_button}
-            button_text_styles={styles.primary_button_text} />
-			
+		  <Button
+			onPress={this.login.bind(this)}
+			style={styles.primary_button}
+			textStyle={styles.primary_button_text}
+		  >Connexion</Button>
+		  <Text style={{marginBottom:15}}></Text>
 		  <LoginButton
           publishPermissions={["publish_actions"]}
           onLoginFinished={
@@ -83,14 +82,10 @@ export default class login extends Component {
               }
             }
           }
-          onLogoutFinished={() => alert("User logged out")}/>
+          onLogoutFinished={() => alert("User logged out")}
+		  s/>
 		  <Text style={{marginBottom:5}}></Text>
-		  <Icon.Button name="twitter" backgroundColor="#14aee8">
-			<Text style={{fontFamily: 'Arial', fontSize: 15, color: '#FFFFFF'}}>Connexion via Twitter</Text>
-		  </Icon.Button>
-		  
-
-          <Button
+          <ButtonS
             text="Créer un compte"
             onpress={this.goToSignup.bind(this)}
             button_styles={styles.transparent_button}
@@ -157,5 +152,13 @@ export default class login extends Component {
     });
   }
 }
+const styles2 = StyleSheet.create({
+  body: {
+    flex: 9,
+    alignItems: 'center',
+	marginTop: 40,
+	backgroundColor: '#29255c'
+  },
+});
 
 AppRegistry.registerComponent('login', () => login);

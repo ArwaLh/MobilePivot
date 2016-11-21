@@ -70,7 +70,7 @@ export default class didacticiel extends Component {
 		  loaded: false
 		};
 	}
-	go(){
+	next(){
 		alert('Passer au didacticiel');
 	}
 	skip(){
@@ -92,7 +92,7 @@ export default class didacticiel extends Component {
 				  <Image style={styles.image} source={{uri:'http://localhost:8081/img/didacticiel.png'}}>
 						<Button
 							text="Next"
-							onpress={this.go.bind(this)}
+							onpress={this.next.bind(this)}
 							button_styles={styles.transparent_button_left}
 							button_text_styles={styles.transparent_button_text_left} />
 						<Button

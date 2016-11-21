@@ -47,7 +47,7 @@ export default class FacebookApp extends Component {
 	render() {
 		return (
 		  <Navigator
-			  initialRoute={{component: LoginNative}}
+			  initialRoute={{component: Login}}
 			  configureScene={() => {
 				return Navigator.SceneConfigs.HorizontalSwipeJump;
 			  }}
