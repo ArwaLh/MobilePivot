@@ -29,7 +29,6 @@ module.exports = StyleSheet.create({
     margin: 10,
     padding: 15,
     backgroundColor: '#909090',
-	marginBottom: 70,
 	marginTop: 20
   },
   primary_button_text: {
