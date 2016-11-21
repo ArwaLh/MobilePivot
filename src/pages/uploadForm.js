@@ -46,13 +46,12 @@ export default class uploadForm extends Component {
   }
   render() {
     return ( 
-	<View style={styles.container}>
+	<ScrollView>
 	<Header style={{backgroundColor: '#53507c'}}>
 		<Text style={{color:"#fff"}}>
 			Upload photo
 		</Text>
-	</Header>
-	<ScrollView>	
+	</Header>	
 		  <View style={{margin: 30}}>
 			<RadioForm
 				formHorizontal={true}
@@ -130,10 +129,10 @@ export default class uploadForm extends Component {
 				})}
 			</RadioForm>
 			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
-					<Text>Phototype</Text>
+					<Text style={{marginTop:10,marginBottom:10,color:"#000"}}>Phototype</Text>
 
 					<Button
-						style={{borderColor: "#53507c",width:200,height:40,marginLeft:20}}
+						style={{borderColor: "#53507c",width:200,height:40,marginLeft:30}}
 						textStyle={{fontSize: 18, color:'#53507c',fontWeight:"bold"}}
 						bordered>Choisir phototype</Button>
 			</View>
@@ -152,6 +151,18 @@ export default class uploadForm extends Component {
 							<Item label="4.3 mm" value="key3" />
 							<Item label="5.2 mm" value="key4" />
 							<Item label="6 mm" value="key5" />	
+							<Item label="0,2" value="key0" />
+							<Item label="1.3" value="key1" />
+							<Item label="2.3 " value="key2" />
+							<Item label="4.3 mm" value="key3" />
+							<Item label="5.2 mm" value="key4" />
+							<Item label="6 mm" value="key5" />	
+							<Item label="1.3" value="key1" />
+							<Item label="2.3 " value="key2" />
+							<Item label="4.3 mm" value="key3" />
+							<Item label="5.2 mm" value="key4" />
+							<Item label="6 mm" value="key5" />	
+							
 					</Picker>
 				</Col>
 			</Grid>			
@@ -163,7 +174,6 @@ export default class uploadForm extends Component {
 				onValueChange={(value) => this.setState({value})} />
 		  </View> 
     </ScrollView> 
-    </View> 
     );
   }
     onValueChange = (key: string, value: string) => {
