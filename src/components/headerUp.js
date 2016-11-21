@@ -14,7 +14,7 @@ export default class headerUp extends Component {
   render(){
     return (
       <View style={styles.header}>
-	  	 <Icon name="ios-arrow-back" style={{color: '#F0FFFF', fontSize: 20}}/>
+	  	 <Icon name="ios-arrow-back" style={{color: '#F0FFFF', fontSize: 13}}/>
         <View style={styles.header_item}>
 			<Text style={styles.header_text}>{this.props.text}</Text>
         </View>
@@ -27,7 +27,7 @@ export default class headerUp extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    padding: 20,
+    padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,

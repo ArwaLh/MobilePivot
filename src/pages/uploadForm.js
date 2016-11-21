@@ -16,7 +16,7 @@ import {
 
 import HeaderUp from '../components/headerUp';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import {Button} from 'native-base';
+import {Button,Header} from 'native-base';
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
@@ -25,6 +25,7 @@ export default class uploadForm extends Component {
 	constructor (props) {
     super(props);
     this.state = {
+	loaded:true,
       types1: [{label: 'Régulier', value: 0}, {label: 'Irrégulier', value: 1}],
       value1: 0,
       value1Index: 0,
@@ -45,8 +46,13 @@ export default class uploadForm extends Component {
   }
   render() {
     return ( 
+	<View style={styles.container}>
+	<Header style={{backgroundColor: '#53507c'}}>
+		<Text style={{color:"#fff"}}>
+			Upload photo
+		</Text>
+	</Header>
 	<ScrollView>	
-		  <HeaderUp text="Upload"/>
 		  <View style={{margin: 30}}>
 			<RadioForm
 				formHorizontal={true}
@@ -123,29 +129,32 @@ export default class uploadForm extends Component {
 				)
 				})}
 			</RadioForm>
+			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
+					<Text>Phototype</Text>
+
+					<Button
+						style={{borderColor: "#53507c",width:200,height:40,marginLeft:20}}
+						textStyle={{fontSize: 18, color:'#53507c',fontWeight:"bold"}}
+						bordered>Choisir phototype</Button>
+			</View>
 			<Grid>
 				<Col>
-					<Text style={styles.diametre}>Phototype</Text>
+					<Text style={styles.diametre}>Diamètre</Text>
 				</Col>
 				<Col>
-					<Button
-						style={{borderColor: "#53507c"}}
-						textStyle={{fontSize: 18, color:'#000'}}
-						bordered>Choisir phototype</Button>
+					<Picker
+						style={styles.picker}
+						selectedValue={this.state.selected1}
+						onValueChange={this.onValueChange.bind(this, 'selected1')}>
+							<Item label="0,2" value="key0" />
+							<Item label="1.3" value="key1" />
+							<Item label="2.3 " value="key2" />
+							<Item label="4.3 mm" value="key3" />
+							<Item label="5.2 mm" value="key4" />
+							<Item label="6 mm" value="key5" />	
+					</Picker>
 				</Col>
-			</Grid>
-			<Text style={styles.diametre}>Diamètre</Text>
-			<Picker
-				style={styles.picker}
-				selectedValue={this.state.selected1}
-				onValueChange={this.onValueChange.bind(this, 'selected1')}>
-					<Item label="0,2" value="key0" />
-					<Item label="1.3" value="key1" />
-					<Item label="2.3 " value="key2" />
-					<Item label="4.3 mm" value="key3" />
-					<Item label="5.2 mm" value="key4" />
-					<Item label="6 mm" value="key5" />	
-			</Picker>	 
+			</Grid>			
 			<Text style={styles.suspicion}>Suspicion</Text>
 			<Text style={styles.melanome}> Mélanome: {this.state.value}</Text>
 			<Slider
@@ -154,7 +163,7 @@ export default class uploadForm extends Component {
 				onValueChange={(value) => this.setState({value})} />
 		  </View> 
     </ScrollView> 
-      	   
+    </View> 
     );
   }
     onValueChange = (key: string, value: string) => {
