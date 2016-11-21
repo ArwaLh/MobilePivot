@@ -66,9 +66,8 @@ export default class didacticiel extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-		  component: null,
-		  loaded: false
-		};
+		  loaded: true
+		}
 	}
 	next(){
 		alert('Passer au didacticiel');
