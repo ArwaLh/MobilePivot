@@ -11,6 +11,7 @@ import {
   Dimensions,
   StyleSheet,
   Text,
+  BackAndroid,
   TouchableHighlight,
   View
 } from 'react-native';
@@ -35,6 +36,13 @@ export default class addPatient extends Component {
           component: UploadForm
         }); 
 	}
+	 componentDidMount() {
+        //the '.bind(this)' makes sure 'this' refers to 'ViewComponent'
+        BackAndroid.addEventListener('hardwareBackPress', function() {
+            this.props.navigator.pop();
+            return true;
+        }.bind(this));
+    }
   render() {
     return (
 	<View style={styles.container}>
