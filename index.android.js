@@ -55,11 +55,6 @@ export default class FacebookApp extends Component {
 				if(route.component){
 				  return React.createElement(route.component, { navigator });
 				}
-				onBack={() => {
-				  if (route.index > 0) {
-					navigator.pop();
-				  }
-				}}
 			  }}
 			/>
 		);

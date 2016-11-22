@@ -47,14 +47,8 @@ export default class uploadForm extends Component {
 		}
 	}
 	goBack() {
-	  if (this.props.navigator.getCurrentIndex() > 0) {
-		alert(this.props.navigator.getCurrentIndex());
 		this.props.navigator.pop();
 		return true; // do not exit app
-	  } else {
-		alert(this.props.navigator.getCurrentIndex());
-		return false ;// exit app
-	  }
 	}	
   render() {
     return ( 
