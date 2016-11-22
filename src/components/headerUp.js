@@ -5,24 +5,29 @@ import {
   Text,
   TextInput,
   Image,
+  BackAndroid,
   View
 } from 'react-native';
-import { Container, Content, Icon } from 'native-base';
-
+import {Button} from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 export default class headerUp extends Component {
-
   render(){
     return (
       <View style={styles.header}>
-	  	 <Icon name="ios-arrow-back" style={{color: '#F0FFFF', fontSize: 13}}/>
+		<Button transparent onPress={this.props.onpress}>
+	  	 <Icon name="arrow-left" size={40} style={{color: '#fff', fontSize: 18, width:40}}/>
+		</Button>
         <View style={styles.header_item}>
 			<Text style={styles.header_text}>{this.props.text}</Text>
+        </View>
+		<View style={styles.header_item}>
+        {  !this.props.loaded &&
+            <GiftedSpinner />
+        }
         </View>
       </View>
     );
   }
-
-
 }
 
 const styles = StyleSheet.create({
@@ -32,6 +37,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     flex: 1,
+	height:60,
 	backgroundColor: '#53507c',
   },
   header_item: {
@@ -42,9 +48,9 @@ const styles = StyleSheet.create({
   },
   header_text: {
     color: '#FFFFFF',
-	fontSize: 25,
-  //  marginTop: 5,
-	marginLeft: 10
+	fontSize: 18,
+	fontWeight: 'bold',
+	marginLeft: 5
   }
 });
 

@@ -15,7 +15,9 @@ module.exports = StyleSheet.create({
   body2: {
     flex: 9,
     alignItems: 'center',
-	marginTop: 190
+	marginTop: 80,
+	marginLeft:10,
+	marginRight:10,
   },
   textinput: {
     height: 40,
@@ -46,7 +48,6 @@ module.exports = StyleSheet.create({
 	height: 40,
     margin: 10,
 	marginTop: 15,
-	marginLeft: 55,
     padding: 15,
     backgroundColor: '#53507c',
   },

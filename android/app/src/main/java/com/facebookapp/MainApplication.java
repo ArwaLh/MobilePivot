@@ -7,6 +7,7 @@ import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.FacebookSdk;
@@ -41,7 +42,8 @@ public class MainApplication extends Application implements ReactApplication {
               return Arrays.<ReactPackage>asList(
                       new MainReactPackage(),
 						new SplashScreenReactPackage(),
-                      new FBSDKPackage(mCallbackManager)
+                      new FBSDKPackage(mCallbackManager),
+					  new VectorIconsPackage()
               );
             }
           };

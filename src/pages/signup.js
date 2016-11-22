@@ -82,7 +82,7 @@ export default class signup extends Component {
 
           <ButtonS
             text="Connexion"
-            onPress={this.goToLogin.bind(this)}
+            onpress={this.goToLogin.bind(this)}
             button_styles={styles.transparent_button}
             button_text_styles={styles.transparent_button_text} />
         </View>

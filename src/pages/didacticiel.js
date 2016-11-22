@@ -4,6 +4,7 @@ import {
   View,
   Image,
   AppRegistry,
+  BackAndroid,
   Dimensions
 } from 'react-native';
 import Swiper from 'react-native-swiper';
@@ -77,6 +78,13 @@ export default class didacticiel extends Component {
           component: AddPatient
         });
 	}
+	componentDidMount() {
+        //the '.bind(this)' makes sure 'this' refers to 'ViewComponent'
+        BackAndroid.addEventListener('hardwareBackPress', function() {
+            this.props.navigator.pop();
+            return true;
+        }.bind(this));
+    }
 	render() {
 		return (
 			<View>

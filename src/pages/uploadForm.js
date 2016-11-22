@@ -11,6 +11,7 @@ import {
   Text,
   Picker,
   ScrollView,
+  BackAndroid,
   View
 } from 'react-native';
 
@@ -19,40 +20,41 @@ import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-
 import {Button, List, ListItem, Header} from 'native-base';
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import Icon from 'react-native-vector-icons/FontAwesome';
 const Item = Picker.Item;
 
 export default class uploadForm extends Component {
 	constructor (props) {
-    super(props);
-    this.state = {
-	loaded:true,
-      types1: [{label: 'Régulier', value: 0}, {label: 'Irrégulier', value: 1}],
-      value1: 0,
-      value1Index: 0,
-      types2: [{label: 'Brun foncé', value: 0}, {label: 'Brun clair', value: 1}],
-      value2: 0,
-      value2Index: 0,
-      types3: [{label: 'Oui', value: 0}, {label: 'Non', value: 1}],
-      value3: 0,
-      value3Index: 0,
-	  chickenWings: 1.5,
-	   value: 1.0,
-		selected1: 'key1',
-		selected2: 'key1',
-		selected3: 'key1',
-		color: 'red',
-		mode: Picker.MODE_DIALOG,
-    }
-  }
+		super(props);
+		this.state = {
+		loaded:true,
+		  types1: [{label: 'Régulier', value: 0}, {label: 'Irrégulier', value: 1}],
+		  value1: 0,
+		  value1Index: 0,
+		  types2: [{label: 'Brun foncé', value: 0}, {label: 'Brun clair', value: 1}],
+		  value2: 0,
+		  value2Index: 0,
+		  types3: [{label: 'Oui', value: 0}, {label: 'Non', value: 1}],
+		  value3: 0,
+		  value3Index: 0,
+		  chickenWings: 1.5,
+		   value: 1.0,
+			selected1: 'key1',
+			selected2: 'key1',
+			selected3: 'key1',
+			color: 'red',
+			mode: Picker.MODE_DIALOG,
+		}
+	}
+	goBack() {
+		this.props.navigator.pop();
+		return true; // do not exit app
+	}	
   render() {
     return ( 
 	<View>
-	<Header style={{backgroundColor: '#53507c',height:70,padding:10}}>
-		<Text style={styles.title_upload}>
-			Upload photo
-		</Text>
-	</Header>
-	   <ScrollView>
+	<HeaderUp text="Upload Photo" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<ScrollView>
 		  <List>
             <ListItem>
 			<RadioForm
@@ -186,7 +188,7 @@ export default class uploadForm extends Component {
 			</Slider>	
 			<ListItem>
 			<Button
-				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:80,marginBottom:50,alignItems:'center'}}
+				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:60,marginBottom:50,alignItems:'center'}}
 				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}>Valider</Button>
 			</ListItem>
 			</List>	

@@ -11,12 +11,13 @@ import {
   Text,
   Picker,
   ScrollView,
+  TextInput,
   View
 } from 'react-native';
 
 import HeaderUp from '../components/headerUp';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import {Button, List, ListItem, Header, InputGroup, Input, Icon} from 'native-base';
+import {Button, List, ListItem, Header, InputGroup, Input} from 'native-base';
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
@@ -44,146 +45,65 @@ export default class newPatient extends Component {
 		mode: Picker.MODE_DIALOG,
     }
   }
+  goBack() {
+		this.props.navigator.pop();
+		return true; // do not exit app
+	}
   render() {
     return ( 
 	<View>
-	<Header style={{backgroundColor: '#53507c',height:70,padding:10}}>
-		<Text style={styles.title_upload}>
-			Upload photo
-		</Text>
-	</Header>
+	<HeaderUp text="Nouveau Patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	   <ScrollView>
-		  <List>
-              <ListItem>
-				<Grid>
-					<Col style={{width:80}}>
-						<Text style= {{ marginTop:10}}>Nom</Text>
-					</Col>
-					<Col>
-						 <InputGroup  borderType='regular'> 
-								 <Input placeholder='Tapez votre nom'/>
-						 </InputGroup> 
-					</Col>	 
-				</Grid> 
-               </ListItem>
-            <ListItem>
-			<RadioForm
-				formHorizontal={true}
-				animation={true}>
-				<Text style={styles.couleur}>Prénom</Text>
-				{this.state.types2.map((obj, i) => {
-				  var that = this;
-				  var is_selected = this.state.value2Index == i;
-				  return (
-					<View key={i} style={{marginRight: 30, paddingLeft:20}}>
-					  <RadioButton
-						isSelected={is_selected}
-						obj={obj}
-						index={i}
-						labelHorizontal={false}
-						buttonColor={'#53507c'}
-						buttonSize={10}
-						labelColor={'#000'}
-						onPress={(value, index) => {
-						  this.setState({value2Index: index});
-						}}
-					  />
-					</View>
-				  )
-				})}
-			</RadioForm>
-            </ListItem>
-            <ListItem>
-			<RadioForm
-				formHorizontal={true}
-				animation={true}>
-				<Text style={styles.asymetrie}>Lieu de résidence</Text>
-				{this.state.types3.map((obj, i) => {
-				var that = this;
-				var is_selected = this.state.value3Index == i;
-				return (
-					<View key={i} style={{paddingLeft:29,marginRight: 60}}>
-					  <RadioButton
-						isSelected={is_selected}
-						obj={obj}
-						index={i}
-						labelHorizontal={false}
-						buttonColor={'#53507c'}
-						buttonSize={10}
-						labelColor={'#000'}
-						onPress={(value, index) => {
-						  this.setState({value3Index: index});
-						}}
-					  />
-					</View>
-				)
-				})}
-			</RadioForm>
-            </ListItem>
-            <ListItem>
-
-			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
-				<Text style={styles.phototype}>Phototype</Text>
-				<Button
-					style={{borderColor: "#53507c",width:200,height:40,marginLeft:30}}
-					textStyle={{fontSize: 18, color:'#53507c',fontWeight:"bold"}}
-					bordered>Choisir phototype</Button>
-			</View>
-			</ListItem>
-			<ListItem>
-			<Grid>
-				<Col>
-					<Text style={styles.diametre}>Nombre de grain de beauté</Text>
-				</Col>
-				<Col>
-					<Picker
-						style={styles.picker}
-						selectedValue={this.state.selected1}
-						onValueChange={this.onValueChange.bind(this, 'selected1')}>
-							<Item label="0,2" value="key0" />
-							<Item label="1.3" value="key1" />
-							<Item label="2.3 " value="key2" />
-							<Item label="4.3 mm" value="key3" />
-							<Item label="5.2 mm" value="key4" />
-							<Item label="6 mm" value="key5" />	
-							<Item label="0,2" value="key0" />
-							<Item label="1.3" value="key1" />
-							<Item label="2.3 " value="key2" />
-							<Item label="4.3 mm" value="key3" />
-							<Item label="5.2 mm" value="key4" />
-							<Item label="6 mm" value="key5" />	
-							<Item label="1.3" value="key1" />
-							<Item label="2.3 " value="key2" />
-							<Item label="4.3 mm" value="key3" />
-							<Item label="5.2 mm" value="key4" />
-							<Item label="6 mm" value="key5" />	
-							
-					</Picker>
-				</Col>
-			</Grid>
-			</ListItem>						
-			<Text style={styles.suspicion}>Antécédents dans la famille</Text>
-			<Text style={styles.melanome}> Mélanome: {this.state.value}</Text>
-			<Slider
-				value={this.state.value}
-				style={styles.slidee}
-				onValueChange={(value) => this.setState({value})} >
-			</Slider>	
-			<ListItem>
+				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Nom</Text>
+				 <TextInput
+					style={styles.textinput}
+					value={this.state.nom}
+					placeholder={"Nom"}
+					underlineColorAndroid="black"
+				  />
+				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Prénom</Text>
+				<TextInput
+					style={styles.textinput}
+					value={this.state.prenom}
+					underlineColorAndroid="black"
+				  />
+				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Date de naissance</Text>
+				<TextInput
+					style={styles.textinput}
+					value={this.state.date_naissance}
+					underlineColorAndroid="black"
+				  />
+				  <Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Profession</Text>
+				<TextInput
+					style={styles.textinput}
+					value={this.state.profession}
+					underlineColorAndroid="black"
+				  />
+				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Antécédents personnels</Text>
+				<TextInput
+					style={styles.textinput}
+					value={this.state.antecedent_personnel}
+					underlineColorAndroid="black"
+				  />
+				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Antécédents dans la famille</Text>
+				<TextInput
+					style={styles.textinput}
+					value={this.state.antecedent_famille}
+					underlineColorAndroid="black"
+				  />
+				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Nombre de grain de beauté</Text>
+				<TextInput
+					style={styles.textinput}
+					value={this.state.nbre_grain_beaute}
+					underlineColorAndroid="black"
+				  />
 			<Button
 				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:80,marginBottom:50,alignItems:'center'}}
 				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}>Valider</Button>
-			</ListItem>
-			</List>	
          </ScrollView> 
 	</View>
     );
   }
-    onValueChange = (key: string, value: string) => {
-    const newState = {};
-    newState[key] = value;
-    this.setState(newState);
-  };
 }
 const styles = StyleSheet.create({
   container: {

@@ -11,10 +11,12 @@ import {
   Dimensions,
   StyleSheet,
   Text,
+  BackAndroid,
   TouchableHighlight,
   View
 } from 'react-native';
 import HeaderOther from '../components/headerOther';
+import HeaderUp from '../components/headerUp';
 import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input, Button, Card, CardItem, Header, Icon} from 'native-base';
@@ -38,22 +40,22 @@ export default class addPatient extends Component {
           component: UploadForm
         }); 
 	}
+	goBack() {
+		this.props.navigator.pop();
+		return true; // do not exit app
+	}	
   render() {
     return (
-	<View style={styles.container}>
-	<Header style={{backgroundColor: '#53507c'}}>
-		<Text style={{color:"#fff"}}>
-			Ajouter patient
-		</Text>
-	</Header>
+	<View>
+	<HeaderUp text="Ajouter Patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView>  
 		<Card style={styles.body2}>
-			<CardItem>
-				<Text>
+			<CardItem style={{height:100}}>
+				<Text style={{fontFamily: 'Arial', fontSize:20,color:'black',textAlign: 'center'}}>
 				Voulez vous ajouter un nouveau patient?
 				</Text>
             </CardItem>
-			<CardItem style={{flexDirection:'row', flexWrap:'wrap'}}>
+			<CardItem style={{flexDirection:'row', flexWrap:'wrap',height:100}}>
 			<Grid>
 				<Col>
 					<Button
