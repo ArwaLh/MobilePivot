@@ -43,72 +43,81 @@ export default class newPatient extends Component {
 		selected3: 'key1',
 		color: 'red',
 		mode: Picker.MODE_DIALOG,
-		nom: ''
     }
   }
+  goBack() {
+		this.props.navigator.pop();
+		return true; // do not exit app
+	}
   render() {
     return ( 
 	<View>
-	<Header style={{backgroundColor: '#53507c',height:70,padding:10}}>
-		<Text style={styles.title_upload}>
-			Upload photo
-		</Text>
-	</Header>
+	<HeaderUp text="Nouveau Patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	   <ScrollView>
 		  <List>
-              <ListItem>
-			  
-               	 <InputGroup borderType='regular'  style={{marginRight: 200, marginLeft:70}} >
-                        <Input placeholder='Type your name here'/>
-                 </InputGroup> 
-				 
-               </ListItem>
             <ListItem>
 				 <TextInput
 					style={styles.textinput}
 					value={this.state.nom}
-					placeholder={"nom"}
+					placeholder={"Nom"}
+					placeholderTextColor="black"
+					underlineColorAndroid="black"
 				  />
             </ListItem>
             <ListItem>
-			<TextInput
-					style={styles.textinput}
-					value={this.state.nom}
-					placeholder={"nom"}
-				  />
-            </ListItem>
-            <ListItem>
-
-			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
-				<Text style={styles.phototype}>Phototype</Text>
 				<TextInput
 					style={styles.textinput}
-					value={this.state.nom}
-					placeholder={"nom"}
+					value={this.state.prenom}
+					placeholder={"Prénom"}
+					placeholderTextColor="black"
+					underlineColorAndroid="black"
 				  />
-			</View>
+            </ListItem>
+            <ListItem>
+				<TextInput
+					style={styles.textinput}
+					value={this.state.date_naissance}
+					placeholder={"Date de naissance"}
+					placeholderTextColor="black"
+					underlineColorAndroid="black"
+				  />
 			</ListItem>
 			<ListItem>
-			<Grid>
-				<Col>
-					<Text style={styles.diametre}>Nombre de grain de beauté</Text>
-				</Col>
-				<Col>
-					<TextInput
+				<TextInput
 					style={styles.textinput}
-					value={this.state.nom}
-					placeholder={"nom"}
+					value={this.state.profession}
+					placeholder={"Profession"}
+					placeholderTextColor="black"
+					underlineColorAndroid="black"
 				  />
-				</Col>
-			</Grid>
-			</ListItem>						
-			<Text style={styles.suspicion}>Antécédents dans la famille</Text>
-			<Text style={styles.melanome}> Mélanome: {this.state.value}</Text>
-			<TextInput
+			</ListItem>	
+			<ListItem>
+				<TextInput
 					style={styles.textinput}
-					value={this.state.nom}
-					placeholder={"nom"}
+					value={this.state.antecedent_personnel}
+					placeholder={"Antécédents personnels"}
+					placeholderTextColor="black"
+					underlineColorAndroid="black"
 				  />
+			</ListItem>
+			<ListItem>
+				<TextInput
+					style={styles.textinput}
+					value={this.state.antecedent_famille}
+					placeholder={"Antécédents dans la famille"}
+					placeholderTextColor="black"
+					underlineColorAndroid="black"
+				  />
+			</ListItem>
+			<ListItem>
+				<TextInput
+					style={styles.textinput}
+					value={this.state.nbre_grain_beaute}
+					placeholder={"Nombre de grain de beauté"}
+					placeholderTextColor="black"
+					underlineColorAndroid="black"
+				  />
+			</ListItem>
 			<ListItem>
 			<Button
 				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:80,marginBottom:50,alignItems:'center'}}
