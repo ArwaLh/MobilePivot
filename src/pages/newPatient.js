@@ -16,12 +16,12 @@ import {
 
 import HeaderUp from '../components/headerUp';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import {Button, List, ListItem, Header} from 'native-base';
+import {Button, List, ListItem, Header, InputGroup, Input, Icon} from 'native-base';
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
 
-export default class uploadForm extends Component {
+export default class newPatient extends Component {
 	constructor (props) {
     super(props);
     this.state = {
@@ -54,38 +54,23 @@ export default class uploadForm extends Component {
 	</Header>
 	   <ScrollView>
 		  <List>
+              <ListItem>
+				<Grid>
+					<Col style={{width:80}}>
+						<Text style= {{ marginTop:10}}>Nom</Text>
+					</Col>
+					<Col>
+						 <InputGroup  borderType='regular'> 
+								 <Input placeholder='Tapez votre nom'/>
+						 </InputGroup> 
+					</Col>	 
+				</Grid> 
+               </ListItem>
             <ListItem>
 			<RadioForm
 				formHorizontal={true}
 				animation={true}>
-				<Text style={styles.bords}>Bords</Text>
-				{this.state.types1.map((obj, i) => {
-				  var that = this;
-				  var is_selected = this.state.value1Index == i;
-				  return (
-					<View key={i} style={{marginRight: 25, paddingLeft:39}}>
-					  <RadioButton
-						isSelected={is_selected}
-						obj={obj}
-						index={i}
-						labelHorizontal={false}
-						buttonColor={'#53507c'}
-						buttonSize={10}
-						labelColor={'#000'}
-						onPress={(value, index) => {
-      					  this.setState({value1Index: index});
-						}}
-					  />
-					</View>
-				  )
-				})}
-			</RadioForm>
-			</ListItem>
-            <ListItem>
-			<RadioForm
-				formHorizontal={true}
-				animation={true}>
-				<Text style={styles.couleur}>Couleur</Text>
+				<Text style={styles.couleur}>Prénom</Text>
 				{this.state.types2.map((obj, i) => {
 				  var that = this;
 				  var is_selected = this.state.value2Index == i;
@@ -112,7 +97,7 @@ export default class uploadForm extends Component {
 			<RadioForm
 				formHorizontal={true}
 				animation={true}>
-				<Text style={styles.asymetrie}>Asymétrie</Text>
+				<Text style={styles.asymetrie}>Lieu de résidence</Text>
 				{this.state.types3.map((obj, i) => {
 				var that = this;
 				var is_selected = this.state.value3Index == i;
@@ -148,7 +133,7 @@ export default class uploadForm extends Component {
 			<ListItem>
 			<Grid>
 				<Col>
-					<Text style={styles.diametre}>Diamètre</Text>
+					<Text style={styles.diametre}>Nombre de grain de beauté</Text>
 				</Col>
 				<Col>
 					<Picker
@@ -177,7 +162,7 @@ export default class uploadForm extends Component {
 				</Col>
 			</Grid>
 			</ListItem>						
-			<Text style={styles.suspicion}>Suspicion</Text>
+			<Text style={styles.suspicion}>Antécédents dans la famille</Text>
 			<Text style={styles.melanome}> Mélanome: {this.state.value}</Text>
 			<Slider
 				value={this.state.value}
@@ -294,4 +279,4 @@ const styles = StyleSheet.create({
 	marginBottom:15}
 });
 
-AppRegistry.registerComponent('uploadForm', () => uploadForm);
+AppRegistry.registerComponent('newPatient', () => newPatient);

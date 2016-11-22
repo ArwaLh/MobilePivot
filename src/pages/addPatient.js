@@ -20,6 +20,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input, Button, Card, CardItem, Header, Icon} from 'native-base';
 
 import UploadForm from './uploadForm';
+import NewPatient from './newPatient';
 export default class addPatient extends Component {
 	constructor(props){
     super(props);
@@ -28,7 +29,9 @@ export default class addPatient extends Component {
 		}
 	}
 	addPatient(){
-		alert("add patient");
+		this.props.navigator.push({
+          component: NewPatient
+        });
 	}
 	uploadPhoto(){
 		this.props.navigator.push({
