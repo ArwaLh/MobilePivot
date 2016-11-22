@@ -39,23 +39,8 @@ export default class signup extends Component {
           component: Login
         });
     }).catch((error)=>{
-		  var errorCode=error.code;
-		  var errorMessage= error.message;
-        switch(errorCode){
-
-          case "EMAIL_TAKEN":
-            alert("The new user account cannot be created because the email is already in use.");
-          break;
-
-          case "INVALID_EMAIL":
-            alert("The specified email is not a valid email.");
-          break;
-
-          default:
-            alert(errorMessage);
-		
-		}
-	});
+		  alert(error.message);
+		});
 	
       this.setState({
         email: '',
@@ -91,13 +76,13 @@ export default class signup extends Component {
             placeholder={"Mot de passe"}
           />
           <Button
-            onpress={this.signup.bind(this)}
+            onPress={this.signup.bind(this)}
             style={styles.primary_button}
             textStyle={styles.primary_button_text}>S'inscrire</Button>
 
           <ButtonS
             text="Connexion"
-            onpress={this.goToLogin.bind(this)}
+            onPress={this.goToLogin.bind(this)}
             button_styles={styles.transparent_button}
             button_text_styles={styles.transparent_button_text} />
         </View>
