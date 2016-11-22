@@ -54,76 +54,52 @@ export default class newPatient extends Component {
 	<View>
 	<HeaderUp text="Nouveau Patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	   <ScrollView>
-		  <List>
-            <ListItem>
+				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Nom</Text>
 				 <TextInput
 					style={styles.textinput}
 					value={this.state.nom}
 					placeholder={"Nom"}
-					placeholderTextColor="black"
 					underlineColorAndroid="black"
 				  />
-            </ListItem>
-            <ListItem>
+				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Prénom</Text>
 				<TextInput
 					style={styles.textinput}
 					value={this.state.prenom}
-					placeholder={"Prénom"}
-					placeholderTextColor="black"
 					underlineColorAndroid="black"
 				  />
-            </ListItem>
-            <ListItem>
+				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Date de naissance</Text>
 				<TextInput
 					style={styles.textinput}
 					value={this.state.date_naissance}
-					placeholder={"Date de naissance"}
-					placeholderTextColor="black"
 					underlineColorAndroid="black"
 				  />
-			</ListItem>
-			<ListItem>
+				  <Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Profession</Text>
 				<TextInput
 					style={styles.textinput}
 					value={this.state.profession}
-					placeholder={"Profession"}
-					placeholderTextColor="black"
 					underlineColorAndroid="black"
 				  />
-			</ListItem>	
-			<ListItem>
+				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Antécédents personnels</Text>
 				<TextInput
 					style={styles.textinput}
 					value={this.state.antecedent_personnel}
-					placeholder={"Antécédents personnels"}
-					placeholderTextColor="black"
 					underlineColorAndroid="black"
 				  />
-			</ListItem>
-			<ListItem>
+				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Antécédents dans la famille</Text>
 				<TextInput
 					style={styles.textinput}
 					value={this.state.antecedent_famille}
-					placeholder={"Antécédents dans la famille"}
-					placeholderTextColor="black"
 					underlineColorAndroid="black"
 				  />
-			</ListItem>
-			<ListItem>
+				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Nombre de grain de beauté</Text>
 				<TextInput
 					style={styles.textinput}
 					value={this.state.nbre_grain_beaute}
-					placeholder={"Nombre de grain de beauté"}
-					placeholderTextColor="black"
 					underlineColorAndroid="black"
 				  />
-			</ListItem>
-			<ListItem>
 			<Button
 				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:80,marginBottom:50,alignItems:'center'}}
 				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}>Valider</Button>
-			</ListItem>
-			</List>	
          </ScrollView> 
 	</View>
     );
