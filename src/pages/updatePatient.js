@@ -24,12 +24,18 @@ import {InputGroup, Input, Button, Card, CardItem, Header, Icon} from 'native-ba
 
 import UploadForm from './uploadForm';
 import NewPatient from './newPatient';
+import LocatePic from './locatePic';
 export default class updatePatient extends Component {
 	constructor(props){
     super(props);
 		this.state = {
 		  loaded: true
 		}
+	}
+	locatePic(){
+		this.props.navigator.push({
+          component: LocatePic
+        }); 
 	}
 	goBack() {
 		this.props.navigator.pop();
@@ -39,7 +45,8 @@ export default class updatePatient extends Component {
     return (
 	<View>
 	<HeaderUp text="Modifier Patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
-	<ScrollView  style={styles.body2}>  
+	<ScrollView>
+		<View style={styles.body2}>
 		<Text style={{fontFamily: 'Arial', fontSize:20,color:'black',textAlign: 'center'}}>
 			Veuillez saisir le nom du patinet
 		</Text>
@@ -52,6 +59,7 @@ export default class updatePatient extends Component {
 			onPress={this.locatePic.bind(this)}
 			style={styles.primary_button_non}
 			textStyle={styles.primary_button_text}>Localiser Photo</Button>
+		</View>
     </ScrollView>
      </View>
     );

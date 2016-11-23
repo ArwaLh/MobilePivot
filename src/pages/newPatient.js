@@ -45,6 +45,11 @@ export default class newPatient extends Component {
 		mode: Picker.MODE_DIALOG,
     }
   }
+  locatePic(){
+		this.props.navigator.push({
+          component: LocatePic
+        }); 
+	}
   goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
@@ -98,6 +103,7 @@ export default class newPatient extends Component {
 					underlineColorAndroid="black"
 				  />
 			<Button
+				onPress={this.locatePic.bind(this)}
 				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:80,marginBottom:50,alignItems:'center'}}
 				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}>Valider</Button>
          </ScrollView> 

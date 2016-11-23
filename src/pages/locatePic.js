@@ -11,6 +11,7 @@ import {
   Dimensions,
   StyleSheet,
   Text,
+  Image,
   TextInput,
   BackAndroid,
   TouchableHighlight,
@@ -29,10 +30,11 @@ export default class locatePic extends Component {
 		  loaded: true
 		}
 	}
-	locatePic(){
-		this.props.navigator.push({
+	validate_location(){
+		alert("next is cam page");
+		/* this.props.navigator.push({
           component: UploadForm
-        }); 
+        }); */ 
 	}
 	goBack() {
 		this.props.navigator.pop();
@@ -42,12 +44,12 @@ export default class locatePic extends Component {
     return (
 	<View>
 	<HeaderUp text="Localiser Photo" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
-	<ScrollView  style={styles.body2}>  
+	<ScrollView>  
 		<Image style={styles.image} source={{uri:'http://localhost:8081/img/locate.png'}}>
 			<Button
-				onPress={this.locatePic.bind(this)}
+				onPress={this.validate_location.bind(this)}
 				style={styles.primary_button_non}
-				textStyle={styles.primary_button_text}>Localiser Photo</Button>
+				textStyle={{color: '#53507c'}} transparent>Valider</Button>
 		</Image>
     </ScrollView>
      </View>

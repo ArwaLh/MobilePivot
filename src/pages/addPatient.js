@@ -24,6 +24,7 @@ import {InputGroup, Input, Button, Card, CardItem, Header, Icon} from 'native-ba
 import UploadForm from './uploadForm';
 import NewPatient from './newPatient';
 import LocatePic from './locatePic';
+import UpdatePatient from './updatePatient';
 export default class addPatient extends Component {
 	constructor(props){
     super(props);
@@ -38,7 +39,7 @@ export default class addPatient extends Component {
 	}
 	non(){
 		this.props.navigator.push({
-          component: LocatePic
+          component: UpdatePatient
         }); 
 	}
 	goBack() {
