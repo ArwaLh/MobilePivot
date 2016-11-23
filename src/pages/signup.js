@@ -66,25 +66,27 @@ export default class signup extends Component {
                 style={styles.textinput}
                 onChangeText={(text) => this.setState({email: text})}
                 value={this.state.email}
-            placeholder={"Adresse e-mail"}
+				placeholder={"Adresse e-mail"}
+				underlineColorAndroid="black"
             />
-          <TextInput
-            style={styles.textinput}
-            onChangeText={(text) => this.setState({password: text})}
-            value={this.state.password}
-            secureTextEntry={true}
-            placeholder={"Mot de passe"}
-          />
-          <Button
-            onPress={this.signup.bind(this)}
-            style={styles.primary_button}
-            textStyle={styles.primary_button_text}>S'inscrire</Button>
+			<TextInput
+				style={styles.textinput}
+				onChangeText={(text) => this.setState({password: text})}
+				value={this.state.password}
+				secureTextEntry={true}
+				placeholder={"Mot de passe"}
+				underlineColorAndroid="black"
+			/>
+			<Button
+				onPress={this.signup.bind(this)}
+				style={styles.primary_button}
+				textStyle={styles.primary_button_text}>S'inscrire</Button>
 
-          <ButtonS
-            text="Connexion"
-            onpress={this.goToLogin.bind(this)}
-            button_styles={styles.transparent_button}
-            button_text_styles={styles.transparent_button_text} />
+			<ButtonS
+				text="Connexion"
+				onpress={this.goToLogin.bind(this)}
+				button_styles={styles.transparent_button}
+				button_text_styles={styles.transparent_button_text} />
         </View>
       </View>
     );

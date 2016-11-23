@@ -3,7 +3,7 @@ import React, {
   Dimensions
 } from 'react-native';
 const window = Dimensions.get('window');
-let height_im= window.height-100;
+let height_im= window.height-150;
 module.exports = StyleSheet.create({
   container: {
     flex: 1,
@@ -70,9 +70,10 @@ module.exports = StyleSheet.create({
   },
   image: {
 	top:0,
+	bottom:0,
 	width: window.width,
 	height: height_im,
 	resizeMode: 'stretch',
-	flex: 1,
+	flex: 1
   }
 });

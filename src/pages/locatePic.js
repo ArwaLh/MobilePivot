@@ -64,6 +64,9 @@ export default class locatePic extends Component {
 	localiser_jambe_droite(){
 		alert("Jambe Droite");
 	}
+	vue_arriere(){
+		alert("C'est la vue de face");
+	}
 	goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
@@ -73,52 +76,56 @@ export default class locatePic extends Component {
 	<View>
 	<HeaderUp text="Localiser Photo" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
+		<View style={{flexDirection: 'row',backgroundColor: '#fff'}}>
+			<Button style={{backgroundColor:'#fff',marginLeft: 20,marginTop:10,width:80,alignItems: 'flex-start',borderColor:'#8684a3'}} textStyle={{color:'#8684a3'}} rounded bordered>Arriére</Button>
+			<Button style={{backgroundColor:'#8684a3',marginLeft: 20,marginTop:10,width:80,marginLeft:150,alignItems: 'flex-start',borderColor:'#8684a3'}} textStyle={{color:'#fff'}} rounded bordered>Face</Button>
+		</View>
 		<Image style={styles.image} source={{uri:'http://localhost:8081/img/vue_face_locate.png'}}>
 			<ButtonS
 				text="Tête"
 				onpress={this.localiser_tete.bind(this)}
-				button_styles={{top:20}}
+				button_styles={{top:10}}
 				button_text_styles={{textAlign:'center',color:'#53507c'}}/>
 			<ButtonS
 				text="Cou"
-				onpress={this.localiser_tete.bind(this)}
-				button_styles={{top:40}}
+				onpress={this.localiser_cou.bind(this)}
+				button_styles={{top:25}}
 				button_text_styles={{textAlign:'center',color:'#53507c'}}/>
 			<ButtonS
 				text="Epaule Gauche"
-				onpress={this.localiser_tete.bind(this)}
-				button_styles={{top:70}}
-				button_text_styles={{textAlign:'right',color:'#53507c'}}/>
+				onpress={this.localiser_epaule_gauche.bind(this)}
+				button_styles={{top:50}}
+				button_text_styles={{textAlign:'right',color:'#53507c',right:5}}/>
 			<ButtonS
 				text="Epaule Droite"
-				onpress={this.localiser_tete.bind(this)}
-				button_styles={{top:70}}
-				button_text_styles={{textAlign:'left',color:'#53507c'}}/>
+				onpress={this.localiser_epaule_droite.bind(this)}
+				button_styles={{top:30}}
+				button_text_styles={{textAlign:'left',color:'#53507c',left:5}}/>
 			<ButtonS
 				text="Tronc"
-				onpress={this.localiser_tete.bind(this)}
+				onpress={this.localiser_tronc.bind(this)}
 				button_styles={{top:80}}
-				button_text_styles={{textAlign:'center',color:'#53507c'}}/>
+				button_text_styles={{textAlign:'center',color:'#53507c',left:5}}/>
 			<ButtonS
 				text="Main Gauche"
-				onpress={this.localiser_tete.bind(this)}
-				button_styles={{top:100}}
-				button_text_styles={{textAlign:'right',color:'#53507c'}}/>
+				onpress={this.localiser_main_gauche.bind(this)}
+				button_styles={{top:150}}
+				button_text_styles={{textAlign:'right',color:'#53507c',right:5}}/>
 			<ButtonS
 				text="Main Droite"
-				onpress={this.localiser_tete.bind(this)}
-				button_styles={{top:100}}
-				button_text_styles={{textAlign:'left',color:'#53507c'}}/>
+				onpress={this.localiser_main_droite.bind(this)}
+				button_styles={{top:130}}
+				button_text_styles={{textAlign:'left',color:'#53507c',left:5}}/>
 			<ButtonS
 				text="Jambe Gauche"
-				onpress={this.localiser_tete.bind(this)}
-				button_styles={{top:160}}
-				button_text_styles={{textAlign:'right',color:'#53507c'}}/>
+				onpress={this.localiser_jambe_gauche.bind(this)}
+				button_styles={{top:180}}
+				button_text_styles={{textAlign:'right',color:'#53507c',right:38}}/>
 			<ButtonS
 				text="Jambe Droite"
-				onpress={this.localiser_tete.bind(this)}
+				onpress={this.localiser_jambe_droite.bind(this)}
 				button_styles={{top:160}}
-				button_text_styles={{textAlign:'left',color:'#53507c'}}/>
+				button_text_styles={{textAlign:'left',color:'#53507c',left:38}}/>
 		</Image>
 	</ScrollView>
      </View>

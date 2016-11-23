@@ -47,6 +47,7 @@ export default class login extends Component {
             onChangeText={(text) => this.setState({email: text})}
             value={this.state.email}
             placeholder={"Adresse e-mail"}
+			underlineColorAndroid="black"
           />
           <TextInput
             style={styles.textinput}
@@ -54,6 +55,7 @@ export default class login extends Component {
             value={this.state.password}
             secureTextEntry={true}
             placeholder={"Mot de passe"}
+			underlineColorAndroid="black"
           />
 		  <Button
 			onPress={this.login.bind(this)}
