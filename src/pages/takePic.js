@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -20,7 +14,7 @@ import {
 } from 'react-native';
 import Camera from 'react-native-camera';
 import RNFetchBlob from 'react-native-fetch-blob';
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 const fs = RNFetchBlob.fs
 const Blob = RNFetchBlob.polyfill.Blob
 
@@ -32,18 +26,11 @@ const prefix = ((Platform.OS === 'android') ? 'file:' : '')
 const testImageName = `patient-pic-${Platform.OS}-${new Date()}.jpg`
 const testFile = null;
 
-const EMAIL = 'arwa.louihig@esprit.tn'
-const PASSWORD = 'arwa24961322'
+const API_KEY = ''
+const APP_NAME = ''
+const EMAIL = 'chiraz.hamrouni@esprit.tn'
+const PASSWORD = 'chiraz1234'
 
-// Initialize Firebase
-const config = {
-	apiKey: "AIzaSyC7F3pn_tG3LJk-4pPocpvMRyh8SEW-1sQ",
-    authDomain: "katomi-148921.firebaseapp.com",
-    databaseURL: "https://katomi-148921.firebaseio.com",
-    storageBucket: "katomi-148921.appspot.com",
-    messagingSenderId: "229375856602"
-};
-firebase.initializeApp(config);
 export default class takePic extends Component {
 	 constructor(props) {
     super(props);
@@ -70,28 +57,22 @@ export default class takePic extends Component {
     this.switchFlash = this.switchFlash.bind(this);
   }
   takePicture() {
-	  this.camera.capture()
-	.then(({path}) => {
+  this.camera.capture()
+    .then(({path}) => {
 		// prepare upload image
-		RNFetchBlob
-			.config({ fileCache : true, appendExt : 'jpg' })
-			.fetch('GET', path)
-			.then((resp) => {
-				testFile = resp.path();
-			})
-			firebase.auth()
-			.signInWithEmailAndPassword(EMAIL, PASSWORD)
-			.catch((err) => {
-			console.log('firebase sigin failed', err)
-			})
+		firebase.auth()
+          .signInWithEmailAndPassword(EMAIL, PASSWORD)
+          .catch((err) => {
+            console.log('firebase sigin failed', err)
+          })
 
-			firebase.auth().onAuthStateChanged((user) => {
-				<Text>{JSON.stringify(user)}</Text>
-		  })
-		let rnfbURI = RNFetchBlob.wrap(path)
+		firebase.auth().onAuthStateChanged((user) => {
+			<Text>{JSON.stringify(user)}</Text>
+		})
+		let rnfbURI = RNFetchBlob.wrap({path})
 		// create Blob from file path
 		Blob
-			.build(rnfbURI, { type : 'image/jpg;'})
+			.build({path}, { type : 'image/jpg;'})
 			.then((blob) => {
 			  // upload image using Firebase SDK
 			  var uploadTask= firebase.storage()
@@ -102,7 +83,7 @@ export default class takePic extends Component {
 				  // Observe state change events such as progress, pause, and resume
 				  // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
 					let progress =(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-					alert("upload progress");
+					alert("progress");
 					alert(progress);
 				}, function(error) {
 				  alert("error iuploading");
@@ -113,10 +94,9 @@ export default class takePic extends Component {
 				  alert("done uploading here is the download URL",downloadURL);
 				  blob.close()
 				});
-			})
-	  })
-	.catch(err => console.error(err));
-	}
+			}) 
+    })
+  }
   startRecording() {
     if (this.camera) {
       this.camera.capture({mode: Camera.constants.CaptureMode.video})

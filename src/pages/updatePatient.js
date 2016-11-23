@@ -57,7 +57,7 @@ export default class updatePatient extends Component {
 		/>
 		<Button
 			onPress={this.locatePic.bind(this)}
-			style={styles.primary_button_non}
+			style={styles.primary_button}
 			textStyle={styles.primary_button_text}>Localiser Photo</Button>
 		</View>
     </ScrollView>
