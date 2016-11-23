@@ -24,6 +24,7 @@ import {InputGroup, Input, Button, Card, CardItem, Header, Icon} from 'native-ba
 
 import UploadForm from './uploadForm';
 import NewPatient from './newPatient';
+import TakePicture from './takePic';
 export default class locatePic extends Component {
 	constructor(props){
     super(props);
@@ -33,39 +34,66 @@ export default class locatePic extends Component {
 	}
 	validate_location(){
 		alert("next is cam page");
-		/* this.props.navigator.push({
-          component: UploadForm
-        }); */ 
 	}
 	localiser_tete(){
 		alert("Tête");
+		this.props.navigator.push({
+          component: TakePicture
+        }); 
 	}
 	localiser_cou(){
 		alert("Cou");
+		this.props.navigator.push({
+          component: TakePicture
+        }); 
 	}
 	localiser_epaule_gauche(){
 		alert("Epaule Gauche");
+		this.props.navigator.push({
+          component: TakePicture
+        }); 
 	}
 	localiser_epaule_droite(){
 		alert("Epaule Droite");
+		this.props.navigator.push({
+          component: TakePicture
+        }); 
 	}
 	localiser_tronc(){
 		alert("Tronc");
+		this.props.navigator.push({
+          component: TakePicture
+        }); 
 	}
 	localiser_main_gauche(){
 		alert("Main Gauche");
+		this.props.navigator.push({
+          component: TakePicture
+        }); 
 	}
 	localiser_main_droite(){
 		alert("Main Droite");
+		this.props.navigator.push({
+          component: TakePicture
+        }); 
 	}
 	localiser_jambe_gauche(){
 		alert("Jambe Gauche");
+		this.props.navigator.push({
+          component: TakePicture
+        }); 
 	}
 	localiser_jambe_droite(){
 		alert("Jambe Droite");
+		this.props.navigator.push({
+          component: TakePicture
+        }); 
 	}
 	vue_arriere(){
 		alert("C'est la vue de face");
+		this.props.navigator.push({
+          component: TakePicture
+        }); 
 	}
 	goBack() {
 		this.props.navigator.pop();
