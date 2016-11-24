@@ -36,7 +36,7 @@ export default class takePic extends Component {
     this.state = {
       camera: {
         aspect: Camera.constants.Aspect.fill,
-        captureTarget: Camera.constants.CaptureTarget.disk,
+        captureTarget: Camera.constants.CaptureTarget.CameraRoll,
         type: Camera.constants.Type.back,
         orientation: Camera.constants.Orientation.auto,
         flashMode: Camera.constants.FlashMode.auto,
@@ -56,10 +56,8 @@ export default class takePic extends Component {
   takePicture() {
   this.camera.capture()
     .then(({path}) => {
-		// prepare upload image
-		let rnfbURI = RNFetchBlob.wrap(path);
 		// create Blob from file path
-		AsyncStorage.setItem('path', rnfbURI);
+		AsyncStorage.setItem('path', JSON.stringify(path));
 		this.props.navigator.push({
 		component: UploadForm
 		}); 

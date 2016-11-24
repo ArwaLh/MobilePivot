@@ -27,7 +27,7 @@ const Item = Picker.Item;
 const testImageName = `patient-pic-${Platform.OS}-${new Date()}.jpg`
 const EMAIL = 'arwa.louihig@esprit.tn'
 const PASSWORD = 'arwa24961322'
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 import RNFetchBlob from 'react-native-fetch-blob';
 const fs = RNFetchBlob.fs
 const Blob = RNFetchBlob.polyfill.Blob
@@ -62,11 +62,12 @@ export default class uploadForm extends Component {
 	}
 	componentWillMount(){
 
-    AsyncStorage.getItem('path').then((pathUp) => {
+    AsyncStorage.getItem('path').then((pathUp) => {                                                   
       this.setState({
-        path: pathUp,
+        path: JSON.parse(pathUp),
         loaded: true
       });
+	  alert(pathUp);
     });
 
   }
@@ -75,27 +76,32 @@ export default class uploadForm extends Component {
 		return true; // do not exit app
 	}
 	uploadPic(){
+		let rnfbURI = RNFetchBlob.wrap(this.state.path);
 		// create Blob from file path
-		pathUp=JSON.stringify('path');
 		Blob
-			.build(this.state.path, { type : 'image/jpg;'})
+			.build(rnfbURI, { type : 'image/jpg;'})
 			.then((blob) => {
-				var uploadTask= firebase.storage()
+			  // upload image using Firebase SDK
+			  var uploadTask= firebase.storage()
 				.ref('images')
 				.child(testImageName)
 				.put(blob, { contentType : 'image/jpg' });
 				uploadTask.on('state_changed', function(snapshot){
-				let progress =(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-				alert("progress");
-				alert(progress);
+				  // Observe state change events such as progress, pause, and resume
+				  // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+					let progress =(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+					alert("progress");
+					alert(progress);
 				}, function(error) {
-				 alert("error iuploading");
+				  alert("error iuploading");
 				}, function() {
-				 var downloadURL = uploadTask.snapshot.downloadURL;
-				 alert("done uploading here is the download URL",downloadURL);
-				 blob.close()
+				  // Handle successful uploads on complete
+				  // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+				  var downloadURL = uploadTask.snapshot.downloadURL;
+				  alert("done uploading here is the download URL",downloadURL);
+				  blob.close()
 				});
-			})
+			}) 
 	}
   render() {
     return ( 
