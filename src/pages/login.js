@@ -20,11 +20,11 @@ import Header from '../components/header';
 import Signup from './signup';
 import Account from './account';
 import Didacticiel from './didacticiel';
-import * as firebase from 'firebase';
 
 import styles from '../styles/common-styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {InputGroup, Input, Button} from 'native-base';
+import firebase from 'firebase';
 export default class login extends Component {
 
   constructor(props){
@@ -35,6 +35,7 @@ export default class login extends Component {
       password: '',
       loaded: true
     }
+
   }
 
   render(){

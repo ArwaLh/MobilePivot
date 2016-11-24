@@ -3,6 +3,7 @@ import {
   AppRegistry,
   Text,
   TextInput,
+  AsyncStorage,
   View
 } from 'react-native';
 
@@ -10,10 +11,10 @@ import ButtonS from '../components/button';
 import Header from '../components/header';
 
 import Login from './login';
-import * as firebase from 'firebase';
 
 import styles from '../styles/common-styles.js';
 import {InputGroup, Input, Button} from 'native-base';
+import firebase from 'firebase';
 export default class signup extends Component {
 
   constructor(props){
@@ -24,6 +25,7 @@ export default class signup extends Component {
       email: '',
       password: ''
     };
+
   }
 
   signup(){
