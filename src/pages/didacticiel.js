@@ -98,12 +98,12 @@ export default class didacticiel extends Component {
 				<View style={styles.slide1}>
 				  <Image style={styles.image} source={{uri:'http://localhost:8081/img/didacticiel.png'}}>
 						<Button
-							text="Next"
+							text="Démarrer"
 							onpress={this.next.bind(this)}
 							button_styles={styles.transparent_button_left}
 							button_text_styles={styles.transparent_button_text_left} />
 						<Button
-							text="Skip"
+							text="Sortir"
 							onpress={this.skip.bind(this)}
 							button_styles={styles.transparent_button_right}
 							button_text_styles={styles.transparent_button_text_right} />

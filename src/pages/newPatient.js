@@ -48,6 +48,12 @@ export default class newPatient extends Component {
             selected1 : value
         });
     }
+  }
+  locatePic(){
+		this.props.navigator.push({
+          component: LocatePic
+        }); 
+	}
   goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
@@ -165,6 +171,7 @@ export default class newPatient extends Component {
 	  
 				
 			<Button
+				onPress={this.locatePic.bind(this)}
 				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:80,marginBottom:50,alignItems:'center'}}
 				textStyle={{fontSize: 14, color:'#fff'}}>Localiser le grain de beauté</Button>
      </CardItem>

@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -41,9 +43,11 @@ public class MainApplication extends Application implements ReactApplication {
             protected List<ReactPackage> getPackages() {
               return Arrays.<ReactPackage>asList(
                       new MainReactPackage(),
+						new RNFetchBlobPackage(),
+						new RCTCameraPackage(),
 						new SplashScreenReactPackage(),
-                      new FBSDKPackage(mCallbackManager),
-					  new VectorIconsPackage()
+						new FBSDKPackage(mCallbackManager),
+						new VectorIconsPackage()
               );
             }
           };

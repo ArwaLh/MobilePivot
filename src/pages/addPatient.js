@@ -23,6 +23,8 @@ import {InputGroup, Input, Button, Card, CardItem, Header, Icon} from 'native-ba
 
 import UploadForm from './uploadForm';
 import NewPatient from './newPatient';
+import LocatePic from './locatePic';
+import UpdatePatient from './updatePatient';
 export default class addPatient extends Component {
 	constructor(props){
     super(props);
@@ -30,14 +32,14 @@ export default class addPatient extends Component {
 		  loaded: true
 		}
 	}
-	addPatient(){
+	oui(){
 		this.props.navigator.push({
           component: NewPatient
         });
 	}
-	uploadPhoto(){
+	non(){
 		this.props.navigator.push({
-          component: UploadForm
+          component: UpdatePatient
         }); 
 	}
 	goBack() {
@@ -59,13 +61,13 @@ export default class addPatient extends Component {
 			<Grid>
 				<Col>
 					<Button
-						onPress={this.addPatient.bind(this)}
+						onPress={this.oui.bind(this)}
 						style={styles.primary_button_oui}
 						textStyle={styles.primary_button_text}>OUI</Button>
 				</Col>
 				<Col>
 					<Button
-						onPress={this.uploadPhoto.bind(this)}
+						onPress={this.non.bind(this)}
 						style={styles.primary_button_non}
 						textStyle={styles.primary_button_text}>NON</Button>
 		  		</Col>

@@ -12,6 +12,8 @@ import {
   Image,
   ScrollView,
   BackAndroid,
+  AsyncStorage,
+  Platform,
   View
 } from 'react-native';
 
@@ -24,7 +26,18 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const Item = Picker.Item;
 import ValidMeta from './validMeta';
 import Phototype from './phototype';
+const testImageName = `patient-pic-${Platform.OS}-${new Date()}.jpg`
+const EMAIL = 'arwa.louihig@esprit.tn'
+const PASSWORD = 'arwa24961322'
+import firebase from 'firebase';
+import RNFetchBlob from 'react-native-fetch-blob';
+const fs = RNFetchBlob.fs
+const Blob = RNFetchBlob.polyfill.Blob
 
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
+
+const dirs = RNFetchBlob.fs.dirs
 export default class uploadForm extends Component {
 	constructor (props) {
 		super(props);
@@ -53,11 +66,52 @@ export default class uploadForm extends Component {
         this.setState({
             selected1 : value
 	});}
+			selected1: 'key1',
+			selected2: 'key1',
+			selected3: 'key1',
+			color: 'red',
+			mode: Picker.MODE_DIALOG,
+			path:AsyncStorage.getItem("path"),
+		}
+	}
+	componentWillMount(){
+
+    AsyncStorage.getItem('path').then((pathUp) => {
+      this.setState({
+        path: pathUp,
+        loaded: true
+      });
+    });
+
+  }
 	goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
 	}
-	
+
+	uploadPic(){
+		// create Blob from file path
+		pathUp=JSON.stringify('path');
+		Blob
+			.build(this.state.path, { type : 'image/jpg;'})
+			.then((blob) => {
+				var uploadTask= firebase.storage()
+				.ref('images')
+				.child(testImageName)
+				.put(blob, { contentType : 'image/jpg' });
+				uploadTask.on('state_changed', function(snapshot){
+				let progress =(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+				alert("progress");
+				alert(progress);
+				}, function(error) {
+				 alert("error iuploading");
+				}, function() {
+				 var downloadURL = uploadTask.snapshot.downloadURL;
+				 alert("done uploading here is the download URL",downloadURL);
+				 blob.close()
+				});
+			})
+	}
   render() {
     return ( 
 	<View>
@@ -203,7 +257,8 @@ export default class uploadForm extends Component {
 			<Button
 			    onPress={this.validMetadata.bind(this)} 
 				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:60,marginBottom:50,alignItems:'center'}}
-				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}>Valider</Button>
+				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}
+				onPress={this.uploadPic.bind(this)}>Valider</Button>
 			</ListItem>
 			</List>	
          </ScrollView> 
