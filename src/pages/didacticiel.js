@@ -103,7 +103,7 @@ export default class didacticiel extends Component {
 							button_styles={styles.transparent_button_left}
 							button_text_styles={styles.transparent_button_text_left} />
 						<Button
-							text="Sotir"
+							text="Sortir"
 							onpress={this.skip.bind(this)}
 							button_styles={styles.transparent_button_right}
 							button_text_styles={styles.transparent_button_text_right} />

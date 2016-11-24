@@ -58,7 +58,6 @@ export default class newPatient extends Component {
 				 <TextInput
 					style={styles.textinput}
 					value={this.state.nom}
-					placeholder={"Nom"}
 					underlineColorAndroid="black"
 				  />
 				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Prénom</Text>
