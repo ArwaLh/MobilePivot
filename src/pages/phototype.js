@@ -47,8 +47,9 @@ export default class phototype extends Component {
 					   <Col>
 							<Text>Nom</Text>
 					  </Col>
-				</xcListItem>		
+					
 			 </Grid>
+			 </ListItem>	
 		  </List>
 		  
 		</ScrollView>   

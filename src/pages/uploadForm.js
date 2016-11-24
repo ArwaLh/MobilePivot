@@ -66,14 +66,8 @@ export default class uploadForm extends Component {
         this.setState({
             selected1 : value
 	});}
-			selected1: 'key1',
-			selected2: 'key1',
-			selected3: 'key1',
-			color: 'red',
-			mode: Picker.MODE_DIALOG,
-			path:AsyncStorage.getItem("path"),
-		}
-	}
+
+	
 	componentWillMount(){
 
     AsyncStorage.getItem('path').then((pathUp) => {

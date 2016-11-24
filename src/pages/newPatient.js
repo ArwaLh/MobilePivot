@@ -48,7 +48,7 @@ export default class newPatient extends Component {
             selected1 : value
         });
     }
-  }
+  
   locatePic(){
 		this.props.navigator.push({
           component: LocatePic
