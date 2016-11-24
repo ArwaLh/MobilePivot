@@ -18,7 +18,7 @@ import RNFetchBlob from 'react-native-fetch-blob';
 import UploadForm from './uploadForm';
 const fs = RNFetchBlob.fs
 const Blob = RNFetchBlob.polyfill.Blob
-
+const testImageName = `patient-pic-${Platform.OS}-${new Date()}.jpg`
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
 window.Blob = Blob
 
@@ -53,7 +53,7 @@ export default class takePic extends Component {
     this.switchFlash = this.switchFlash.bind(this);
 	const firebase=AsyncStorage.getItem('firebase');
   }
-  takePicture() {
+ /*  takePicture() {
   this.camera.capture()
     .then(({path}) => {
 		// create Blob from file path
@@ -62,6 +62,47 @@ export default class takePic extends Component {
 		component: UploadForm
 		}); 
     })
+  } */
+  takePicture(){
+	  this.camera.capture()
+    .then(({path}) => {
+	  // prepare upload image
+		firebase.auth()
+          .signInWithEmailAndPassword(EMAIL, PASSWORD)
+          .catch((err) => {
+            console.log('firebase sigin failed', err)
+          })
+
+		firebase.auth().onAuthStateChanged((user) => {
+			<Text>{JSON.stringify(user)}</Text>
+		})
+		let rnfbURI = RNFetchBlob.wrap(path)
+		// create Blob from file path
+		Blob
+			.build(rnfbURI, { type : 'image/jpg;'})
+			.then((blob) => {
+			  // upload image using Firebase SDK
+			  var uploadTask= firebase.storage()
+				.ref('images')
+				.child(testImageName)
+				.put(blob, { contentType : 'image/jpg' });
+				uploadTask.on('state_changed', function(snapshot){
+				  // Observe state change events such as progress, pause, and resume
+				  // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+					let progress =(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+					alert("progress");
+					alert(progress);
+				}, function(error) {
+				  alert("error iuploading");
+				}, function() {
+				  // Handle successful uploads on complete
+				  // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+				  var downloadURL = uploadTask.snapshot.downloadURL;
+				  alert("done uploading here is the download URL",downloadURL);
+				  blob.close()
+				});
+			}) 
+	})
   }
   startRecording() {
     if (this.camera) {

@@ -68,7 +68,7 @@ export default class uploadForm extends Component {
 	});}
 
 	
-	componentWillMount(){
+	/*componentWillMount(){
 
     AsyncStorage.getItem('path').then((pathUp) => {                                                   
       this.setState({
@@ -78,14 +78,22 @@ export default class uploadForm extends Component {
 	  alert(pathUp);
     });
 
-  }
+  }*/
 	goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
 	}
 
 	uploadPic(){
-		let rnfbURI = RNFetchBlob.wrap(this.state.path);
+		AsyncStorage.getItem('path').then((pathUp) => {                                                   
+		  this.setState({
+			path: JSON.parse(pathUp),
+			loaded: true
+		  });
+		  alert(pathUp);
+		  let rnfbURI = JSON.parse(pathUp);
+
+		
 		// create Blob from file path
 		Blob
 			.build(rnfbURI, { type : 'image/jpg;'})
@@ -108,9 +116,10 @@ export default class uploadForm extends Component {
 				  // For instance, get the download URL: https://firebasestorage.googleapis.com/...
 				  var downloadURL = uploadTask.snapshot.downloadURL;
 				  alert("done uploading here is the download URL",downloadURL);
-				  blob.close()
+				  blob.close();
 				});
-			}) 
+			})
+		});
 	}
   render() {
     return ( 
