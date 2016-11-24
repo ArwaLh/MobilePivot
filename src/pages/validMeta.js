@@ -9,6 +9,7 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  Picker,
   ScrollView,
   TextInput,
   View
@@ -16,12 +17,12 @@ import {
 
 import HeaderUp from '../components/headerUp';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import {Button, List, ListItem, Header, InputGroup, Input, Card, CardItem, Picker} from 'native-base';
+import {Button, List, ListItem, Header, InputGroup, Input, Card, CardItem} from 'native-base';
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
 
-export default class newPatient extends Component {
+export default class validMeta extends Component {
 	constructor (props) {
     super(props);
     this.state = {
@@ -36,35 +37,29 @@ export default class newPatient extends Component {
       value3: 0,
       value3Index: 0,
 	  chickenWings: 1.5,
-	  value: 1.0,
-	  selectedItem: undefined,
-         selected1: 'key1',
-         results: {
-         items: []
-                  } 
-	}}
-    onValueChange (value: string) {
-        this.setState({
-            selected1 : value
-        });
+	   value: 1.0,
+		selected1: 'key1',
+		selected2: 'key1',
+		selected3: 'key1',
+		color: 'red',
+		mode: Picker.MODE_DIALOG,
     }
+  }
   goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
 	}
-	
-	
   render() {
     return ( 
 	<View>
-	<HeaderUp text="Nouveau Patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text="Meta Data" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 <ScrollView>	
   <Card>
     <CardItem style={styles.body2}>
 	 <ListItem>   
 	      <Grid>
               <Col>
-					<Text style={{width:60, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Nom</Text>
+					<Text style={{width:60, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Bords</Text>
 			  </Col>
               <Col>
 					 <InputGroup borderType='regular'>
@@ -76,7 +71,7 @@ export default class newPatient extends Component {
 	  <ListItem>   
 	      <Grid>
               <Col>
-					<Text style={{width:60, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Prénom</Text>
+					<Text style={{width:60, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Couleur</Text>
 			  </Col>
               <Col>
 					 <InputGroup borderType='regular'>
@@ -88,10 +83,10 @@ export default class newPatient extends Component {
 	  <ListItem>   
 	      <Grid>
               <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Date de naissance</Text>
+					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Asymétrie</Text>
 			  </Col>
               <Col>
-			     <InputGroup borderType='regular'>
+					 <InputGroup borderType='regular'>
 							<Input placeholder=''/>
 					 </InputGroup> 
 			 </Col> 
@@ -100,7 +95,7 @@ export default class newPatient extends Component {
 	  <ListItem>   
 	      <Grid>
               <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Lieu de résidence</Text>
+					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Phototype</Text>
 			  </Col>
               <Col>
 					 <InputGroup borderType='regular'>
@@ -112,7 +107,7 @@ export default class newPatient extends Component {
 	 <ListItem>   
 	      <Grid>
               <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Profession</Text>
+					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Diamètre</Text>
 			  </Col>
               <Col>
 					 <InputGroup borderType='regular'>
@@ -124,7 +119,7 @@ export default class newPatient extends Component {
 	  <ListItem>   
 	      <Grid>
               <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Antécédents personnel</Text>
+					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Suspicion</Text>
 			  </Col>
               <Col>
 					 <InputGroup borderType='regular'>
@@ -151,28 +146,52 @@ export default class newPatient extends Component {
 					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Nombre de grain de beauté</Text>
 				</Col>
 				<Col>
-					<Picker
-                        iosHeader="Select one"
-                        mode="dropdown"
-                        selectedValue={this.state.selected1}
-                        onValueChange={this.onValueChange.bind(this)}>
-                        <Item label="> 50" value="key0" />
-                        <Item label="< 50" value="key1" />  
-                   </Picker>
+					 <InputGroup borderType='regular'>
+							<Input placeholder=''/>
+					 </InputGroup> 
 				</Col>
 			</Grid>
 			</ListItem>	
+	 <ListItem>   
+	      <Grid>
+              <Col>
+					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Phototype </Text>
+			  </Col>
+              <Col>
+					 <InputGroup borderType='regular'>
+							<Input placeholder=''/>
+					 </InputGroup> 
+			 </Col> 
+           </Grid>			 
+	  </ListItem> 
+	   <ListItem>   
+	      <Grid>
+              <Col>
+					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>SED </Text>
+			  </Col>
+              <Col>
+					 <InputGroup borderType='regular'>
+							<Input placeholder=''/>
+					 </InputGroup> 
+			 </Col> 
+           </Grid>			 
+	  </ListItem> 
 	  
 				
 			<Button
 				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:80,marginBottom:50,alignItems:'center'}}
-				textStyle={{fontSize: 14, color:'#fff'}}>Localiser le grain de beauté</Button>
+				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}>Envoyer</Button>
      </CardItem>
   </Card>
 </ScrollView>   
 	</View>
     );
   }
+   onValueChange = (key: string, value: string) => {
+    const newState = {};
+    newState[key] = value;
+    this.setState(newState);
+  };
 }
 const styles = StyleSheet.create({
   container: {
@@ -211,4 +230,4 @@ const styles = StyleSheet.create({
       fontWeight:'bold'}
   });
 
-AppRegistry.registerComponent('newPatient', () => newPatient);
+AppRegistry.registerComponent('validMeta', () => validMeta);
