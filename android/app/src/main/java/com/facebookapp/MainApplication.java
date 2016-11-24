@@ -43,11 +43,11 @@ public class MainApplication extends Application implements ReactApplication {
             protected List<ReactPackage> getPackages() {
               return Arrays.<ReactPackage>asList(
                       new MainReactPackage(),
+						new RNFetchBlobPackage(),
+						new RCTCameraPackage(),
 						new SplashScreenReactPackage(),
-                      new FBSDKPackage(mCallbackManager),
-					  new RNFetchBlobPackage(),
-					  new RCTCameraPackage(),
-					  new VectorIconsPackage()
+						new FBSDKPackage(mCallbackManager),
+						new VectorIconsPackage()
               );
             }
           };

@@ -9,7 +9,6 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  Picker,
   ScrollView,
   TextInput,
   View
@@ -17,7 +16,7 @@ import {
 
 import HeaderUp from '../components/headerUp';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import {Button, List, ListItem, Header, InputGroup, Input} from 'native-base';
+import {Button, List, ListItem, Header, InputGroup, Input, Card, CardItem, Picker} from 'native-base';
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
@@ -37,69 +36,145 @@ export default class newPatient extends Component {
       value3: 0,
       value3Index: 0,
 	  chickenWings: 1.5,
-	   value: 1.0,
-		selected1: 'key1',
-		selected2: 'key1',
-		selected3: 'key1',
-		color: 'red',
-		mode: Picker.MODE_DIALOG,
+	  value: 1.0,
+	  selectedItem: undefined,
+         selected1: 'key1',
+         results: {
+         items: []
+                  } 
+	}}
+    onValueChange (value: string) {
+        this.setState({
+            selected1 : value
+        });
     }
-  }
+  
+  locatePic(){
+		this.props.navigator.push({
+          component: LocatePic
+        }); 
+	}
   goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
 	}
+	
+	
   render() {
     return ( 
 	<View>
 	<HeaderUp text="Nouveau Patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
-	   <ScrollView>
-				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Nom</Text>
-				 <TextInput
-					style={styles.textinput}
-					value={this.state.nom}
-					underlineColorAndroid="black"
-				  />
-				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Prénom</Text>
-				<TextInput
-					style={styles.textinput}
-					value={this.state.prenom}
-					underlineColorAndroid="black"
-				  />
-				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Date de naissance</Text>
-				<TextInput
-					style={styles.textinput}
-					value={this.state.date_naissance}
-					underlineColorAndroid="black"
-				  />
-				  <Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Profession</Text>
-				<TextInput
-					style={styles.textinput}
-					value={this.state.profession}
-					underlineColorAndroid="black"
-				  />
-				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Antécédents personnels</Text>
-				<TextInput
-					style={styles.textinput}
-					value={this.state.antecedent_personnel}
-					underlineColorAndroid="black"
-				  />
-				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Antécédents dans la famille</Text>
-				<TextInput
-					style={styles.textinput}
-					value={this.state.antecedent_famille}
-					underlineColorAndroid="black"
-				  />
-				<Text style={{fontFamily: 'Arial', fontSize:17,color:'black',textAlign: 'left',marginLeft:10}}>Nombre de grain de beauté</Text>
-				<TextInput
-					style={styles.textinput}
-					value={this.state.nbre_grain_beaute}
-					underlineColorAndroid="black"
-				  />
-			<Button
-				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:80,marginBottom:50,alignItems:'center'}}
-				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}>Valider</Button>
-         </ScrollView> 
+		<ScrollView>	
+		  <Card>
+			<CardItem style={styles.body2}>
+			 <ListItem>   
+				  <Grid>
+					  <Col>
+							<Text style={{width:60, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Nom</Text>
+					  </Col>
+					  <Col>
+							 <InputGroup borderType='regular'>
+									<Input placeholder=''/>
+							 </InputGroup> 
+					 </Col> 
+				   </Grid>			 
+			  </ListItem>	
+			  <ListItem>   
+				  <Grid>
+					  <Col>
+							<Text style={{width:60, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Prénom</Text>
+					  </Col>
+					  <Col>
+							 <InputGroup borderType='regular'>
+									<Input placeholder=''/>
+							 </InputGroup> 
+					 </Col> 
+				   </Grid>			 
+			  </ListItem> 
+			  <ListItem>   
+				  <Grid>
+					  <Col>
+							<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Date de naissance</Text>
+					  </Col>
+					  <Col>
+						 <InputGroup borderType='regular'>
+									<Input placeholder=''/>
+							 </InputGroup> 
+					 </Col> 
+				   </Grid>			 
+			  </ListItem>	
+			  <ListItem>   
+				  <Grid>
+					  <Col>
+							<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Lieu de résidence</Text>
+					  </Col>
+					  <Col>
+							 <InputGroup borderType='regular'>
+									<Input placeholder=''/>
+							 </InputGroup> 
+					 </Col> 
+				   </Grid>			 
+			  </ListItem>	 
+			 <ListItem>   
+				  <Grid>
+					  <Col>
+							<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Profession</Text>
+					  </Col>
+					  <Col>
+							 <InputGroup borderType='regular'>
+									<Input placeholder=''/>
+							 </InputGroup> 
+					 </Col> 
+				   </Grid>			 
+			  </ListItem> 
+			  <ListItem>   
+				  <Grid>
+					  <Col>
+							<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Antécédents personnel</Text>
+					  </Col>
+					  <Col>
+							 <InputGroup borderType='regular'>
+									<Input placeholder=''/>
+							 </InputGroup> 
+					 </Col> 
+				   </Grid>			 
+			  </ListItem>	
+			  <ListItem>   
+				  <Grid>
+					  <Col>
+							<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Antécédents dans la famille </Text>
+					  </Col>
+					  <Col>
+							 <InputGroup borderType='regular'>
+									<Input placeholder=''/>
+							 </InputGroup> 
+					 </Col> 
+				   </Grid>			 
+			  </ListItem> 
+			<ListItem>
+					<Grid>
+						<Col>
+							<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Nombre de grain de beauté</Text>
+						</Col>
+						<Col>
+							<Picker
+								iosHeader="Select one"
+								mode="dropdown"
+								selectedValue={this.state.selected1}
+								onValueChange={this.onValueChange.bind(this)}>
+								<Item label="> 50" value="key0" />
+								<Item label="< 50" value="key1" />  
+						   </Picker>
+						</Col>
+					</Grid>
+					</ListItem>	
+					<Button
+						onPress={this.locatePic.bind(this)}
+						style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:80,marginBottom:50,alignItems:'center'}}
+						textStyle={{fontSize: 14, color:'#fff'}}>Localiser le grain de beauté</Button>
+			 </CardItem>
+		  </Card>
+		</ScrollView>   
 	</View>
     );
   }
@@ -133,69 +208,12 @@ const styles = StyleSheet.create({
     marginRight: 30,
 	
   },
-  suspicion: {
-	color: 'black',
-	textAlign: 'left',
-	padding:0,
-	marginLeft:20,
-	marginTop:30,
-	fontFamily: 'Arial',
-	fontSize: 15    
-  },
-  melanome: {
-	color: 'black',
-	textAlign: 'right',
-	bottom:30,
-	position: 'relative',
-	fontFamily: 'Arial',
-	fontSize: 15,
-	marginTop:10,
-	marginRight:20  	  
-  },
-  slidee: {
-	marginLeft: 60,
-	marginRight: 60  
-  },
-  diametre: {
-	color: 'black',
-	fontFamily: 'Arial',
-	fontSize: 15,
-	marginTop:10,	
-	marginBottom:15,	
-  },
-  asymetrie: {
-	color: 'black',
-	fontFamily: 'Arial',
-	marginTop:10,
-	fontSize: 15  
-  },
-  couleur: {
-    color: 'black',
-	fontFamily: 'Arial',
-	fontSize: 15,
-	marginTop:10,
-	marginBottom:15  
-  },
-  phototype: {
-	marginTop:10,
-	fontFamily: 'Arial',
-	marginBottom:15,
-	fontSize: 15,
-	color:"#000"
-  },
   title_upload:{
 	  color:"#fff",
 	  fontSize:18,
 	  paddingTop:10,
 	  height:40,
-	  fontWeight:'bold'
-  },
-  bords: {
-    color: 'black',
-	fontFamily: 'Arial',
-	fontSize: 15,
-	marginTop:10,
-	marginBottom:15}
-});
+      fontWeight:'bold'}
+  });
 
 AppRegistry.registerComponent('newPatient', () => newPatient);

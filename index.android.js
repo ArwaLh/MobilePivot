@@ -21,9 +21,9 @@ import LoginNative from './src/pages/loginNative';
 import Account from './src/pages/account';
 
 import Header from './src/components/header';
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 // Initialize Firebase
-var config = {
+const config = {
     apiKey: "AIzaSyC7F3pn_tG3LJk-4pPocpvMRyh8SEW-1sQ",
     authDomain: "katomi-148921.firebaseapp.com",
     databaseURL: "https://katomi-148921.firebaseio.com",
@@ -31,7 +31,6 @@ var config = {
     messagingSenderId: "229375856602"
   };
 firebase.initializeApp(config);
-
 import styles from './src/styles/common-styles.js';
 export default class FacebookApp extends Component {
 	constructor(props){

@@ -9,20 +9,35 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  Picker,
+  Image,
   ScrollView,
   BackAndroid,
+  AsyncStorage,
+  Platform,
   View
 } from 'react-native';
 
 import HeaderUp from '../components/headerUp';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import {Button, List, ListItem, Header} from 'native-base';
+import {Button, List, ListItem, Header, Picker} from 'native-base';
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import Icon from 'react-native-vector-icons/FontAwesome';
 const Item = Picker.Item;
+import ValidMeta from './validMeta';
+import Phototype from './phototype';
+const testImageName = `patient-pic-${Platform.OS}-${new Date()}.jpg`
+const EMAIL = 'arwa.louihig@esprit.tn'
+const PASSWORD = 'arwa24961322'
+import * as firebase from 'firebase';
+import RNFetchBlob from 'react-native-fetch-blob';
+const fs = RNFetchBlob.fs
+const Blob = RNFetchBlob.polyfill.Blob
 
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
+
+const dirs = RNFetchBlob.fs.dirs
 export default class uploadForm extends Component {
 	constructor (props) {
 		super(props);
@@ -39,23 +54,82 @@ export default class uploadForm extends Component {
 		  value3Index: 0,
 		  chickenWings: 1.5,
 		   value: 1.0,
-			selected1: 'key1',
-			selected2: 'key1',
-			selected3: 'key1',
-			color: 'red',
-			mode: Picker.MODE_DIALOG,
+		selectedItem: undefined,
+         selected1: 'key1',
+         results: {
+         items: []
+                  } 
 		}
 	}
+	
+	onValueChange (value: string) {
+        this.setState({
+            selected1 : value
+	});}
+
+	
+	/*componentWillMount(){
+
+    AsyncStorage.getItem('path').then((pathUp) => {                                                   
+      this.setState({
+        path: JSON.parse(pathUp),
+        loaded: true
+      });
+	  alert(pathUp);
+    });
+
+  }*/
 	goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
-	}	
+	}
+
+	uploadPic(){
+		AsyncStorage.getItem('path').then((pathUp) => {                                                   
+		  this.setState({
+			path: JSON.parse(pathUp),
+			loaded: true
+		  });
+		  alert(pathUp);
+		  let rnfbURI = JSON.parse(pathUp);
+
+		
+		// create Blob from file path
+		Blob
+			.build(rnfbURI, { type : 'image/jpg;'})
+			.then((blob) => {
+			  // upload image using Firebase SDK
+			  var uploadTask= firebase.storage()
+				.ref('images')
+				.child(testImageName)
+				.put(blob, { contentType : 'image/jpg' });
+				uploadTask.on('state_changed', function(snapshot){
+				  // Observe state change events such as progress, pause, and resume
+				  // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+					let progress =(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+					alert("progress");
+					alert(progress);
+				}, function(error) {
+				  alert("error iuploading");
+				}, function() {
+				  // Handle successful uploads on complete
+				  // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+				  var downloadURL = uploadTask.snapshot.downloadURL;
+				  alert("done uploading here is the download URL",downloadURL);
+				  blob.close();
+				});
+			})
+		});
+	}
   render() {
     return ( 
 	<View>
 	<HeaderUp text="Upload Photo" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
 		  <List>
+		    <ListItem>
+			 <Image style={{width:322, height: 150}} source={{uri:'http://localhost:8081/img/grain.jpg'}}/>
+			</ListItem>
             <ListItem>
 			<RadioForm
 				formHorizontal={true}
@@ -140,8 +214,9 @@ export default class uploadForm extends Component {
             <ListItem>
 
 			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
-				<Text style={styles.phototype}>Phototype</Text>
+				<Text style={styles.phototypee}>Phototype</Text>
 				<Button
+				    onPress={this.phototypeb.bind(this)}
 					style={{borderColor: "#53507c",width:200,height:40,marginLeft:30}}
 					textStyle={{fontSize: 18, color:'#53507c',fontWeight:"bold"}}
 					bordered>Choisir phototype</Button>
@@ -154,26 +229,27 @@ export default class uploadForm extends Component {
 				</Col>
 				<Col>
 					<Picker
-						style={styles.picker}
-						selectedValue={this.state.selected1}
-						onValueChange={this.onValueChange.bind(this, 'selected1')}>
-							<Item label="0,2" value="key0" />
-							<Item label="1.3" value="key1" />
-							<Item label="2.3 " value="key2" />
-							<Item label="4.3 mm" value="key3" />
-							<Item label="5.2 mm" value="key4" />
-							<Item label="6 mm" value="key5" />	
-							<Item label="0,2" value="key0" />
-							<Item label="1.3" value="key1" />
-							<Item label="2.3 " value="key2" />
-							<Item label="4.3 mm" value="key3" />
-							<Item label="5.2 mm" value="key4" />
-							<Item label="6 mm" value="key5" />	
-							<Item label="1.3" value="key1" />
-							<Item label="2.3 " value="key2" />
-							<Item label="4.3 mm" value="key3" />
-							<Item label="5.2 mm" value="key4" />
-							<Item label="6 mm" value="key5" />	
+                        iosHeader="Select one"
+                        mode="dropdown"
+                        selectedValue={this.state.selected1}
+                        onValueChange={this.onValueChange.bind(this)}>  
+								<Item label="0,2" value="key0" />
+								<Item label="1.3" value="key1" />
+								<Item label="2.3 " value="key2" />
+								<Item label="4.3 mm" value="key3" />
+								<Item label="5.2 mm" value="key4" />
+								<Item label="6 mm" value="key5" />	
+								<Item label="0,2" value="key6" />
+								<Item label="1.3" value="key7" />
+								<Item label="2.3 " value="key8" />
+								<Item label="4.3 mm" value="key9" />
+								<Item label="5.2 mm" value="key10" />
+								<Item label="6 mm" value="key11" />	
+								<Item label="1.3" value="key13" />
+								<Item label="2.3 " value="key14" />
+								<Item label="4.3 mm" value="key15" />
+								<Item label="5.2 mm" value="key16" />
+								<Item label="6 mm" value="key17" />	
 							
 					</Picker>
 				</Col>
@@ -188,19 +264,26 @@ export default class uploadForm extends Component {
 			</Slider>	
 			<ListItem>
 			<Button
+			    onPress={this.validMetadata.bind(this)} 
 				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:60,marginBottom:50,alignItems:'center'}}
-				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}>Valider</Button>
+				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}
+				onPress={this.uploadPic.bind(this)}>Valider</Button>
 			</ListItem>
 			</List>	
          </ScrollView> 
 	</View>
     );
   }
-    onValueChange = (key: string, value: string) => {
-    const newState = {};
-    newState[key] = value;
-    this.setState(newState);
-  };
+  	 validMetadata(){
+		this.props.navigator.push({
+		  component: ValidMeta
+		});
+	  }
+    phototypeb(){
+		this.props.navigator.push({
+		  component: Phototype
+		});
+	  }
 }
 const styles = StyleSheet.create({
   container: {
@@ -274,7 +357,7 @@ const styles = StyleSheet.create({
 	marginTop:10,
 	marginBottom:15  
   },
-  phototype: {
+  phototypee: {
 	marginTop:10,
 	fontFamily: 'Arial',
 	marginBottom:15,
