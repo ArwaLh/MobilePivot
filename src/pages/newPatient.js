@@ -23,6 +23,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
 
 import firebase from 'firebase';
+import DatePicker from 'react-native-datepicker';
 export default class newPatient extends Component {
 	constructor (props) {
     super(props);
@@ -46,7 +47,8 @@ export default class newPatient extends Component {
       nbreGrain: 'sup',
       results: {
       items: []
-                  } 
+      },
+	  date:"2016-05-25"	  
 	}}
 	 componentWillMount(){
 		AsyncStorage.getItem('medecin_username').then((medecin_username) => {
@@ -149,14 +151,20 @@ export default class newPatient extends Component {
 					placeholder={"Prénom"}
 					underlineColorAndroid="#53507c"/>		 
 			</ListItem> 
-			<ListItem>   
-				<TextInput
-					style={styles.textinput_new_patinet}
-					placeholderTextColor="#000"
-					onChangeText={(text) => this.setState({dateNaissance_pat: text})}
-					value={this.state.dateNaissance_pat}
-					placeholder={"Date de naissance"}
-					underlineColorAndroid="#53507c"/>			 
+			<ListItem>
+				 <Grid>
+					  <Col>
+						<Text style={{ fontFamily: 'Roboto', fontSize:15,color:'black', marginTop:10}}>Antécédents personnel</Text>
+					  </Col>
+					  <Col>
+					  	<DatePicker
+							startY={1900}
+							endY={2022}
+							startM={1}
+							startD={Monday}
+							/>
+					  </Col>
+				 </Grid>
 			</ListItem>	
 			<ListItem>   
 				<TextInput

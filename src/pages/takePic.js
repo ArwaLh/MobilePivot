@@ -57,7 +57,7 @@ export default class takePic extends Component {
     this.switchType = this.switchType.bind(this);
     this.switchFlash = this.switchFlash.bind(this);
   }
-  takePicture() {
+/*   takePicture() {
   this.camera.capture()
     .then(({path}) => {
 		// prepare upload image
@@ -97,8 +97,8 @@ export default class takePic extends Component {
 				});
 			}) 
     })
-  }
- /*  takePicture() {
+  } */
+   takePicture() {
   this.camera.capture()
     .then(({path}) => {
 		// create Blob from file path
@@ -107,7 +107,7 @@ export default class takePic extends Component {
 		component: UploadForm
 		}); 
     })
-  } */
+  } 
 /*   takePicture(){
 	  this.camera.capture()
     .then(({path}) => {
