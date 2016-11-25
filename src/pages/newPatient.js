@@ -142,7 +142,7 @@ export default class newPatient extends Component {
 	  <ListItem>   
 	      <Grid>
               <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Antécédents dans la famille </Text>
+					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Antécédents familiaux </Text>
 			  </Col>
               <Col>
 					 <InputGroup borderType='regular'>

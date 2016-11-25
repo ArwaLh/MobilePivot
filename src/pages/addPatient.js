@@ -54,7 +54,7 @@ export default class addPatient extends Component {
 		<Card style={styles.body2}>
 			<CardItem style={{height:100}}>
 				<Text style={{fontFamily: 'Arial', fontSize:20,color:'black',textAlign: 'center'}}>
-				Voulez vous ajouter un nouveau patient?
+				Voulez-vous ajouter un nouveau patient?
 				</Text>
             </CardItem>
 			<CardItem style={{flexDirection:'row', flexWrap:'wrap',height:100}}>

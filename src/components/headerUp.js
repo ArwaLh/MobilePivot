@@ -15,7 +15,7 @@ export default class headerUp extends Component {
     return (
       <View style={styles.header}>
 		<Button transparent onPress={this.props.onpress}>
-	  	 <Icon name="arrow-left" size={40} style={{color: '#fff', fontSize: 18, width:40}}/>
+	  	 <Icon name="arrow-left" size={30} style={{color: '#fff', fontSize: 18, width:40}}/>
 		</Button>
         <View style={styles.header_item}>
 			<Text style={styles.header_text}>{this.props.text}</Text>
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
 	fontSize: 18,
 	fontWeight: 'bold',
-	marginLeft: 5
+	marginLeft: 0
   }
 });
 
