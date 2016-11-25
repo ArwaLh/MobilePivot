@@ -29,9 +29,9 @@ export default class login extends Component {
 
   constructor(props){
     super(props);
-
+	this.itemsRef = firebase.database().ref('medecins');
     this.state = {
-      email: '',
+      email_medecin: '',
       password: '',
       loaded: true
     }
@@ -45,8 +45,8 @@ export default class login extends Component {
         <View style={styles.body}>
           <TextInput
             style={styles.textinput}
-            onChangeText={(text) => this.setState({email: text})}
-            value={this.state.email}
+            onChangeText={(text) => this.setState({email_medecin: text})}
+            value={this.state.email_medecin}
             placeholder={"Adresse e-mail"}
 			underlineColorAndroid="black"
           />
@@ -103,8 +103,11 @@ export default class login extends Component {
     this.setState({
       loaded: false
     });
-    firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password).then((user_data) =>{
-
+    firebase.auth().signInWithEmailAndPassword(this.state.email_medecin,this.state.password).then((user_data) =>{
+		this.itemsRef.orderByChild('email_medecin').equalTo(this.state.email_medecin).on("child_added", function(snapshot) {
+			AsyncStorage.setItem('medecin_username', snapshot.key);
+			alert(snapshot.key);
+		});
 		alert('Login success');
         AsyncStorage.setItem('user_data', JSON.stringify(user_data));
         this.props.navigator.push({

@@ -23,8 +23,10 @@ export default class signup extends Component {
 
     this.state = {
       loaded: true,
-      email: '',
-      password: ''
+      email_medecin: '',
+      confirm_password: '',
+      password: '',
+      adresse_cabinet: ''
     };
 
   }
@@ -39,7 +41,7 @@ export default class signup extends Component {
 		  // get children as an array
 		  snap.forEach((child) => {
 			items_med.push({
-			  email: child.val().email,
+			  email_medecin: child.val().email_medecin,
 			  _key: child.key,
 			  adresse_cabinet: child.val().adresse_cabinet,
 			  _key: child.key,
@@ -47,12 +49,12 @@ export default class signup extends Component {
 		  });
 		});
 	let medecins=items_med;
-	let medecin_id=this.state.medecin.email.substring(0, 1)+this.state.medecin.password.substring(0, 1)+medecins.length;
-    firebase.auth().createUserWithEmailAndPassword(this.state.medecin.email,this.medecin.state.password).then((userData) =>{
+	let medecin_id=this.state.email_medecin.substring(0, 1)+this.state.email_medecin.substring(0, 1)+medecins.length;
+    firebase.auth().createUserWithEmailAndPassword(this.state.email_medecin,this.state.password).then((userData) =>{
 	//ajouter medecin à firebase database
-	itemsRef.child("medecins/"+medecin_id).set({
-		email: this.state.medecin.nom, 
-		adresse_cabinet: this.state.medecin.adresse_cabinet, 
+	this.itemsRef.child("medecins/"+medecin_id).set({
+		email_medecin: this.state.email_medecin, 
+		adresse_cabinet: this.state.adresse_cabinet, 
 		})
 	//succes d'ajout dans auth et database
         alert('Your account was created!');
@@ -64,8 +66,6 @@ export default class signup extends Component {
 		});
 	
       this.setState({
-        email: '',
-        password: '',
         loaded: true
       });
 
@@ -85,15 +85,15 @@ export default class signup extends Component {
 
             <TextInput
                 style={styles.textinput}
-                onChangeText={(text) => this.setState({email: text})}
-                value={this.state.medecin.email}
+                onChangeText={(text) => this.setState({email_medecin: text})}
+                value={this.state.email_medecin}
 				placeholder={"Adresse e-mail"}
 				underlineColorAndroid="#53507c"
             />
 			<TextInput
 				style={styles.textinput}
 				onChangeText={(text) => this.setState({password: text})}
-				value={this.state.medecin.password}
+				value={this.state.password}
 				secureTextEntry={true}
 				placeholder={"Mot de passe"}
 				underlineColorAndroid="#53507c"
@@ -101,7 +101,7 @@ export default class signup extends Component {
 			<TextInput
 				style={styles.textinput}
 				onChangeText={(text) => this.setState({confirm_password: text})}
-				value={this.state.medecin.confirm_password}
+				value={this.state.confirm_password}
 				secureTextEntry={true}
 				placeholder={"Confirm password"}
 				underlineColorAndroid="#53507c"
@@ -109,8 +109,7 @@ export default class signup extends Component {
 			<TextInput
 				style={styles.textinput}
 				onChangeText={(text) => this.setState({adresse_cabinet: text})}
-				value={this.state.medecin.adresse_cabinet}
-				secureTextEntry={true}
+				value={this.state.adresse_cabinet}
 				placeholder={"Adresse du cabinet"}
 				underlineColorAndroid="#53507c"
 			/>
@@ -118,12 +117,6 @@ export default class signup extends Component {
 				onPress={this.signup.bind(this)}
 				style={styles.primary_button}
 				textStyle={styles.primary_button_text}>S'inscrire</Button>
-
-			<ButtonS
-				text="Connexion"
-				onpress={this.goToLogin.bind(this)}
-				button_styles={styles.transparent_button}
-				button_text_styles={styles.transparent_button_text} />
         </View>
       </View>
     );

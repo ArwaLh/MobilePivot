@@ -18,8 +18,8 @@ module.exports = StyleSheet.create({
     flex: 9,
     alignItems: 'center',
 	marginTop: 80,
-	marginLeft:10,
-	marginRight:10,
+	marginLeft:20,
+	marginRight:20,
   },
   textinput: {
     height: 40,
@@ -28,6 +28,16 @@ module.exports = StyleSheet.create({
 	margin: 10,
 	color: "#000",
 	fontFamily: 'Roboto',
+  },
+  textinput_new_patinet: {
+    height: 40,
+	width: 250,
+	marginTop: 0,
+	marginLeft: 50,
+	marginRight: 20,
+	color: "#000",
+	fontFamily: 'Roboto',
+	fontSize: 18,
   },
   transparent_button: {
     marginTop: 10,

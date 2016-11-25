@@ -11,6 +11,7 @@ import {
   Text,
   TextInput,
   ScrollView,
+  AsyncStorage,
   View
 } from 'react-native';
 
@@ -47,6 +48,14 @@ export default class newPatient extends Component {
       items: []
                   } 
 	}}
+	 componentWillMount(){
+		AsyncStorage.getItem('medecin_username').then((medecin_username) => {
+		  this.setState({
+			username_med: medecin_username,
+			loaded: true
+		  });
+		});
+	}
     onValueChangePerso (value: string) {
         this.setState({
             antec_perso : value
@@ -94,13 +103,13 @@ export default class newPatient extends Component {
 
 		});
 		let patients=items;
-		let patient_id=this.state.nom.substring(0, 1)+this.state.prenom.substring(0, 1)+patients.length;
-		this.itemsRef.child('medecins').child('patients/'+patient_id).set({ 
-		nom: this.state.nom, 
-		prenom: this.state.prenom, 
-		date_de_naissance: this.state.dateNaissance, 
-		lieu: this.state.lieu, 
-		profession: this.state.profession, 
+		let patient_id=this.state.nom_pat.substring(0, 1)+this.state.prenom_pat.substring(0, 1)+patients.length;
+		this.itemsRef.child('medecins/'+this.state.username_med).child('patients/'+patient_id).set({ 
+		nom_pat: this.state.nom_pat, 
+		prenom_pat: this.state.prenom_pat, 
+		date_de_naissance_pat: this.state.dateNaissance_pat, 
+		lieu_pat: this.state.lieu_pat, 
+		profession_pat: this.state.profession_pat, 
 		antecedents_personnels: this.state.antec_perso, 
 		antecedents_familiaux: this.state.antec_fam, 
 		nombre_grain_de_beaute: this.state.nbreGrain, 
@@ -124,53 +133,53 @@ export default class newPatient extends Component {
 		<View style={styles.body2}>
 			 <ListItem>   
 				<TextInput
-					style={styles.textinput}
+					style={styles.textinput_new_patinet}
 					placeholderTextColor="#000"
-					onChangeText={(text) => this.setState({nom: text})}
-					value={this.state.nom}
+					onChangeText={(text) => this.setState({nom_pat: text})}
+					value={this.state.nom_pat}
 					placeholder={"Nom"}
 					underlineColorAndroid="#53507c"/>
 			</ListItem>	
 			<ListItem>   
 				<TextInput
-					style={styles.textinput}
+					style={styles.textinput_new_patinet}
 					placeholderTextColor="#000"
-					onChangeText={(text) => this.setState({prenom: text})}
-					value={this.state.prenom}
+					onChangeText={(text) => this.setState({prenom_pat: text})}
+					value={this.state.prenom_pat}
 					placeholder={"Prénom"}
 					underlineColorAndroid="#53507c"/>		 
 			</ListItem> 
 			<ListItem>   
 				<TextInput
-					style={styles.textinput}
+					style={styles.textinput_new_patinet}
 					placeholderTextColor="#000"
-					onChangeText={(text) => this.setState({dateNaissance: text})}
-					value={this.state.dateNaissance}
+					onChangeText={(text) => this.setState({dateNaissance_pat: text})}
+					value={this.state.dateNaissance_pat}
 					placeholder={"Date de naissance"}
 					underlineColorAndroid="#53507c"/>			 
 			</ListItem>	
 			<ListItem>   
 				<TextInput
-					style={styles.textinput}
+					style={styles.textinput_new_patinet}
 					placeholderTextColor="#000"
-					onChangeText={(text) => this.setState({lieu: text})}
-					value={this.state.lieu}
+					onChangeText={(text) => this.setState({lieu_pat: text})}
+					value={this.state.lieu_pat}
 					placeholder={"Lieu de résidence"}
 					underlineColorAndroid="#53507c"/>		 
 			</ListItem>	 
 			<ListItem>   
 				<TextInput
-					style={styles.textinput}
+					style={styles.textinput_new_patinet}
 					placeholderTextColor="#000"
-					onChangeText={(text) => this.setState({profession: text})}
-					value={this.state.profession}
+					onChangeText={(text) => this.setState({profession_pat: text})}
+					value={this.state.profession_pat}
 					placeholder={"Profession"}
 					underlineColorAndroid="#53507c"/> 		 
 			  </ListItem> 
 			  <ListItem>   
 				  <Grid>
 					  <Col>
-							<Text style={{width:160, fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:10}}>Antécédents personnel</Text>
+							<Text style={{width:160, fontFamily: 'Roboto', fontSize:15,color:'black', marginTop:10}}>Antécédents personnel</Text>
 					  </Col>
 					  <Col style={{marginLeft:150}}>
 							<Picker
@@ -187,7 +196,7 @@ export default class newPatient extends Component {
 			  <ListItem>   
 				  <Grid>
 					  <Col>
-							<Text style={{width:160, fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:10}}>Antécédents familiaux </Text>
+							<Text style={{width:160, fontFamily: 'Roboto', fontSize:15,color:'black', marginTop:10}}>Antécédents familiaux </Text>
 					  </Col>
 					  <Col style={{marginLeft:150}}>
 							 <Picker
@@ -204,10 +213,11 @@ export default class newPatient extends Component {
 			<ListItem>
 				<Grid>
 					<Col>
-						<Text style={{width:160, fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:10}}>Nombre de grain de beauté</Text>
+						<Text style={{width:160, fontFamily: 'Roboto', fontSize:15,color:'black', marginTop:10}}>Nombre de grain de beauté</Text>
 					</Col>
 					<Col style={{marginLeft:140}}>
 						<Picker
+							style={{width:100}}
 							iosHeader="Select one"
 							mode="dropdown"
 							selectedValue={this.state.nbreGrain}
