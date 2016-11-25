@@ -20,7 +20,7 @@ import HeaderOther from '../components/headerOther';
 import HeaderUp from '../components/headerUp';
 import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
-import {InputGroup, Input, Button, Card, CardItem, Header, Container, Content,List, ListItem} from 'native-base';
+import {InputGroup, Input, Button, Card, CardItem, Header} from 'native-base';
 import UploadForm from './uploadForm';
 import NewPatient from './newPatient';
 import LocatePic from './locatePic';
