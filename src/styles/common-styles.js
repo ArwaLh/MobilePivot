@@ -26,7 +26,8 @@ module.exports = StyleSheet.create({
 	width: 250,
 	marginTop: 0,
 	margin: 10,
-	color: "#000"
+	color: "#000",
+	fontFamily: 'Roboto',
   },
   transparent_button: {
     marginTop: 10,
