@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
 	height:60,
-	backgroundColor: '#53507c',
+	backgroundColor: '#322a7d',
   },
   header_item: {
     paddingLeft: 10,

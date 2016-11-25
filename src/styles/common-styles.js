@@ -43,7 +43,7 @@ module.exports = StyleSheet.create({
 	marginTop: 15,
 	marginLeft: 55,
     padding: 15,
-    backgroundColor: '#53507c',
+    backgroundColor: '#29235c',
   },
   primary_button_oui: {
 	width: 80,
@@ -51,7 +51,7 @@ module.exports = StyleSheet.create({
     margin: 10,
 	marginTop: 15,
     padding: 15,
-    backgroundColor: '#53507c',
+    backgroundColor: '#29235c',
   },
   primary_button_non: {
 	width: 80,
@@ -60,7 +60,7 @@ module.exports = StyleSheet.create({
 	marginTop: 15,
 	marginLeft: 55,
     padding: 15,
-    backgroundColor: '#53507c',
+    backgroundColor: '#29235c',
   },
   primary_button_text: {
     color: '#ffffff',
