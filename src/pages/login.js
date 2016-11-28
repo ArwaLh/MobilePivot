@@ -33,9 +33,14 @@ export default class login extends Component {
     this.state = {
       email_medecin: '',
       password: '',
-      loaded: true
+      loaded: true,
+	  secureTextEntry: true
     }
 
+  }
+  show_mdp(){
+	 alert("show password pressed");
+	 this.setState({secureTextEntry: true});
   }
 
   render(){
@@ -44,34 +49,44 @@ export default class login extends Component {
 	  <Header text="" loaded={this.state.loaded}/>
         <View style={styles.body}>
           <TextInput
-            style={styles.textinput}
+            style={styles.textinput_email}
             onChangeText={(text) => this.setState({email_medecin: text})}
             value={this.state.email_medecin}
             placeholder={"E-mail"}
-			underlineColorAndroid="white"
 			placeholderTextColor="#fff"
-          />
-          <TextInput
-            style={styles.textinput}
-            onChangeText={(text) => this.setState({password: text})}
-            value={this.state.password}
-            secureTextEntry={true}
-            placeholder={"Mot de passe"}
 			underlineColorAndroid="white"
-			placeholderTextColor="#fff"
           />
-		  <ButtonS
-            text="Créer un compte"
-            onpress={this.goToSignup.bind(this)}
-            button_styles={styles.transparent_button}
-            button_text_styles={styles.transparent_button_text} />
-		  <Button
-			onPress={this.login.bind(this)}
-			style={styles.primary_button}
-			textStyle={styles.primary_button_text}
-		  borderd>CONNEXION</Button>
+		  <View style={{flexDirection:'row', flexWrap:'wrap'}}>
+			  <TextInput
+				ref="password"
+				style={styles.textinput_mdp}
+				onChangeText={(text) => this.setState({password: text})}
+				value={this.state.password}
+				secureTextEntry={this.state.secureTextEntry}
+				placeholder={"Mot de passe"}
+				placeholderTextColor="#fff"
+				underlineColorAndroid="white"
+				inlineImagePadding={0}
+			  />
+			<Button transparent onPress={(password) => this.setState({secureTextEntry: false})} style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
+				<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
+			</Button>
+		  </View>
+		  <Text style={{marginBottom:15}}></Text>
+		  <View style={{flexDirection:'row', flexWrap:'wrap',marginBottom:15}}>
+			  <Button
+				onPress={this.goToSignup.bind(this)}
+				style={{borderColor: "#fff"}}
+				textStyle={{fontSize: 16, color:'#fff'}} transparent>S'INSCRIRE</Button>
+			  <Button
+				onPress={this.login.bind(this)}
+				style={{borderColor: "#fff",marginLeft:15}}
+				textStyle={{fontSize: 16, color:'#fff'}}
+				bordered>CONNEXION</Button>
+			</View>
 		  <Text style={{marginBottom:15}}></Text>
 		  <LoginButton
+		  style={{height:30,width:180}}
           publishPermissions={["publish_actions"]}
           onLoginFinished={
             (error, result) => {
@@ -93,8 +108,7 @@ export default class login extends Component {
             }
           }
           onLogoutFinished={() => alert("User logged out")}
-		  s/>
-		  <Text style={{marginBottom:5}}></Text>
+		  />
         </View>
       </View>
     );

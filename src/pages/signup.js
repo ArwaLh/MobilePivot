@@ -13,6 +13,7 @@ import Header from '../components/header';
 import Login from './login';
 
 import styles from '../styles/common-styles.js';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {InputGroup, Input, Button} from 'native-base';
 import firebase from 'firebase';
 export default class signup extends Component {
@@ -79,48 +80,51 @@ export default class signup extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Header text="S'inscrire" loaded={this.state.loaded} />
+    <View style={styles.container}>
+    <Header text="S'inscrire" loaded={this.state.loaded} />
         <View style={styles.body}>
-
             <TextInput
-                style={styles.textinput}
+                style={styles.textinput_email}
                 onChangeText={(text) => this.setState({email_medecin: text})}
                 value={this.state.email_medecin}
-				placeholder={"Adresse e-mail"}
-				underlineColorAndroid="#fff"
+				placeholder={"E-mail"}
 				placeholderTextColor="#fff"
+				underlineColorAndroid="#fff"
             />
-			<TextInput
-				style={styles.textinput}
-				onChangeText={(text) => this.setState({password: text})}
-				value={this.state.password}
-				secureTextEntry={true}
-				placeholder={"Mot de passe"}
-				underlineColorAndroid="#fff"
-				placeholderTextColor="#fff"
-			/>
-			<TextInput
-				style={styles.textinput}
-				onChangeText={(text) => this.setState({confirm_password: text})}
-				value={this.state.confirm_password}
-				secureTextEntry={true}
-				placeholder={"Confirm password"}
-				underlineColorAndroid="#fff"
-				placeholderTextColor="#fff"
-			/>
-			<TextInput
-				style={styles.textinput}
-				onChangeText={(text) => this.setState({adresse_cabinet: text})}
-				value={this.state.adresse_cabinet}
-				placeholder={"Adresse du cabinet"}
-				underlineColorAndroid="#fff"
-				placeholderTextColor="#fff"
-			/>
+			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
+				<TextInput
+					style={styles.textinput_mdp}
+					onChangeText={(text) => this.setState({password: text})}
+					value={this.state.password}
+					secureTextEntry={true}
+					placeholder={"Mot de passe"}
+					placeholderTextColor="#fff"
+					underlineColorAndroid="#fff"
+				/>
+				<Button transparent onPress={this.show_new_mdp.bind(this)} style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
+					<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
+				</Button>
+			</View>
+			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
+				<TextInput
+					style={styles.textinput_mdp}
+					onChangeText={(text) => this.setState({confirm_password: text})}
+					value={this.state.confirm_password}
+					secureTextEntry={true}
+					placeholder={"Confirmez le mot de passe"}
+					placeholderTextColor="#fff"
+					underlineColorAndroid="#fff"
+				/>
+				<Button transparent onPress={this.show_confirm_mdp.bind(this)} style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
+					<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
+				</Button>
+			</View>
 			<Button
 				onPress={this.signup.bind(this)}
-				style={styles.primary_button}
-				textStyle={styles.primary_button_text} b>S'inscrire</Button>
+				style={styles.primary_button_signup}
+				textStyle={{fontSize: 16, color:'#fff'}}
+				bordered>CREER UN COMPTE</Button>
+			<Text style={styles.text_signup_terms}>En cliquant sur "créer un compte" ,vous acceptez nos condition d'utilisation et notre Politique de confidentialité.</Text>
         </View>
       </View>
     );
