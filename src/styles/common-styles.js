@@ -4,6 +4,7 @@ import React, {
 } from 'react-native';
 const window = Dimensions.get('window');
 let height_im= window.height-150;
+let mar_left=(window.width-170)/2;
 module.exports = StyleSheet.create({
   container: {
     flex: 1,
@@ -21,16 +22,30 @@ module.exports = StyleSheet.create({
 	marginLeft:50,
 	marginRight:20,
   },
-  newpatient_body: {
-	padding:15,
-  },
   textinput: {
     height: 40,
 	width: 250,
 	marginTop: 0,
 	color: "#000",
+  }, 
+  textinput_email: {
+    height: 50,
+	width: 300,
+	marginTop: 10,
+	marginBottom: 10,
+	color: "#fff",
 	fontFamily: 'Roboto',
-	fontSize: 20,
+	fontSize: 18,
+  },
+  textinput_mdp: {
+    height: 50,
+	width: 280,
+	marginTop: 10,
+	marginBottom: 10,
+	marginLeft: 22,
+	color: "#fff",
+	fontFamily: 'Roboto',
+	fontSize: 18,
   },
   textinput_new_patinet: {
     height: 40,
@@ -44,9 +59,29 @@ module.exports = StyleSheet.create({
     padding: 15
   },
   transparent_button_text: {
-    color: '#53507c',
+    color: '#fff',
     fontSize: 16
   },
+  
+  /* Signup interface */
+  
+  text_signup_terms: {
+    height: 100,
+	width: 300,
+	marginTop: 30,
+	marginBottom: 10,
+	color: "#fff",
+	fontFamily: 'Roboto',
+	fontSize: 14,
+	textAlign: 'center'
+  },
+   primary_button_signup: {
+	borderColor: "#fff",
+	width:170,
+	marginLeft:mar_left,
+	marginTop:25,
+  },
+  /* end signup */
   primary_button: {
 	width: 250,
 	height: 40,
