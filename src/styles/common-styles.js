@@ -4,7 +4,7 @@ import React, {
 } from 'react-native';
 const window = Dimensions.get('window');
 let height_im= window.height-150;
-let mar_left=(window.width-120)/2;
+let mar_left=(window.width-170)/2;
 module.exports = StyleSheet.create({
   container: {
     flex: 1,
@@ -13,7 +13,7 @@ module.exports = StyleSheet.create({
   body: {
     flex: 9,
     alignItems: 'center',
-	marginTop: 60
+	marginTop: 40
   },
   body2: {
     flex: 9,
@@ -59,12 +59,26 @@ module.exports = StyleSheet.create({
     color: '#fff',
     fontSize: 16
   },
+  
+  /* Signup interface */
+  
+  text_signup_terms: {
+    height: 100,
+	width: 300,
+	marginTop: 30,
+	marginBottom: 10,
+	color: "#fff",
+	fontFamily: 'Roboto',
+	fontSize: 14,
+	textAlign: 'center'
+  },
    primary_button_signup: {
 	borderColor: "#fff",
-	width:120,
+	width:170,
 	marginLeft:mar_left,
 	marginTop:25,
   },
+  /* end signup */
   primary_button: {
 	width: 250,
 	height: 40,

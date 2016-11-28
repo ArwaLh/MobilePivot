@@ -113,7 +113,8 @@ export default class signup extends Component {
 				onPress={this.signup.bind(this)}
 				style={styles.primary_button_signup}
 				textStyle={{fontSize: 16, color:'#fff'}}
-				bordered>S'INSCRIRE</Button>
+				bordered>CREER UN COMPTE</Button>
+			<Text style={styles.text_signup_terms}>En cliquant sur "créer un compte" ,vous acceptez nos condition d'utilisation et notre Politique de confidentialité.</Text>
         </View>
       </View>
     );

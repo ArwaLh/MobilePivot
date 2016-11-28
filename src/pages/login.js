@@ -80,7 +80,7 @@ export default class login extends Component {
 			</View>
 		  <Text style={{marginBottom:15}}></Text>
 		  <LoginButton
-		  style={{height:50,width:180,padding:10,margin:10}}
+		  style={{height:30,width:180}}
           publishPermissions={["publish_actions"]}
           onLoginFinished={
             (error, result) => {
