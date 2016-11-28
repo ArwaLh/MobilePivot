@@ -79,10 +79,9 @@ export default class signup extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Header text="S'inscrire" loaded={this.state.loaded} />
+    <View style={styles.container}>
+    <Header text="S'inscrire" loaded={this.state.loaded} />
         <View style={styles.body}>
-
             <TextInput
                 style={styles.textinput_email}
                 onChangeText={(text) => this.setState({email_medecin: text})}
@@ -91,24 +90,34 @@ export default class signup extends Component {
 				placeholderTextColor="#fff"
 				underlineColorAndroid="#fff"
             />
-			<TextInput
-				style={styles.textinput_email}
-				onChangeText={(text) => this.setState({password: text})}
-				value={this.state.password}
-				secureTextEntry={true}
-				placeholder={"Mot de passe"}
-				placeholderTextColor="#fff"
-				underlineColorAndroid="#fff"
-			/>
-			<TextInput
-				style={styles.textinput_email}
-				onChangeText={(text) => this.setState({confirm_password: text})}
-				value={this.state.confirm_password}
-				secureTextEntry={true}
-				placeholder={"Confirmez le mot de passe"}
-				placeholderTextColor="#fff"
-				underlineColorAndroid="#fff"
-			/>
+			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
+				<TextInput
+					style={styles.textinput_mdp}
+					onChangeText={(text) => this.setState({password: text})}
+					value={this.state.password}
+					secureTextEntry={true}
+					placeholder={"Mot de passe"}
+					placeholderTextColor="#fff"
+					underlineColorAndroid="#fff"
+				/>
+				<Button transparent onPress={this.props.onpress} style={{width: 50,margin:0}}>
+					<Icon name="eye" size={40} style={{color: '#fff', fontSize: 18, width:20,margin:0,padding:0}}/>
+				</Button>
+			</View>
+			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
+				<TextInput
+					style={styles.textinput_mdp}
+					onChangeText={(text) => this.setState({confirm_password: text})}
+					value={this.state.confirm_password}
+					secureTextEntry={true}
+					placeholder={"Confirmez le mot de passe"}
+					placeholderTextColor="#fff"
+					underlineColorAndroid="#fff"
+				/>
+				<Button transparent onPress={this.props.onpress} style={{width: 50,margin:0}}>
+					<Icon name="eye" size={40} style={{color: '#fff', fontSize: 18, width:20,margin:0,padding:0}}/>
+				</Button>
+			</View>
 			<Button
 				onPress={this.signup.bind(this)}
 				style={styles.primary_button_signup}
