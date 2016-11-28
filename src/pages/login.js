@@ -41,38 +41,46 @@ export default class login extends Component {
   render(){
     return (
       <View style={styles.container}>
-	  <Header text="KatoMobile" loaded={this.state.loaded}/>
+	  <Header text="" loaded={this.state.loaded}/>
         <View style={styles.body}>
           <TextInput
-            style={styles.textinput}
+            style={styles.textinput_email}
             onChangeText={(text) => this.setState({email_medecin: text})}
             value={this.state.email_medecin}
             placeholder={"E-mail"}
-			underlineColorAndroid="black"
+			placeholderTextColor="#fff"
+			underlineColorAndroid="white"
           />
-          <TextInput
-            style={styles.textinput}
-            onChangeText={(text) => this.setState({password: text})}
-            value={this.state.password}
-            secureTextEntry={true}
-            placeholder={"Mot de passe"}
-			underlineColorAndroid="black"
-          />
-			<Button transparent onPress={this.props.onpress}>
-				<Icon name="eye" size={40} style={{color: '#000', fontSize: 18, width:40}}/>
+		  <View style={{flexDirection:'row', flexWrap:'wrap'}}>
+			  <TextInput
+				style={styles.textinput_mdp}
+				onChangeText={(text) => this.setState({password: text})}
+				value={this.state.password}
+				secureTextEntry={true}
+				placeholder={"Mot de passe"}
+				placeholderTextColor="#fff"
+				underlineColorAndroid="white"
+				inlineImagePadding={0}
+			  />
+			<Button transparent onPress={this.props.onpress} style={{width: 50,margin:0}}>
+				<Icon name="eye" size={40} style={{color: '#fff', fontSize: 18, width:20,margin:0,padding:0}}/>
 			</Button>
-		  <ButtonS
-            text="Créer un compte"
-            onpress={this.goToSignup.bind(this)}
-            button_styles={styles.transparent_button}
-            button_text_styles={styles.transparent_button_text} />
-		  <Button
-			onPress={this.login.bind(this)}
-			style={{borderColor: "#fff",width:200,height:40,marginLeft:130}}
-			textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}
-			bordered>Connexion</Button>
+		  </View>
+		  <Text style={{marginBottom:15}}></Text>
+		  <View style={{flexDirection:'row', flexWrap:'wrap',marginBottom:15}}>
+			  <Button
+				onPress={this.goToSignup.bind(this)}
+				style={{borderColor: "#fff"}}
+				textStyle={{fontSize: 16, color:'#fff'}} transparent>S'INSCRIRE</Button>
+			  <Button
+				onPress={this.login.bind(this)}
+				style={{borderColor: "#fff",marginLeft:15}}
+				textStyle={{fontSize: 16, color:'#fff'}}
+				bordered>CONNEXION</Button>
+			</View>
 		  <Text style={{marginBottom:15}}></Text>
 		  <LoginButton
+		  style={{height:50,width:180,padding:10,margin:10}}
           publishPermissions={["publish_actions"]}
           onLoginFinished={
             (error, result) => {

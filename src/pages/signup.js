@@ -84,39 +84,36 @@ export default class signup extends Component {
         <View style={styles.body}>
 
             <TextInput
-                style={styles.textinput}
+                style={styles.textinput_email}
                 onChangeText={(text) => this.setState({email_medecin: text})}
                 value={this.state.email_medecin}
-				placeholder={"Adresse e-mail"}
-				underlineColorAndroid="#53507c"
+				placeholder={"E-mail"}
+				placeholderTextColor="#fff"
+				underlineColorAndroid="#fff"
             />
 			<TextInput
-				style={styles.textinput}
+				style={styles.textinput_email}
 				onChangeText={(text) => this.setState({password: text})}
 				value={this.state.password}
 				secureTextEntry={true}
 				placeholder={"Mot de passe"}
-				underlineColorAndroid="#53507c"
+				placeholderTextColor="#fff"
+				underlineColorAndroid="#fff"
 			/>
 			<TextInput
-				style={styles.textinput}
+				style={styles.textinput_email}
 				onChangeText={(text) => this.setState({confirm_password: text})}
 				value={this.state.confirm_password}
 				secureTextEntry={true}
-				placeholder={"Confirm password"}
-				underlineColorAndroid="#53507c"
-			/>
-			<TextInput
-				style={styles.textinput}
-				onChangeText={(text) => this.setState({adresse_cabinet: text})}
-				value={this.state.adresse_cabinet}
-				placeholder={"Adresse du cabinet"}
-				underlineColorAndroid="#53507c"
+				placeholder={"Confirmez le mot de passe"}
+				placeholderTextColor="#fff"
+				underlineColorAndroid="#fff"
 			/>
 			<Button
 				onPress={this.signup.bind(this)}
-				style={styles.primary_button}
-				textStyle={styles.primary_button_text}>S'inscrire</Button>
+				style={styles.primary_button_signup}
+				textStyle={{fontSize: 16, color:'#fff'}}
+				bordered>S'INSCRIRE</Button>
         </View>
       </View>
     );

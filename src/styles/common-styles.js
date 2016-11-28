@@ -4,6 +4,7 @@ import React, {
 } from 'react-native';
 const window = Dimensions.get('window');
 let height_im= window.height-150;
+let mar_left=(window.width-120)/2;
 module.exports = StyleSheet.create({
   container: {
     flex: 1,
@@ -12,7 +13,7 @@ module.exports = StyleSheet.create({
   body: {
     flex: 9,
     alignItems: 'center',
-	marginTop: 40
+	marginTop: 60
   },
   body2: {
     flex: 9,
@@ -21,14 +22,24 @@ module.exports = StyleSheet.create({
 	marginLeft:20,
 	marginRight:20,
   },
-  textinput: {
-    height: 40,
-	width: 250,
-	marginTop: 0,
-	margin: 10,
-	color: "#000",
+  textinput_email: {
+    height: 50,
+	width: 300,
+	marginTop: 10,
+	marginBottom: 10,
+	color: "#fff",
 	fontFamily: 'Roboto',
-	fontSize: 20,
+	fontSize: 18,
+  },
+  textinput_mdp: {
+    height: 50,
+	width: 280,
+	marginTop: 10,
+	marginBottom: 10,
+	marginLeft: 22,
+	color: "#fff",
+	fontFamily: 'Roboto',
+	fontSize: 18,
   },
   textinput_new_patinet: {
     height: 40,
@@ -45,8 +56,14 @@ module.exports = StyleSheet.create({
     padding: 15
   },
   transparent_button_text: {
-    color: '#53507c',
+    color: '#fff',
     fontSize: 16
+  },
+   primary_button_signup: {
+	borderColor: "#fff",
+	width:120,
+	marginLeft:mar_left,
+	marginTop:25,
   },
   primary_button: {
 	width: 250,
