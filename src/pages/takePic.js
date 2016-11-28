@@ -13,9 +13,11 @@ import {
   AsyncStorage,
   Platform
 } from 'react-native';
+import UploadForm from './uploadForm';
+
 import Camera from 'react-native-camera';
 import RNFetchBlob from 'react-native-fetch-blob';
-import UploadForm from './uploadForm';
+import * as firebase from 'firebase';
 const fs = RNFetchBlob.fs
 const Blob = RNFetchBlob.polyfill.Blob
 
@@ -24,9 +26,12 @@ window.Blob = Blob
 
 const dirs = RNFetchBlob.fs.dirs
 const prefix = ((Platform.OS === 'android') ? 'file:' : '')
+const testImageName = `patient-pic-${Platform.OS}-${new Date()}.jpg`
+const testFile = null;
+
 const EMAIL = 'arwa.louihig@esprit.tn'
 const PASSWORD = 'arwa24961322'
-import firebase from 'firebase';
+
 export default class takePic extends Component {
 	 constructor(props) {
     super(props);
@@ -36,7 +41,7 @@ export default class takePic extends Component {
     this.state = {
       camera: {
         aspect: Camera.constants.Aspect.fill,
-        captureTarget: Camera.constants.CaptureTarget.disk,
+        captureTarget: Camera.constants.CaptureTarget.CameraRoll,
         type: Camera.constants.Type.back,
         orientation: Camera.constants.Orientation.auto,
         flashMode: Camera.constants.FlashMode.auto,
@@ -51,20 +56,99 @@ export default class takePic extends Component {
     this.stopRecording = this.stopRecording.bind(this);
     this.switchType = this.switchType.bind(this);
     this.switchFlash = this.switchFlash.bind(this);
-	const firebase=AsyncStorage.getItem('firebase');
   }
-  takePicture() {
+/*   takePicture() {
   this.camera.capture()
     .then(({path}) => {
 		// prepare upload image
-		let rnfbURI = RNFetchBlob.wrap(path);
+		firebase.auth()
+          .signInWithEmailAndPassword(EMAIL, PASSWORD)
+          .catch((err) => {
+            console.log('firebase sigin failed', err)
+          })
+
+		firebase.auth().onAuthStateChanged((user) => {
+			<Text>{JSON.stringify(user)}</Text>
+		})
+		let rnfbURI = RNFetchBlob.wrap(path)
 		// create Blob from file path
-		AsyncStorage.setItem('path', rnfbURI);
+		Blob
+			.build(rnfbURI, { type : 'image/jpg;'})
+			.then((blob) => {
+			  // upload image using Firebase SDK
+			  var uploadTask= firebase.storage()
+				.ref('images')
+				.child(testImageName)
+				.put(blob, { contentType : 'image/jpg' });
+				uploadTask.on('state_changed', function(snapshot){
+				  // Observe state change events such as progress, pause, and resume
+				  // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+					let progress =(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+					alert("progress");
+					alert(progress);
+				}, function(error) {
+				  alert("error iuploading");
+				}, function() {
+				  // Handle successful uploads on complete
+				  // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+				  var downloadURL = uploadTask.snapshot.downloadURL;
+				  alert("done uploading here is the download URL",downloadURL);
+				  blob.close()
+				});
+			}) 
+    })
+  } */
+   takePicture() {
+  this.camera.capture()
+    .then(({path}) => {
+		// create Blob from file path
+		AsyncStorage.setItem('path', JSON.stringify(path));
 		this.props.navigator.push({
 		component: UploadForm
 		}); 
     })
-  }
+  } 
+/*   takePicture(){
+	  this.camera.capture()
+    .then(({path}) => {
+	  // prepare upload image
+		firebase.auth()
+          .signInWithEmailAndPassword(EMAIL, PASSWORD)
+          .catch((err) => {
+            console.log('firebase sigin failed', err)
+          })
+
+		firebase.auth().onAuthStateChanged((user) => {
+			<Text>{JSON.stringify(user)}</Text>
+		})
+		let rnfbURI = RNFetchBlob.wrap(path)
+		// create Blob from file path
+		Blob
+			.build(rnfbURI, { type : 'image/jpg;'})
+			.then((blob) => {
+			  // upload image using Firebase SDK
+			  var uploadTask= firebase.storage()
+				.ref('images')
+				.child(testImageName)
+				.put(blob, { contentType : 'image/jpg' });
+				uploadTask.on('state_changed', function(snapshot){
+				  // Observe state change events such as progress, pause, and resume
+				  // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+					let progress =(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+					alert("progress");
+					alert(progress);
+				}, function(error) {
+				  alert("error iuploading");
+				}, function() {
+				  // Handle successful uploads on complete
+				  // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+				  var downloadURL = uploadTask.snapshot.downloadURL;
+				  alert("done uploading here is the download URL",downloadURL);
+				  blob.close()
+				});
+			}) 
+	})
+  } */
   startRecording() {
     if (this.camera) {
       this.camera.capture({mode: Camera.constants.CaptureMode.video})

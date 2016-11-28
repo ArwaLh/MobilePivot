@@ -9,8 +9,9 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  ScrollView,
   TextInput,
+  ScrollView,
+  AsyncStorage,
   View
 } from 'react-native';
 
@@ -21,9 +22,12 @@ import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
 
+import firebase from 'firebase';
+import DatePicker from 'react-native-datepicker';
 export default class newPatient extends Component {
 	constructor (props) {
     super(props);
+	this.itemsRef = firebase.database().ref();
     this.state = {
 	loaded:true,
       types1: [{label: 'Régulier', value: 0}, {label: 'Irrégulier', value: 1}],
@@ -38,21 +42,84 @@ export default class newPatient extends Component {
 	  chickenWings: 1.5,
 	  value: 1.0,
 	  selectedItem: undefined,
-         selected1: 'key1',
-         results: {
-         items: []
-                  } 
+      antec_perso: 'oui_antec_perso',
+      antec_fam: 'oui_antec_fam',
+      nbreGrain: 'sup',
+      results: {
+      items: []
+      },
+	  date:"2016-05-25"	  
 	}}
-    onValueChange (value: string) {
+	 componentWillMount(){
+		AsyncStorage.getItem('medecin_username').then((medecin_username) => {
+		  this.setState({
+			username_med: medecin_username,
+			loaded: true
+		  });
+		});
+	}
+    onValueChangePerso (value: string) {
         this.setState({
-            selected1 : value
+            antec_perso : value
+        });
+    }
+	onValueChangeFam (value: string) {
+        this.setState({
+            antec_fam : value
+        });
+    }
+	onValueChangeNbreGrain (value: string) {
+        this.setState({
+			nbreGrain: value
         });
     }
   
-  locatePic(){
-		this.props.navigator.push({
+	locatePic(){
+		let items = [];
+		//ADDING NEW PATIENT
+		//get listStyleTypetasksRef.on('value', (dataSnapshot) => {
+		this.itemsRef.child('medecins').child('patients').on('value', (snap) => {
+
+		  // get children as an array
+
+		  snap.forEach((child) => {
+			items.push({
+			  nom: child.val().nom,
+			  _key: child.key,
+			  prenom: child.val().prenom,
+			  _key: child.key,
+			  date_de_naissance: child.val().date_de_naissance,
+			  _key: child.key,
+			  lieu: child.val().lieu,
+			  _key: child.key,
+			  profession: child.val().profession,
+			  _key: child.key,
+			  antecedents_personnels: child.val().antecedents_personnels,
+			  _key: child.key,
+			  antecedents_familiaux: child.val().antecedents_familiaux,
+			  _key: child.key,
+			  nombre_grain_de_beaute: child.val().nombre_grain_de_beaute,
+			  _key: child.key,
+			});
+		  });
+
+		});
+		let patients=items;
+		let patient_id=this.state.nom_pat.substring(0, 1)+this.state.prenom_pat.substring(0, 1)+patients.length;
+		this.itemsRef.child('medecins/'+this.state.username_med).child('patients/'+patient_id).set({ 
+		nom_pat: this.state.nom_pat, 
+		prenom_pat: this.state.prenom_pat, 
+		date_de_naissance_pat: this.state.dateNaissance_pat, 
+		lieu_pat: this.state.lieu_pat, 
+		profession_pat: this.state.profession_pat, 
+		antecedents_personnels: this.state.antec_perso, 
+		antecedents_familiaux: this.state.antec_fam, 
+		nombre_grain_de_beaute: this.state.nbreGrain, 
+		})
+		alert("sucesss patient added");
+	/* 	this.props.navigator.push({
           component: LocatePic
-        }); 
+        }); */ 
 	}
   goBack() {
 		this.props.navigator.pop();
@@ -64,119 +131,117 @@ export default class newPatient extends Component {
     return ( 
 	<View>
 	<HeaderUp text="Nouveau Patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
-<ScrollView>	
-  <Card>
-    <CardItem style={styles.body2}>
-	 <ListItem>   
-	      <Grid>
-              <Col>
-					<Text style={{width:60, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Nom</Text>
-			  </Col>
-              <Col>
-					 <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-			 </Col> 
-           </Grid>			 
-	  </ListItem>	
-	  <ListItem>   
-	      <Grid>
-              <Col>
-					<Text style={{width:60, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Prénom</Text>
-			  </Col>
-              <Col>
-					 <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-			 </Col> 
-           </Grid>			 
-	  </ListItem> 
-	  <ListItem>   
-	      <Grid>
-              <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Date de naissance</Text>
-			  </Col>
-              <Col>
-			     <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-			 </Col> 
-           </Grid>			 
-	  </ListItem>	
-	  <ListItem>   
-	      <Grid>
-              <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Lieu de résidence</Text>
-			  </Col>
-              <Col>
-					 <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-			 </Col> 
-           </Grid>			 
-	  </ListItem>	 
-	 <ListItem>   
-	      <Grid>
-              <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Profession</Text>
-			  </Col>
-              <Col>
-					 <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-			 </Col> 
-           </Grid>			 
-	  </ListItem> 
-	  <ListItem>   
-	      <Grid>
-              <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Antécédents personnel</Text>
-			  </Col>
-              <Col>
-					 <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-			 </Col> 
-           </Grid>			 
-	  </ListItem>	
-	  <ListItem>   
-	      <Grid>
-              <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Antécédents familiaux </Text>
-			  </Col>
-              <Col>
-					 <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-			 </Col> 
-           </Grid>			 
-	  </ListItem> 
-	<ListItem>
-			<Grid>
-				<Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Nombre de grain de beauté</Text>
-				</Col>
-				<Col>
-					<Picker
-                        iosHeader="Select one"
-                        mode="dropdown"
-                        selectedValue={this.state.selected1}
-                        onValueChange={this.onValueChange.bind(this)}>
-                        <Item label="> 50" value="key0" />
-                        <Item label="< 50" value="key1" />  
-                   </Picker>
-				</Col>
-			</Grid>
+	<ScrollView>
+		<View style={styles.body2}>
+			 <ListItem>   
+				<TextInput
+					style={styles.textinput_new_patinet}
+					placeholderTextColor="#000"
+					onChangeText={(text) => this.setState({nom_pat: text})}
+					value={this.state.nom_pat}
+					placeholder={"Nom"}
+					underlineColorAndroid="#53507c"/>
 			</ListItem>	
-	  
-				
+			<ListItem>   
+				<TextInput
+					style={styles.textinput_new_patinet}
+					placeholderTextColor="#000"
+					onChangeText={(text) => this.setState({prenom_pat: text})}
+					value={this.state.prenom_pat}
+					placeholder={"Prénom"}
+					underlineColorAndroid="#53507c"/>		 
+			</ListItem> 
+			<ListItem>
+				 <Grid>
+					  <Col>
+						<Text style={{ fontFamily: 'Roboto', fontSize:15,color:'black', marginTop:10}}>Antécédents personnel</Text>
+					  </Col>
+					  <Col>
+					  	<DatePicker
+							startY={1900}
+							endY={2022}
+							startM={1}
+							startD={Monday}
+							/>
+					  </Col>
+				 </Grid>
+			</ListItem>	
+			<ListItem>   
+				<TextInput
+					style={styles.textinput_new_patinet}
+					placeholderTextColor="#000"
+					onChangeText={(text) => this.setState({lieu_pat: text})}
+					value={this.state.lieu_pat}
+					placeholder={"Lieu de résidence"}
+					underlineColorAndroid="#53507c"/>		 
+			</ListItem>	 
+			<ListItem>   
+				<TextInput
+					style={styles.textinput_new_patinet}
+					placeholderTextColor="#000"
+					onChangeText={(text) => this.setState({profession_pat: text})}
+					value={this.state.profession_pat}
+					placeholder={"Profession"}
+					underlineColorAndroid="#53507c"/> 		 
+			  </ListItem> 
+			  <ListItem>   
+				  <Grid>
+					  <Col>
+							<Text style={{width:160, fontFamily: 'Roboto', fontSize:15,color:'black', marginTop:10}}>Antécédents personnel</Text>
+					  </Col>
+					  <Col style={{marginLeft:150}}>
+							<Picker
+								iosHeader="Select one"
+								mode="dropdown"
+								selectedValue={this.state.antec_perso}
+								onValueChange={this.onValueChangePerso.bind(this)}>
+								<Item label="oui" value="oui_antec_perso" />
+								<Item label="non" value="non_antec_perso" />  
+						   </Picker>
+					 </Col> 
+				   </Grid>			 
+			  </ListItem>	
+			  <ListItem>   
+				  <Grid>
+					  <Col>
+							<Text style={{width:160, fontFamily: 'Roboto', fontSize:15,color:'black', marginTop:10}}>Antécédents familiaux </Text>
+					  </Col>
+					  <Col style={{marginLeft:150}}>
+							 <Picker
+								iosHeader="Select one"
+								mode="dropdown"
+								selectedValue={this.state.antec_fam}
+								onValueChange={this.onValueChangeFam.bind(this)}>
+								<Item label="oui" value="oui_antec_fam" />
+								<Item label="non" value="non_antec_fam" />  
+						   </Picker>
+					 </Col> 
+				   </Grid>			 
+			</ListItem> 
+			<ListItem>
+				<Grid>
+					<Col>
+						<Text style={{width:160, fontFamily: 'Roboto', fontSize:15,color:'black', marginTop:10}}>Nombre de grain de beauté</Text>
+					</Col>
+					<Col style={{marginLeft:140}}>
+						<Picker
+							style={{width:100}}
+							iosHeader="Select one"
+							mode="dropdown"
+							selectedValue={this.state.nbreGrain}
+							onValueChange={this.onValueChangeNbreGrain.bind(this)}>
+							<Item label="> 50" value="sup" />
+							<Item label="< 50" value="inf" />  
+						</Picker>
+					</Col>
+				</Grid>
+			</ListItem>	
 			<Button
 				onPress={this.locatePic.bind(this)}
-				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:80,marginBottom:50,alignItems:'center'}}
-				textStyle={{fontSize: 14, color:'#fff'}}>Localiser le grain de beauté</Button>
-     </CardItem>
-  </Card>
-</ScrollView>   
+				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:80,marginBottom:50,marginTop:30,alignItems:'center'}}
+				textStyle={{fontSize: 14, color:'#fff',fontFamily: 'Roboto'}}>Localiser le grain de beauté</Button>
+		</View>
+	</ScrollView>   
 	</View>
     );
   }

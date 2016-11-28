@@ -49,7 +49,9 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
 	fontSize: 18,
 	fontWeight: 'bold',
-	marginLeft: 0
+	fontFamily: 'Roboto',
+	marginLeft: 5
+
   }
 });
 

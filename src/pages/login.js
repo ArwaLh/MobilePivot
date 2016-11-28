@@ -29,9 +29,9 @@ export default class login extends Component {
 
   constructor(props){
     super(props);
-
+	this.itemsRef = firebase.database().ref('medecins');
     this.state = {
-      email: '',
+      email_medecin: '',
       password: '',
       loaded: true
     }
@@ -45,9 +45,9 @@ export default class login extends Component {
         <View style={styles.body}>
           <TextInput
             style={styles.textinput}
-            onChangeText={(text) => this.setState({email: text})}
-            value={this.state.email}
-            placeholder={"Adresse e-mail"}
+            onChangeText={(text) => this.setState({email_medecin: text})}
+            value={this.state.email_medecin}
+            placeholder={"E-mail"}
 			underlineColorAndroid="black"
           />
           <TextInput
@@ -58,11 +58,19 @@ export default class login extends Component {
             placeholder={"Mot de passe"}
 			underlineColorAndroid="black"
           />
+			<Button transparent onPress={this.props.onpress}>
+				<Icon name="eye" size={40} style={{color: '#000', fontSize: 18, width:40}}/>
+			</Button>
+		  <ButtonS
+            text="Créer un compte"
+            onpress={this.goToSignup.bind(this)}
+            button_styles={styles.transparent_button}
+            button_text_styles={styles.transparent_button_text} />
 		  <Button
 			onPress={this.login.bind(this)}
-			style={styles.primary_button}
-			textStyle={styles.primary_button_text}
-		  >Connexion</Button>
+			style={{borderColor: "#fff",width:200,height:40,marginLeft:130}}
+			textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}
+			bordered>Connexion</Button>
 		  <Text style={{marginBottom:15}}></Text>
 		  <LoginButton
           publishPermissions={["publish_actions"]}
@@ -86,13 +94,7 @@ export default class login extends Component {
             }
           }
           onLogoutFinished={() => alert("User logged out")}
-		  s/>
-		  <Text style={{marginBottom:5}}></Text>
-          <ButtonS
-            text="Créer un compte"
-            onpress={this.goToSignup.bind(this)}
-            button_styles={styles.transparent_button}
-            button_text_styles={styles.transparent_button_text} />
+		  />
         </View>
       </View>
     );
@@ -103,8 +105,11 @@ export default class login extends Component {
     this.setState({
       loaded: false
     });
-    firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password).then((user_data) =>{
-
+    firebase.auth().signInWithEmailAndPassword(this.state.email_medecin,this.state.password).then((user_data) =>{
+		this.itemsRef.orderByChild('email_medecin').equalTo(this.state.email_medecin).on("child_added", function(snapshot) {
+			AsyncStorage.setItem('medecin_username', snapshot.key);
+			alert(snapshot.key);
+		});
 		alert('Login success');
         AsyncStorage.setItem('user_data', JSON.stringify(user_data));
         this.props.navigator.push({
