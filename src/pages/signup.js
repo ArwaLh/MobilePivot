@@ -88,7 +88,8 @@ export default class signup extends Component {
                 onChangeText={(text) => this.setState({email_medecin: text})}
                 value={this.state.email_medecin}
 				placeholder={"Adresse e-mail"}
-				underlineColorAndroid="#53507c"
+				underlineColorAndroid="#fff"
+				placeholderTextColor="#fff"
             />
 			<TextInput
 				style={styles.textinput}
@@ -96,7 +97,8 @@ export default class signup extends Component {
 				value={this.state.password}
 				secureTextEntry={true}
 				placeholder={"Mot de passe"}
-				underlineColorAndroid="#53507c"
+				underlineColorAndroid="#fff"
+				placeholderTextColor="#fff"
 			/>
 			<TextInput
 				style={styles.textinput}
@@ -104,19 +106,21 @@ export default class signup extends Component {
 				value={this.state.confirm_password}
 				secureTextEntry={true}
 				placeholder={"Confirm password"}
-				underlineColorAndroid="#53507c"
+				underlineColorAndroid="#fff"
+				placeholderTextColor="#fff"
 			/>
 			<TextInput
 				style={styles.textinput}
 				onChangeText={(text) => this.setState({adresse_cabinet: text})}
 				value={this.state.adresse_cabinet}
 				placeholder={"Adresse du cabinet"}
-				underlineColorAndroid="#53507c"
+				underlineColorAndroid="#fff"
+				placeholderTextColor="#fff"
 			/>
 			<Button
 				onPress={this.signup.bind(this)}
 				style={styles.primary_button}
-				textStyle={styles.primary_button_text}>S'inscrire</Button>
+				textStyle={styles.primary_button_text} b>S'inscrire</Button>
         </View>
       </View>
     );

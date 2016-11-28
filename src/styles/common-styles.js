@@ -7,7 +7,7 @@ let height_im= window.height-150;
 module.exports = StyleSheet.create({
   container: {
     flex: 1,
-	backgroundColor: '#fff'
+	backgroundColor: '#53507c'
   },
   body: {
     flex: 9,
@@ -23,10 +23,10 @@ module.exports = StyleSheet.create({
   },
   textinput: {
     height: 40,
-	width: 250,
+	width: 350,
 	marginTop: 0,
-	margin: 10,
-	color: "#000",
+	margin: 30,
+	color: "#fff",
 	fontFamily: 'Roboto',
   },
   textinput_new_patinet: {

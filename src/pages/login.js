@@ -41,14 +41,15 @@ export default class login extends Component {
   render(){
     return (
       <View style={styles.container}>
-	  <Header text="KatoMobile" loaded={this.state.loaded}/>
+	  <Header text="" loaded={this.state.loaded}/>
         <View style={styles.body}>
           <TextInput
             style={styles.textinput}
             onChangeText={(text) => this.setState({email_medecin: text})}
             value={this.state.email_medecin}
-            placeholder={"Adresse e-mail"}
-			underlineColorAndroid="black"
+            placeholder={"E-mail"}
+			underlineColorAndroid="white"
+			placeholderTextColor="#fff"
           />
           <TextInput
             style={styles.textinput}
@@ -56,13 +57,19 @@ export default class login extends Component {
             value={this.state.password}
             secureTextEntry={true}
             placeholder={"Mot de passe"}
-			underlineColorAndroid="black"
+			underlineColorAndroid="white"
+			placeholderTextColor="#fff"
           />
+		  <ButtonS
+            text="Créer un compte"
+            onpress={this.goToSignup.bind(this)}
+            button_styles={styles.transparent_button}
+            button_text_styles={styles.transparent_button_text} />
 		  <Button
 			onPress={this.login.bind(this)}
 			style={styles.primary_button}
 			textStyle={styles.primary_button_text}
-		  >Connexion</Button>
+		  borderd>CONNEXION</Button>
 		  <Text style={{marginBottom:15}}></Text>
 		  <LoginButton
           publishPermissions={["publish_actions"]}
@@ -88,11 +95,6 @@ export default class login extends Component {
           onLogoutFinished={() => alert("User logged out")}
 		  s/>
 		  <Text style={{marginBottom:5}}></Text>
-          <ButtonS
-            text="Créer un compte"
-            onpress={this.goToSignup.bind(this)}
-            button_styles={styles.transparent_button}
-            button_text_styles={styles.transparent_button_text} />
         </View>
       </View>
     );
