@@ -45,6 +45,21 @@ module.exports = StyleSheet.create({
     padding: 15,
     backgroundColor: '#29235c',
   },
+    primary_button_ajout_patient: {
+	width: 250,
+	height: 40,
+    margin: 10,
+	marginTop: 25,
+	marginBottom: 15,
+	marginLeft: 43,
+    padding: 15,
+    backgroundColor: '#29235c',
+  },
+   primary_button_text_ajout_patient: {
+    color: '#ffffff',
+    fontSize: 13,
+	textAlign: "center",
+  },
   primary_button_oui: {
 	width: 80,
 	height: 40,

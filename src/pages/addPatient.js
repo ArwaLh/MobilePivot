@@ -52,20 +52,54 @@ export default class addPatient extends Component {
 	<View>
 	<HeaderUp text="Gestion des patients" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView> 
-		 <View>
+		 <View style={{margin:7, marginTop:30}}>
 		 <List>
-		
 		 <ListItem>
 		   <Grid>
-		      <Col><Icon name="search" /></Col>
+		   <Row>
+		      <Col style={{width:30, marginTop:5}}><Icon name="plus-circle" style={{color:'#29235c', fontSize:20}}  /></Col>
 			    <Col>
 					<Text style={{width:220, fontFamily: 'Roboto', fontSize:18, color:'#29235c'}}>Ajouter un patient</Text>
 				</Col>
-			</Grid> 
+			</Row>
+			
+			<Row>
+				<Text style={{ fontFamily: 'Roboto', fontSize:12, color:'#696969', marginTop:10}}>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis ligula non odio gravida pharetra quis in eros. Vestibulum arcu velit, facilisis ut tincidunt id, luctus ut justo.</Text>
+			</Row>
+			<Row>
+					<Button
+					style={styles.primary_button_ajout_patient}
+					textStyle={styles.primary_button_text_ajout_patient}>AJOUTER UN NOUVEAU PATIENT</Button>
+			</Row>
+			</Grid>
 		 </ListItem>
-		  
 		  </List>	
 	  </View>	
+	   <View style={{margin:7, marginTop:15}}>
+		 <List>
+		 <ListItem>
+		   <Grid>
+		   <Row>
+		      <Col style={{width:30, marginTop:5}}><Icon name="edit" style={{color:'#29235c', fontSize:20}}  /></Col>
+			    <Col>
+					<Text style={{width:250, fontFamily: 'Roboto', fontSize:18, color:'#29235c'}}>Modifier la fiche patient</Text>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Text style={{ fontFamily: 'Roboto', fontSize:12, color:'#696969', marginTop:10}}>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis ligula non odio gravida pharetra quis in eros. Vestibulum arcu velit, facilisis ut tincidunt id, luctus ut justo.</Text>
+			</Row>
+			<Row>
+					<Button
+					style={styles.primary_button_ajout_patient}
+					textStyle={styles.primary_button_text_ajout_patient}>MODIFIER LA FICHE PATIENT</Button>
+			</Row>
+			</Grid>
+		 </ListItem>
+		  </List>	
+	  </View>
 
     </ScrollView>
      </View>
