@@ -132,8 +132,7 @@ export default class newPatient extends Component {
 	<View>
 	<HeaderUp text="Nouveau Patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
-		<View style={styles.body2}>
-			 <ListItem>   
+		<View style={styles.body2}>  
 				<TextInput
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#000"
@@ -141,8 +140,7 @@ export default class newPatient extends Component {
 					value={this.state.nom_pat}
 					placeholder={"Nom"}
 					underlineColorAndroid="#53507c"/>
-			</ListItem>	
-			<ListItem>   
+   
 				<TextInput
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#000"
@@ -150,23 +148,19 @@ export default class newPatient extends Component {
 					value={this.state.prenom_pat}
 					placeholder={"Prénom"}
 					underlineColorAndroid="#53507c"/>		 
-			</ListItem> 
-			<ListItem>
 				 <Grid>
 					  <Col>
-						<Text style={{ fontFamily: 'Roboto', fontSize:15,color:'black', marginTop:10}}>Antécédents personnel</Text>
+						<Text style={{ fontFamily: 'Roboto', fontSize:15,color:'#29235c', marginTop:10}}>Date de naissance</Text>
 					  </Col>
 					  <Col>
 					  	<DatePicker
 							startY={1900}
 							endY={2022}
 							startM={1}
-							startD={Monday}
+							
 							/>
 					  </Col>
-				 </Grid>
-			</ListItem>	
-			<ListItem>   
+				 </Grid>  
 				<TextInput
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#000"
@@ -174,8 +168,6 @@ export default class newPatient extends Component {
 					value={this.state.lieu_pat}
 					placeholder={"Lieu de résidence"}
 					underlineColorAndroid="#53507c"/>		 
-			</ListItem>	 
-			<ListItem>   
 				<TextInput
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#000"
@@ -183,8 +175,7 @@ export default class newPatient extends Component {
 					value={this.state.profession_pat}
 					placeholder={"Profession"}
 					underlineColorAndroid="#53507c"/> 		 
-			  </ListItem> 
-			  <ListItem>   
+
 				  <Grid>
 					  <Col>
 							<Text style={{width:160, fontFamily: 'Roboto', fontSize:15,color:'black', marginTop:10}}>Antécédents personnel</Text>
@@ -200,11 +191,9 @@ export default class newPatient extends Component {
 						   </Picker>
 					 </Col> 
 				   </Grid>			 
-			  </ListItem>	
-			  <ListItem>   
 				  <Grid>
 					  <Col>
-							<Text style={{width:160, fontFamily: 'Roboto', fontSize:15,color:'black', marginTop:10}}>Antécédents familiaux </Text>
+							<Text style={{width:200, fontFamily: 'Roboto', fontSize:15,color:'#29235c', marginTop:10}}>Antécédents familiaux </Text>
 					  </Col>
 					  <Col style={{marginLeft:150}}>
 							 <Picker
@@ -217,11 +206,9 @@ export default class newPatient extends Component {
 						   </Picker>
 					 </Col> 
 				   </Grid>			 
-			</ListItem> 
-			<ListItem>
 				<Grid>
 					<Col>
-						<Text style={{width:160, fontFamily: 'Roboto', fontSize:15,color:'black', marginTop:10}}>Nombre de grain de beauté</Text>
+						<Text style={{width:250, fontFamily: 'Roboto', fontSize:15,color:'#29235c', marginTop:10}}>Nombre de grain de beauté</Text>
 					</Col>
 					<Col style={{marginLeft:140}}>
 						<Picker
@@ -235,7 +222,7 @@ export default class newPatient extends Component {
 						</Picker>
 					</Col>
 				</Grid>
-			</ListItem>	
+			
 			<Button
 				onPress={this.locatePic.bind(this)}
 				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:80,marginBottom:50,marginTop:30,alignItems:'center'}}
@@ -274,6 +261,14 @@ const styles = StyleSheet.create({
   radioButtonWrap: {
     marginRight: 30,
 	
+  },
+  textinput_new_patinet: {
+    height: 50,
+	width: 280,
+	color: "#29235c",
+	fontFamily: 'Roboto',
+	fontSize: 17,
+	margin: 10
   },
   title_upload:{
 	  color:"#fff",

@@ -33,12 +33,12 @@ export default class addPatient extends Component {
 		  loaded: true
 		}
 	}
-	oui(){
+	ajoutPat(){
 		this.props.navigator.push({
           component: NewPatient
         });
 	}
-	non(){
+	modPat(){
 		this.props.navigator.push({
           component: UpdatePatient
         }); 
@@ -69,6 +69,7 @@ export default class addPatient extends Component {
 			</Row>
 			<Row>
 					<Button
+					onPress={this.ajoutPat.bind(this)}
 					style={styles.primary_button_ajout_patient}
 					textStyle={styles.primary_button_text_ajout_patient}>AJOUTER UN NOUVEAU PATIENT</Button>
 			</Row>
@@ -93,6 +94,7 @@ export default class addPatient extends Component {
 			</Row>
 			<Row>
 					<Button
+					onPress={this.modPat.bind(this)}
 					style={styles.primary_button_ajout_patient}
 					textStyle={styles.primary_button_text_ajout_patient}>MODIFIER LA FICHE PATIENT</Button>
 			</Row>
