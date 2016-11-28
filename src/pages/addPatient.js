@@ -19,12 +19,13 @@ import HeaderOther from '../components/headerOther';
 import HeaderUp from '../components/headerUp';
 import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
-import {InputGroup, Input, Button, Card, CardItem, Header, Icon} from 'native-base';
+import {InputGroup, Input, Button, Card, CardItem, Header, List, ListItem} from 'native-base';
 
 import UploadForm from './uploadForm';
 import NewPatient from './newPatient';
 import LocatePic from './locatePic';
 import UpdatePatient from './updatePatient';
+import Icon from 'react-native-vector-icons/FontAwesome'; 
 export default class addPatient extends Component {
 	constructor(props){
     super(props);
@@ -49,32 +50,57 @@ export default class addPatient extends Component {
   render() {
     return (
 	<View>
-	<HeaderUp text="Ajouter Patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
-	<ScrollView>  
-		<Card style={styles.body2}>
-			<CardItem style={{height:100}}>
-				<Text style={{fontFamily: 'Arial', fontSize:20,color:'black',textAlign: 'center'}}>
-				Voulez vous ajouter un nouveau patient?
-				</Text>
-            </CardItem>
-			<CardItem style={{flexDirection:'row', flexWrap:'wrap',height:100}}>
-			<Grid>
-				<Col>
-					<Button
-						onPress={this.oui.bind(this)}
-						style={styles.primary_button_oui}
-						textStyle={styles.primary_button_text}>OUI</Button>
+	<HeaderUp text="Gestion des patients" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<ScrollView> 
+		 <View style={{margin:7, marginTop:30}}>
+		 <List>
+		 <ListItem>
+		   <Grid>
+		   <Row>
+		      <Col style={{width:30, marginTop:5}}><Icon name="plus-circle" style={{color:'#29235c', fontSize:20}}  /></Col>
+			    <Col>
+					<Text style={{width:220, fontFamily: 'Roboto', fontSize:18, color:'#29235c'}}>Ajouter un patient</Text>
 				</Col>
-				<Col>
+			</Row>
+			
+			<Row>
+				<Text style={{ fontFamily: 'Roboto', fontSize:12, color:'#696969', marginTop:10}}>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis ligula non odio gravida pharetra quis in eros. Vestibulum arcu velit, facilisis ut tincidunt id, luctus ut justo.</Text>
+			</Row>
+			<Row>
 					<Button
-						onPress={this.non.bind(this)}
-						style={styles.primary_button_non}
-						textStyle={styles.primary_button_text}>NON</Button>
-		  		</Col>
+					style={styles.primary_button_ajout_patient}
+					textStyle={styles.primary_button_text_ajout_patient}>AJOUTER UN NOUVEAU PATIENT</Button>
+			</Row>
 			</Grid>
-            </CardItem>
-        </Card>
-		
+		 </ListItem>
+		  </List>	
+	  </View>	
+	   <View style={{margin:7, marginTop:15}}>
+		 <List>
+		 <ListItem>
+		   <Grid>
+		   <Row>
+		      <Col style={{width:30, marginTop:5}}><Icon name="edit" style={{color:'#29235c', fontSize:20}}  /></Col>
+			    <Col>
+					<Text style={{width:250, fontFamily: 'Roboto', fontSize:18, color:'#29235c'}}>Modifier la fiche patient</Text>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Text style={{ fontFamily: 'Roboto', fontSize:12, color:'#696969', marginTop:10}}>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis ligula non odio gravida pharetra quis in eros. Vestibulum arcu velit, facilisis ut tincidunt id, luctus ut justo.</Text>
+			</Row>
+			<Row>
+					<Button
+					style={styles.primary_button_ajout_patient}
+					textStyle={styles.primary_button_text_ajout_patient}>MODIFIER LA FICHE PATIENT</Button>
+			</Row>
+			</Grid>
+		 </ListItem>
+		  </List>	
+	  </View>
+
     </ScrollView>
      </View>
     );
