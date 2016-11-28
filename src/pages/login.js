@@ -62,7 +62,7 @@ export default class login extends Component {
 				underlineColorAndroid="white"
 				inlineImagePadding={0}
 			  />
-			<Button transparent onPress={this.props.onpress} style={{width: 50,margin:0}}>
+			<Button transparent onPress={this.props.onpress} style={{width: 20,margin:0,padding:0,margin:0}}>
 				<Icon name="eye" size={40} style={{color: '#fff', fontSize: 18, width:20,margin:0,padding:0}}/>
 			</Button>
 		  </View>
