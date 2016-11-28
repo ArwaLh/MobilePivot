@@ -6,34 +6,28 @@ import {
   AsyncStorage,
   View
 } from 'react-native';
-
 import ButtonS from '../components/button';
 import Header from '../components/header';
 
 import Login from './login';
-
 import styles from '../styles/common-styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {InputGroup, Input, Button} from 'native-base';
 import firebase from 'firebase';
 export default class signup extends Component {
-
   constructor(props){
     super(props);
 	this.itemsRef = firebase.database().ref();
-
     this.state = {
       loaded: true,
       email_medecin: '',
       confirm_password: '',
       password: '',
-      adresse_cabinet: ''
+	  secureTextEntry: true,
+	  secureText: true,
     };
-
   }
-
   signup(){
-
     this.setState({
       loaded: false
     });
@@ -65,19 +59,15 @@ export default class signup extends Component {
     }).catch((error)=>{
 		  alert(error.message);
 		});
-	
       this.setState({
         loaded: true
       });
-
   }
-
   goToLogin(){
     this.props.navigator.push({
       component: Login
     });
   }
-
   render() {
     return (
     <View style={styles.container}>
@@ -89,33 +79,32 @@ export default class signup extends Component {
                 value={this.state.email_medecin}
 				placeholder={"E-mail"}
 				placeholderTextColor="#fff"
-				underlineColorAndroid="#fff"
-            />
+				underlineColorAndroid="#fff"/>
 			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
 				<TextInput
+					ref="password"
 					style={styles.textinput_mdp}
 					onChangeText={(text) => this.setState({password: text})}
 					value={this.state.password}
-					secureTextEntry={true}
+					secureTextEntry={this.state.secureTextEntry}
 					placeholder={"Mot de passe"}
 					placeholderTextColor="#fff"
-					underlineColorAndroid="#fff"
-				/>
-				<Button transparent onPress={this.show_new_mdp.bind(this)} style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
+					underlineColorAndroid="#fff"/>
+				<Button transparent onPress={(password) => this.setState({secureTextEntry: false})} style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
 					<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
 				</Button>
 			</View>
 			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
 				<TextInput
+					ref="confirm_password"
 					style={styles.textinput_mdp}
 					onChangeText={(text) => this.setState({confirm_password: text})}
 					value={this.state.confirm_password}
-					secureTextEntry={true}
+					secureTextEntry={this.state.secureTextEntry}
 					placeholder={"Confirmez le mot de passe"}
 					placeholderTextColor="#fff"
-					underlineColorAndroid="#fff"
-				/>
-				<Button transparent onPress={this.show_confirm_mdp.bind(this)} style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
+					underlineColorAndroid="#fff"/>
+				<Button transparent onPress={(confirm_password) => this.setState({secureText: false})} style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
 					<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
 				</Button>
 			</View>
