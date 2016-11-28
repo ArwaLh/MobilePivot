@@ -101,8 +101,8 @@ export default class signup extends Component {
 					placeholderTextColor="#fff"
 					underlineColorAndroid="#fff"
 				/>
-				<Button transparent onPress={this.props.onpress} style={{width: 50,margin:0}}>
-					<Icon name="eye" size={40} style={{color: '#fff', fontSize: 18, width:20,margin:0,padding:0}}/>
+				<Button transparent onPress={this.show_new_mdp.bind(this)} style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
+					<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
 				</Button>
 			</View>
 			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
@@ -115,8 +115,8 @@ export default class signup extends Component {
 					placeholderTextColor="#fff"
 					underlineColorAndroid="#fff"
 				/>
-				<Button transparent onPress={this.props.onpress} style={{width: 50,margin:0}}>
-					<Icon name="eye" size={40} style={{color: '#fff', fontSize: 18, width:20,margin:0,padding:0}}/>
+				<Button transparent onPress={this.show_confirm_mdp.bind(this)} style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
+					<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
 				</Button>
 			</View>
 			<Button
