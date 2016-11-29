@@ -7,12 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.facebook.FacebookSdk;
 import com.facebook.CallbackManager;
-
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.appevents.AppEventsLogger;
-
-import com.cboy.rn.splashscreen.SplashScreen;
 
 public class MainActivity extends ReactActivity {
     CallbackManager mCallbackManager =
