@@ -8,7 +8,6 @@ import android.os.Bundle;
 import com.facebook.FacebookSdk;
 import com.facebook.CallbackManager;
 
-import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.appevents.AppEventsLogger;
@@ -35,7 +34,6 @@ public class MainActivity extends ReactActivity {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-		SplashScreen.show(this);  // here
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
     }

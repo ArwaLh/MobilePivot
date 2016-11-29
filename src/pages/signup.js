@@ -4,6 +4,7 @@ import {
   Text,
   TextInput,
   AsyncStorage,
+  TouchableOpacity,
   View
 } from 'react-native';
 import ButtonS from '../components/button';
@@ -25,6 +26,8 @@ export default class signup extends Component {
       password: '',
 	  secureTextEntry: true,
 	  secureText: true,
+	  count_pass: 0,
+	  count_conf_pass: 0,
     };
   }
   signup(){
@@ -90,9 +93,16 @@ export default class signup extends Component {
 					placeholder={"Mot de passe"}
 					placeholderTextColor="#fff"
 					underlineColorAndroid="#fff"/>
-				<Button transparent onPress={(password) => this.setState({secureTextEntry: false})} style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
+				<TouchableOpacity onPress={(password) =>{
+					if(this.state.count_pass==0){
+						this.setState({secureTextEntry: false,count_pass:1});
+					}else{
+						this.setState({secureTextEntry: true,count_pass:0});
+					}
+					}} 
+					style={{width: 35,margin:0,padding:0,marginBottom:0,height:20,marginTop:30}}>
 					<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
-				</Button>
+				</TouchableOpacity >
 			</View>
 			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
 				<TextInput
@@ -100,13 +110,20 @@ export default class signup extends Component {
 					style={styles.textinput_mdp}
 					onChangeText={(text) => this.setState({confirm_password: text})}
 					value={this.state.confirm_password}
-					secureTextEntry={this.state.secureTextEntry}
+					secureTextEntry={this.state.secureText}
 					placeholder={"Confirmez le mot de passe"}
 					placeholderTextColor="#fff"
 					underlineColorAndroid="#fff"/>
-				<Button transparent onPress={(confirm_password) => this.setState({secureText: false})} style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
+				<TouchableOpacity onPress={(confirm_password) =>{
+					if(this.state.count_conf_pass==0){
+						this.setState({secureText: false,count_conf_pass:1});
+					}else{
+						this.setState({secureText: true,count_conf_pass:0});
+					}
+					}} 
+					style={{width: 35,margin:0,padding:0,marginBottom:0,height:20,marginTop:30}}>
 					<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
-				</Button>
+				</TouchableOpacity>
 			</View>
 			<Button
 				onPress={this.signup.bind(this)}
