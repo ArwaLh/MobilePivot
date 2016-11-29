@@ -24,13 +24,13 @@ module.exports = StyleSheet.create({
   },
   textinput: {
     height: 40,
-	width: 250,
+	width: 350,
 	marginTop: 0,
 	color: "#000",
   }, 
   textinput_email: {
     height: 50,
-	width: 300,
+	width: 270,
 	marginTop: 10,
 	marginBottom: 10,
 	color: "#fff",
@@ -39,10 +39,10 @@ module.exports = StyleSheet.create({
   },
   textinput_mdp: {
     height: 50,
-	width: 280,
+	width: 270,
 	marginTop: 10,
 	marginBottom: 10,
-	marginLeft: 22,
+	marginLeft: 30,
 	color: "#fff",
 	fontFamily: 'Roboto',
 	fontSize: 18,

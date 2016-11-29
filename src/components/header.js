@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 
 import GiftedSpinner from 'react-native-gifted-spinner';
-
+import {Button} from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 export default class header extends Component {
 
   render(){
@@ -49,7 +50,12 @@ const styles = StyleSheet.create({
 	fontSize: 45,
     margin: 30,
 	textAlign: 'center'
-  }
+  },
+  image: {
+    width:150,
+    height:50,
+    flex: 1
+  },
 });
 
 AppRegistry.registerComponent('header', () => header);

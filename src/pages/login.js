@@ -33,9 +33,14 @@ export default class login extends Component {
     this.state = {
       email_medecin: '',
       password: '',
-      loaded: true
+      loaded: true,
+	  secureTextEntry: true
     }
 
+  }
+  show_mdp(){
+	 alert("show password pressed");
+	 this.setState({secureTextEntry: true});
   }
 
   render(){
@@ -53,17 +58,18 @@ export default class login extends Component {
           />
 		  <View style={{flexDirection:'row', flexWrap:'wrap'}}>
 			  <TextInput
+				ref="password"
 				style={styles.textinput_mdp}
 				onChangeText={(text) => this.setState({password: text})}
 				value={this.state.password}
-				secureTextEntry={true}
+				secureTextEntry={this.state.secureTextEntry}
 				placeholder={"Mot de passe"}
 				placeholderTextColor="#fff"
 				underlineColorAndroid="white"
 				inlineImagePadding={0}
 			  />
-			<Button transparent onPress={this.props.onpress} style={{width: 20,margin:0,padding:0,margin:0}}>
-				<Icon name="eye" size={40} style={{color: '#fff', fontSize: 18, width:20,margin:0,padding:0}}/>
+			<Button transparent onPress={(password) => this.setState({secureTextEntry: false})} style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
+				<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
 			</Button>
 		  </View>
 		  <Text style={{marginBottom:15}}></Text>
