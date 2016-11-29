@@ -130,12 +130,12 @@ export default class newPatient extends Component {
   render() {
     return ( 
 	<View>
-	<HeaderUp text="Nouveau Patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text="1/4 Nouveau Patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
 		<View style={styles.body2}>  
 				<TextInput
 					style={styles.textinput_new_patinet}
-					placeholderTextColor="#000"
+					placeholderTextColor="#29235c"
 					onChangeText={(text) => this.setState({nom_pat: text})}
 					value={this.state.nom_pat}
 					placeholder={"Nom"}
@@ -143,14 +143,14 @@ export default class newPatient extends Component {
    
 				<TextInput
 					style={styles.textinput_new_patinet}
-					placeholderTextColor="#000"
+					placeholderTextColor="#29235c"
 					onChangeText={(text) => this.setState({prenom_pat: text})}
 					value={this.state.prenom_pat}
 					placeholder={"Prénom"}
 					underlineColorAndroid="#53507c"/>		 
 				 <Grid>
 					  <Col>
-						<Text style={{ fontFamily: 'Roboto', fontSize:15,color:'#29235c', marginTop:10}}>Date de naissance</Text>
+						<Text style={styles.date_de_naissance}>Date de naissance</Text>
 					  </Col>
 					  <Col>
 					  	<DatePicker
@@ -163,22 +163,30 @@ export default class newPatient extends Component {
 				 </Grid>  
 				<TextInput
 					style={styles.textinput_new_patinet}
-					placeholderTextColor="#000"
+					placeholderTextColor="#29235c"
 					onChangeText={(text) => this.setState({lieu_pat: text})}
 					value={this.state.lieu_pat}
 					placeholder={"Lieu de résidence"}
-					underlineColorAndroid="#53507c"/>		 
+					underlineColorAndroid="#29235c"/>		 
 				<TextInput
 					style={styles.textinput_new_patinet}
-					placeholderTextColor="#000"
+					placeholderTextColor="#29235c"
 					onChangeText={(text) => this.setState({profession_pat: text})}
 					value={this.state.profession_pat}
 					placeholder={"Profession"}
-					underlineColorAndroid="#53507c"/> 		 
+					underlineColorAndroid="#29235c"/> 	
+					
+				<TextInput
+					style={styles.textinput_new_patinet}
+					placeholderTextColor="#29235c"
+					keyboardType = 'numeric'
+					placeholder={"Téléphone"}
+					maxLength = {20}
+					underlineColorAndroid="#53507c"/>	
 
 				  <Grid>
 					  <Col>
-							<Text style={{width:160, fontFamily: 'Roboto', fontSize:15,color:'black', marginTop:10}}>Antécédents personnel</Text>
+							<Text style={styles.a_a_n}>Antécédents personnel</Text>
 					  </Col>
 					  <Col style={{marginLeft:150}}>
 							<Picker
@@ -193,7 +201,7 @@ export default class newPatient extends Component {
 				   </Grid>			 
 				  <Grid>
 					  <Col>
-							<Text style={{width:200, fontFamily: 'Roboto', fontSize:15,color:'#29235c', marginTop:10}}>Antécédents familiaux </Text>
+							<Text style={styles.a_a_n}>Antécédents familiaux </Text>
 					  </Col>
 					  <Col style={{marginLeft:150}}>
 							 <Picker
@@ -208,11 +216,11 @@ export default class newPatient extends Component {
 				   </Grid>			 
 				<Grid>
 					<Col>
-						<Text style={{width:250, fontFamily: 'Roboto', fontSize:15,color:'#29235c', marginTop:10}}>Nombre de grain de beauté</Text>
+						<Text style={styles.a_a_n}>Nombre de grain de beauté</Text>
 					</Col>
 					<Col style={{marginLeft:140}}>
 						<Picker
-							style={{width:100}}
+							style={{width:110}}
 							iosHeader="Select one"
 							mode="dropdown"
 							selectedValue={this.state.nbreGrain}
@@ -225,7 +233,7 @@ export default class newPatient extends Component {
 			
 			<Button
 				onPress={this.locatePic.bind(this)}
-				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:80,marginBottom:50,marginTop:30,alignItems:'center'}}
+				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:80,marginBottom:30,marginTop:10,alignItems:'center'}}
 				textStyle={{fontSize: 14, color:'#fff',fontFamily: 'Roboto'}}>Localiser le grain de beauté</Button>
 		</View>
 	</ScrollView>   
@@ -263,12 +271,27 @@ const styles = StyleSheet.create({
 	
   },
   textinput_new_patinet: {
-    height: 50,
-	width: 280,
+    height: 40,
+	width: 340,
 	color: "#29235c",
 	fontFamily: 'Roboto',
 	fontSize: 17,
 	margin: 10
+  },
+  date_de_naissance: {
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
+	marginTop:10,
+	margin:12  
+  },
+  a_a_n: {
+	width:250,
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
+	marginTop:10,
+	margin:12
   },
   title_upload:{
 	  color:"#fff",
