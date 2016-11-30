@@ -32,9 +32,9 @@ export default class updatePatient extends Component {
 		  loaded: true
 		}
 	}
-	locatePic(){
+	uploadP(){
 		this.props.navigator.push({
-          component: LocatePic
+          component: UploadForm
         }); 
 	}
 	goBack() {
@@ -42,24 +42,25 @@ export default class updatePatient extends Component {
 		return true; // do not exit app
 	}	
   render() {
+	  
     return (
    <View>
 	<HeaderUp text="Rechercher un patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
 		<View style={styles.body2}>
-				<Text style={{fontFamily: 'Roboto', fontSize:20,color:'black',textAlign: 'center'}}>
-					Veuillez saisir le nom du patient
+				<Text style={{fontFamily: 'Roboto', fontSize:16,color:'black', marginTop:15}}>
+					  Ajouter et modifier des nouvelles données dans le dossier medical du patient
 				</Text>
 		</View>
 		<View style={{margin:55}}>  
 	         <Grid>
 			    <Col>
 					<InputGroup style={{width: 240}}>
-						 <Input placeholder="Search" />
+						 <Input placeholder="rechercher un patient" />
                     </InputGroup>
 				</Col>
 				<Col>   
-				 <Button transparent style={{width: 200}} >
+				 <Button transparent style={{width: 200}}>
 						<Icon name="search" />
                     </Button>
 				</Col>	
@@ -69,7 +70,7 @@ export default class updatePatient extends Component {
        
 		  
 		<Button
-			onPress={this.locatePic.bind(this)}
+			onPress={this.uploadP.bind(this)}
 			style={styles.primary_button}
 			textStyle={styles.primary_button_text}>Localiser Photo</Button>
 		

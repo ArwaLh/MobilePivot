@@ -55,18 +55,41 @@ export default class uploadForm extends Component {
 		  chickenWings: 1.5,
 		   value: 1.0,
 		selectedItem: undefined,
-         selected1: 'key1',
+         selected1: 'key0',
+		 selected2: 'key3',
+		 selected3: 'key5',
+		 selected4: 'key7',
+		 selected5: 'key24',
          results: {
          items: []
                   } 
 		}
 	}
 	
-	onValueChange (value: string) {
+	onValueChangeBords (value: string) {
         this.setState({
             selected1 : value
 	});}
-
+	
+	onValueChangeCouleur (value: string) {
+			this.setState({
+				selected2 : value
+		});}
+		
+	onValueChangeAsymétrie (value: string) {
+			this.setState({
+				selected3 : value
+		});}
+		
+	onValueChangeDiamètre (value: string) {
+			this.setState({
+				selected4 : value
+		});}
+		
+	onValueChangeEpaisseur (value: string) {
+			this.setState({
+				selected5 : value
+		});}		
 	
 	/*componentWillMount(){
 
@@ -124,152 +147,150 @@ export default class uploadForm extends Component {
   render() {
     return ( 
 	<View>
-	<HeaderUp text="Upload Photo" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text=" 3/4 Upload Photo" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
-		  <List>
 		    <ListItem>
-			 <Image style={{width:322, height: 150}} source={{uri:'http://localhost:8081/img/grain.jpg'}}/>
+			 <Image style={{width:330, height: 160, borderColor: '#29235c', borderWidth:1}} source={{uri:'http://localhost:8081/img/grain.jpg'}}/>
 			</ListItem>
-            <ListItem>
-			<RadioForm
-				formHorizontal={true}
-				animation={true}>
-				<Text style={styles.bords}>Bords</Text>
-				{this.state.types1.map((obj, i) => {
-				  var that = this;
-				  var is_selected = this.state.value1Index == i;
-				  return (
-					<View key={i} style={{marginRight: 25, paddingLeft:39}}>
-					  <RadioButton
-						isSelected={is_selected}
-						obj={obj}
-						index={i}
-						labelHorizontal={false}
-						buttonColor={'#53507c'}
-						buttonSize={10}
-						labelColor={'#000'}
-						onPress={(value, index) => {
-      					  this.setState({value1Index: index});
-						}}
-					  />
-					</View>
-				  )
-				})}
-			</RadioForm>
-			</ListItem>
-            <ListItem>
-			<RadioForm
-				formHorizontal={true}
-				animation={true}>
-				<Text style={styles.couleur}>Couleur</Text>
-				{this.state.types2.map((obj, i) => {
-				  var that = this;
-				  var is_selected = this.state.value2Index == i;
-				  return (
-					<View key={i} style={{marginRight: 30, paddingLeft:20}}>
-					  <RadioButton
-						isSelected={is_selected}
-						obj={obj}
-						index={i}
-						labelHorizontal={false}
-						buttonColor={'#53507c'}
-						buttonSize={10}
-						labelColor={'#000'}
-						onPress={(value, index) => {
-						  this.setState({value2Index: index});
-						}}
-					  />
-					</View>
-				  )
-				})}
-			</RadioForm>
-            </ListItem>
-            <ListItem>
-			<RadioForm
-				formHorizontal={true}
-				animation={true}>
-				<Text style={styles.asymetrie}>Asymétrie</Text>
-				{this.state.types3.map((obj, i) => {
-				var that = this;
-				var is_selected = this.state.value3Index == i;
-				return (
-					<View key={i} style={{paddingLeft:29,marginRight: 60}}>
-					  <RadioButton
-						isSelected={is_selected}
-						obj={obj}
-						index={i}
-						labelHorizontal={false}
-						buttonColor={'#53507c'}
-						buttonSize={10}
-						labelColor={'#000'}
-						onPress={(value, index) => {
-						  this.setState({value3Index: index});
-						}}
-					  />
-					</View>
-				)
-				})}
-			</RadioForm>
-            </ListItem>
-            <ListItem>
-
-			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
-				<Text style={styles.phototypee}>Phototype</Text>
-				<Button
-				    onPress={this.phototypeb.bind(this)}
-					style={{borderColor: "#53507c",width:200,height:40,marginLeft:30}}
-					textStyle={{fontSize: 18, color:'#53507c',fontWeight:"bold"}}
-					bordered>Choisir phototype</Button>
-			</View>
-			</ListItem>
-			<ListItem>
 			<Grid>
-				<Col>
-					<Text style={styles.diametre}>Diamètre</Text>
-				</Col>
-				<Col>
-					<Picker
+			  <Row>
+			<Col>  
+				<Text style={styles.bords}>Bords</Text>
+			</Col>
+			<Col style={{ marginLeft:100}}>	
+					<Picker 
+					    style={{width:130, color:"#29235c" }}
                         iosHeader="Select one"
                         mode="dropdown"
                         selectedValue={this.state.selected1}
-                        onValueChange={this.onValueChange.bind(this)}>  
-								<Item label="0,2" value="key0" />
-								<Item label="1.3" value="key1" />
-								<Item label="2.3 " value="key2" />
-								<Item label="4.3 mm" value="key3" />
-								<Item label="5.2 mm" value="key4" />
-								<Item label="6 mm" value="key5" />	
-								<Item label="0,2" value="key6" />
-								<Item label="1.3" value="key7" />
-								<Item label="2.3 " value="key8" />
-								<Item label="4.3 mm" value="key9" />
-								<Item label="5.2 mm" value="key10" />
-								<Item label="6 mm" value="key11" />	
-								<Item label="1.3" value="key13" />
-								<Item label="2.3 " value="key14" />
-								<Item label="4.3 mm" value="key15" />
-								<Item label="5.2 mm" value="key16" />
-								<Item label="6 mm" value="key17" />	
+                        onValueChange={this.onValueChangeBords.bind(this)}>  
+								<Item label="Régulier" value="key0" />
+								<Item label="Irrégulier" value="key1" />
+					</Picker>
+			</Col>
+			 </Row>
+			  <Row>
+			  <Col>
+				<Text style={styles.couleur}>Couleur</Text>
+			  </Col>
+			  <Col style={{ marginLeft:70}}>	
+				 <Picker
+						style={{width:145, color:"#29235c" }}
+                        iosHeader="Select one"
+                        mode="dropdown"
+                        selectedValue={this.state.selected2}
+                        onValueChange={this.onValueChangeCouleur.bind(this)}>  
+								<Item label="Brun foncé" value="key3" />
+								<Item label="Brun clair" value="key4" />
+					</Picker>
+					</Col>
+				</Row>	
+			  <Row>
+			  <Col>
+				<Text style={styles.asymetrie}>Asymétrie</Text>
+			  </Col>
+				<Col style={{ marginLeft:160}}>
+					<Picker 
+					    style={{width:100, color:"#29235c" }}
+                        iosHeader="Select one"
+                        mode="dropdown"
+                        selectedValue={this.state.selected3}
+                        onValueChange={this.onValueChangeAsymétrie.bind(this)}>  
+								<Item label="Oui" value="key5" />
+								<Item label="Non" value="key6" />
+					</Picker>
+				</Col>	
+				</Row>
+				<Row>
+				<Col style={{width:100}}>
+				<Text style={styles.phototypee}>Phototype</Text>
+				 </Col>
+				 <Col style={{width:200}}>
+				 	<Button
+				    onPress={this.phototypeb.bind(this)}
+					style={{borderColor: "#53507c",width:180,height:40,marginLeft:69}}
+					textStyle={{fontSize: 15, color:'#53507c'}}
+					bordered>Choisir phototype</Button>
+				</Col>
+                </Row>
+				
+				<Row>
+				<Col>
+					<Text style={styles.diametre}>Diamètre</Text>
+				</Col>
+				<Col style={{ marginLeft:160}}>
+					<Picker
+					
+					    style={{width:100, color:"#29235c" }}
+                        iosHeader="Select one"
+                        mode="dropdown"
+                        selectedValue={this.state.selected4}
+                        onValueChange={this.onValueChangeDiamètre.bind(this)}>  
+								<Item label="0,2" value="key7" />
+								<Item label="1.3" value="key8" />
+								<Item label="2.3 " value="key9" />
+								<Item label="4.3 mm" value="key10" />
+								<Item label="5.2 mm" value="key11" />
+								<Item label="6 mm" value="key12" />	
+								<Item label="0,2" value="key13" />
+								<Item label="1.3" value="key14" />
+								<Item label="2.3 " value="key15" />
+								<Item label="4.3 mm" value="key16" />
+								<Item label="5.2 mm" value="key17" />
+								<Item label="6 mm" value="key18" />	
+								<Item label="1.3" value="key19" />
+								<Item label="2.3 " value="key20" />
+								<Item label="4.3 mm" value="key21" />
+								<Item label="5.2 mm" value="key22" />
+								<Item label="6 mm" value="key23" />	
 							
 					</Picker>
 				</Col>
-			</Grid>
-			</ListItem>						
-			<Text style={styles.suspicion}>Suspicion</Text>
-			<Text style={styles.melanome}> Mélanome: {this.state.value}</Text>
+			</Row>
+			  <Row>
+				  <Col>
+					<Text style={styles.asymetrie}>Epaisseur</Text>
+				  </Col>
+					<Col style={{ marginLeft:160}}>
+						<Picker 
+						    style={{width:100, color:"#29235c" }}
+							iosHeader="Select one"
+							mode="dropdown"
+							selectedValue={this.state.selected5}
+							onValueChange={this.onValueChangeEpaisseur.bind(this)}>  
+									<Item label="0,2" value="key24" />
+									<Item label="1.3" value="key25" />
+									<Item label="2.3 " value="key26" />
+									<Item label="4.3" value="key27" />
+									<Item label="5.2" value="key28" />
+									<Item label="6" value="key29" />	
+						</Picker>
+					</Col>	
+				</Row>
+	       <Row>
+				<Col>
+					<Text style={styles.suspicion}>Suspicion</Text>
+				</Col>
+				<Col>
+						<Text style={styles.melanome}> Mélanome: {this.state.value} %</Text>
+				</Col>
+			</Row>
+			<Row >	
 			<Slider
 				value={this.state.value}
 				style={styles.slidee}
 				onValueChange={(value) => this.setState({value})} >
-			</Slider>	
+			</Slider>
+            </Row>			
+			</Grid>
 			<ListItem>
 			<Button
 			    onPress={this.validMetadata.bind(this)} 
-				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:60,marginBottom:50,alignItems:'center'}}
-				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}
-				onPress={this.uploadPic.bind(this)}>Valider</Button>
+				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:60,marginTop:10,alignItems:'center'}}
+				textStyle={{fontSize: 18, color:'#fff'}}
+				onPress={this.uploadPic.bind(this)}>VALIDER</Button>
 			</ListItem>
-			</List>	
+			
          </ScrollView> 
 	</View>
     );
@@ -315,54 +336,52 @@ const styles = StyleSheet.create({
 	
   },
   suspicion: {
-	color: 'black',
-	textAlign: 'left',
-	padding:0,
-	marginLeft:20,
-	marginTop:30,
-	fontFamily: 'Arial',
-	fontSize: 15    
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',  
+	margin:10
   },
   melanome: {
-	color: 'black',
-	textAlign: 'right',
-	bottom:30,
-	position: 'relative',
-	fontFamily: 'Arial',
-	fontSize: 15,
-	marginTop:10,
-	marginRight:20  	  
+	fontFamily: 'Roboto',
+	fontSize:15,
+	color:'#29235c',
+	marginLeft:50,
+	marginTop:12
   },
   slidee: {
-	marginLeft: 60,
-	marginRight: 60  
+	width:280,
+	marginLeft:30,
   },
   diametre: {
-	color: 'black',
-	fontFamily: 'Arial',
-	fontSize: 15,
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
 	marginTop:10,	
-	marginBottom:15,	
+	marginBottom:15,
+	margin:10
   },
   asymetrie: {
-	color: 'black',
-	fontFamily: 'Arial',
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
 	marginTop:10,
-	fontSize: 15  
+    margin:10	
   },
   couleur: {
-    color: 'black',
-	fontFamily: 'Arial',
-	fontSize: 15,
+  	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
 	marginTop:10,
-	marginBottom:15  
+	marginBottom:15,
+    margin:10	
   },
   phototypee: {
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',  
 	marginTop:10,
-	fontFamily: 'Arial',
 	marginBottom:15,
-	fontSize: 15,
-	color:"#000"
+	margin:10
   },
   title_upload:{
 	  color:"#fff",
@@ -372,11 +391,12 @@ const styles = StyleSheet.create({
 	  fontWeight:'bold'
   },
   bords: {
-    color: 'black',
-	fontFamily: 'Arial',
-	fontSize: 15,
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
 	marginTop:10,
-	marginBottom:15}
+	marginBottom:15,
+	margin:10}
 });
 
 AppRegistry.registerComponent('uploadForm', () => uploadForm);
