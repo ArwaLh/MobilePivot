@@ -29,7 +29,8 @@ export default class locatePic extends Component {
 	constructor(props){
     super(props);
 		this.state = {
-		  loaded: true
+		  loaded: true,
+		  uri_img:'http://localhost:8081/img/vue_face_locate.png'
 		}
 	}
 	validate_location(){
@@ -110,69 +111,73 @@ export default class locatePic extends Component {
 	<View>
 	<HeaderUp text="Séléction zone" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
-		<Image style={styles.image} source={{uri:'http://localhost:8081/img/vue_face_locate.png'}}>
+		<Image style={styles.image} ref="img" source={{uri:this.state.uri_img}}>
 			<View style={{flexDirection: 'row', flexWrap:'wrap',backgroundColor: 'transparent'}}>
-				<Button style={{backgroundColor:'transparent',marginLeft: 0,marginTop:0,width:180,height:60,alignItems: 'flex-start',borderColor:'transparent'}} bordered>
+				<Button onPress={(img) =>{
+						this.setState({uri_img: 'http://localhost:8081/img/vue_face_locate.png'});
+					}} style={{backgroundColor:'transparent',marginLeft: 0,marginTop:0,width:180,height:60,alignItems: 'flex-start',borderColor:'transparent'}} bordered>
 				<Text style={{color:'transparent',textAlign: "center",padding:10,fontSize:20}}>Avant</Text>
 				</Button>
-				<Button style={{backgroundColor:'transparent',marginTop:0,width:180,height:60,alignItems: 'flex-start',borderColor:'transparent'}} bordered>
+				<Button onPress={(img) =>{
+						this.setState({uri_img: 'http://localhost:8081/img/vue_arriere_locate.png'});
+					}} style={{backgroundColor:'transparent',marginTop:0,width:180,height:60,alignItems: 'flex-start',borderColor:'transparent'}} bordered>
 				<Text style={{color:'transparent',textAlign: "center",padding:10,fontSize:20}}>Arriére</Text>
 				</Button>
 			</View>
 			<View style={{flexDirection: 'column',backgroundColor: 'transparent'}}>
 			<TouchableOpacity
 				onPress={this.localiser_tete.bind(this)}
-				style={{width:100,height:20,marginLeft:55,marginTop:28,marginBottom:31,backgroundColor: "#fff"}}>
-				<Text style={{textAlign: "center"}}>Tête</Text>
+				style={{width:100,height:20,marginLeft:55,marginTop:28,marginBottom:32,backgroundColor: "transparent"}}>
+				<Text style={{color:'transparent',textAlign: "center"}}>Tête</Text>
 				</TouchableOpacity>
 			<TouchableOpacity
 				onPress={this.localiser_cou.bind(this)}
-				style={{width:100,height:18,marginLeft:220,backgroundColor: "#fff"}}>
-				<Text style={{textAlign: "center"}}>Cou</Text>
+				style={{width:100,height:18,marginLeft:220,backgroundColor: "transparent"}}>
+				<Text style={{color:'transparent',textAlign: "center"}}>Cou</Text>
 				</TouchableOpacity>
 			<View style={{flexDirection: 'row',backgroundColor: 'transparent'}}>
 			<TouchableOpacity
 				onPress={this.localiser_epaule_droite.bind(this)}
-				style={{width:100,height:20,marginLeft:0,backgroundColor: "#fff"}}>
-				<Text style={{textAlign: "center"}}>Epaule droite</Text>
+				style={{width:100,height:20,marginLeft:0,backgroundColor: "transparent"}}>
+				<Text style={{color:'transparent',textAlign: "center"}}>Epaule droite</Text>
 				</TouchableOpacity>
 			<TouchableOpacity
 				onPress={this.localiser_epaule_gauche.bind(this)}
-				style={{width:100,height:18,marginLeft:160,backgroundColor: "#fff",marginTop:6}}>
-				<Text style={{textAlign: "center"}}>Epaule gauche</Text>
+				style={{width:100,height:18,marginLeft:160,backgroundColor: "transparent",marginTop:6}}>
+				<Text style={{color:'transparent',textAlign: "center"}}>Epaule gauche</Text>
 				</TouchableOpacity>
 			</View>
 			<TouchableOpacity
 				onPress={this.localiser_thorax.bind(this)}
-				style={{width:100,height:20,marginLeft:20,marginBottom:22,marginTop:33,backgroundColor: "#fff"}}>
-				<Text style={{textAlign: "center"}}>Thorax</Text>
+				style={{width:100,height:20,marginLeft:20,marginBottom:22,marginTop:33,backgroundColor: "transparent"}}>
+				<Text style={{color:'transparent',textAlign: "center"}}>Thorax</Text>
 				</TouchableOpacity>
 			<TouchableOpacity
 				onPress={this.localiser_abdomen.bind(this)}
-				style={{width:100,height:20,marginLeft:240,marginBottom:0,backgroundColor: "#fff"}}>
-				<Text style={{textAlign: "center"}}>Abdomen</Text>
+				style={{width:100,height:20,marginLeft:240,marginBottom:0,backgroundColor: "transparent"}}>
+				<Text style={{color:'transparent',textAlign: "center"}}>Abdomen</Text>
 				</TouchableOpacity>
 			<View style={{flexDirection: 'row',backgroundColor: 'transparent'}}>
 			<TouchableOpacity
 				onPress={this.localiser_main_droite.bind(this)}
-				style={{width:100,height:22,marginLeft:0,marginBottom:2,marginTop:0,backgroundColor: "#fff"}}>
-				<Text style={{textAlign: "center"}}>Main droite</Text>
+				style={{width:100,height:22,marginLeft:0,marginBottom:2,marginTop:0,backgroundColor: "transparent"}}>
+				<Text style={{color:'transparent',textAlign: "center"}}>Main droite</Text>
 				</TouchableOpacity>
 			<TouchableOpacity
 				onPress={this.localiser_main_gauche.bind(this)}
-				style={{width:100,height:22,marginLeft:180,marginBottom:0,marginTop:10,backgroundColor: "#fff"}}>
-				<Text style={{textAlign: "center"}}>Main gauche</Text>
+				style={{width:100,height:22,marginLeft:170,marginBottom:0,marginTop:10,backgroundColor: "transparent"}}>
+				<Text style={{color:'transparent',textAlign: "center"}}>Main gauche</Text>
 				</TouchableOpacity>
 			</View>
 			<TouchableOpacity
 				onPress={this.localiser_jambe_gauche.bind(this)}
-				style={{width:100,height:20,marginLeft:238,marginTop:44,marginBottom:20,backgroundColor: "#fff"}}>
-				<Text style={{textAlign: "center"}}>Jambe gauche</Text>
+				style={{width:100,height:20,marginLeft:238,marginTop:46,marginBottom:20,backgroundColor: "transparent"}}>
+				<Text style={{color:'transparent',textAlign: "center"}}>Jambe gauche</Text>
 				</TouchableOpacity>
 			<TouchableOpacity
 				onPress={this.localiser_jambe_droite.bind(this)}
-				style={{width:100,height:20,marginLeft:20,marginBottom:10,backgroundColor: "#fff"}}>
-				<Text style={{textAlign: "center"}}>Jambe droite</Text>
+				style={{width:100,height:20,marginLeft:20,marginBottom:10,backgroundColor: "transparent"}}>
+				<Text style={{color:'transparent',textAlign: "center"}}>Jambe droite</Text>
 				</TouchableOpacity>
 			</View>
 		</Image>
