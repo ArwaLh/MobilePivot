@@ -105,7 +105,7 @@ export default class uploadForm extends Component {
 			  var uploadTask= this.storageRef
 				.ref('images')
 				.child(testImageName)
-				.put(blob, {contentType : 'image/jpeg'});
+				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
 				  // Observe state change events such as progress, pause, and resume
 				  // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded

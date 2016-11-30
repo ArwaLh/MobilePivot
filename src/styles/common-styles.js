@@ -133,9 +133,7 @@ module.exports = StyleSheet.create({
 	top:0,
 	bottom:0,
 	width: window.width,
-	height: height_im,
-	resizeMode: 'stretch',
-	flex: 1
+	height: window.height-85,
   },
   image_splash: {
 	top:0,

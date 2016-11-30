@@ -104,21 +104,21 @@ export default class locatePic extends Component {
 	<View>
 	<HeaderUp text="Localiser Photo" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
-		<View style={{flexDirection: 'row',backgroundColor: '#fff'}}>
-			<Button style={{backgroundColor:'#fff',marginLeft: 20,marginTop:10,width:80,alignItems: 'flex-start',borderColor:'#8684a3'}} textStyle={{color:'#8684a3'}} rounded bordered>Arriére</Button>
-			<Button style={{backgroundColor:'#8684a3',marginLeft: 20,marginTop:10,width:80,marginLeft:150,alignItems: 'flex-start',borderColor:'#8684a3'}} textStyle={{color:'#fff'}} rounded bordered>Face</Button>
-		</View>
 		<Image style={styles.image} source={{uri:'http://localhost:8081/img/vue_face_locate.png'}}>
+			<View style={{flexDirection: 'row', flexWrap:'wrap',backgroundColor: 'transparent'}}>
+				<Button style={{backgroundColor:'transparent',marginLeft: 0,marginTop:0,width:180,height:60,alignItems: 'flex-start',borderColor:'#8684a3'}} textStyle={{color:'#8684a3'}} rounded bordered>Avant</Button>
+				<Button style={{backgroundColor:'transparent',marginTop:0,width:180,height:60,alignItems: 'flex-start',borderColor:'#8684a3'}} textStyle={{color:'#fff'}} rounded bordered>Arriére</Button>
+			</View>
 			<ButtonS
 				text="Tête"
 				onpress={this.localiser_tete.bind(this)}
-				button_styles={{top:10}}
-				button_text_styles={{textAlign:'center',color:'#53507c'}}/>
+				button_styles={{top:27}}
+				button_text_styles={{textAlign:'left',color:'#53507c',left:75}}/>
 			<ButtonS
 				text="Cou"
 				onpress={this.localiser_cou.bind(this)}
-				button_styles={{top:25}}
-				button_text_styles={{textAlign:'center',color:'#53507c'}}/>
+				button_styles={{top:65}}
+				button_text_styles={{textAlign:'right',color:'#53507c',right:25}}/>
 			<ButtonS
 				text="Epaule Gauche"
 				onpress={this.localiser_epaule_gauche.bind(this)}
@@ -130,10 +130,15 @@ export default class locatePic extends Component {
 				button_styles={{top:30}}
 				button_text_styles={{textAlign:'left',color:'#53507c',left:5}}/>
 			<ButtonS
-				text="Tronc"
+				text="Thorax"
 				onpress={this.localiser_tronc.bind(this)}
 				button_styles={{top:80}}
-				button_text_styles={{textAlign:'center',color:'#53507c',left:5}}/>
+				button_text_styles={{textAlign:'left',color:'#53507c',left:35}}/>
+			<ButtonS
+				text="Abdomen"
+				onpress={this.localiser_tronc.bind(this)}
+				button_styles={{top:80}}
+				button_text_styles={{textAlign:'right',color:'#53507c',right:35}}/>
 			<ButtonS
 				text="Main Gauche"
 				onpress={this.localiser_main_gauche.bind(this)}
