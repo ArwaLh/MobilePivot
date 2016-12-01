@@ -144,5 +144,35 @@ module.exports = StyleSheet.create({
 	bottom:0,
 	width: window.width,
 	height: window.height-20,
-  }
+  },
+  /*models*/
+  modal: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+   modal3: {
+    height: 190,
+    width: 270,
+	margin:10,
+  },
+  btn: {
+    margin: 10,
+	marginTop:20,
+    backgroundColor: "#29235c",
+    padding: 10
+  },
+  modal_title: {
+	  color: '#29235c',
+	  margin:10,
+	  fontFamily: 'Roboto',
+	  fontSize: 17,
+	  fontWeight: 'bold'
+  },
+  modal_text: {
+	  color: '#29235c',
+	  margin:10,
+	  fontFamily: 'Roboto',
+	  fontSize: 25,
+	  fontWeight: 'normal'
+  },
 });

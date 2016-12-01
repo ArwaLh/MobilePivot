@@ -23,6 +23,7 @@ import HeaderUp from '../components/headerUp';
 import styles from '../styles/common-styles.js';
 import ButtonS from '../components/button';
 import {InputGroup, Input, Button, Card, CardItem, Header, Icon} from 'native-base';
+import Modal from 'react-native-modalbox';
 const window = Dimensions.get('window');
 import UploadForm from './uploadForm';
 import NewPatient from './newPatient';
@@ -41,186 +42,125 @@ export default class locatePic extends Component {
 		  main_droite: this.localiser_main_droite.bind(this),
 		  main_gauche: this.localiser_main_gauche.bind(this),
 		  jambe_droite: this.localiser_jambe_droite.bind(this),
-		  jambe_gauche: this.localiser_jambe_gauche.bind(this),
+		  jambe_gauche: this.localiser_jambe_gauche.bind(this), 
+		  isOpen: false,
+		  isDisabled: false,
 		}
 	}
 	validate_location(){
 		alert("next is cam page");
 	}
+	toggleDisable(){
+    this.setState({isDisabled: !this.state.isDisabled});
+	}
 	localiser_tete(){
-		Alert.alert(
-		  'Vous avez sélectionné',
-		  'Tête',
-		  [
-			{text: 'Valider pour étape suivante', onPress: () =>{
-			AsyncStorage.setItem('location', 'Tête');
-			this.props.navigator.push({
-				component: TakePicture
-			})
-			} 
-			}
-		  ]
-		)
+		this.refs.modal_tete.open();
 	}
 	localiser_cou(){
-		Alert.alert(
-		  'Vous avez sélectionné',
-		  'Cou',
-		  [
-			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('location', 'Cou'),
-			this.props.navigator.push({
-				component: TakePicture
-			});
-			}
-			}
-		  ]
-		)
+		this.refs.modal_cou.open();
 	}
 	localiser_nuque(){
-		Alert.alert(
-		  'Vous avez sélectionné',
-		  'Nuque',
-		  [
-			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('location', 'Nuque');
-			this.props.navigator.push({
-				component: TakePicture
-			});
-			}
-			}
-		  ]
-		)
+		this.refs.modal_nuque.open();
 	}
 	localiser_epaule_gauche(){
-		Alert.alert(
-		  'Vous avez sélectionné',
-		  'Épaule gauche',
-		  [
-			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('location', 'Épaule gauche');
-			this.props.navigator.push({
-				component: TakePicture
-			});
-			}}
-		  ]
-		)
+		this.refs.modal_epaule_gauche.open();
 	}
 	localiser_epaule_droite(){
-		Alert.alert(
-		  'Vous avez sélectionné',
-		  'Épaule droite',
-		  [
-			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('location', 'Épaule droite');
-			this.props.navigator.push({
-				component: TakePicture
-			});
-			}}		
-		  ]
-		)
+		this.refs.modal_epaule_droite.open();
 	}
 	localiser_thorax(){
-		Alert.alert(
-		  'Vous avez sélectionné',
-		  'Thorax',
-		  [
-			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('location', 'Thorax');
-			this.props.navigator.push({
-				component: TakePicture
-			});
-			}}
-		  ]
-		)
+		this.refs.modal_thorax.open();
 	}
 	localiser_abdomen(){
-		Alert.alert(
-		  'Vous avez sélectionné',
-		  'Abdomen',
-		  [
-			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('location', 'Abdomen');
-			this.props.navigator.push({
-				component: TakePicture
-			});
-			}}
-		  ]
-		)
+		this.refs.modal_abdomen.open();
 	}
 	localiser_dos(){
-		Alert.alert(
-		  'Vous avez sélectionné',
-		  'Dos',
-		  [
-			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('location', 'Dos');
-			this.props.navigator.push({
-				component: TakePicture
-			});
-			}}
-		  ]
-		)
+		this.refs.modal_dos.open();
 	}
 	localiser_main_gauche(){
-		Alert.alert(
-		  'Vous avez sélectionné',
-		  'Main gauche',
-		  [
-			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('location', 'Main gauche');
-			this.props.navigator.push({
-				component: TakePicture
-			});
-			}}
-		  ]
-		)
+		this.refs.modal_main_gauche.open();
 
 	}
 	localiser_main_droite(){
-		Alert.alert(
-		  'Vous avez sélectionné',
-		  'Main droite',
-		  [
-			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('location', 'Main droite');
-			this.props.navigator.push({
-				component: TakePicture
-			});
-			}}
-		  ]
-		)
-
+		this.refs.modal_main_droite.open();
 	}
 	localiser_jambe_gauche(){
-		Alert.alert(
-		  'Vous avez sélectionné',
-		  'Jambe gauche',
-		  [
-			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('location', 'Jambe gauche');
-			this.props.navigator.push({
-				component: TakePicture
-			});
-			}}
-		  ]
-		)
-
+		this.refs.modal_jambe_gauche.open();
 	}
 	localiser_jambe_droite(){
-		Alert.alert(
-		  'Vous avez sélectionné',
-		  'Jambe droite',
-		  [
-			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('location', 'Jambe droite');
-			this.props.navigator.push({
+		this.refs.modal_jambe_droite.open();
+	}
+	valid_tete(){
+		AsyncStorage.setItem('location', 'Tête');
+		this.props.navigator.push({
 				component: TakePicture
-			});
-			}}
-		  ]
-		)
-
+			})
+	}
+	valid_cou(){
+		AsyncStorage.setItem('location', 'Cou');
+		this.props.navigator.push({
+				component: TakePicture
+		})
+	}
+	valid_nuque(){
+		AsyncStorage.setItem('location', 'Nuque');
+		this.props.navigator.push({
+				component: TakePicture
+		})
+	}
+	valid_dos(){
+		AsyncStorage.setItem('location', 'Dos');
+		this.props.navigator.push({
+				component: TakePicture
+		})
+	}
+	valid_epaule_gauche(){
+		AsyncStorage.setItem('location', 'Épaule gauche');
+		this.props.navigator.push({
+				component: TakePicture
+		})
+	}
+	valid_epaule_droite(){
+		AsyncStorage.setItem('location', 'Épaule droite');
+		this.props.navigator.push({
+				component: TakePicture
+		})
+	}
+	valid_thorax(){
+		AsyncStorage.setItem('location', 'Thorax');
+		this.props.navigator.push({
+				component: TakePicture
+		})
+	}
+	valid_abdomen(){
+		AsyncStorage.setItem('location', 'Abdomen');
+		this.props.navigator.push({
+				component: TakePicture
+		})
+	}
+	valid_main_gauche(){
+		AsyncStorage.setItem('location', 'Main gauche');
+		this.props.navigator.push({
+				component: TakePicture
+		})
+	}
+	valid_main_droite(){
+		AsyncStorage.setItem('location', 'Main droite');
+		this.props.navigator.push({
+				component: TakePicture
+		})
+	}
+	valid_jambe_gauche(){
+		AsyncStorage.setItem('location', 'Jambe gauche');
+		this.props.navigator.push({
+				component: TakePicture
+		})
+	}
+	valid_jambe_droite(){
+		AsyncStorage.setItem('location', 'Jambe droite');
+		this.props.navigator.push({
+				component: TakePicture
+		})
 	}
 	goBack() {
 		this.props.navigator.pop();
@@ -265,6 +205,68 @@ export default class locatePic extends Component {
 				<Text style={{color:'transparent',textAlign: "center",padding:10,fontSize:20}}>Arriére</Text>
 				</Button>
 			</View>
+			
+			<Modal style={styles.modal3} position={"center"} ref={"modal_tete"} isDisabled={this.state.isDisabled}>
+			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
+			  <Text style={styles.modal_text}>Tête</Text>
+			  <Button onPress={this.valid_tete.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
+			</Modal>
+			<Modal style={styles.modal3} position={"center"} ref={"modal_cou"} isDisabled={this.state.isDisabled}>
+			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
+			  <Text style={styles.modal_text}>Cou</Text>
+			  <Button onPress={this.valid_cou.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
+			</Modal>
+			<Modal style={styles.modal3} position={"center"} ref={"modal_nuque"} isDisabled={this.state.isDisabled}>
+			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
+			  <Text style={styles.modal_text}>Nuque</Text>
+			  <Button onPress={this.valid_nuque.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
+			</Modal>
+			<Modal style={styles.modal3} position={"center"} ref={"modal_epaule_gauche"} isDisabled={this.state.isDisabled}>
+			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
+			  <Text style={styles.modal_text}>Épaule gauche</Text>
+			  <Button onPress={this.valid_epaule_gauche.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
+			</Modal>
+			<Modal style={styles.modal3} position={"center"} ref={"modal_epaule_droite"} isDisabled={this.state.isDisabled}>
+			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
+			  <Text style={styles.modal_text}>Épaule droite</Text>
+			  <Button onPress={this.valid_epaule_droite.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
+			</Modal>
+			<Modal style={styles.modal3} position={"center"} ref={"modal_thorax"} isDisabled={this.state.isDisabled}>
+			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
+			  <Text style={styles.modal_text}>Thorax</Text>
+			  <Button onPress={this.valid_thorax.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
+			</Modal>
+			<Modal style={styles.modal3} position={"center"} ref={"modal_abdomen"} isDisabled={this.state.isDisabled}>
+			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
+			  <Text style={styles.modal_text}>Abdomen</Text>
+			  <Button onPress={this.valid_abdomen.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
+			</Modal>
+			<Modal style={styles.modal3} position={"center"} ref={"modal_dos"} isDisabled={this.state.isDisabled}>
+			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
+			  <Text style={styles.modal_text}>Dos</Text>
+			  <Button onPress={this.valid_dos.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
+			</Modal>
+			<Modal style={styles.modal3} position={"center"} ref={"modal_main_droite"} isDisabled={this.state.isDisabled}>
+			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
+			  <Text style={styles.modal_text}>Main droite</Text>
+			  <Button onPress={this.valid_main_droite.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
+			</Modal>
+			<Modal style={styles.modal3} position={"center"} ref={"modal_main_gauche"} isDisabled={this.state.isDisabled}>
+			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
+			  <Text style={styles.modal_text}>Main gauche</Text>
+			  <Button onPress={this.valid_main_gauche.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
+			</Modal>
+			<Modal style={styles.modal3} position={"center"} ref={"modal_jambe_droite"} isDisabled={this.state.isDisabled}>
+			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
+			  <Text style={styles.modal_text}>Jambe droite</Text>
+			  <Button onPress={this.valid_jambe_droite.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
+			</Modal>
+			<Modal style={styles.modal3} position={"center"} ref={"modal_jambe_gauche"} isDisabled={this.state.isDisabled}>
+			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
+			  <Text style={styles.modal_text}>Jambe gauche</Text>
+			  <Button onPress={this.valid_jambe_gauche.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
+			</Modal>
+			
 			<View style={{flexDirection: 'column',backgroundColor: 'transparent'}}>
 			<TouchableOpacity
 				onPress={this.localiser_tete.bind(this)}
