@@ -22,8 +22,10 @@ import {
 import HeaderUp from '../components/headerUp';
 import styles from '../styles/common-styles.js';
 import ButtonS from '../components/button';
+import ButtonR from 'react-native-button';
 import {InputGroup, Input, Button, Card, CardItem, Header, Icon} from 'native-base';
 import Modal from 'react-native-modalbox';
+import PopupDialog from 'react-native-popup-dialog';
 const window = Dimensions.get('window');
 import UploadForm from './uploadForm';
 import NewPatient from './newPatient';
@@ -55,6 +57,7 @@ export default class locatePic extends Component {
 	}
 	localiser_tete(){
 		this.refs.modal_tete.open();
+		this.setState({isOpen: true});
 	}
 	localiser_cou(){
 		this.refs.modal_cou.open();
@@ -205,63 +208,75 @@ export default class locatePic extends Component {
 				<Text style={{color:'transparent',textAlign: "center",padding:10,fontSize:20}}>Arriére</Text>
 				</Button>
 			</View>
-			
-			<Modal style={styles.modal3} position={"center"} ref={"modal_tete"} isDisabled={this.state.isDisabled}>
+			<PopupDialog
+			ref={(popupDialog) => { this.popupDialog = popupDialog; }}>
+			<View>
 			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
 			  <Text style={styles.modal_text}>Tête</Text>
 			  <Button onPress={this.valid_tete.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
+			</View>
+		  </PopupDialog>
+			<Modal style={styles.modal3} position={"center"} ref="modal_tete">
+			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
+			  <Text style={styles.modal_text}>Tête</Text>
+			  <TouchableOpacity onPress={(modal_tete) =>{
+				AsyncStorage.setItem('location', 'Tête');
+				this.props.navigator.push({
+						component: TakePicture
+					})
+					}} style={styles.btn}><Text>Valider pour passer à l'étape suivante</Text></TouchableOpacity>
 			</Modal>
-			<Modal style={styles.modal3} position={"center"} ref={"modal_cou"} isDisabled={this.state.isDisabled}>
+			<Modal style={styles.modal3} position={"center"} ref="modal_cou">
 			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
 			  <Text style={styles.modal_text}>Cou</Text>
-			  <Button onPress={this.valid_cou.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
+			  <TouchableOpacity onPress={this.valid_cou} style={styles.btn}><Text>Valider pour passer à l'étape suivante</Text></TouchableOpacity>
 			</Modal>
-			<Modal style={styles.modal3} position={"center"} ref={"modal_nuque"} isDisabled={this.state.isDisabled}>
+			<Modal style={styles.modal3} position={"center"} ref="modal_nuque" isDisabled={this.state.isDisabled}>
 			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
 			  <Text style={styles.modal_text}>Nuque</Text>
 			  <Button onPress={this.valid_nuque.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
 			</Modal>
-			<Modal style={styles.modal3} position={"center"} ref={"modal_epaule_gauche"} isDisabled={this.state.isDisabled}>
+			<Modal style={styles.modal3} position={"center"} ref="modal_epaule_gauche">
 			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
 			  <Text style={styles.modal_text}>Épaule gauche</Text>
 			  <Button onPress={this.valid_epaule_gauche.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
 			</Modal>
-			<Modal style={styles.modal3} position={"center"} ref={"modal_epaule_droite"} isDisabled={this.state.isDisabled}>
+			<Modal style={styles.modal3} position={"center"} ref={"modal_epaule_droite"}>
 			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
 			  <Text style={styles.modal_text}>Épaule droite</Text>
 			  <Button onPress={this.valid_epaule_droite.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
 			</Modal>
-			<Modal style={styles.modal3} position={"center"} ref={"modal_thorax"} isDisabled={this.state.isDisabled}>
+			<Modal style={styles.modal3} position={"center"} ref="modal_thorax">
 			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
 			  <Text style={styles.modal_text}>Thorax</Text>
-			  <Button onPress={this.valid_thorax.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
+			  <Button onPress={this.valid_thorax} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
 			</Modal>
-			<Modal style={styles.modal3} position={"center"} ref={"modal_abdomen"} isDisabled={this.state.isDisabled}>
+			<Modal style={styles.modal3} position={"center"} ref="modal_abdomen">
 			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
 			  <Text style={styles.modal_text}>Abdomen</Text>
 			  <Button onPress={this.valid_abdomen.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
 			</Modal>
-			<Modal style={styles.modal3} position={"center"} ref={"modal_dos"} isDisabled={this.state.isDisabled}>
+			<Modal style={styles.modal3} position={"center"} ref="modal_dos">
 			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
 			  <Text style={styles.modal_text}>Dos</Text>
 			  <Button onPress={this.valid_dos.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
 			</Modal>
-			<Modal style={styles.modal3} position={"center"} ref={"modal_main_droite"} isDisabled={this.state.isDisabled}>
+			<Modal style={styles.modal3} position={"center"} ref="modal_main_droite">
 			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
 			  <Text style={styles.modal_text}>Main droite</Text>
 			  <Button onPress={this.valid_main_droite.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
 			</Modal>
-			<Modal style={styles.modal3} position={"center"} ref={"modal_main_gauche"} isDisabled={this.state.isDisabled}>
+			<Modal style={styles.modal3} position={"center"} ref="modal_main_gauche">
 			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
 			  <Text style={styles.modal_text}>Main gauche</Text>
 			  <Button onPress={this.valid_main_gauche.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
 			</Modal>
-			<Modal style={styles.modal3} position={"center"} ref={"modal_jambe_droite"} isDisabled={this.state.isDisabled}>
+			<Modal style={styles.modal3} position={"center"} ref="modal_jambe_droite">
 			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
 			  <Text style={styles.modal_text}>Jambe droite</Text>
 			  <Button onPress={this.valid_jambe_droite.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
 			</Modal>
-			<Modal style={styles.modal3} position={"center"} ref={"modal_jambe_gauche"} isDisabled={this.state.isDisabled}>
+			<Modal style={styles.modal3} position={"center"} ref="modal_jambe_gauche">
 			  <Text style={styles.modal_title}>Vous avez sélectionné</Text>
 			  <Text style={styles.modal_text}>Jambe gauche</Text>
 			  <Button onPress={this.valid_jambe_gauche.bind(this)} style={styles.btn}>Valider pour passer à l'étape suivante</Button>
@@ -269,7 +284,9 @@ export default class locatePic extends Component {
 			
 			<View style={{flexDirection: 'column',backgroundColor: 'transparent'}}>
 			<TouchableOpacity
-				onPress={this.localiser_tete.bind(this)}
+				onPress={() => {
+				  this.popupDialog.openDialog();
+				}}
 				style={{width:100,height:22,marginLeft:55,marginTop:25,marginBottom:30,backgroundColor: "transparent"}}>
 				<Text style={{color:'transparent',textAlign: "center"}}>Tête</Text>
 				</TouchableOpacity>
