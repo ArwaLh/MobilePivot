@@ -35,6 +35,7 @@ import styles from './src/styles/common-styles.js';
 export default class FacebookApp extends Component {
 	constructor(props){
 		super(props);
+		AsyncStorage.removeItem('phototype');//not here
 		this.state = {
 		  component: null,
 		  loaded: false

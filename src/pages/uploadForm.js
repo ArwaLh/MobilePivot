@@ -52,6 +52,7 @@ export default class uploadForm extends Component {
 		  types3: [{label: 'Oui', value: 0}, {label: 'Non', value: 1}],
 		  value3: 0,
 		  value3Index: 0,
+		  choisir: 'choisir',
 		  chickenWings: 1.5,
 		   value: 1.0,
 		selectedItem: undefined,
@@ -64,6 +65,24 @@ export default class uploadForm extends Component {
          items: []
                   } 
 		}
+	}
+	 componentDidMount(){
+		AsyncStorage.getItem('phototype').then((phototypee) => {
+		  this.setState({
+			choisir: '',
+			loaded:true
+		  });
+		});
+		alert(this.state.phototype);
+	}
+	 componentWillMount(){
+		AsyncStorage.getItem('phototype').then((phototypee) => {
+		  this.setState({
+			phototype: phototypee,
+			loaded:true
+		  });
+		});
+		alert(this.state.phototype);
 	}
 	
 	onValueChangeBords (value: string) {
@@ -90,18 +109,6 @@ export default class uploadForm extends Component {
 			this.setState({
 				selected5 : value
 		});}		
-	
-	/*componentWillMount(){
-
-    AsyncStorage.getItem('path').then((pathUp) => {                                                   
-      this.setState({
-        path: JSON.parse(pathUp),
-        loaded: true
-      });
-	  alert(pathUp);
-    });
-
-  }*/
 	goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
@@ -210,7 +217,7 @@ export default class uploadForm extends Component {
 				    onPress={this.phototypeb.bind(this)}
 					style={{borderColor: "#53507c",width:180,height:40,marginLeft:69}}
 					textStyle={{fontSize: 15, color:'#53507c'}}
-					bordered>Choisir phototype</Button>
+					bordered><Text>{this.state.choisir}</Text> phototype <Text> {this.state.phototype}</Text></Button>
 				</Col>
                 </Row>
 				
@@ -301,6 +308,7 @@ export default class uploadForm extends Component {
 		});
 	  }
     phototypeb(){
+		this.setState({choisir: '', loaded :true});
 		this.props.navigator.push({
 		  component: Phototype
 		});
