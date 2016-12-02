@@ -13,14 +13,8 @@ import {
   AsyncStorage
 } from 'react-native';
 
-import SplashScreen from 'react-native-splash-screen';
-import Signup from './src/pages/signup';
+import SplashScreen from './src/pages/splashscreen';
 import Login from './src/pages/login';
-import LoginNative from './src/pages/loginNative';
-
-import Account from './src/pages/account';
-
-import Header from './src/components/header';
 import firebase from 'firebase';
 // Initialize Firebase
 const config = {
@@ -41,13 +35,10 @@ export default class FacebookApp extends Component {
 		  loaded: false
 		};
 	}
-	componentDidMount() {
-        SplashScreen.hide();
-    }
 	render() {
 		return (
 		  <Navigator
-			  initialRoute={{component: Login}}
+			  initialRoute={{component: SplashScreen}}
 			  configureScene={() => {
 				return Navigator.SceneConfigs.HorizontalSwipeJump;
 			  }}

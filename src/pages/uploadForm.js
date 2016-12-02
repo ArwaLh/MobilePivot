@@ -29,18 +29,18 @@ import Phototype from './phototype';
 const testImageName = `patient-pic-${Platform.OS}-${new Date()}.jpg`
 const EMAIL = 'arwa.louihig@esprit.tn'
 const PASSWORD = 'arwa24961322'
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 import RNFetchBlob from 'react-native-fetch-blob';
 const fs = RNFetchBlob.fs
 const Blob = RNFetchBlob.polyfill.Blob
-
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
 window.Blob = Blob
-
 const dirs = RNFetchBlob.fs.dirs
+
 export default class uploadForm extends Component {
 	constructor (props) {
 		super(props);
+		this.storageRef = firebase.storage();
 		this.state = {
 		loaded:true,
 		  types1: [{label: 'Régulier', value: 0}, {label: 'Irrégulier', value: 1}],
@@ -89,7 +89,7 @@ export default class uploadForm extends Component {
         this.setState({
             selected1 : value
 	});}
-	
+
 	onValueChangeCouleur (value: string) {
 			this.setState({
 				selected2 : value
@@ -109,30 +109,43 @@ export default class uploadForm extends Component {
 			this.setState({
 				selected5 : value
 		});}		
+	componentWillMount(){
+
+    AsyncStorage.getItem('path').then((pathUp) => {                                                   
+      this.setState({
+		path:pathUp,
+		rnfbURI: RNFetchBlob.wrap(pathUp),
+        loaded: true
+      });
+	  alert(this.state.path);
+    });
+
+  }
 	goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
 	}
 
 	uploadPic(){
-		AsyncStorage.getItem('path').then((pathUp) => {                                                   
-		  this.setState({
-			path: JSON.parse(pathUp),
-			loaded: true
-		  });
-		  alert(pathUp);
-		  let rnfbURI = JSON.parse(pathUp);
+		firebase.auth()
+          .signInWithEmailAndPassword(EMAIL, PASSWORD)
+          .catch((err) => {
+            console.log('firebase sigin failed', err)
+          })
 
+		firebase.auth().onAuthStateChanged((user) => {
+			<Text>{JSON.stringify(user)}</Text>
+		})
 		
 		// create Blob from file path
 		Blob
-			.build(rnfbURI, { type : 'image/jpg;'})
+			.build(this.state.rnfbURI, { type : 'image/jpg;'})
 			.then((blob) => {
 			  // upload image using Firebase SDK
-			  var uploadTask= firebase.storage()
+			  var uploadTask= this.storageRef
 				.ref('images')
 				.child(testImageName)
-				.put(blob, { contentType : 'image/jpg' });
+				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
 				  // Observe state change events such as progress, pause, and resume
 				  // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
@@ -146,10 +159,9 @@ export default class uploadForm extends Component {
 				  // For instance, get the download URL: https://firebasestorage.googleapis.com/...
 				  var downloadURL = uploadTask.snapshot.downloadURL;
 				  alert("done uploading here is the download URL",downloadURL);
-				  blob.close();
+				  blob.close()
 				});
 			})
-		});
 	}
   render() {
     return ( 
@@ -157,7 +169,9 @@ export default class uploadForm extends Component {
 	<HeaderUp text=" 3/4 Upload Photo" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
 		    <ListItem>
-			 <Image style={{width:330, height: 160, borderColor: '#29235c', borderWidth:1}} source={{uri:'http://localhost:8081/img/grain.jpg'}}/>
+
+			 <Image style={{width:330, height: 160}} source={{uri:this.state.path}}/>
+
 			</ListItem>
 			<Grid>
 			  <Row>

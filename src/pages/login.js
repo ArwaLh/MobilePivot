@@ -10,16 +10,13 @@ import {
   Text,
   TextInput,
   View,
+  TouchableOpacity,
   AsyncStorage
 } from 'react-native';
-
-import ButtonFB from '../components/button_fb';
-import ButtonS from '../components/button';
 import Header from '../components/header';
 
 import Signup from './signup';
-import Account from './account';
-import Didacticiel from './didacticiel';
+import GestionPatient from './addPatient';
 
 import styles from '../styles/common-styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -34,7 +31,8 @@ export default class login extends Component {
       email_medecin: '',
       password: '',
       loaded: true,
-	  secureTextEntry: true
+	  secureTextEntry: true,
+	  count: 0
     }
 
   }
@@ -68,9 +66,15 @@ export default class login extends Component {
 				underlineColorAndroid="white"
 				inlineImagePadding={0}
 			  />
-			<Button transparent onPress={(password) => this.setState({secureTextEntry: false})} style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
+			<TouchableOpacity onPress={(password) =>{
+					if(this.state.count==0){
+						this.setState({secureTextEntry: false,count:1});
+					}else{
+						this.setState({secureTextEntry: true,count:0});
+					}
+					}}  style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
 				<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
-			</Button>
+			</TouchableOpacity>
 		  </View>
 		  <Text style={{marginBottom:15}}></Text>
 		  <View style={{flexDirection:'row', flexWrap:'wrap',marginBottom:15}}>
@@ -127,7 +131,7 @@ export default class login extends Component {
 		alert('Login success');
         AsyncStorage.setItem('user_data', JSON.stringify(user_data));
         this.props.navigator.push({
-          component: Didacticiel
+          component: GestionPatient
         });
     }).catch((error)=>{
 		 alert(error.message);
@@ -162,7 +166,7 @@ export default class login extends Component {
 		alert('Login facebook success');
         AsyncStorage.setItem('user_data', JSON.stringify(result.user));
         this.props.navigator.push({
-          component: Didacticiel
+          component: GestionPatient
         });
     }
 	});
