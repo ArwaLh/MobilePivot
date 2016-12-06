@@ -36,7 +36,8 @@ const Blob = RNFetchBlob.polyfill.Blob
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
 window.Blob = Blob
 const dirs = RNFetchBlob.fs.dirs
-
+const path=null;
+const testFile = null
 export default class uploadForm extends Component {
 	constructor (props) {
 		super(props);
@@ -61,6 +62,7 @@ export default class uploadForm extends Component {
          items: []
                   } 
 		}
+		this.uploadPic=this.uploadPic.bind(this);
 	}
 	
 	onValueChange (value: string) {
@@ -74,10 +76,10 @@ export default class uploadForm extends Component {
     AsyncStorage.getItem('path').then((pathUp) => {                                                   
       this.setState({
 		path:pathUp,
-		rnfbURI: RNFetchBlob.wrap(pathUp),
         loaded: true
       });
-	  alert(this.state.path);
+	  path= this.state.path;
+	  alert(path);
     });
 
   }
@@ -96,30 +98,33 @@ export default class uploadForm extends Component {
 		firebase.auth().onAuthStateChanged((user) => {
 			<Text>{JSON.stringify(user)}</Text>
 		})
-		
+		RNFetchBlob
+		  .config({ fileCache : true, appendExt : 'jpg' })
+		  .fetch('GET', 'http://www.cleverfiles.com/howto/wp-content/uploads/2016/08/mini.jpg')
+		  .then((resp) => {
+			testFile = resp.path()
+		  })
+		const rnfbURI= RNFetchBlob.wrap(path);
 		// create Blob from file path
 		Blob
-			.build(this.state.rnfbURI, { type : 'image/jpg;'})
+			.build(rnfbURI, { type : 'image/jpg;'})
 			.then((blob) => {
 			  // upload image using Firebase SDK
-			  var uploadTask= this.storageRef
+			  var uploadTask= firebase.storage()
 				.ref('images')
 				.child(testImageName)
 				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
-				  // Observe state change events such as progress, pause, and resume
-				  // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-					let progress =(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+					var progress =Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
 					alert("progress");
 					alert(progress);
 				}, function(error) {
-				  alert("error iuploading");
+				  alert(path);
+				  alert("error in uploading");
 				}, function() {
-				  // Handle successful uploads on complete
-				  // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+				  blob.close();
 				  var downloadURL = uploadTask.snapshot.downloadURL;
 				  alert("done uploading here is the download URL",downloadURL);
-				  blob.close()
 				});
 			})
 	}
@@ -266,10 +271,9 @@ export default class uploadForm extends Component {
 			</Slider>	
 			<ListItem>
 			<Button
-			    onPress={this.validMetadata.bind(this)} 
 				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:60,marginBottom:50,alignItems:'center'}}
 				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}
-				onPress={this.uploadPic.bind(this)}>Valider</Button>
+				onPress={this.uploadPic}>Valider</Button>
 			</ListItem>
 			</List>	
          </ScrollView> 
