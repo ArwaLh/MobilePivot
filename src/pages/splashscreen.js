@@ -38,11 +38,11 @@ export default class splashscreen extends Component {
 					<TouchableOpacity
 						onPress={this.demarrer.bind(this)}
 						style={{width:200,height:50,marginLeft:115,marginTop:500,marginBottom:10}}
-						bordered><Text style={{color: 'transparent'}}>DÉMARRER</Text></TouchableOpacity>
+						bordered><Text style={{color: 'black'}}>DÉMARRER</Text></TouchableOpacity>
 					<TouchableOpacity
 						onPress={this.didacticiel.bind(this)}
 						style={{width:200,height:50,marginLeft:115,marginTop:0,marginBottom:15}}
-						bordered><Text style={{color: 'transparent'}}>DIDACTICIEL</Text></TouchableOpacity>
+						bordered><Text style={{color: 'black'}}>DIDACTICIEL</Text></TouchableOpacity>
 				</View>
 			</Image>
 		</View>

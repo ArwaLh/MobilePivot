@@ -30,7 +30,7 @@ const testImageName = `patient-pic-${Platform.OS}-${new Date()}.jpg`
 const EMAIL = 'arwa.louihig@esprit.tn'
 const PASSWORD = 'arwa24961322'
 import firebase from 'firebase';
-import RNFetchBlob from 'react-native-fetch-blob';
+import RNFetchBlob from 'react-native-fetch-blob'; 
 const fs = RNFetchBlob.fs
 const Blob = RNFetchBlob.polyfill.Blob
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
@@ -52,11 +52,11 @@ export default class uploadForm extends Component {
 		  types3: [{label: 'Oui', value: 0}, {label: 'Non', value: 1}],
 		  value3: 0,
 		  value3Index: 0,
-		  choisir: 'choisir',
+	      choisir:'choisir',
 		  chickenWings: 1.5,
 		   value: 1.0,
 		selectedItem: undefined,
-         selected1: 'key0',
+         selected1: 'Régulier',
 		 selected2: 'key3',
 		 selected3: 'key5',
 		 selected4: 'key7',
@@ -66,29 +66,27 @@ export default class uploadForm extends Component {
                   } 
 		}
 	}
-	 componentDidMount(){
-		AsyncStorage.getItem('phototype').then((phototypee) => {
-		  this.setState({
-			choisir: '',
-			loaded:true
-		  });
-		});
-		alert(this.state.phototype);
-	}
-	 componentWillMount(){
+
+	componentWillMount(){
 		AsyncStorage.getItem('phototype').then((phototypee) => {
 		  this.setState({
 			phototype: phototypee,
 			loaded:true
 		  });
 		});
+		AsyncStorage.getItem('path').then((pathUp) => {                                                   
+		  this.setState({
+			path:pathUp,
+			rnfbURI: RNFetchBlob.wrap(pathUp),
+		  });
 		alert(this.state.phototype);
-	}
-	
+		});
+	 }
 	onValueChangeBords (value: string) {
         this.setState({
             selected1 : value
-	});}
+		});
+	}
 
 	onValueChangeCouleur (value: string) {
 			this.setState({
@@ -108,19 +106,7 @@ export default class uploadForm extends Component {
 	onValueChangeEpaisseur (value: string) {
 			this.setState({
 				selected5 : value
-		});}		
-	componentWillMount(){
-
-    AsyncStorage.getItem('path').then((pathUp) => {                                                   
-      this.setState({
-		path:pathUp,
-		rnfbURI: RNFetchBlob.wrap(pathUp),
-        loaded: true
-      });
-	  alert(this.state.path);
-    });
-
-  }
+		});}
 	goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
@@ -185,9 +171,10 @@ export default class uploadForm extends Component {
                         mode="dropdown"
                         selectedValue={this.state.selected1}
                         onValueChange={this.onValueChangeBords.bind(this)}>  
-								<Item label="Régulier" value="key0" />
-								<Item label="Irrégulier" value="key1" />
+								<Item label="Régulier" value="Régulier" />
+								<Item label="Irrégulier" value="Irrégulier" />
 					</Picker>
+				<Text>selected: {this.state.selected1} </Text>
 			</Col>
 			 </Row>
 			  <Row>
@@ -309,7 +296,7 @@ export default class uploadForm extends Component {
 			    onPress={this.validMetadata.bind(this)} 
 				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:60,marginTop:10,alignItems:'center'}}
 				textStyle={{fontSize: 18, color:'#fff'}}
-				onPress={this.uploadPic.bind(this)}>VALIDER</Button>
+				>VALIDER</Button>
 			</ListItem>
 			
          </ScrollView> 
@@ -317,10 +304,12 @@ export default class uploadForm extends Component {
     );
   }
   	 validMetadata(){
+		AsyncStorage.setItem('Bords_value',this.state.selected1); 
 		this.props.navigator.push({
 		  component: ValidMeta
+		  
 		});
-	  }
+	  }      
     phototypeb(){
 		this.setState({choisir: '', loaded :true});
 		this.props.navigator.push({
