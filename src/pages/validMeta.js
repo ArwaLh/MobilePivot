@@ -132,11 +132,18 @@ export default class validMeta extends Component {
            </Grid>			 
 	  </ListItem>	 
 	
-	  
-				
-			<Button
-				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:80,marginTop:20,alignItems:'center'}}
-				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}>Envoyer</Button>
+	  <Grid>
+              <Col>
+			     <Button transparent>
+                         Modifier les informations
+                 </Button> 
+			  </Col>
+			 <Col>	
+				<Button
+					style={{flex:9,backgroundColor: "#29235c",width:150,height:40,marginTop:10,alignItems:'center'}}
+					textStyle={{fontSize: 17, color:'#fff',fontWeight:"bold"}}>Envoyer</Button>
+			</Col>	
+	 </Grid>			
      </CardItem>
 </ScrollView>   
 	</View>
@@ -184,7 +191,7 @@ const styles = StyleSheet.create({
   },
   metaDataForm: {
    fontFamily: 'Roboto',
-	fontSize:17,
+	fontSize:15,
 	color:'#29235c',  
 	margin:10
   },
