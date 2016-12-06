@@ -23,6 +23,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input, Button, Card, CardItem, Header} from 'native-base';
 import UploadForm from './uploadForm';
 import NewPatient from './newPatient';
+import GestionNaevus from './gestionNaevus';
 import LocatePic from './locatePic';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 export default class updatePatient extends Component {
@@ -35,6 +36,11 @@ export default class updatePatient extends Component {
 	locatePic(){
 		this.props.navigator.push({
           component: LocatePic
+        }); 
+	}
+	gestionNaevus(){
+		this.props.navigator.push({
+          component: GestionNaevus
         }); 
 	}
 	goBack() {
@@ -69,7 +75,7 @@ export default class updatePatient extends Component {
        
 		  
 		<Button
-			onPress={this.locatePic.bind(this)}
+			onPress={this.gestionNaevus.bind(this)}
 			style={styles.primary_button}
 			textStyle={styles.primary_button_text}>Localiser Photo</Button>
 		

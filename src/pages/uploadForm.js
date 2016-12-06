@@ -14,6 +14,7 @@ import {
   BackAndroid,
   AsyncStorage,
   Platform,
+  ProgressBar,
   View
 } from 'react-native';
 
@@ -23,6 +24,7 @@ import {Button, List, ListItem, Header, Picker} from 'native-base';
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import * as Progress from 'react-native-progress';
 const Item = Picker.Item;
 import ValidMeta from './validMeta';
 import Phototype from './phototype';
@@ -38,6 +40,7 @@ window.Blob = Blob
 const dirs = RNFetchBlob.fs.dirs
 const path=null;
 const testFile = null
+var progress=0;
 export default class uploadForm extends Component {
 	constructor (props) {
 		super(props);
@@ -54,6 +57,7 @@ export default class uploadForm extends Component {
 		  value3: 0,
 		  value3Index: 0,
 		  chickenWings: 1.5,
+		  progress_bar: 0,
 		   value: 1.0,
 		selectedItem: undefined,
 		rnfbURI: null,
@@ -62,7 +66,6 @@ export default class uploadForm extends Component {
          items: []
                   } 
 		}
-		this.uploadPic=this.uploadPic.bind(this);
 	}
 	
 	onValueChange (value: string) {
@@ -98,12 +101,6 @@ export default class uploadForm extends Component {
 		firebase.auth().onAuthStateChanged((user) => {
 			<Text>{JSON.stringify(user)}</Text>
 		})
-		RNFetchBlob
-		  .config({ fileCache : true, appendExt : 'jpg' })
-		  .fetch('GET', 'http://www.cleverfiles.com/howto/wp-content/uploads/2016/08/mini.jpg')
-		  .then((resp) => {
-			testFile = resp.path()
-		  })
 		const rnfbURI= RNFetchBlob.wrap(path);
 		// create Blob from file path
 		Blob
@@ -115,11 +112,9 @@ export default class uploadForm extends Component {
 				.child(testImageName)
 				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
-					var progress =Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-					alert("progress");
-					alert(progress);
+					progress =Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+					alert(progress); 
 				}, function(error) {
-				  alert(path);
 				  alert("error in uploading");
 				}, function() {
 				  blob.close();
@@ -273,7 +268,7 @@ export default class uploadForm extends Component {
 			<Button
 				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:60,marginBottom:50,alignItems:'center'}}
 				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}
-				onPress={this.uploadPic}>Valider</Button>
+				onPress={this.uploadPic.bind(this)}>Valider</Button>
 			</ListItem>
 			</List>	
          </ScrollView> 
