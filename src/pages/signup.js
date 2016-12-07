@@ -40,14 +40,12 @@ export default class signup extends Component {
 		  snap.forEach((child) => {
 			items_med.push({
 			  email_medecin: child.val().email_medecin,
-			  _key: child.key,
-			  adresse_cabinet: child.val().adresse_cabinet,
-			  _key: child.key,
+			  _key: child.key 
 			});
 		  });
 		});
 	let medecins=items_med;
-	let medecin_id=this.state.email_medecin.substring(0, 1)+this.state.email_medecin.substring(0, 1)+medecins.length;
+	let medecin_id=this.state.email_medecin.substring(0, this.state.email_medecin.indexOf('@'))+medecins.length;
     firebase.auth().createUserWithEmailAndPassword(this.state.email_medecin,this.state.password).then((userData) =>{
 	//ajouter medecin à firebase database
 	this.itemsRef.child("medecins/"+medecin_id).set({
