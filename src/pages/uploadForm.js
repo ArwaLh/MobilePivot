@@ -14,6 +14,7 @@ import {
   BackAndroid,
   AsyncStorage,
   Platform,
+  ProgressBar,
   View
 } from 'react-native';
 
@@ -23,6 +24,7 @@ import {Button, List, ListItem, Header, Picker} from 'native-base';
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import * as Progress from 'react-native-progress';
 const Item = Picker.Item;
 import ValidMeta from './validMeta';
 import Phototype from './phototype';
@@ -38,6 +40,7 @@ window.Blob = Blob
 const dirs = RNFetchBlob.fs.dirs
 const path=null;
 const testFile = null
+var progress=0;
 export default class uploadForm extends Component {
 	constructor (props) {
 		super(props);
@@ -53,7 +56,6 @@ export default class uploadForm extends Component {
 		 selected4: '0.2',
 		 selected5: '0.2',
 		}
-		this.uploadPic=this.uploadPic.bind(this);
 	}
 
 	componentWillMount(){
@@ -122,11 +124,9 @@ export default class uploadForm extends Component {
 				.child(testImageName)
 				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
-					var progress =Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-					alert("progress");
-					alert(progress);
+					progress =Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+					alert(progress); 
 				}, function(error) {
-				  alert(path);
 				  alert("error in uploading");
 				}, function() {
 				  blob.close();

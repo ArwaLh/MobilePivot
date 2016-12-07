@@ -25,6 +25,7 @@ import UploadForm from './uploadForm';
 import ValidMeta from './validMeta';
 import TakePic from './takePic';
 import NewPatient from './newPatient';
+import GestionNaevus from './gestionNaevus';
 import LocatePic from './locatePic';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 export default class updatePatient extends Component {
@@ -37,6 +38,11 @@ export default class updatePatient extends Component {
 	uploadP(){
 		this.props.navigator.push({
           component: UploadForm
+        }); 
+	}
+	gestionNaevus(){
+		this.props.navigator.push({
+          component: GestionNaevus
         }); 
 	}
 	goBack() {
