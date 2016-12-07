@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  PanResponder,
   ScrollView,
   AsyncStorage,
   View
@@ -48,9 +49,17 @@ export default class newPatient extends Component {
       results: {
       items: []
       },
-	  date:"2016-05-25"	  
+	  date:""	  
 	}}
 	 componentWillMount(){
+		this._panResponder = PanResponder.create({
+		  onStartShouldSetPanResponder: (e) => {console.log('onStartShouldSetPanResponder'); return true;},
+		  onMoveShouldSetPanResponder: (e) => {console.log('onMoveShouldSetPanResponder'); return true;},
+		  onPanResponderGrant: (e) => console.log('onPanResponderGrant'),
+		  onPanResponderMove: (e) => console.log('onPanResponderMove'),
+		  onPanResponderRelease: (e) => console.log('onPanResponderRelease'),
+		  onPanResponderTerminate: (e) => console.log('onPanResponderTerminate')
+		});
 		AsyncStorage.getItem('medecin_username').then((medecin_username) => {
 		  this.setState({
 			username_med: medecin_username,
@@ -151,14 +160,25 @@ export default class newPatient extends Component {
 					value={this.state.prenom_pat}
 					placeholder={"Prénom"}
 					underlineColorAndroid="#53507c"/>			
-				<TextInput
-					style={styles.textinput_new_patinet}
-					placeholderTextColor="#29235c"
-					onChangeText={(text) => this.setState({date_de_naissance: text})}
-					value={this.state.date_de_naissance}
-					placeholder={"Date de naissance"}
-					dataDetectorTypes ='calendarEvent'
-					underlineColorAndroid="#53507c"/> 
+				 <Grid>
+					  <Col>
+						<Text style={styles.date_de_naissance}>Date de naissance</Text>
+					  </Col>
+					  <Col>
+					  	<DatePicker
+							style={{width: 200}}
+							date={this.state.dateNaissance_pat}
+							mode="date"
+							placeholder={this.state.dateNaissance_pat}
+							format="YYYY-MM-DD"
+							minDate="1980-01-01"
+							maxDate="2030-01-01"
+							confirmBtnText="Confirm"
+							cancelBtnText="Cancel"
+							onDateChange={(date) => {this.setState({date: date})}}
+						  />
+					  </Col>
+				 </Grid>  
 				<TextInput
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
