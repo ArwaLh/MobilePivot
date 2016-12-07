@@ -22,6 +22,7 @@ import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input, Button, Card, CardItem, Header} from 'native-base';
 import UploadForm from './uploadForm';
+import ValidMeta from './validMeta';
 import TakePic from './takePic';
 import NewPatient from './newPatient';
 import LocatePic from './locatePic';

@@ -49,43 +49,48 @@ export default class phototype extends Component {
     }
   }
   phototype_1(){
-	    AsyncStorage.setItem('phototype','I');
-	    AsyncStorage.setItem('choisir','');
+	    AsyncStorage.setItem('Phototype_value','I');
+	    AsyncStorage.setItem('Sed_Value','2.5');
 		this.setState({back_color: '#322a7d', textColor: 'white',text2: 'white'});
 		this.props.navigator.push({
           component: UploadForm
         }); 
 	}
 	phototype_2(){
-		AsyncStorage.setItem('phototype','II');
+		AsyncStorage.setItem('Phototype_value','II');
+		AsyncStorage.setItem('Sed_Value','3.0');
 		this.setState({back_color1: '#322a7d', textColor1: 'white',text3: 'white'});
 		this.props.navigator.push({
           component: UploadForm
         }); 
 	}
 	phototype_3(){
-		AsyncStorage.setItem('phototype','III');
+		AsyncStorage.setItem('Phototype_value','III');
+		AsyncStorage.setItem('Sed_Value','4.5');
 		this.setState({back_color2: '#322a7d', textColor2: 'white',text4: 'white'});
 		this.props.navigator.push({
           component: UploadForm
         }); 
 	}
 	phototype_4(){
-		AsyncStorage.setItem('phototype','IV');
+		AsyncStorage.setItem('Phototype_value','IV');
+		AsyncStorage.setItem('Sed_Value','6.0');
 		this.setState({back_color3: '#322a7d', textColor3: 'white',text5: 'white'});
 		this.props.navigator.push({
           component: UploadForm
         }); 
 	}
 	phototype_5(){
-		AsyncStorage.setItem('phototype','V');
+		AsyncStorage.setItem('Phototype_value','V');
+		AsyncStorage.setItem('Sed_Value','7.5');
 		this.setState({back_color4: '#322a7d', textColor4: 'white',text6: 'white'});
 		this.props.navigator.push({
           component: UploadForm
         }); 
 	}
 	phototype_6(){
-		AsyncStorage.setItem('phototype','VI');
+		AsyncStorage.setItem('Phototype_value','VI');
+		AsyncStorage.setItem('Sed_Value','12.0');
 		this.setState({back_color5: '#322a7d', textColor5: 'white',text7: 'white'});
 		this.props.navigator.push({
           component: UploadForm
@@ -199,11 +204,6 @@ export default class phototype extends Component {
 	</View>
     );
   }
-   onValueChange = (key: string, value: string) => {
-    const newState = {};
-    newState[key] = value;
-    this.setState(newState);
-  };
 }
 const styles = StyleSheet.create({
   container: {

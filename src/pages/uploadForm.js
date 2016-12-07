@@ -36,50 +36,39 @@ const Blob = RNFetchBlob.polyfill.Blob
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
 window.Blob = Blob
 const dirs = RNFetchBlob.fs.dirs
-
+const path=null;
+const testFile = null
 export default class uploadForm extends Component {
 	constructor (props) {
 		super(props);
-		this.storageRef = firebase.storage();
 		this.state = {
 		loaded:true,
-		  types1: [{label: 'Régulier', value: 0}, {label: 'Irrégulier', value: 1}],
-		  value1: 0,
-		  value1Index: 0,
-		  types2: [{label: 'Brun foncé', value: 0}, {label: 'Brun clair', value: 1}],
-		  value2: 0,
-		  value2Index: 0,
-		  types3: [{label: 'Oui', value: 0}, {label: 'Non', value: 1}],
-		  value3: 0,
-		  value3Index: 0,
 	      choisir:'choisir',
-		  chickenWings: 1.5,
-		   value: 1.0,
-		selectedItem: undefined,
+		  phototype: '',
+		  mel: 0.0,
+		  selectedItem: undefined,
          selected1: 'Régulier',
-		 selected2: 'key3',
-		 selected3: 'key5',
-		 selected4: 'key7',
-		 selected5: 'key24',
-         results: {
-         items: []
-                  } 
+		 selected2: 'Brun foncé',
+		 selected3: 'Oui',
+		 selected4: '0.2',
+		 selected5: '0.2',
 		}
+		this.uploadPic=this.uploadPic.bind(this);
 	}
 
 	componentWillMount(){
-		AsyncStorage.getItem('phototype').then((phototypee) => {
+		AsyncStorage.getItem('Phototype_value').then((phototypee) => {
 		  this.setState({
-			phototype: phototypee,
-			loaded:true
+			phototype: phototypee
 		  });
 		});
 		AsyncStorage.getItem('path').then((pathUp) => {                                                   
 		  this.setState({
 			path:pathUp,
-			rnfbURI: RNFetchBlob.wrap(pathUp),
+			loaded: true
 		  });
-		alert(this.state.phototype);
+		  path= this.state.path;
+		  alert(path);
 		});
 	 }
 	onValueChangeBords (value: string) {
@@ -87,7 +76,6 @@ export default class uploadForm extends Component {
             selected1 : value
 		});
 	}
-
 	onValueChangeCouleur (value: string) {
 			this.setState({
 				selected2 : value
@@ -107,6 +95,7 @@ export default class uploadForm extends Component {
 			this.setState({
 				selected5 : value
 		});}
+  
 	goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
@@ -122,30 +111,27 @@ export default class uploadForm extends Component {
 		firebase.auth().onAuthStateChanged((user) => {
 			<Text>{JSON.stringify(user)}</Text>
 		})
-		
+		const rnfbURI= RNFetchBlob.wrap(path);
 		// create Blob from file path
 		Blob
-			.build(this.state.rnfbURI, { type : 'image/jpg;'})
+			.build(rnfbURI, { type : 'image/jpg;'})
 			.then((blob) => {
 			  // upload image using Firebase SDK
-			  var uploadTask= this.storageRef
+			  var uploadTask= firebase.storage()
 				.ref('images')
 				.child(testImageName)
 				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
-				  // Observe state change events such as progress, pause, and resume
-				  // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-					let progress =(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+					var progress =Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
 					alert("progress");
 					alert(progress);
 				}, function(error) {
-				  alert("error iuploading");
+				  alert(path);
+				  alert("error in uploading");
 				}, function() {
-				  // Handle successful uploads on complete
-				  // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+				  blob.close();
 				  var downloadURL = uploadTask.snapshot.downloadURL;
 				  alert("done uploading here is the download URL",downloadURL);
-				  blob.close()
 				});
 			})
 	}
@@ -174,7 +160,6 @@ export default class uploadForm extends Component {
 								<Item label="Régulier" value="Régulier" />
 								<Item label="Irrégulier" value="Irrégulier" />
 					</Picker>
-				<Text>selected: {this.state.selected1} </Text>
 			</Col>
 			 </Row>
 			  <Row>
@@ -188,8 +173,8 @@ export default class uploadForm extends Component {
                         mode="dropdown"
                         selectedValue={this.state.selected2}
                         onValueChange={this.onValueChangeCouleur.bind(this)}>  
-								<Item label="Brun foncé" value="key3" />
-								<Item label="Brun clair" value="key4" />
+								<Item label="Brun foncé" value="Brun foncé" />
+								<Item label="Brun clair" value="Brun clair" />
 					</Picker>
 					</Col>
 				</Row>	
@@ -204,8 +189,8 @@ export default class uploadForm extends Component {
                         mode="dropdown"
                         selectedValue={this.state.selected3}
                         onValueChange={this.onValueChangeAsymétrie.bind(this)}>  
-								<Item label="Oui" value="key5" />
-								<Item label="Non" value="key6" />
+								<Item label="Oui" value="Oui" />
+								<Item label="Non" value="Non" />
 					</Picker>
 				</Col>	
 				</Row>
@@ -234,23 +219,15 @@ export default class uploadForm extends Component {
                         mode="dropdown"
                         selectedValue={this.state.selected4}
                         onValueChange={this.onValueChangeDiamètre.bind(this)}>  
-								<Item label="0,2" value="key7" />
-								<Item label="1.3" value="key8" />
-								<Item label="2.3 " value="key9" />
-								<Item label="4.3 mm" value="key10" />
-								<Item label="5.2 mm" value="key11" />
-								<Item label="6 mm" value="key12" />	
-								<Item label="0,2" value="key13" />
-								<Item label="1.3" value="key14" />
-								<Item label="2.3 " value="key15" />
-								<Item label="4.3 mm" value="key16" />
-								<Item label="5.2 mm" value="key17" />
-								<Item label="6 mm" value="key18" />	
-								<Item label="1.3" value="key19" />
-								<Item label="2.3 " value="key20" />
-								<Item label="4.3 mm" value="key21" />
-								<Item label="5.2 mm" value="key22" />
-								<Item label="6 mm" value="key23" />	
+								<Item label="0,2" value="0,2" />
+								<Item label="1.3" value="1.3" />
+								<Item label="2.3 " value="2.3" />
+								<Item label="4.3 " value="4.3" />
+								<Item label="5.2" value="5.2" />
+								<Item label="6 " value="6" />	
+								<Item label="0,2" value="0.2" />
+								<Item label="1.3" value="1.3" />
+								<Item label="2.3 " value="2.3" />
 							
 					</Picker>
 				</Col>
@@ -266,12 +243,10 @@ export default class uploadForm extends Component {
 							mode="dropdown"
 							selectedValue={this.state.selected5}
 							onValueChange={this.onValueChangeEpaisseur.bind(this)}>  
-									<Item label="0,2" value="key24" />
-									<Item label="1.3" value="key25" />
-									<Item label="2.3 " value="key26" />
-									<Item label="4.3" value="key27" />
-									<Item label="5.2" value="key28" />
-									<Item label="6" value="key29" />	
+									<Item label="0,2" value="0.2" />
+									<Item label="1.3" value="1.3" />
+									<Item label="2.3 " value="2.3" />
+									<Item label="4.3" value="4.3" />
 						</Picker>
 					</Col>	
 				</Row>
@@ -280,31 +255,38 @@ export default class uploadForm extends Component {
 					<Text style={styles.suspicion}>Suspicion</Text>
 				</Col>
 				<Col>
-						<Text style={styles.melanome}> Mélanome: {this.state.value} %</Text>
+						<Text style={styles.melanome}> Mélanome: {this.state.mel} % </Text>
 				</Col>
 			</Row>
 			<Row >	
 			<Slider
-				value={this.state.value}
+				ref="mel"
+				value={this.state.mel}
 				style={styles.slidee}
-				onValueChange={(value) => this.setState({value})} >
+				onValueChange={(value) => this.setState({mel:value})} >
 			</Slider>
             </Row>			
 			</Grid>
 			<ListItem>
 			<Button
-			    onPress={this.validMetadata.bind(this)} 
-				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:60,marginTop:10,alignItems:'center'}}
-				textStyle={{fontSize: 18, color:'#fff'}}
-				>VALIDER</Button>
+			    onPress={this.validMetadata.bind(this)}
+				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:60,marginBottom:50,alignItems:'center'}}
+				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}
+				>Valider</Button>
 			</ListItem>
-			
          </ScrollView> 
 	</View>
     );
   }
   	 validMetadata(){
 		AsyncStorage.setItem('Bords_value',this.state.selected1); 
+		AsyncStorage.setItem('Couleur_value',this.state.selected2); 
+		AsyncStorage.setItem('Asymetrie_value',this.state.selected3);  
+		AsyncStorage.setItem('Phototype_value',this.state.phototype);
+		AsyncStorage.setItem('Sed_Value',this.state.sed);
+		AsyncStorage.setItem('Diametre_value',this.state.selected4);  
+		AsyncStorage.setItem('Epaisseur_value',this.state.selected5);
+		AsyncStorage.setItem('Suspicion_value',JSON.stringify(this.state.mel));  
 		this.props.navigator.push({
 		  component: ValidMeta
 		  
