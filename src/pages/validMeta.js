@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Text,
   Picker,
+  AsyncStorage,
   ScrollView,
   TextInput,
   View
@@ -21,177 +22,166 @@ import {Button, List, ListItem, Header, InputGroup, Input, Card, CardItem} from 
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
+import UploadForm from './uploadForm';
 
 export default class validMeta extends Component {
 	constructor (props) {
     super(props);
-    this.state = {
-	loaded:true,
-      types1: [{label: 'Régulier', value: 0}, {label: 'Irrégulier', value: 1}],
-      value1: 0,
-      value1Index: 0,
-      types2: [{label: 'Brun foncé', value: 0}, {label: 'Brun clair', value: 1}],
-      value2: 0,
-      value2Index: 0,
-      types3: [{label: 'Oui', value: 0}, {label: 'Non', value: 1}],
-      value3: 0,
-      value3Index: 0,
-	  chickenWings: 1.5,
-	   value: 1.0,
-		selected1: 'key1',
-		selected2: 'key1',
-		selected3: 'key1',
-		color: 'red',
-		mode: Picker.MODE_DIALOG,
-    }
-  }
-  goBack() {
+		this.state = {
+			bords: '',
+			couleur: '',
+			loaded: true
+		}
+	}
+	goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
+	}
+	componentWillMount(){
+		AsyncStorage.getItem('Bords_value').then((bordss) => {
+		  this.setState({
+			bords: bordss
+		  });
+		});
+		AsyncStorage.getItem('Couleur_value').then((couleurr) => {
+		  this.setState({
+			couleur: couleurr
+		  });
+		});
+		AsyncStorage.getItem('Asymetrie_value').then((asymetriee) => {
+			this.setState({
+			asymetrie: asymetriee
+			});
+		});
+		AsyncStorage.getItem('Phototype_value').then((phototypee) => {
+		  this.setState({
+			phototype: phototypee
+		  });
+		});
+		AsyncStorage.getItem('Diametre_value').then((diametree) => {
+		  this.setState({
+			diametre: diametree
+		  })
+		});
+		AsyncStorage.getItem('Epaisseur_value').then((epaisseurr) => {
+		  this.setState({
+			epaisseur: epaisseurr
+		  });
+		});	
+		AsyncStorage.getItem('Suspicion_value').then((suspicionn) => {
+			var a =JSON.parse(suspicionn);
+			this.setState({
+				suspicion: a
+			});
+		});	
+       AsyncStorage.getItem('Sed_Value').then((sedd) => {
+		  this.setState({
+			sed: sedd
+		  });
+		});		
 	}
   render() {
     return ( 
 	<View>
 	<HeaderUp text="Meta Data" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
-<ScrollView>	
-  <Card>
-    <CardItem style={styles.body2}>
-	 <ListItem>   
-	      <Grid>
-              <Col>
-					<Text style={{width:60, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Bords</Text>
-			  </Col>
-              <Col>
-					 <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-			 </Col> 
-           </Grid>			 
-	  </ListItem>	
-	  <ListItem>   
-	      <Grid>
-              <Col>
-					<Text style={{width:60, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Couleur</Text>
-			  </Col>
-              <Col>
-					 <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-			 </Col> 
-           </Grid>			 
-	  </ListItem> 
-	  <ListItem>   
-	      <Grid>
-              <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Asymétrie</Text>
-			  </Col>
-              <Col>
-					 <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-			 </Col> 
-           </Grid>			 
-	  </ListItem>	
-	  <ListItem>   
-	      <Grid>
-              <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Phototype</Text>
-			  </Col>
-              <Col>
-					 <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-			 </Col> 
-           </Grid>			 
-	  </ListItem>	 
-	 <ListItem>   
-	      <Grid>
-              <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Diamètre</Text>
-			  </Col>
-              <Col>
-					 <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-			 </Col> 
-           </Grid>			 
-	  </ListItem> 
-	  <ListItem>   
-	      <Grid>
-              <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Suspicion</Text>
-			  </Col>
-              <Col>
-					 <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-			 </Col> 
-           </Grid>			 
-	  </ListItem>	
-	  <ListItem>   
-	      <Grid>
-              <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Antécédents dans la famille </Text>
-			  </Col>
-              <Col>
-					 <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-			 </Col> 
-           </Grid>			 
-	  </ListItem> 
-	<ListItem>
-			<Grid>
-				<Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Nombre de grain de beauté</Text>
-				</Col>
-				<Col>
-					 <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-				</Col>
-			</Grid>
+		<ScrollView>	
+			<ListItem style={styles.list_MetaData}>   
+						  <Grid>
+							  <Col>
+									<Text style={styles.metaDataForm}>Bords</Text>
+							  </Col>
+							  <Col>
+								 <Text  style={styles.metaDataForm2} >{this.state.bords}</Text>
+							 </Col> 
+						   </Grid>			 
 			</ListItem>	
-	 <ListItem>   
-	      <Grid>
-              <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>Phototype </Text>
-			  </Col>
-              <Col>
-					 <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-			 </Col> 
-           </Grid>			 
-	  </ListItem> 
-	   <ListItem>   
-	      <Grid>
-              <Col>
-					<Text style={{width:160, fontFamily: 'Arial', fontSize:14,color:'black', marginTop:10}}>SED </Text>
-			  </Col>
-              <Col>
-					 <InputGroup borderType='regular'>
-							<Input placeholder=''/>
-					 </InputGroup> 
-			 </Col> 
-           </Grid>			 
-	  </ListItem> 
-	  
-				
-			<Button
-				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:80,marginBottom:50,alignItems:'center'}}
-				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}>Envoyer</Button>
-     </CardItem>
-  </Card>
-</ScrollView>   
+			<ListItem style={styles.list_MetaData}>   
+						  <Grid>
+							  <Col>
+									<Text style={styles.metaDataForm}>Couleur</Text>
+							  </Col>
+							  <Col>
+									 <Text  style={styles.metaDataForm} >{this.state.couleur}</Text>
+							 </Col> 
+						   </Grid>			 
+			</ListItem> 
+			<ListItem style={styles.list_MetaData}>   
+						  <Grid>
+							  <Col>
+									<Text style={styles.metaDataForm}>Asymétrie</Text>
+							  </Col>
+							  <Col>
+									<Text style={styles.metaDataForm}>{this.state.asymetrie}</Text>
+							 </Col> 
+						   </Grid>			 
+			</ListItem>
+			<ListItem style={styles.list_MetaData}>   
+						  <Grid>
+							  <Col>
+									<Text style={styles.metaDataForm}>Phototype </Text>
+							  </Col>
+							  <Col>
+									 <Text style={styles.metaDataForm}> Phototype {this.state.phototype}</Text>
+							 </Col> 
+						   </Grid>			 
+			</ListItem> 
+			<ListItem style={styles.list_MetaData}>   
+						  <Grid>
+							  <Col>
+									<Text style={styles.metaDataForm}>SED </Text>
+							  </Col>
+							  <Col>
+									 <Text style={styles.metaDataForm} > {this.state.sed}</Text>
+							 </Col> 
+						   </Grid>			 
+			</ListItem> 	  
+			<ListItem style={styles.list_MetaData}>   
+						  <Grid>
+							  <Col>
+									<Text style={styles.metaDataForm}>Diamètre</Text> 
+							  </Col>
+							  <Col>
+									<Text style={styles.metaDataForm}>{this.state.diametre}</Text>
+							 </Col> 
+						   </Grid>			 
+			</ListItem> 
+			<ListItem style={styles.list_MetaData}>   
+						  <Grid>
+							  <Col>
+									<Text style={styles.metaDataForm}>Epaisseur</Text> 
+							  </Col>
+							  <Col>
+								<Text style={styles.metaDataForm}>{this.state.epaisseur}</Text>
+							 </Col> 
+						   </Grid>			 
+			</ListItem>	 
+			<ListItem style={styles.list_MetaData}>   
+						  <Grid>
+							  <Col>
+									<Text style={styles.metaDataForm}>Suspicion</Text> 
+							  </Col>
+							  <Col>
+									<Text style={styles.metaDataForm}> Mélanome:{this.state.suspicion} %</Text>
+							 </Col> 
+						   </Grid>			 
+			</ListItem>	 
+					
+					  <Grid>
+							  <Col>
+								 <Button transparent>
+										 Modifier les informations
+								 </Button> 
+							  </Col>
+							 <Col>	
+								<Button
+									style={{flex:9,backgroundColor: "#29235c",width:150,height:20,marginTop:10,alignItems:'center'}}
+									textStyle={{fontSize: 17, color:'#fff',fontWeight:"bold"}}>Envoyer</Button>
+							</Col>	
+					 </Grid>			
+		</ScrollView>   
 	</View>
     );
   }
-   onValueChange = (key: string, value: string) => {
-    const newState = {};
-    newState[key] = value;
-    this.setState(newState);
-  };
 }
 const styles = StyleSheet.create({
   container: {
@@ -220,7 +210,25 @@ const styles = StyleSheet.create({
   },
   radioButtonWrap: {
     marginRight: 30,
-	
+  },
+ list_MetaData:{
+	borderColor:'#29235c',
+	height:59,
+	width:300,
+	marginBottom:0,
+	marginTop:0
+  },
+  metaDataForm: {
+   fontFamily: 'Roboto',
+	fontSize:16,
+	color:'#29235c',  
+	margin:10
+  },
+  metaDataForm2: {
+   fontFamily: 'Roboto',
+	fontSize:16,
+	color:'#29235c',  
+	marginLeft:30
   },
   title_upload:{
 	  color:"#fff",

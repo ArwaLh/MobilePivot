@@ -32,7 +32,7 @@ const testImageName = `patient-pic-${Platform.OS}-${new Date()}.jpg`
 const EMAIL = 'arwa.louihig@esprit.tn'
 const PASSWORD = 'arwa24961322'
 import firebase from 'firebase';
-import RNFetchBlob from 'react-native-fetch-blob';
+import RNFetchBlob from 'react-native-fetch-blob'; 
 const fs = RNFetchBlob.fs
 const Blob = RNFetchBlob.polyfill.Blob
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
@@ -44,48 +44,60 @@ var progress=0;
 export default class uploadForm extends Component {
 	constructor (props) {
 		super(props);
-		this.storageRef = firebase.storage();
 		this.state = {
 		loaded:true,
-		  types1: [{label: 'Régulier', value: 0}, {label: 'Irrégulier', value: 1}],
-		  value1: 0,
-		  value1Index: 0,
-		  types2: [{label: 'Brun foncé', value: 0}, {label: 'Brun clair', value: 1}],
-		  value2: 0,
-		  value2Index: 0,
-		  types3: [{label: 'Oui', value: 0}, {label: 'Non', value: 1}],
-		  value3: 0,
-		  value3Index: 0,
-		  chickenWings: 1.5,
-		  progress_bar: 0,
-		   value: 1.0,
-		selectedItem: undefined,
-		rnfbURI: null,
-         selected1: 'key1',
-         results: {
-         items: []
-                  } 
+	      choisir:'choisir',
+		  phototype: '',
+		  mel: 0.0,
+		  selectedItem: undefined,
+         selected1: 'Régulier',
+		 selected2: 'Brun foncé',
+		 selected3: 'Oui',
+		 selected4: '0.2',
+		 selected5: '0.2',
 		}
 	}
-	
-	onValueChange (value: string) {
+
+	componentWillMount(){
+		AsyncStorage.getItem('Phototype_value').then((phototypee) => {
+		  this.setState({
+			phototype: phototypee
+		  });
+		});
+		AsyncStorage.getItem('path').then((pathUp) => {                                                   
+		  this.setState({
+			path:pathUp,
+			loaded: true
+		  });
+		  path= this.state.path;
+		  alert(path);
+		});
+	 }
+	onValueChangeBords (value: string) {
         this.setState({
             selected1 : value
-	});}
-
-	
-	componentWillMount(){
-
-    AsyncStorage.getItem('path').then((pathUp) => {                                                   
-      this.setState({
-		path:pathUp,
-        loaded: true
-      });
-	  path= this.state.path;
-	  alert(path);
-    });
-
-  }
+		});
+	}
+	onValueChangeCouleur (value: string) {
+			this.setState({
+				selected2 : value
+		});}
+		
+	onValueChangeAsymétrie (value: string) {
+			this.setState({
+				selected3 : value
+		});}
+		
+	onValueChangeDiamètre (value: string) {
+			this.setState({
+				selected4 : value
+		});}
+		
+	onValueChangeEpaisseur (value: string) {
+			this.setState({
+				selected5 : value
+		});}
+  
 	goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
@@ -126,161 +138,162 @@ export default class uploadForm extends Component {
   render() {
     return ( 
 	<View>
-	<HeaderUp text="Upload Photo" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text=" 3/4 Upload Photo" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
-		  <List>
 		    <ListItem>
-			 <Image style={{width:322, height: 150}} source={{uri:this.state.path}}/>
-			</ListItem>
-            <ListItem>
-			<RadioForm
-				formHorizontal={true}
-				animation={true}>
-				<Text style={styles.bords}>Bords</Text>
-				{this.state.types1.map((obj, i) => {
-				  var that = this;
-				  var is_selected = this.state.value1Index == i;
-				  return (
-					<View key={i} style={{marginRight: 25, paddingLeft:39}}>
-					  <RadioButton
-						isSelected={is_selected}
-						obj={obj}
-						index={i}
-						labelHorizontal={false}
-						buttonColor={'#53507c'}
-						buttonSize={10}
-						labelColor={'#000'}
-						onPress={(value, index) => {
-      					  this.setState({value1Index: index});
-						}}
-					  />
-					</View>
-				  )
-				})}
-			</RadioForm>
-			</ListItem>
-            <ListItem>
-			<RadioForm
-				formHorizontal={true}
-				animation={true}>
-				<Text style={styles.couleur}>Couleur</Text>
-				{this.state.types2.map((obj, i) => {
-				  var that = this;
-				  var is_selected = this.state.value2Index == i;
-				  return (
-					<View key={i} style={{marginRight: 30, paddingLeft:20}}>
-					  <RadioButton
-						isSelected={is_selected}
-						obj={obj}
-						index={i}
-						labelHorizontal={false}
-						buttonColor={'#53507c'}
-						buttonSize={10}
-						labelColor={'#000'}
-						onPress={(value, index) => {
-						  this.setState({value2Index: index});
-						}}
-					  />
-					</View>
-				  )
-				})}
-			</RadioForm>
-            </ListItem>
-            <ListItem>
-			<RadioForm
-				formHorizontal={true}
-				animation={true}>
-				<Text style={styles.asymetrie}>Asymétrie</Text>
-				{this.state.types3.map((obj, i) => {
-				var that = this;
-				var is_selected = this.state.value3Index == i;
-				return (
-					<View key={i} style={{paddingLeft:29,marginRight: 60}}>
-					  <RadioButton
-						isSelected={is_selected}
-						obj={obj}
-						index={i}
-						labelHorizontal={false}
-						buttonColor={'#53507c'}
-						buttonSize={10}
-						labelColor={'#000'}
-						onPress={(value, index) => {
-						  this.setState({value3Index: index});
-						}}
-					  />
-					</View>
-				)
-				})}
-			</RadioForm>
-            </ListItem>
-            <ListItem>
 
-			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
-				<Text style={styles.phototypee}>Phototype</Text>
-				<Button
-				    onPress={this.phototypeb.bind(this)}
-					style={{borderColor: "#53507c",width:200,height:40,marginLeft:30}}
-					textStyle={{fontSize: 18, color:'#53507c',fontWeight:"bold"}}
-					bordered>Choisir phototype</Button>
-			</View>
+			 <Image style={{width:330, height: 160}} source={{uri:this.state.path}}/>
+
 			</ListItem>
-			<ListItem>
 			<Grid>
-				<Col>
-					<Text style={styles.diametre}>Diamètre</Text>
-				</Col>
-				<Col>
-					<Picker
+			  <Row>
+			<Col>  
+				<Text style={styles.bords}>Bords</Text>
+			</Col>
+			<Col style={{ marginLeft:100}}>	
+					<Picker 
+					    style={{width:130, color:"#29235c" }}
                         iosHeader="Select one"
                         mode="dropdown"
                         selectedValue={this.state.selected1}
-                        onValueChange={this.onValueChange.bind(this)}>  
-								<Item label="0,2" value="key0" />
-								<Item label="1.3" value="key1" />
-								<Item label="2.3 " value="key2" />
-								<Item label="4.3 mm" value="key3" />
-								<Item label="5.2 mm" value="key4" />
-								<Item label="6 mm" value="key5" />	
-								<Item label="0,2" value="key6" />
-								<Item label="1.3" value="key7" />
-								<Item label="2.3 " value="key8" />
-								<Item label="4.3 mm" value="key9" />
-								<Item label="5.2 mm" value="key10" />
-								<Item label="6 mm" value="key11" />	
-								<Item label="1.3" value="key13" />
-								<Item label="2.3 " value="key14" />
-								<Item label="4.3 mm" value="key15" />
-								<Item label="5.2 mm" value="key16" />
-								<Item label="6 mm" value="key17" />	
+                        onValueChange={this.onValueChangeBords.bind(this)}>  
+								<Item label="Régulier" value="Régulier" />
+								<Item label="Irrégulier" value="Irrégulier" />
+					</Picker>
+			</Col>
+			 </Row>
+			  <Row>
+			  <Col>
+				<Text style={styles.couleur}>Couleur</Text>
+			  </Col>
+			  <Col style={{ marginLeft:70}}>	
+				 <Picker
+						style={{width:145, color:"#29235c" }}
+                        iosHeader="Select one"
+                        mode="dropdown"
+                        selectedValue={this.state.selected2}
+                        onValueChange={this.onValueChangeCouleur.bind(this)}>  
+								<Item label="Brun foncé" value="Brun foncé" />
+								<Item label="Brun clair" value="Brun clair" />
+					</Picker>
+					</Col>
+				</Row>	
+			  <Row>
+			  <Col>
+				<Text style={styles.asymetrie}>Asymétrie</Text>
+			  </Col>
+				<Col style={{ marginLeft:160}}>
+					<Picker 
+					    style={{width:100, color:"#29235c" }}
+                        iosHeader="Select one"
+                        mode="dropdown"
+                        selectedValue={this.state.selected3}
+                        onValueChange={this.onValueChangeAsymétrie.bind(this)}>  
+								<Item label="Oui" value="Oui" />
+								<Item label="Non" value="Non" />
+					</Picker>
+				</Col>	
+				</Row>
+				<Row>
+				<Col style={{width:100}}>
+				<Text style={styles.phototypee}>Phototype</Text>
+				 </Col>
+				 <Col style={{width:200}}>
+				 	<Button
+				    onPress={this.phototypeb.bind(this)}
+					style={{borderColor: "#53507c",width:180,height:40,marginLeft:69}}
+					textStyle={{fontSize: 15, color:'#53507c'}}
+					bordered><Text>{this.state.choisir}</Text> phototype <Text> {this.state.phototype}</Text></Button>
+				</Col>
+                </Row>
+				
+				<Row>
+				<Col>
+					<Text style={styles.diametre}>Diamètre</Text>
+				</Col>
+				<Col style={{ marginLeft:160}}>
+					<Picker
+					
+					    style={{width:100, color:"#29235c" }}
+                        iosHeader="Select one"
+                        mode="dropdown"
+                        selectedValue={this.state.selected4}
+                        onValueChange={this.onValueChangeDiamètre.bind(this)}>  
+								<Item label="0,2" value="0,2" />
+								<Item label="1.3" value="1.3" />
+								<Item label="2.3 " value="2.3" />
+								<Item label="4.3 " value="4.3" />
+								<Item label="5.2" value="5.2" />
+								<Item label="6 " value="6" />	
+								<Item label="0,2" value="0.2" />
+								<Item label="1.3" value="1.3" />
+								<Item label="2.3 " value="2.3" />
 							
 					</Picker>
 				</Col>
-			</Grid>
-			</ListItem>						
-			<Text style={styles.suspicion}>Suspicion</Text>
-			<Text style={styles.melanome}> Mélanome: {this.state.value}</Text>
+			</Row>
+			  <Row>
+				  <Col>
+					<Text style={styles.asymetrie}>Epaisseur</Text>
+				  </Col>
+					<Col style={{ marginLeft:160}}>
+						<Picker 
+						    style={{width:100, color:"#29235c" }}
+							iosHeader="Select one"
+							mode="dropdown"
+							selectedValue={this.state.selected5}
+							onValueChange={this.onValueChangeEpaisseur.bind(this)}>  
+									<Item label="0,2" value="0.2" />
+									<Item label="1.3" value="1.3" />
+									<Item label="2.3 " value="2.3" />
+									<Item label="4.3" value="4.3" />
+						</Picker>
+					</Col>	
+				</Row>
+	       <Row>
+				<Col>
+					<Text style={styles.suspicion}>Suspicion</Text>
+				</Col>
+				<Col>
+						<Text style={styles.melanome}> Mélanome: {this.state.mel} % </Text>
+				</Col>
+			</Row>
+			<Row >	
 			<Slider
-				value={this.state.value}
+				ref="mel"
+				value={this.state.mel}
 				style={styles.slidee}
-				onValueChange={(value) => this.setState({value})} >
-			</Slider>	
+				onValueChange={(value) => this.setState({mel:value})} >
+			</Slider>
+            </Row>			
+			</Grid>
 			<ListItem>
 			<Button
-				style={{flex:9,backgroundColor: "#53507c",width:200,height:40,marginLeft:60,marginBottom:50,alignItems:'center'}}
+			    onPress={this.validMetadata.bind(this)}
+				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:60,marginBottom:50,alignItems:'center'}}
 				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}
-				onPress={this.uploadPic.bind(this)}>Valider</Button>
+				>Valider</Button>
 			</ListItem>
-			</List>	
          </ScrollView> 
 	</View>
     );
   }
   	 validMetadata(){
+		AsyncStorage.setItem('Bords_value',this.state.selected1); 
+		AsyncStorage.setItem('Couleur_value',this.state.selected2); 
+		AsyncStorage.setItem('Asymetrie_value',this.state.selected3);  
+		AsyncStorage.setItem('Phototype_value',this.state.phototype);
+		AsyncStorage.setItem('Sed_Value',this.state.sed);
+		AsyncStorage.setItem('Diametre_value',this.state.selected4);  
+		AsyncStorage.setItem('Epaisseur_value',this.state.selected5);
+		AsyncStorage.setItem('Suspicion_value',JSON.stringify(this.state.mel));  
 		this.props.navigator.push({
 		  component: ValidMeta
+		  
 		});
-	  }
+	  }      
     phototypeb(){
+		this.setState({choisir: '', loaded :true});
 		this.props.navigator.push({
 		  component: Phototype
 		});
@@ -316,54 +329,52 @@ const styles = StyleSheet.create({
 	
   },
   suspicion: {
-	color: 'black',
-	textAlign: 'left',
-	padding:0,
-	marginLeft:20,
-	marginTop:30,
-	fontFamily: 'Arial',
-	fontSize: 15    
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',  
+	margin:10
   },
   melanome: {
-	color: 'black',
-	textAlign: 'right',
-	bottom:30,
-	position: 'relative',
-	fontFamily: 'Arial',
-	fontSize: 15,
-	marginTop:10,
-	marginRight:20  	  
+	fontFamily: 'Roboto',
+	fontSize:15,
+	color:'#29235c',
+	marginLeft:50,
+	marginTop:12
   },
   slidee: {
-	marginLeft: 60,
-	marginRight: 60  
+	width:280,
+	marginLeft:30,
   },
   diametre: {
-	color: 'black',
-	fontFamily: 'Arial',
-	fontSize: 15,
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
 	marginTop:10,	
-	marginBottom:15,	
+	marginBottom:15,
+	margin:10
   },
   asymetrie: {
-	color: 'black',
-	fontFamily: 'Arial',
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
 	marginTop:10,
-	fontSize: 15  
+    margin:10	
   },
   couleur: {
-    color: 'black',
-	fontFamily: 'Arial',
-	fontSize: 15,
+  	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
 	marginTop:10,
-	marginBottom:15  
+	marginBottom:15,
+    margin:10	
   },
   phototypee: {
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',  
 	marginTop:10,
-	fontFamily: 'Arial',
 	marginBottom:15,
-	fontSize: 15,
-	color:"#000"
+	margin:10
   },
   title_upload:{
 	  color:"#fff",
@@ -373,11 +384,12 @@ const styles = StyleSheet.create({
 	  fontWeight:'bold'
   },
   bords: {
-    color: 'black',
-	fontFamily: 'Arial',
-	fontSize: 15,
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
 	marginTop:10,
-	marginBottom:15}
+	marginBottom:15,
+	margin:10}
 });
 
 AppRegistry.registerComponent('uploadForm', () => uploadForm);
