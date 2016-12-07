@@ -94,6 +94,8 @@ export default class newPatient extends Component {
 			  _key: child.key,
 			  profession: child.val().profession,
 			  _key: child.key,
+			  telephone_patient: child.val().telephone_patient,
+			  _key: child.key,
 			  antecedents_personnels: child.val().antecedents_personnels,
 			  _key: child.key,
 			  antecedents_familiaux: child.val().antecedents_familiaux,
@@ -112,6 +114,7 @@ export default class newPatient extends Component {
 		date_de_naissance_pat: this.state.dateNaissance_pat, 
 		lieu_pat: this.state.lieu_pat, 
 		profession_pat: this.state.profession_pat, 
+		telephone_patient: this.state.telephone_patient, 
 		antecedents_personnels: this.state.antec_perso, 
 		antecedents_familiaux: this.state.antec_fam, 
 		nombre_grain_de_beaute: this.state.nbreGrain, 
@@ -147,20 +150,15 @@ export default class newPatient extends Component {
 					onChangeText={(text) => this.setState({prenom_pat: text})}
 					value={this.state.prenom_pat}
 					placeholder={"Prénom"}
-					underlineColorAndroid="#53507c"/>		 
-				 <Grid>
-					  <Col>
-						<Text style={styles.date_de_naissance}>Date de naissance</Text>
-					  </Col>
-					  <Col>
-					  	<DatePicker
-							startY={1900}
-							endY={2022}
-							startM={1}
-							
-							/>
-					  </Col>
-				 </Grid>  
+					underlineColorAndroid="#53507c"/>			
+				<TextInput
+					style={styles.textinput_new_patinet}
+					placeholderTextColor="#29235c"
+					onChangeText={(text) => this.setState({date_de_naissance: text})}
+					value={this.state.date_de_naissance}
+					placeholder={"Date de naissance"}
+					dataDetectorTypes ='calendarEvent'
+					underlineColorAndroid="#53507c"/> 
 				<TextInput
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
@@ -179,9 +177,12 @@ export default class newPatient extends Component {
 				<TextInput
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
+					onChangeText={(text) => this.setState({telephone_patient: text})}
+					value={this.state.telephone_patient}
 					keyboardType = 'numeric'
 					placeholder={"Téléphone"}
 					maxLength = {20}
+					dataDetectorTypes ='phoneNumber'
 					underlineColorAndroid="#53507c"/>	
 
 				  <Grid>
