@@ -180,7 +180,7 @@ export default class validMeta extends Component {
 							  </Col>
 							 <Col>	
 								<Button
-									style={{flex:9,backgroundColor: "#29235c",width:150,height:37,marginTop:10,alignItems:'center'}}
+									style={{flex:9,backgroundColor: "#29235c",width:130,height:37,marginTop:8,alignItems:'center'}}
 									textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
 							</Col>	
 					 </Grid>			
