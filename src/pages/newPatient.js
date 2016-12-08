@@ -49,7 +49,8 @@ export default class newPatient extends Component {
       results: {
       items: []
       },
-	  date:""	  
+	  date:"",
+	  dateNaissance_pat: ''
 	}}
 	 componentWillMount(){
 		this._panResponder = PanResponder.create({
@@ -120,7 +121,7 @@ export default class newPatient extends Component {
 		this.itemsRef.child('medecins/'+this.state.username_med).child('patients/'+patient_id).set({ 
 		nom_pat: this.state.nom_pat, 
 		prenom_pat: this.state.prenom_pat, 
-		date_de_naissance_pat: this.state.dateNaissance_pat, 
+		date_de_naissance_pat: this.state.date, 
 		lieu_pat: this.state.lieu_pat, 
 		profession_pat: this.state.profession_pat, 
 		telephone_patient: this.state.telephone_patient, 
@@ -175,7 +176,7 @@ export default class newPatient extends Component {
 							maxDate="2030-01-01"
 							confirmBtnText="Confirm"
 							cancelBtnText="Cancel"
-							onDateChange={(date) => {this.setState({date: date})}}
+							onDateChange={(date) => {this.setState({dateNaissance_pat: date})}}
 						  />
 					  </Col>
 				 </Grid>  
