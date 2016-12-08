@@ -195,7 +195,7 @@ export default class uploadForm extends Component {
 				</Col>	
 				</Row>
 				<Row>
-				<Col style={{width:100}}>
+				<Col style={{width:110}}>
 				<Text style={styles.phototypee}>Phototype</Text>
 				 </Col>
 				 <Col style={{width:200}}>
@@ -211,24 +211,19 @@ export default class uploadForm extends Component {
 				<Col>
 					<Text style={styles.diametre}>Diamètre</Text>
 				</Col>
-				<Col style={{ marginLeft:150}}>
+				<Col style={{marginLeft:160}}>
 					<Picker
-					
 					    style={{width:140, color:"#29235c" }}
                         iosHeader="Select one"
                         mode="dropdown"
                         selectedValue={this.state.selected4}
                         onValueChange={this.onValueChangeDiamètre.bind(this)}>  
-								<Item label="0,2" value="0,2" />
-								<Item label="1.3" value="1.3" />
-								<Item label="2.3 " value="2.3" />
-								<Item label="4.3 " value="4.3" />
-								<Item label="5.2" value="5.2" />
-								<Item label="6 " value="6" />	
-								<Item label="0,2" value="0.2" />
-								<Item label="1.3" value="1.3" />
-								<Item label="2.3 " value="2.3" />
-							
+								<Item label="first" value="0,2" />
+								<Item label="second" value="1.3" />
+								<Item label="third " value="2.3" />
+								<Item label="fourth" value="4.3" />
+								<Item label="fifth" value="5.2" />
+								<Item label="sixth" value="6" />	
 					</Picker>
 				</Col>
 			</Row>
