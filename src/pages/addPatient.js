@@ -52,7 +52,6 @@ export default class addPatient extends Component {
     return (
 	<View>
 	<HeaderUp text="Gestion des patients" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
-	<ScrollView> 
 		 <View style={{margin:7, marginTop:30}}>
 		 <List>
 		 <ListItem style={{height:(window.height/2)-70}}>
@@ -93,8 +92,6 @@ export default class addPatient extends Component {
 		 </ListItem>
 		  </List>	
 	  </View>
-
-    </ScrollView>
      </View>
     );
   }
