@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
 	fontSize: 18,
 	fontWeight: 'bold',
 	fontFamily: 'Roboto',
-	marginRight: 60
+	marginRight: 50
 
   }
 });

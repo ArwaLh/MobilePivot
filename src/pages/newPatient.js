@@ -143,9 +143,9 @@ export default class newPatient extends Component {
   render() {
     return ( 
 	<View>
-	<HeaderUp text="1/4 Nouveau Patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text="1/4 Ajouter un patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
-		<View style={styles.body2}>  
+		<View> 
 				<TextInput
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
@@ -153,14 +153,13 @@ export default class newPatient extends Component {
 					value={this.state.nom_pat}
 					placeholder={"Nom"}
 					underlineColorAndroid="#53507c"/>
-   
 				<TextInput
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
 					onChangeText={(text) => this.setState({prenom_pat: text})}
 					value={this.state.prenom_pat}
 					placeholder={"Prénom"}
-					underlineColorAndroid="#53507c"/>			
+					underlineColorAndroid="#53507c"/>					
 				 <Grid>
 					  <Col>
 						<Text style={styles.date_de_naissance}>Date de naissance</Text>
@@ -298,7 +297,8 @@ const styles = StyleSheet.create({
 	color: "#29235c",
 	fontFamily: 'Roboto',
 	fontSize: 17,
-	margin: 10
+	margin: 10,
+	marginBottom:0
   },
   date_de_naissance: {
 	fontFamily: 'Roboto',
@@ -313,7 +313,8 @@ const styles = StyleSheet.create({
 	fontSize:17,
 	color:'#29235c',
 	marginTop:10,
-	margin:12
+	margin:12,
+	marginBottom:0
   },
   title_upload:{
 	  color:"#fff",
