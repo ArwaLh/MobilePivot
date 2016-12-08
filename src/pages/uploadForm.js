@@ -81,14 +81,14 @@ export default class uploadForm extends Component {
 	onValueChangeCouleur (value: string) {
 			this.setState({
 				selected2 : value
-		});}
-		
-	onValueChangeAsymétrie (value: string) {
+		});
+	}
+	onValueChangeAsymetrie (value: string) {
 			this.setState({
 				selected3 : value
-		});}
-		
-	onValueChangeDiamètre (value: string) {
+		});
+	}	
+	onValueChangeDiametre (value: string) {
 			this.setState({
 				selected4 : value
 		});}
@@ -188,7 +188,7 @@ export default class uploadForm extends Component {
                         iosHeader="Select one"
                         mode="dropdown"
                         selectedValue={this.state.selected3}
-                        onValueChange={this.onValueChangeAsymétrie.bind(this)}>  
+                        onValueChange={this.onValueChangeAsymetrie.bind(this)}>  
 								<Item label="Oui" value="Oui" />
 								<Item label="Non" value="Non" />
 					</Picker>
@@ -217,13 +217,13 @@ export default class uploadForm extends Component {
                         iosHeader="Select one"
                         mode="dropdown"
                         selectedValue={this.state.selected4}
-                        onValueChange={this.onValueChangeDiamètre.bind(this)}>  
-								<Item label="first" value="0,2" />
-								<Item label="second" value="1.3" />
-								<Item label="third " value="2.3" />
-								<Item label="fourth" value="4.3" />
-								<Item label="fifth" value="5.2" />
-								<Item label="sixth" value="6" />	
+                        onValueChange={this.onValueChangeDiametre.bind(this)}>  
+								<Item label="0.2" value="0.2" />
+								<Item label="1.3" value="1.3" />
+								<Item label="2.3" value="2.3" />
+								<Item label="4.3" value="4.3" />
+								<Item label="5.2" value="5.2" />
+								<Item label="6" value="6" />	
 					</Picker>
 				</Col>
 			</Row>
@@ -231,14 +231,14 @@ export default class uploadForm extends Component {
 				  <Col>
 					<Text style={styles.asymetrie}>Epaisseur</Text>
 				  </Col>
-					<Col style={{ marginLeft:160}}>
+					<Col style={{marginLeft:160}}>
 						<Picker 
 						    style={{width:100, color:"#29235c" }}
 							iosHeader="Select one"
 							mode="dropdown"
 							selectedValue={this.state.selected5}
 							onValueChange={this.onValueChangeEpaisseur.bind(this)}>  
-									<Item label="0,2" value="0.2" />
+									<Item label="0.2" value="0.2" />
 									<Item label="1.3" value="1.3" />
 									<Item label="2.3 " value="2.3" />
 									<Item label="4.3" value="4.3" />
@@ -253,7 +253,7 @@ export default class uploadForm extends Component {
 						<Text style={styles.melanome}> Mélanome:{this.state.mel}% </Text>
 				</Col>
 			</Row>
-			<Row >	
+			<Row>	
 			<Slider
 				ref="mel"
 				value={this.state.mel}

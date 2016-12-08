@@ -55,16 +55,23 @@ export default class updatePatient extends Component {
    <View>
 	<HeaderUp text="Rechercher un patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
-		<View style={styles.body2}>
-				<Text style={{fontFamily: 'Roboto', fontSize:16,color:'black', marginTop:15}}>
+		<View style={styles.body_recherche_patient}>
+				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:15}}>
 					  Ajouter et modifier des nouvelles données dans le dossier medical du patient
 				</Text>
+				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:15}}>
+					  Afin de modifier le dossier médical du patient existant:
+				</Text>
+				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:15}}>
+					  -Saisissiez le nom et prénom du patient
+					  -Saisissiez le dossier patient
+				</Text>
 		</View>
-		<View style={{margin:55}}>  
+		<View style={{margin:55,marginBottom:40}}>  
 	         <Grid>
 			    <Col>
 					<InputGroup style={{width: 240}}>
-						 <Input placeholder="rechercher un patient" />
+						 <Input placeholder="Nom Prénom" style={{color:"#29235c"}}/>
                     </InputGroup>
 				</Col>
 				<Col>   
@@ -73,14 +80,11 @@ export default class updatePatient extends Component {
                     </Button>
 				</Col>	
 		      </Grid>
-
-	</View>
-       
-		  
+		</View> 
 		<Button
-			onPress={this.uploadP.bind(this)}
+			onPress={this.gestionNaevus.bind(this)}
 			style={styles.primary_button}
-			textStyle={styles.primary_button_text}>Localiser Photo</Button>
+			textStyle={styles.primary_button_text}>Gérer naevus</Button>
 		
     </ScrollView>
    </View>

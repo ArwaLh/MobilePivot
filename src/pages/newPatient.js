@@ -22,7 +22,7 @@ import {Button, List, ListItem, Header, InputGroup, Input, Card, CardItem, Picke
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
-
+import GestionNaevus from './gestionNaevus';
 import firebase from 'firebase';
 import DatePicker from 'react-native-datepicker';
 export default class newPatient extends Component {
@@ -117,7 +117,7 @@ export default class newPatient extends Component {
 
 		});
 		let patients=items;
-		let patient_id=this.state.nom_pat.substring(0, 1)+this.state.prenom_pat.substring(0, 1)+patients.length;
+		let patient_id=this.state.nom_pat+'_'+this.state.prenom_pat+'_'+patients.length;
 		this.itemsRef.child('medecins/'+this.state.username_med).child('patients/'+patient_id).set({ 
 		nom_pat: this.state.nom_pat, 
 		prenom_pat: this.state.prenom_pat, 
@@ -129,7 +129,11 @@ export default class newPatient extends Component {
 		antecedents_familiaux: this.state.antec_fam, 
 		nombre_grain_de_beaute: this.state.nbreGrain, 
 		})
+		AsyncStorage.setItem('patient_id',patient_id);
 		alert("sucesss patient added"); 
+		this.props.navigator.push({
+          component: GestionNaevus
+        });
 	}
 	goBack() {
 		this.props.navigator.pop();
@@ -155,7 +159,7 @@ export default class newPatient extends Component {
 					value={this.state.prenom_pat}
 					placeholder={"Prénom"}
 					underlineColorAndroid="#53507c"/>					
-				 <Grid>
+				 <Grid style={{marginTop:10}}>
 					  <Col>
 						<Text style={styles.date_de_naissance}>Date de naissance</Text>
 					  </Col>
@@ -277,11 +281,11 @@ export default class newPatient extends Component {
 					dataDetectorTypes ='phoneNumber'
 					underlineColorAndroid="#53507c"/>	
 
-				  <Grid>
+				  <Grid style={{marginTop:10}}>
 					  <Col>
 							<Text style={styles.a_a_n}>Antécédents personnel</Text>
 					  </Col>
-					  <Col style={{marginLeft:150,marginTop:10}}>
+					  <Col style={{marginLeft:150}}>
 							<Picker
 								iosHeader="Select one"
 								mode="dropdown"
