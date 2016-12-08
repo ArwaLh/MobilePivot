@@ -88,7 +88,7 @@ export default class validMeta extends Component {
   render() {
     return ( 
 	<View>
-	<HeaderUp text="Meta Data" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text="4/4 Données patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 		<ScrollView>	
 			<ListItem style={styles.list_MetaData}>   
 						  <Grid>
