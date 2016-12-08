@@ -201,7 +201,7 @@ export default class uploadForm extends Component {
 				 <Col style={{width:200}}>
 				 	<Button
 				    onPress={this.phototypeb.bind(this)}
-					style={{borderColor: "#53507c",width:150,height:40,marginLeft:69}}
+					style={{borderColor: "#53507c",width:165,height:35,marginLeft:79}}
 					textStyle={{fontSize: 15, color:'#53507c'}}
 					bordered> phototype <Text> {this.state.phototype}</Text></Button>
 				</Col>
@@ -211,10 +211,10 @@ export default class uploadForm extends Component {
 				<Col>
 					<Text style={styles.diametre}>Diamètre</Text>
 				</Col>
-				<Col style={{ marginLeft:160}}>
+				<Col style={{ marginLeft:150}}>
 					<Picker
 					
-					    style={{width:100, color:"#29235c" }}
+					    style={{width:140, color:"#29235c" }}
                         iosHeader="Select one"
                         mode="dropdown"
                         selectedValue={this.state.selected4}
