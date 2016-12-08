@@ -185,7 +185,10 @@ export default class newPatient extends Component {
 								width: 32,
 								height: 32,
 								marginLeft: 5,
-								marginRight: 5
+								marginRight: 5,
+							  },
+							  iconSource: {
+							  source: './img/calendar.png'
 							  },
 							  dateInput: {
 								flex: 1,
