@@ -14,11 +14,11 @@ import Login from './login';
 import styles from '../styles/common-styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {InputGroup, Input, Button} from 'native-base';
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 export default class signup extends Component {
   constructor(props){
     super(props);
-	this.itemsRef = firebase.database().ref();
+	this.itemsRef = firebase.database().ref('medecins');
     this.state = {
       loaded: true,
       email_medecin: '',
@@ -28,28 +28,34 @@ export default class signup extends Component {
 	  secureText: true,
 	  count_pass: 0,
 	  count_conf_pass: 0,
+	  items_med :[]
     };
+	this.signup=this.signup.bind(this);
   }
-  signup(){
-    this.setState({
-      loaded: false
-    });
-	let items_med = [];
-	this.itemsRef.child('medecins').on('value', (snap) => {
-		  // get children as an array
-		  snap.forEach((child) => {
-			items_med.push({
-			  email_medecin: child.val().email_medecin,
-			  _key: child.key 
-			});
-		  });
+   componentDidMount(){
+	   	this.setState({
+			loaded: false
 		});
-	let medecins=items_med;
-	let medecin_id=this.state.email_medecin.substring(0, this.state.email_medecin.indexOf('.'))+medecins.length;
+		this.itemsRef.on("value", (snap) => {
+		let items=[];
+		// get children as an array
+		snap.forEach((child) => {
+			items.push({
+				email_medecin: child.val().email_medecin,
+			  _key: child.key,
+			});
+		});
+		this.setState({
+			items_med: items
+		});
+	});
+   }
+  signup(){
+	let medecin_id=this.state.email_medecin.slice(0,this.state.email_medecin.indexOf('@')).slice(0,this.state.email_medecin.indexOf('.'))+this.state.items_med.length;
 	if(this.state.password==this.state.confirm_password){
     firebase.auth().createUserWithEmailAndPassword(this.state.email_medecin,this.state.password).then((userData) =>{
 	//ajouter medecin à firebase database
-	this.itemsRef.child("medecins/"+medecin_id).set({
+	this.itemsRef.child(medecin_id).set({
 		email_medecin: this.state.email_medecin
 		})
 	//succes d'ajout dans auth et database
@@ -127,7 +133,7 @@ export default class signup extends Component {
 				</TouchableOpacity>
 			</View>
 			<Button
-				onPress={this.signup.bind(this)}
+				onPress={this.signup}
 				style={styles.primary_button_signup}
 				textStyle={{fontSize: 16, color:'#fff'}}
 				bordered>CREER UN COMPTE</Button>

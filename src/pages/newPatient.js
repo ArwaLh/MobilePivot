@@ -129,10 +129,7 @@ export default class newPatient extends Component {
 		antecedents_familiaux: this.state.antec_fam, 
 		nombre_grain_de_beaute: this.state.nbreGrain, 
 		})
-		alert("sucesss patient added");
-	/* 	this.props.navigator.push({
-          component: LocatePic
-        }); */ 
+		alert("sucesss patient added"); 
 	}
   goBack() {
 		this.props.navigator.pop();
@@ -176,6 +173,80 @@ export default class newPatient extends Component {
 							maxDate="2030-01-01"
 							confirmBtnText="Confirm"
 							cancelBtnText="Cancel"
+							customStyles={{
+							  dateTouch: {
+								width: 142
+							  },
+							  dateTouchBody: {
+								flexDirection: 'row',
+								height: 40,
+								width:150,
+								alignItems: 'center',
+								justifyContent: 'center'
+							  },
+							  dateIcon: {
+								width: 32,
+								height: 32,
+								marginLeft: 5,
+								marginRight: 5
+							  },
+							  dateInput: {
+								flex: 1,
+								height: 40,
+								borderWidth: 1,
+								borderColor: '#29235c',
+								alignItems: 'center',
+								justifyContent: 'center'
+							  },
+							  dateText: {
+								color: '#333'
+							  },
+							  placeholderText: {
+								color: '#29235c'
+							  },
+							  datePickerMask: {
+								flex: 1,
+								alignItems: 'flex-end',
+								flexDirection: 'row',
+								backgroundColor: '#00000077'
+							  },
+							  datePickerCon: {
+								backgroundColor: '#fff',
+								height: 0,
+								overflow: 'hidden'
+							  },
+							  btnText: {
+								position: 'absolute',
+								top: 0,
+								height: 42,
+								padding: 20,
+								flexDirection: 'row',
+								alignItems: 'center',
+								justifyContent: 'center'
+							  },
+							  btnTextText: {
+								fontSize: 16,
+								color: '#29235c'
+							  },
+							  btnTextCancel: {
+								color: '#29235c'
+							  },
+							  btnCancel: {
+								left: 0
+							  },
+							  btnConfirm: {
+								right: 0
+							  },
+							  datePicker: {
+								marginTop: 42,
+								borderTopColor: '#ccc',
+								borderTopWidth: 1,
+								backgroundColor: '#29235c'
+							  },
+							  disabled: {
+								backgroundColor: '#eee'
+							  }
+							}}
 							onDateChange={(date) => {this.setState({dateNaissance_pat: date})}}
 						  />
 					  </Col>
