@@ -27,7 +27,7 @@ import TakePic from './takePic';
 import NewPatient from './newPatient';
 import GestionNaevus from './gestionNaevus';
 import LocatePic from './locatePic';
-import Icon from 'react-native-vector-icons/FontAwesome'; 
+import Icon from 'react-native-vector-icons/FontAwesome';
 export default class updatePatient extends Component {
 	constructor(props){
     super(props);
@@ -50,7 +50,8 @@ export default class updatePatient extends Component {
 		return true; // do not exit app
 	}	
   render() {
-	  
+	const { query } = this.state;
+	const data = this._filterData(query)
     return (
    <View>
 	<HeaderUp text="Rechercher un patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
@@ -73,6 +74,19 @@ export default class updatePatient extends Component {
 					<InputGroup style={{width: 240}}>
 						 <Input placeholder="Nom Prénom" style={{color:"#29235c"}}/>
                     </InputGroup>
+					<Autocomplete
+						data={data}
+						defaultValue={query}
+						onChangeText={text => this.setState({query: text})}
+						renderItem={data => (
+						  <TouchableOpacity onPress={() =>
+							  this.setState({query: data})
+							}
+						  >
+							<Text>{data}</Text>
+						  </TouchableOpacity>
+						)}
+					  />
 				</Col>
 				<Col>   
 				 <Button transparent style={{width: 200}}>
