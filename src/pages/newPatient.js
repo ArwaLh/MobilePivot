@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  PanResponder,
   ScrollView,
   AsyncStorage,
   View
@@ -48,9 +49,18 @@ export default class newPatient extends Component {
       results: {
       items: []
       },
-	  date:"2016-05-25"	  
+	  date:"",
+	  dateNaissance_pat: ''
 	}}
 	 componentWillMount(){
+		this._panResponder = PanResponder.create({
+		  onStartShouldSetPanResponder: (e) => {console.log('onStartShouldSetPanResponder'); return true;},
+		  onMoveShouldSetPanResponder: (e) => {console.log('onMoveShouldSetPanResponder'); return true;},
+		  onPanResponderGrant: (e) => console.log('onPanResponderGrant'),
+		  onPanResponderMove: (e) => console.log('onPanResponderMove'),
+		  onPanResponderRelease: (e) => console.log('onPanResponderRelease'),
+		  onPanResponderTerminate: (e) => console.log('onPanResponderTerminate')
+		});
 		AsyncStorage.getItem('medecin_username').then((medecin_username) => {
 		  this.setState({
 			username_med: medecin_username,
@@ -94,6 +104,8 @@ export default class newPatient extends Component {
 			  _key: child.key,
 			  profession: child.val().profession,
 			  _key: child.key,
+			  telephone_patient: child.val().telephone_patient,
+			  _key: child.key,
 			  antecedents_personnels: child.val().antecedents_personnels,
 			  _key: child.key,
 			  antecedents_familiaux: child.val().antecedents_familiaux,
@@ -109,9 +121,10 @@ export default class newPatient extends Component {
 		this.itemsRef.child('medecins/'+this.state.username_med).child('patients/'+patient_id).set({ 
 		nom_pat: this.state.nom_pat, 
 		prenom_pat: this.state.prenom_pat, 
-		date_de_naissance_pat: this.state.dateNaissance_pat, 
+		date_de_naissance_pat: this.state.date, 
 		lieu_pat: this.state.lieu_pat, 
 		profession_pat: this.state.profession_pat, 
+		telephone_patient: this.state.telephone_patient, 
 		antecedents_personnels: this.state.antec_perso, 
 		antecedents_familiaux: this.state.antec_fam, 
 		nombre_grain_de_beaute: this.state.nbreGrain, 
@@ -147,18 +160,24 @@ export default class newPatient extends Component {
 					onChangeText={(text) => this.setState({prenom_pat: text})}
 					value={this.state.prenom_pat}
 					placeholder={"Prénom"}
-					underlineColorAndroid="#53507c"/>		 
+					underlineColorAndroid="#53507c"/>			
 				 <Grid>
 					  <Col>
 						<Text style={styles.date_de_naissance}>Date de naissance</Text>
 					  </Col>
 					  <Col>
 					  	<DatePicker
-							startY={1900}
-							endY={2022}
-							startM={1}
-							
-							/>
+							style={{width: 200}}
+							date={this.state.dateNaissance_pat}
+							mode="date"
+							placeholder={this.state.dateNaissance_pat}
+							format="YYYY-MM-DD"
+							minDate="1980-01-01"
+							maxDate="2030-01-01"
+							confirmBtnText="Confirm"
+							cancelBtnText="Cancel"
+							onDateChange={(date) => {this.setState({dateNaissance_pat: date})}}
+						  />
 					  </Col>
 				 </Grid>  
 				<TextInput
@@ -179,9 +198,12 @@ export default class newPatient extends Component {
 				<TextInput
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
+					onChangeText={(text) => this.setState({telephone_patient: text})}
+					value={this.state.telephone_patient}
 					keyboardType = 'numeric'
 					placeholder={"Téléphone"}
 					maxLength = {20}
+					dataDetectorTypes ='phoneNumber'
 					underlineColorAndroid="#53507c"/>	
 
 				  <Grid>

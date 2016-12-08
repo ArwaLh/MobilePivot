@@ -40,19 +40,17 @@ export default class signup extends Component {
 		  snap.forEach((child) => {
 			items_med.push({
 			  email_medecin: child.val().email_medecin,
-			  _key: child.key,
-			  adresse_cabinet: child.val().adresse_cabinet,
-			  _key: child.key,
+			  _key: child.key 
 			});
 		  });
 		});
 	let medecins=items_med;
-	let medecin_id=this.state.email_medecin.substring(0, 1)+this.state.email_medecin.substring(0, 1)+medecins.length;
+	let medecin_id=this.state.email_medecin.substring(0, this.state.email_medecin.indexOf('.'))+medecins.length;
+	if(this.state.password==this.state.confirm_password){
     firebase.auth().createUserWithEmailAndPassword(this.state.email_medecin,this.state.password).then((userData) =>{
 	//ajouter medecin à firebase database
 	this.itemsRef.child("medecins/"+medecin_id).set({
-		email_medecin: this.state.email_medecin, 
-		adresse_cabinet: this.state.adresse_cabinet, 
+		email_medecin: this.state.email_medecin
 		})
 	//succes d'ajout dans auth et database
         alert('Your account was created!');
@@ -65,6 +63,9 @@ export default class signup extends Component {
       this.setState({
         loaded: true
       });
+	  }else{
+		  alert("les champs mot de passe et confirmer mot de passe doivent être identiques")
+	  }
   }
   goToLogin(){
     this.props.navigator.push({
