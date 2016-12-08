@@ -37,6 +37,11 @@ export default class validMeta extends Component {
 		this.props.navigator.pop();
 		return true; // do not exit app
 	}
+	uploadP(){
+		this.props.navigator.push({
+          component: UploadForm
+        }); 
+	}
 	componentWillMount(){
 		AsyncStorage.getItem('Bords_value').then((bordss) => {
 		  this.setState({
@@ -101,7 +106,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Couleur</Text>
 							  </Col>
 							  <Col>
-									 <Text  style={styles.metaDataForm} >{this.state.couleur}</Text>
+									 <Text  style={styles.metaDataForm2} >{this.state.couleur}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem> 
@@ -111,7 +116,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Asymétrie</Text>
 							  </Col>
 							  <Col>
-									<Text style={styles.metaDataForm}>{this.state.asymetrie}</Text>
+									<Text style={styles.metaDataForm3}>{this.state.asymetrie}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem>
@@ -121,7 +126,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Phototype </Text>
 							  </Col>
 							  <Col>
-									 <Text style={styles.metaDataForm}> Phototype {this.state.phototype}</Text>
+									 <Text style={styles.phototypeF}> Phototype {this.state.phototype}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem> 
@@ -131,7 +136,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>SED </Text>
 							  </Col>
 							  <Col>
-									 <Text style={styles.metaDataForm} > {this.state.sed}</Text>
+									 <Text style={styles.metaDataForm3} > {this.state.sed}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem> 	  
@@ -141,7 +146,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Diamètre</Text> 
 							  </Col>
 							  <Col>
-									<Text style={styles.metaDataForm}>{this.state.diametre}</Text>
+									<Text style={styles.metaDataForm3}>{this.state.diametre}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem> 
@@ -151,7 +156,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Epaisseur</Text> 
 							  </Col>
 							  <Col>
-								<Text style={styles.metaDataForm}>{this.state.epaisseur}</Text>
+								<Text style={styles.metaDataForm3}> {this.state.epaisseur}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem>	 
@@ -161,21 +166,22 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Suspicion</Text> 
 							  </Col>
 							  <Col>
-									<Text style={styles.metaDataForm}> Mélanome:{this.state.suspicion} %</Text>
+									<Text style={styles.mélanomeF}> Mélanome: {this.state.suspicion}%</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem>	 
 					
 					  <Grid>
-							  <Col>
-								 <Button transparent>
-										 Modifier les informations
+							  <Col style={{width:200}}>
+								 <Button onPress={this.uploadP.bind(this)} textStyle={{fontFamily: 'Roboto',fontSize:13,textShadowColor:'#29235c', marginTop:10}} transparent>
+								   
+										 MODIFIER LES INORMATIONS
 								 </Button> 
 							  </Col>
 							 <Col>	
 								<Button
-									style={{flex:9,backgroundColor: "#29235c",width:150,height:20,marginTop:10,alignItems:'center'}}
-									textStyle={{fontSize: 17, color:'#fff',fontWeight:"bold"}}>Envoyer</Button>
+									style={{flex:9,backgroundColor: "#29235c",width:150,height:37,marginTop:10,alignItems:'center'}}
+									textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
 							</Col>	
 					 </Grid>			
 		</ScrollView>   
@@ -213,8 +219,8 @@ const styles = StyleSheet.create({
   },
  list_MetaData:{
 	borderColor:'#29235c',
-	height:59,
-	width:300,
+	height:57,
+	width:330,
 	marginBottom:0,
 	marginTop:0
   },
@@ -228,7 +234,25 @@ const styles = StyleSheet.create({
    fontFamily: 'Roboto',
 	fontSize:16,
 	color:'#29235c',  
-	marginLeft:30
+	margin:10
+  },
+  metaDataForm3: {
+   fontFamily: 'Roboto',
+	fontSize:16,
+	color:'#29235c',  
+	margin:10
+  },
+  mélanomeF: {
+	fontFamily: 'Roboto',
+	fontSize:16,
+	color:'#29235c',  
+	margin:10  
+  },  
+  phototypeF: {
+	fontFamily: 'Roboto',
+	fontSize:16,
+	color:'#29235c',  
+	margin:10  
   },
   title_upload:{
 	  color:"#fff",

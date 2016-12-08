@@ -201,9 +201,9 @@ export default class uploadForm extends Component {
 				 <Col style={{width:200}}>
 				 	<Button
 				    onPress={this.phototypeb.bind(this)}
-					style={{borderColor: "#53507c",width:180,height:40,marginLeft:69}}
+					style={{borderColor: "#53507c",width:150,height:40,marginLeft:69}}
 					textStyle={{fontSize: 15, color:'#53507c'}}
-					bordered><Text>{this.state.choisir}</Text> phototype <Text> {this.state.phototype}</Text></Button>
+					bordered> phototype <Text> {this.state.phototype}</Text></Button>
 				</Col>
                 </Row>
 				
@@ -255,7 +255,7 @@ export default class uploadForm extends Component {
 					<Text style={styles.suspicion}>Suspicion</Text>
 				</Col>
 				<Col>
-						<Text style={styles.melanome}> Mélanome: {this.state.mel} % </Text>
+						<Text style={styles.melanome}> Mélanome:{this.state.mel}% </Text>
 				</Col>
 			</Row>
 			<Row >	
