@@ -34,9 +34,11 @@ import Autocomplete from 'react-native-autocomplete-input';
 export default class recherchePatient extends Component {
 	constructor(props){
     super(props);
-	this.itemsRef = firebase.database().ref('medecins');
+	this.itemsRef = firebase.database().ref();
 		this.state = {
-		  loaded: true
+		  loaded: true,
+		  items_pat: [],
+		  query: ''
 		}
 	}
 	uploadP(){
@@ -52,20 +54,65 @@ export default class recherchePatient extends Component {
 	goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
-	}	
+	}
+	componentDiDmount(){
+		let items = [];
+		//ADDING NEW PATIENT
+		//get listStyleTypetasksRef.on('value', (dataSnapshot) => {
+		this.itemsRef.child('medecins').child('patients').on('value', (snap) => {
+
+		  // get children as an array
+
+		  snap.forEach((child) => {
+			items.push({
+			  nom: child.val().nom,
+			  _key: child.key,
+			  prenom: child.val().prenom,
+			  _key: child.key,
+			  date_de_naissance: child.val().date_de_naissance,
+			  _key: child.key,
+			  lieu: child.val().lieu,
+			  _key: child.key,
+			  profession: child.val().profession,
+			  _key: child.key,
+			  telephone_patient: child.val().telephone_patient,
+			  _key: child.key,
+			  antecedents_personnels: child.val().antecedents_personnels,
+			  _key: child.key,
+			  antecedents_familiaux: child.val().antecedents_familiaux,
+			  _key: child.key,
+			  nombre_grain_de_beaute: child.val().nombre_grain_de_beaute,
+			  _key: child.key,
+			});
+		  });
+
+		});
+		let patients=items;
+		this.setState({
+			items_pat: items
+		});
+		/* this.itemsRef.orderByChild('nom_pat').equalTo(this.state.email_medecin).on("child_added", function(snapshot) {
+			AsyncStorage.setItem('medecin_username', snapshot.key);
+			alert(snapshot.key);
+		}); */
+	}
 	find_patient(query){
     if (query === '') {
       return [];
     }
-
-    const { patients } = this.state;
-    const regex = new RegExp(`${query.trim()}`, 'i');
-    return patients.filter(patient => patient.nom_pat.search(regex) >= 0);
+	//
+	this.itemsRef.child('medecins').child('patients').orderByChild('nom_pat').
+	  equalTo(this.state.email_medecin). // The user-inputted search
+	  on('value', function(snap) {
+		alert(snap.val());
+		
+		const { patients } =snap.val();
+		return patients;
+	});
+	//
 	}
   render() {
-	const { query } = this.state;
-	const patients = this.find_patient(query);
-	const comp = (s, s2) => s.toLowerCase().trim() === s2.toLowerCase().trim();
+	const data = this.find_patient(this.state.query);
     return (
    <View>
 	<HeaderUp text="Rechercher un patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
@@ -91,17 +138,18 @@ export default class recherchePatient extends Component {
 					<Autocomplete
 						autoCapitalize="none"
 						autoCorrect={false}
-						data={patients.length === 1 && comp(query, patients[0].nom_pat) ? [] : patients}
-						defaultValue={query}
+						data={data}
+						defaultValue={this.state.query}
 						placeholder="Nom Prénom"
 						onChangeText={text => this.setState({query: text})}
-						renderItem={({ nom_pat, prenom_pat }) => (
-							<TouchableOpacity onPress={() => this.setState({ query: nom_pat })}>
-							  <Text style={styles.itemText}>
-								{nom_pat} {prenom_pat}
-							  </Text>
-							</TouchableOpacity>
-						  )}
+						 renderItem={data => (
+						  <TouchableOpacity onPress={() =>
+							  this.setState({query: data})
+							}
+						  >
+							<Text>{data}</Text>
+						  </TouchableOpacity>
+						)}
 					  />
 				</Col>
 				<Col>   
