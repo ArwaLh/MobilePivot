@@ -182,4 +182,12 @@ module.exports = StyleSheet.create({
 	  fontSize: 25,
 	  fontWeight: 'normal'
   },
+  /*recherhce patient autocomplete*/
+  autocomplete: {
+        alignSelf: 'stretch',
+        height: 50,
+        backgroundColor: '#FFF',
+        borderColor: 'lightblue',
+        borderWidth: 1
+    },
 });

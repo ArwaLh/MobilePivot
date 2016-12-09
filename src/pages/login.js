@@ -16,7 +16,7 @@ import {
 import Header from '../components/header';
 
 import Signup from './signup';
-import GestionPatient from './addPatient';
+import GestionPatient from './gestionPatient';
 
 import styles from '../styles/common-styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
