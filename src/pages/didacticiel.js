@@ -9,8 +9,7 @@ import {
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import Button from '../components/button';
-import Account from './account';
-import AddPatient from './addPatient';
+import Login from './login';
 const { width, height } = Dimensions.get('window');
 var styles = {
   wrapper: {
@@ -75,7 +74,7 @@ export default class didacticiel extends Component {
 	}
 	skip(){
 		this.props.navigator.push({
-          component: AddPatient
+          component: Login
         });
 	}
 	componentDidMount() {

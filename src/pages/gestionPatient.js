@@ -24,10 +24,10 @@ import {InputGroup, Input, Button, Card, CardItem, Header, List, ListItem} from 
 import UploadForm from './uploadForm';
 import NewPatient from './newPatient';
 import LocatePic from './locatePic';
-import UpdatePatient from './updatePatient';
+import RecherchePatient from './recherchePatient';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 const window = Dimensions.get('window');
-export default class addPatient extends Component {
+export default class gestionPatient extends Component {
 	constructor(props){
     super(props);
 		this.state = {
@@ -41,7 +41,7 @@ export default class addPatient extends Component {
 	}
 	modPat(){
 		this.props.navigator.push({
-          component: UpdatePatient
+          component: RecherchePatient
         }); 
 	}
 	goBack() {
@@ -97,4 +97,4 @@ export default class addPatient extends Component {
   }
 }
 
-AppRegistry.registerComponent('addPatient', () => addPatient);
+AppRegistry.registerComponent('gestionPatient', () => gestionPatient);

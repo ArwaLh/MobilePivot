@@ -14,6 +14,7 @@ import {
   TextInput,
   BackAndroid,
   TouchableHighlight,
+  TouchableOpacity,
   View
 } from 'react-native';
 import HeaderOther from '../components/headerOther';
@@ -28,9 +29,12 @@ import NewPatient from './newPatient';
 import GestionNaevus from './gestionNaevus';
 import LocatePic from './locatePic';
 import Icon from 'react-native-vector-icons/FontAwesome';
-export default class updatePatient extends Component {
+import firebase from 'firebase';
+import Autocomplete from 'react-native-autocomplete-input';
+export default class recherchePatient extends Component {
 	constructor(props){
     super(props);
+	this.itemsRef = firebase.database().ref('medecins');
 		this.state = {
 		  loaded: true
 		}
@@ -49,9 +53,19 @@ export default class updatePatient extends Component {
 		this.props.navigator.pop();
 		return true; // do not exit app
 	}	
+	find_patient(query){
+    if (query === '') {
+      return [];
+    }
+
+    const { patients } = this.state;
+    const regex = new RegExp(`${query.trim()}`, 'i');
+    return patients.filter(patient => patient.nom_pat.search(regex) >= 0);
+	}
   render() {
 	const { query } = this.state;
-	const data = this._filterData(query)
+	const patients = this.find_patient(query);
+	const comp = (s, s2) => s.toLowerCase().trim() === s2.toLowerCase().trim();
     return (
    <View>
 	<HeaderUp text="Rechercher un patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
@@ -75,8 +89,11 @@ export default class updatePatient extends Component {
 						 <Input placeholder="Nom Prénom" style={{color:"#29235c"}}/>
                     </InputGroup>
 					<Autocomplete
-						data={data}
+						autoCapitalize="none"
+						autoCorrect={false}
+						data={patients.length === 1 && comp(query, patients[0].nom_pat) ? [] : patients}
 						defaultValue={query}
+						placeholder="Nom Prénom"
 						onChangeText={text => this.setState({query: text})}
 						renderItem={data => (
 						  <TouchableOpacity onPress={() =>
@@ -106,4 +123,4 @@ export default class updatePatient extends Component {
   }
 }
 
-AppRegistry.registerComponent('updatePatient', () => updatePatient);
+AppRegistry.registerComponent('recherchePatient', () => recherchePatient);
