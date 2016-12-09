@@ -56,7 +56,7 @@ export default class gestionNaevus extends Component {
 						<Icon name="folder-open-o" size={55} style={{color: '#29235c', fontSize: 50, width:55,marginLeft: (window.width/2)-120,marginTop:120}}/>
 						</Image>
 					</Col>
-					<Col style={{borderColor: 'black',borderWidth: 0.5}}>
+					<Col>
 						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
 						Patient : 
 						</Text>
@@ -85,7 +85,7 @@ export default class gestionNaevus extends Component {
 						<Icon name="folder-open-o" size={55} style={{color: '#29235c', fontSize: 50, width:55,marginLeft: (window.width/2)-120,marginTop:120}}/>
 						</Image>
 					</Col>
-					<Col style={{borderLeftColor: 'black',borderWidth: 0.5}}>
+					<Col>
 						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
 						Patient : 
 						</Text>
@@ -114,7 +114,7 @@ export default class gestionNaevus extends Component {
 						<Icon name="folder-open-o" size={55} style={{color: '#29235c', fontSize: 50, width:55,marginLeft: (window.width/2)-120,marginTop:120}}/>
 						</Image>
 					</Col>
-					<Col style={{borderLeftColor: 'black',borderWidth: 0.5}}>
+					<Col>
 						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
 						Patient : 
 						</Text>
@@ -143,7 +143,7 @@ export default class gestionNaevus extends Component {
 						<Icon name="folder-open-o" size={55} style={{color: '#29235c', fontSize: 50, width:55,marginLeft: (window.width/2)-120,marginTop:120}}/>
 						</Image>
 					</Col>
-					<Col style={{borderLeftColor: 'black',borderWidth: 0.5}}>
+					<Col>
 						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
 						Patient : 
 						</Text>

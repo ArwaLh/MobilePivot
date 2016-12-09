@@ -22,6 +22,13 @@ module.exports = StyleSheet.create({
 	marginLeft:50,
 	marginRight:20,
   },
+  body_recherche_patient: {
+    flex: 9,
+    alignItems: 'center',
+	marginTop: 40,
+	marginLeft:50,
+	marginRight:20,
+  },
   textinput: {
     height: 40,
 	width: 350,
