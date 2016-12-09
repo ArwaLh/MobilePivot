@@ -33,16 +33,16 @@ export default class splashscreen extends Component {
 	render() {
 		return (
 		<View>
-			<Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/splash_katomi.png'}}>
+			<Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/2.png'}}>
 				<View style={{flexDirection: 'column',backgroundColor: 'transparent'}}>
-					<TouchableOpacity
+					<Button
 						onPress={this.demarrer.bind(this)}
-						style={{width:200,height:50,marginLeft:115,marginTop:500,marginBottom:10}}
-						bordered><Text style={{color: 'black'}}>DÉMARRER</Text></TouchableOpacity>
-					<TouchableOpacity
+						style={{width:200,height:50,marginLeft:(window.width/2)-100,marginTop:500,marginBottom:1,borderColor: 'white'}}
+						bordered><Text style={{color: 'white'}}>DÉMARRER</Text></Button>
+					<Button
 						onPress={this.didacticiel.bind(this)}
-						style={{width:200,height:50,marginLeft:115,marginTop:0,marginBottom:15}}
-						bordered><Text style={{color: 'black'}}>DIDACTICIEL</Text></TouchableOpacity>
+						style={{width:200,height:50,marginLeft:(window.width/2)-100,marginTop:0,marginBottom:15}}
+						transparent><Text style={{color: 'white'}}>DIDACTICIEL</Text></Button>
 				</View>
 			</Image>
 		</View>
