@@ -37,9 +37,14 @@ export default class gestionNaevus extends Component {
 		  });
 		});
 	} */
-	goBack() {
+	goBack() { 
 		this.props.navigator.pop();
 		return true; // do not exit app
+	}
+	uplo(){
+		this.props.navigator.push({
+          component: UploadForm
+        }); 
 	}
 	
 	
@@ -168,6 +173,7 @@ export default class gestionNaevus extends Component {
 			<ListItem>
 				<TouchableOpacity>
 				  <Icon name="plus-square-o" size={125} style={{color: '#29235c', fontSize: 250, width:200,marginLeft: 60}}/>
+				  	
 				</TouchableOpacity>
             </ListItem>
         </List>

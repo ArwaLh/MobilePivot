@@ -154,9 +154,9 @@ export default class phototype extends Component {
 			<ListItem  style={styles.list_Phototype}>
 			   <Grid> 
 				 <Button onPress={this.phototype_4.bind(this)} style={{backgroundColor: this.state.back_color3,height:70, width:400, marginBottom:110}} textStyle={{color: this.state.textColor3}} transparent>
-						<Row style={{height:95}} >
+						<Row style={{height:70}} >
 							<Col style={{width:67}}>
-								<Image style={styles.image_Phototype} source={{uri:'http://localhost:8081/img/img4.png'}}/>
+								<Image style={{width:75, height: 60, marginBottom:80}} source={{uri:'http://localhost:8081/img/img4.png'}}/>
 							</Col>
 							<Col style={{width:200, marginLeft:25}}>
 								<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor3}}>Phototypes IV{"\n"}</Text> 
