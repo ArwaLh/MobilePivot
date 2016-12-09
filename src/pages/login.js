@@ -73,8 +73,8 @@ export default class login extends Component {
 					}else{
 						this.setState({secureTextEntry: true,count:0});
 					}
-					}}  style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
-				<Image style={{width:20,height:15,margin:20,padding:0}} source={{uri:'http://localhost:8081/img/eye.png'}}></Image>
+					}}  style={{width: 27,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
+				<Image style={{width:27,height:15,margin:0,padding:0}} source={{uri:'http://localhost:8081/img/eye.png'}}></Image>
 			</TouchableOpacity>
 		  </View>
 		  <Text style={{marginBottom:15}}></Text>

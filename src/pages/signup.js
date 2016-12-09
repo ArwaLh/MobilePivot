@@ -109,7 +109,7 @@ export default class signup extends Component {
 					}
 					}} 
 					style={{width: 35,margin:0,padding:0,marginBottom:0,height:20,marginTop:30}}>
-					<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
+					<Image style={{width:27,height:15,margin:0,padding:0}} source={{uri:'http://localhost:8081/img/eye.png'}}></Image>
 				</TouchableOpacity >
 			</View>
 			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
@@ -130,7 +130,7 @@ export default class signup extends Component {
 					}
 					}} 
 					style={{width: 35,margin:0,padding:0,marginBottom:0,height:20,marginTop:30}}>
-					<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
+					<Image style={{width:27,height:15,margin:0,padding:0}} source={{uri:'http://localhost:8081/img/eye.png'}}></Image>
 				</TouchableOpacity>
 			</View>
 			<Button

@@ -84,7 +84,8 @@ module.exports = StyleSheet.create({
 	marginBottom: 10,
 	color: "#fff",
 	fontFamily: 'Roboto',
-	fontSize: 14,
+	fontSize: 12,
+	fontWeight: 'normal',
 	textAlign: 'center'
   },
    primary_button_signup: {
