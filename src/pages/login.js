@@ -10,6 +10,7 @@ import {
   Text,
   TextInput,
   View,
+  Image,
   TouchableOpacity,
   AsyncStorage
 } from 'react-native';
@@ -44,8 +45,8 @@ export default class login extends Component {
   render(){
     return (
       <View style={styles.container}>
-	  <Header text="" loaded={this.state.loaded}/>
-        <View style={styles.body}>
+	  <Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/2.png'}}>
+        <View style={styles.body_login}>
           <TextInput
             style={styles.textinput_email}
             onChangeText={(text) => this.setState({email_medecin: text})}
@@ -73,7 +74,7 @@ export default class login extends Component {
 						this.setState({secureTextEntry: true,count:0});
 					}
 					}}  style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
-				<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
+				<Image style={{width:20,height:15,margin:20,padding:0}} source={{uri:'http://localhost:8081/img/eye.png'}}></Image>
 			</TouchableOpacity>
 		  </View>
 		  <Text style={{marginBottom:15}}></Text>
@@ -114,6 +115,7 @@ export default class login extends Component {
           onLogoutFinished={() => alert("User logged out")}
 		  />
         </View>
+		</Image>
       </View>
     );
   }

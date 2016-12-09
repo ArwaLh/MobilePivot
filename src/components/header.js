@@ -17,7 +17,6 @@ export default class header extends Component {
     return (
       <View style={styles.header}>
         <View style={styles.header_item}>
-			<Image style={{width:280, height: 100}} source={{uri:'http://localhost:8081/img/logo_katomi.png'}}/>
         </View>
         <View style={styles.header_item}>
         {  !this.props.loaded &&

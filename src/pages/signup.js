@@ -4,6 +4,7 @@ import {
   Text,
   TextInput,
   AsyncStorage,
+  Image,
   TouchableOpacity,
   View
 } from 'react-native';
@@ -81,8 +82,8 @@ export default class signup extends Component {
   render() {
     return (
     <View style={styles.container}>
-    <Header text="S'inscrire" loaded={this.state.loaded} />
-        <View style={styles.body}>
+	 <Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/2.png'}}>
+        <View style={styles.body_login}>
             <TextInput
                 style={styles.textinput_email}
                 onChangeText={(text) => this.setState({email_medecin: text})}
@@ -136,9 +137,10 @@ export default class signup extends Component {
 				onPress={this.signup}
 				style={styles.primary_button_signup}
 				textStyle={{fontSize: 16, color:'#fff'}}
-				bordered>CREER UN COMPTE</Button>
+				bordered>CRÉER UN COMPTE</Button>
 			<Text style={styles.text_signup_terms}>En cliquant sur "créer un compte" ,vous acceptez nos condition d'utilisation et notre Politique de confidentialité.</Text>
         </View>
+		</Image>
       </View>
     );
   }
