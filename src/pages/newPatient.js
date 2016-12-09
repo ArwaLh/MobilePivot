@@ -131,12 +131,10 @@ export default class newPatient extends Component {
 		})
 		alert("sucesss patient added"); 
 	}
-  goBack() {
+	goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
 	}
-	
-	
   render() {
     return ( 
 	<View>
@@ -163,7 +161,7 @@ export default class newPatient extends Component {
 					  </Col>
 					  <Col>
 					  	<DatePicker
-							style={{width: 200}}
+							style={{width: 200,marginTop:10}}
 							date={this.state.dateNaissance_pat}
 							mode="date"
 							placeholder={this.state.dateNaissance_pat}
@@ -187,7 +185,10 @@ export default class newPatient extends Component {
 								width: 32,
 								height: 32,
 								marginLeft: 5,
-								marginRight: 5
+								marginRight: 5,
+							  },
+							  iconSource: {
+							  source: './img/calendar.png'
 							  },
 							  dateInput: {
 								flex: 1,
@@ -280,7 +281,7 @@ export default class newPatient extends Component {
 					  <Col>
 							<Text style={styles.a_a_n}>Antécédents personnel</Text>
 					  </Col>
-					  <Col style={{marginLeft:150}}>
+					  <Col style={{marginLeft:150,marginTop:10}}>
 							<Picker
 								iosHeader="Select one"
 								mode="dropdown"

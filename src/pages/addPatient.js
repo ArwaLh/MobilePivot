@@ -26,6 +26,7 @@ import NewPatient from './newPatient';
 import LocatePic from './locatePic';
 import UpdatePatient from './updatePatient';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
+const window = Dimensions.get('window');
 export default class addPatient extends Component {
 	constructor(props){
     super(props);
@@ -51,10 +52,9 @@ export default class addPatient extends Component {
     return (
 	<View>
 	<HeaderUp text="Gestion des patients" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
-	<ScrollView> 
 		 <View style={{margin:7, marginTop:30}}>
 		 <List>
-		 <ListItem>
+		 <ListItem style={{height:(window.height/2)-70}}>
 		   <Grid>
 		   <Row>
 		      <Col style={{width:30,height:100, marginTop:5}}><Icon name="plus-circle" style={{color:'#29235c', fontSize:20}}  /></Col>
@@ -62,7 +62,6 @@ export default class addPatient extends Component {
 					<Text style={{width:220, fontFamily: 'Roboto', fontSize:18, color:'#29235c'}}>Ajouter un patient</Text>
 				</Col>
 			</Row>
-
 			<Row>
 					<Button
 					onPress={this.ajoutPat.bind(this)}
@@ -75,7 +74,7 @@ export default class addPatient extends Component {
 	  </View>	
 	   <View style={{margin:7, marginTop:15}}>
 		 <List>
-		 <ListItem>
+		 <ListItem style={{height:(window.height/2)-70}}>
 		   <Grid>
 		   <Row>
 		      <Col style={{width:30,height:100, marginTop:5}}><Icon name="edit" style={{color:'#29235c', fontSize:20}}  /></Col>
@@ -93,8 +92,6 @@ export default class addPatient extends Component {
 		 </ListItem>
 		  </List>	
 	  </View>
-
-    </ScrollView>
      </View>
     );
   }

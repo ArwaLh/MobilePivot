@@ -108,9 +108,9 @@ export default class phototype extends Component {
 		  <List style={{height:500}}>
 	        <ListItem  style={styles.list_Phototype}>
 			   <Grid> 
-				    <Button onPress={this.phototype_1.bind(this)} style={{backgroundColor: this.state.back_color,height:90, width:400}} textStyle={{color: this.state.textColor}} transparent>
-						 <Row>
-								<Col style={{width:65}}>
+				    <Button onPress={this.phototype_1.bind(this)} style={{backgroundColor: this.state.back_color,height:90, width:400, marginBottom:110}} textStyle={{color: this.state.textColor}} transparent>
+						 <Row style={{height:100}}>
+								<Col style={{width:70}}>
 									<Image style={styles.image_Phototype} source={{uri:'http://localhost:8081/img/img1.png'}}/>
 								</Col>
 								<Col style={{width:250, marginLeft:25}}>
@@ -123,8 +123,8 @@ export default class phototype extends Component {
 			</ListItem>
 		   <ListItem style={styles.list_Phototype}>
 			  <Grid> 
-				 <Button onPress={this.phototype_2.bind(this)} style={{backgroundColor: this.state.back_color1,height:90, width:400}} textStyle={{color: this.state.textColor1, marginTop:40}} transparent>
-						<Row>
+				 <Button onPress={this.phototype_2.bind(this)} style={{backgroundColor: this.state.back_color1, height:90, width:400, marginBottom:110}} textStyle={{color: this.state.textColor1}} transparent>
+						<Row  style={{height:100}}>
 							<Col style={{width:65}}>
 								<Image style={styles.image_Phototype} source={{uri:'http://localhost:8081/img/img2.png'}}/>
 							</Col>
@@ -138,12 +138,12 @@ export default class phototype extends Component {
 			 </ListItem>
 			 <ListItem  style={styles.list_Phototype}>
 			   <Grid> 
-				 <Button onPress={this.phototype_3.bind(this)} style={{backgroundColor: this.state.back_color2,height:70, width:400}} textStyle={{color: this.state.textColor2}} transparent>
-						<Row>
+				 <Button onPress={this.phototype_3.bind(this)} style={{backgroundColor: this.state.back_color2,height:70, width:400, marginBottom:110}} textStyle={{color: this.state.textColor2}} transparent>
+						<Row style={{height:100}}>
 							<Col style={{width:65}}>
 								<Image style={styles.image_Phototype} source={{uri:'http://localhost:8081/img/img3.png'}}/>
 							</Col>
-							<Col style={{width:200, marginLeft:25}}>
+							<Col style={{width:200,marginTop:10, marginLeft:25}}>
 								<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor2}}>Phototypes III{"\n"}</Text> 
 								<Text style={{fontSize: 13,color: this.state.text4}}>Peau intermédiaire, yeux bruns,cheveux chatains</Text>
 							</Col>
@@ -153,9 +153,9 @@ export default class phototype extends Component {
 			</ListItem>
 			<ListItem  style={styles.list_Phototype}>
 			   <Grid> 
-				 <Button onPress={this.phototype_4.bind(this)} style={{backgroundColor: this.state.back_color3,height:70, width:400}} textStyle={{color: this.state.textColor3}} transparent>
-						<Row>
-							<Col style={{width:65}}>
+				 <Button onPress={this.phototype_4.bind(this)} style={{backgroundColor: this.state.back_color3,height:70, width:400, marginBottom:110}} textStyle={{color: this.state.textColor3}} transparent>
+						<Row style={{height:95}} >
+							<Col style={{width:67}}>
 								<Image style={styles.image_Phototype} source={{uri:'http://localhost:8081/img/img4.png'}}/>
 							</Col>
 							<Col style={{width:200, marginLeft:25}}>
@@ -168,8 +168,8 @@ export default class phototype extends Component {
 			</ListItem>
 			<ListItem  style={styles.list_Phototype}>
 			   <Grid> 
-				 <Button onPress={this.phototype_5.bind(this)} style={{backgroundColor: this.state.back_color4,height:70, width:400}} textStyle={{color: this.state.textColor4}} transparent>
-						<Row>
+				 <Button onPress={this.phototype_5.bind(this)} style={{backgroundColor: this.state.back_color4,height:70, width:400, marginBottom:110}} textStyle={{color: this.state.textColor4}} transparent>
+						<Row style={{height:80}}>
 							<Col style={{width:65}}>
 								<Image style={styles.image_Phototype} source={{uri:'http://localhost:8081/img/img5.png'}}/>
 							</Col>
@@ -183,8 +183,8 @@ export default class phototype extends Component {
 			</ListItem>
 			<ListItem  style={styles.list_Phototype}>
 			   <Grid> 
-				 <Button onPress={this.phototype_6.bind(this)} style={{backgroundColor: this.state.back_color5,height:70, width:400}} textStyle={{color: this.state.textColor5}} transparent>
-						<Row>
+				 <Button onPress={this.phototype_6.bind(this)} style={{backgroundColor: this.state.back_color5,height:70, width:400, marginBottom:50}} textStyle={{color: this.state.textColor5}} transparent>
+						<Row style={{height:80}}>
 							<Col style={{width:65}}>
 								<Image style={styles.image_Phototype} source={{uri:'http://localhost:8081/img/img6.png'}}/>
 							</Col>
@@ -231,10 +231,9 @@ const styles = StyleSheet.create({
 	height:83
   },
   image_Phototype: {
-    width:70,
-    height: 60,
-	borderRadius: 80,
-	marginBottom:50
+    width:75,
+    height: 70,
+	marginBottom:70
   },
   titre_Phototype: {
 	fontSize: 15,
