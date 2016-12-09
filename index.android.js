@@ -30,6 +30,7 @@ export default class FacebookApp extends Component {
 	constructor(props){
 		super(props);
 		AsyncStorage.removeItem('Phototype_value');//not here
+		AsyncStorage.removeItem('medecin_username');//not here
 		this.state = {
 		  component: null,
 		  loaded: false

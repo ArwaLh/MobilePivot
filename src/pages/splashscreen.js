@@ -33,7 +33,7 @@ export default class splashscreen extends Component {
 	render() {
 		return (
 		<View>
-			<Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/2.png'}}>
+			<Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/splashscreen.png'}}>
 				<View style={{flexDirection: 'column',backgroundColor: 'transparent'}}>
 					<Button
 						onPress={this.demarrer.bind(this)}

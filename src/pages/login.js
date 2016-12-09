@@ -27,7 +27,7 @@ export default class login extends Component {
 
   constructor(props){
     super(props);
-	this.itemsRef = firebase.database().ref('medecins');
+	this.itemsRef = firebase.database().ref();
     this.state = {
       email_medecin: '',
       password: '',
@@ -126,11 +126,12 @@ export default class login extends Component {
       loaded: false
     });
     firebase.auth().signInWithEmailAndPassword(this.state.email_medecin,this.state.password).then((user_data) =>{
-		this.itemsRef.orderByChild('email_medecin').equalTo(this.state.email_medecin).on("child_added", function(snapshot) {
+		let medecin_userid='';
+		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(this.state.email_medecin).once("child_added", function(snapshot) {
+			medecin_userid=snapshot.key;
 			AsyncStorage.setItem('medecin_username', snapshot.key);
 			alert(snapshot.key);
 		});
-		alert('Login success');
         AsyncStorage.setItem('user_data', JSON.stringify(user_data));
         this.props.navigator.push({
           component: GestionPatient

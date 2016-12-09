@@ -16,10 +16,10 @@ import {
   View
 } from 'react-native';
 import HeaderOther from '../components/headerOther';
-import HeaderUp from '../components/headerUp';
+import Header from '../components/header';
 import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
-import {InputGroup, Input, Button, Card, CardItem, Header, List, ListItem} from 'native-base';
+import {InputGroup, Input, Button, Card, CardItem, List, ListItem} from 'native-base';
 
 import UploadForm from './uploadForm';
 import NewPatient from './newPatient';
@@ -51,7 +51,7 @@ export default class gestionPatient extends Component {
   render() {
     return (
 	<View>
-	<HeaderUp text="Gestion des patients" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<Header text="Gestion des patients" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 		 <View style={{margin:7, marginTop:30}}>
 		 <List>
 		 <ListItem style={{height:(window.height/2)-70}}>

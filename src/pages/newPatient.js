@@ -46,10 +46,9 @@ export default class newPatient extends Component {
       antec_perso: 'oui_antec_perso',
       antec_fam: 'oui_antec_fam',
       nbreGrain: 'sup',
-      results: {
-      items: []
-      },
+	  items_pat:[],
 	  date:"",
+	  username_med: '',
 	  dateNaissance_pat: ''
 	}}
 	 componentWillMount(){
@@ -61,13 +60,15 @@ export default class newPatient extends Component {
 		  onPanResponderRelease: (e) => console.log('onPanResponderRelease'),
 		  onPanResponderTerminate: (e) => console.log('onPanResponderTerminate')
 		});
-		AsyncStorage.getItem('medecin_username').then((medecin_username) => {
-		  this.setState({
-			username_med: medecin_username,
-			loaded: true
-		  });
+		this.setState({
+			loaded: false
 		});
-	}
+	 }
+	 componentDidMount(){
+		 this.setState({
+			loaded: true
+		});
+	 }
     onValueChangePerso (value: string) {
         this.setState({
             antec_perso : value
@@ -85,51 +86,41 @@ export default class newPatient extends Component {
     }
   
 	locatePic(){
-		let items = [];
-		//ADDING NEW PATIENT
-		//get listStyleTypetasksRef.on('value', (dataSnapshot) => {
-		this.itemsRef.child('medecins').child('patients').on('value', (snap) => {
-
-		  // get children as an array
-
-		  snap.forEach((child) => {
-			items.push({
-			  nom: child.val().nom,
-			  _key: child.key,
-			  prenom: child.val().prenom,
-			  _key: child.key,
-			  date_de_naissance: child.val().date_de_naissance,
-			  _key: child.key,
-			  lieu: child.val().lieu,
-			  _key: child.key,
-			  profession: child.val().profession,
-			  _key: child.key,
-			  telephone_patient: child.val().telephone_patient,
-			  _key: child.key,
-			  antecedents_personnels: child.val().antecedents_personnels,
-			  _key: child.key,
-			  antecedents_familiaux: child.val().antecedents_familiaux,
-			  _key: child.key,
-			  nombre_grain_de_beaute: child.val().nombre_grain_de_beaute,
-			  _key: child.key,
+		AsyncStorage.getItem('medecin_username').then((medecin_username) => {
+			this.setState({
+				username_med:medecin_username,
+				loaded: true
 			});
-		  });
 
-		});
-		let patients=items;
-		let patient_id=this.state.nom_pat+'_'+this.state.prenom_pat+'_'+patients.length;
-		this.itemsRef.child('medecins/'+this.state.username_med).child('patients/'+patient_id).set({ 
-		nom_pat: this.state.nom_pat, 
-		prenom_pat: this.state.prenom_pat, 
-		date_de_naissance_pat: this.state.date, 
-		lieu_pat: this.state.lieu_pat, 
-		profession_pat: this.state.profession_pat, 
-		telephone_patient: this.state.telephone_patient, 
-		antecedents_personnels: this.state.antec_perso, 
-		antecedents_familiaux: this.state.antec_fam, 
-		nombre_grain_de_beaute: this.state.nbreGrain, 
-		})
+			this.itemsRef.child('medecins/'+medecin_username).child('patients/').on('value', (snap) => {
+				let items=[];
+				// get children as an array
+				snap.forEach((child) => {
+					items.push({
+						antecedents_familiaux :child.val().antecedents_familiaux,
+					  _key: child.key,
+					});
+				});
+				this.setState({
+					items_pat: items
+				});
+			});
+
+			alert(this.state.items_pat.length);
+			let patient_id=this.state.nom_pat+'_'+this.state.prenom_pat+'_'+this.state.items_pat.length;
+			this.itemsRef.child('medecins/'+medecin_username).child('patients/'+patient_id).set({ 
+			nom_pat: this.state.nom_pat, 
+			prenom_pat: this.state.prenom_pat, 
+			date_de_naissance_pat: this.state.dateNaissance_pat, 
+			lieu_pat: this.state.lieu_pat, 
+			profession_pat: this.state.profession_pat, 
+			telephone_patient: this.state.telephone_patient, 
+			antecedents_personnels: this.state.antec_perso, 
+			antecedents_familiaux: this.state.antec_fam, 
+			nombre_grain_de_beaute: this.state.nbreGrain, 
+			})
 		AsyncStorage.setItem('patient_id',patient_id);
+		});
 		alert("sucesss patient added"); 
 		this.props.navigator.push({
           component: GestionNaevus
