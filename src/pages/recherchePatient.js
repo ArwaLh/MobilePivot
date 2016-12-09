@@ -95,14 +95,13 @@ export default class recherchePatient extends Component {
 						defaultValue={query}
 						placeholder="Nom Prénom"
 						onChangeText={text => this.setState({query: text})}
-						renderItem={data => (
-						  <TouchableOpacity onPress={() =>
-							  this.setState({query: data})
-							}
-						  >
-							<Text>{data}</Text>
-						  </TouchableOpacity>
-						)}
+						renderItem={({ nom_pat, prenom_pat }) => (
+							<TouchableOpacity onPress={() => this.setState({ query: nom_pat })}>
+							  <Text style={styles.itemText}>
+								{nom_pat} {prenom_pat}
+							  </Text>
+							</TouchableOpacity>
+						  )}
 					  />
 				</Col>
 				<Col>   
