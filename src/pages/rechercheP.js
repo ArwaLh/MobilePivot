@@ -22,7 +22,7 @@ import HeaderOther from '../components/headerOther';
 import HeaderUp from '../components/headerUp';
 import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
-import {InputGroup, Input, Button, Card, CardItem, Header} from 'native-base';
+import {InputGroup, Input, Button, Card, CardItem, Header, List,ListItem} from 'native-base';
 import UploadForm from './uploadForm';
 import ValidMeta from './validMeta';
 import TakePic from './takePic';
@@ -143,7 +143,6 @@ export default class rechercheP extends Component {
     if (query === '') {
       return [];
     }
-
     const { patients_array } = this.state;
 	var arr = Object.keys(patients_array).map(function(k) { return patients_array[k] });
     const regex = new RegExp(`${query.trim()}`, 'i');
@@ -169,7 +168,7 @@ export default class rechercheP extends Component {
 					  -Sélectionnez le dossier patient
 				</Text>
 		</View>
-		<View style={{marginLeft:35,marginBottom:20,flexDirection:'row', flexWrap:'wrap',flex: 1}}> 
+		<View style={{marginLeft:38,marginBottom:20,flexDirection:'row', flexWrap:'wrap',flex: 1}}> 
 			<Grid>
 				<Col>
 					<Autocomplete
@@ -177,22 +176,27 @@ export default class rechercheP extends Component {
 					  autoCorrect={true}
 					  containerStyle={styles.autocompleteContainer}
 					  inputContainerStyle={styles.autocompleteInput}
+					  style={{color: '#29235c',backgroundColor: 'transparent'}}
 					  data={patients_array.length === 1 && comp(query, patients_array[0].nom_pat) ? [] : patients_array}
 					  defaultValue={query}
 					  onChangeText={text => this.setState({ query: text })}
 					  placeholder="Nom Prénom"
 					  renderItem={({ nom_pat, prenom_pat , telephone_patient }) => (
+					  <List>
+					  <ListItem>
 						<TouchableOpacity onPress={() => this.setState({ query: nom_pat })}>
 						  <Text style={styles.itemText}>
-							{nom_pat} {prenom_pat} {"\n"} +336 {telephone_patient}
+							Mr. / Mme {nom_pat} {prenom_pat} {"\n"} +336 {telephone_patient}
 						  </Text>
 						</TouchableOpacity>
+					  </ListItem>
+					  </List>
 					  )
 					  }
 					></Autocomplete>
-					</Col>
-					<Col>
-					<Icon name="search" style={{margin:0,marginTop:15,padding:0,right:0}}/>	
+				</Col>
+				<Col>
+					<Icon name="search" style={{margin:0,marginTop:25,padding:0,right:0,left:70,color: '#29235c',fontSize:14}}/>	
 				</Col>
 			</Grid>
 		</View> 

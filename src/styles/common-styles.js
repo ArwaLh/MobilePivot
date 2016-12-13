@@ -198,7 +198,7 @@ module.exports = StyleSheet.create({
 	backgroundColor: 'transparent',
     marginLeft: 0,
     marginRight: 0,
-	width:230
+	width:270
   },
   autocompleteInput: {
 	borderColor: 'transparent',
