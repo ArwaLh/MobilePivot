@@ -19,7 +19,7 @@ export default class header extends Component {
         <View style={styles.header_item}>
 			<Image style={{width:25,height:25,flex:1}} source={{uri:'http://localhost:8081/img/k.png'}}></Image>
         </View>
-		<View style={styles.header_item}>
+		<View style={styles.header_text}>
 			<Text style={styles.header_text}>{this.props.text}</Text>
         </View>
         <View style={styles.header_item}>
@@ -51,12 +51,10 @@ const styles = StyleSheet.create({
 	width:30
   },
   header_text: {
-    color: '#FFFFFF',
 	fontSize: 18,
 	fontWeight: 'bold',
 	fontFamily: 'Roboto',
 	marginRight: 50
-
   }
 });
 

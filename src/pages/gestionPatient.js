@@ -25,6 +25,7 @@ import UploadForm from './uploadForm';
 import NewPatient from './newPatient';
 import LocatePic from './locatePic';
 import RecherchePatient from './recherchePatient';
+import RechercheP from './rechercheP';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 const window = Dimensions.get('window');
 export default class gestionPatient extends Component {
@@ -41,7 +42,7 @@ export default class gestionPatient extends Component {
 	}
 	modPat(){
 		this.props.navigator.push({
-          component: RecherchePatient
+          component: RechercheP
         }); 
 	}
 	goBack() {
@@ -51,7 +52,7 @@ export default class gestionPatient extends Component {
   render() {
     return (
 	<View>
-	<Header text="Gestion des patients" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<Header text="Gestion des patients" loaded={this.state.loaded}/>
 		 <View style={{margin:7, marginTop:30}}>
 		 <List>
 		 <ListItem style={{height:(window.height/2)-70}}>
