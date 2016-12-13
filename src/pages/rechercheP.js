@@ -39,6 +39,7 @@ export default class rechercheP extends Component {
 		this.state = {
 		  loaded: true,
 		  patients_array: [],
+		  items_pat: [],
 		  query: ''
 		}
 	}
@@ -60,7 +61,33 @@ export default class rechercheP extends Component {
 	   	this.setState({
 			loaded: true
 		});
-		var json={
+		AsyncStorage.getItem('medecin_username').then((medecin_username) => {
+			this.setState({
+				username_med:medecin_username
+			});
+		});
+		let items=[];
+		this.itemsRef.child('medecins/'+medecin_username+"patients/").once('child-added', (snap) => {
+				// get children as an array
+				snap.forEach((child) => {
+					items.push({
+						antecedents_familiaux :child.val().antecedents_familiaux,
+						antecedents_personnels: child.val().antecedents_personnels,
+						date_de_naissance_pat: child.val().date_de_naissance_pat,
+						lieu_pat: child.val().lieu_pat,
+						nom_pat: child.val().nom_pat,
+						nombre_grain_de_beaute: child.val().nombre_grain_de_beaute,
+						profession_pat: child.val().profession_pat,
+						profession_pat: child.val().profession_pat,
+						telephone_patient:child.val().telephone_patient,
+					  _key: child.key,
+					});
+				});
+				this.setState({
+					items_pat: items
+				});
+			});
+/* 		var json={
 	  "medecins" : {
 		"arwa0" : {
 		  "email_medecin" : "arwa@osereso.fr",
@@ -134,8 +161,8 @@ export default class rechercheP extends Component {
 		  }
 		}
 	  }
-	}
-      const patients_array = json.medecins.arwa0.patients;
+	} */
+      const patients_array = items;
       this.setState({ patients_array });
    }
 	findPatient(query) {
@@ -186,7 +213,7 @@ export default class rechercheP extends Component {
 					  <ListItem>
 						<TouchableOpacity onPress={() => this.setState({ query: nom_pat })}>
 						  <Text style={styles.itemText}>
-							Mr. / Mme {nom_pat} {prenom_pat} {"\n"} +336 {telephone_patient}
+							M. / Mme {nom_pat} {prenom_pat} {"\n"} +336 {telephone_patient}
 						  </Text>
 						</TouchableOpacity>
 					  </ListItem>
