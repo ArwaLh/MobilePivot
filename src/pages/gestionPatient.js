@@ -42,7 +42,7 @@ export default class gestionPatient extends Component {
 	}
 	modPat(){
 		this.props.navigator.push({
-          component: RecherchePatient
+          component: RechercheP
         }); 
 	}
 	goBack() {
