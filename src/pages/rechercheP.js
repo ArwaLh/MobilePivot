@@ -32,7 +32,7 @@ import LocatePic from './locatePic';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import firebase from 'firebase';
 import Autocomplete from 'react-native-autocomplete-input';
-export default class recherchePatient extends Component {
+export default class rechercheP extends Component {
 	constructor(props){
     super(props);
 	this.itemsRef = firebase.database().ref();
@@ -148,10 +148,7 @@ export default class recherchePatient extends Component {
 		</View>
 		<View style={{margin:55,marginBottom:40}}>  
 	         <Grid>
-			    <Col>
-					<InputGroup style={{width: 240}}>
-						 <Input placeholder="Nom Prénom" style={{color:"#29235c"}}/>
-                    </InputGroup>
+			    <Col>     
 					<Autocomplete
 						autoCapitalize="none"
 						autoCorrect={false}
@@ -177,7 +174,7 @@ export default class recherchePatient extends Component {
 		      </Grid>
 		</View> 
 		<Button
-			onPress={this.uploadP.bind(this)}
+			onPress={this.gestionNaevus.bind(this)}
 			style={styles.primary_button}
 			textStyle={styles.primary_button_text}>Gérer naevus</Button>
 		
@@ -187,4 +184,4 @@ export default class recherchePatient extends Component {
   }
 }
 
-AppRegistry.registerComponent('recherchePatient', () => recherchePatient);
+AppRegistry.registerComponent('rechercheP', () => rechercheP);
