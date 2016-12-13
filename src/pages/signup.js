@@ -4,6 +4,7 @@ import {
   Text,
   TextInput,
   AsyncStorage,
+  Image,
   TouchableOpacity,
   View
 } from 'react-native';
@@ -81,8 +82,8 @@ export default class signup extends Component {
   render() {
     return (
     <View style={styles.container}>
-    <Header text="S'inscrire" loaded={this.state.loaded} />
-        <View style={styles.body}>
+	 <Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/2.png'}}>
+        <View style={styles.body_login}>
             <TextInput
                 style={styles.textinput_email}
                 onChangeText={(text) => this.setState({email_medecin: text})}
@@ -108,7 +109,7 @@ export default class signup extends Component {
 					}
 					}} 
 					style={{width: 35,margin:0,padding:0,marginBottom:0,height:20,marginTop:30}}>
-					<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
+					<Image style={{width:27,height:15,margin:0,padding:0}} source={{uri:'http://localhost:8081/img/eye.png'}}></Image>
 				</TouchableOpacity >
 			</View>
 			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
@@ -129,16 +130,17 @@ export default class signup extends Component {
 					}
 					}} 
 					style={{width: 35,margin:0,padding:0,marginBottom:0,height:20,marginTop:30}}>
-					<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
+					<Image style={{width:27,height:15,margin:0,padding:0}} source={{uri:'http://localhost:8081/img/eye.png'}}></Image>
 				</TouchableOpacity>
 			</View>
 			<Button
 				onPress={this.signup}
 				style={styles.primary_button_signup}
 				textStyle={{fontSize: 16, color:'#fff'}}
-				bordered>CREER UN COMPTE</Button>
+				bordered>CRÉER UN COMPTE</Button>
 			<Text style={styles.text_signup_terms}>En cliquant sur "créer un compte" ,vous acceptez nos condition d'utilisation et notre Politique de confidentialité.</Text>
         </View>
+		</Image>
       </View>
     );
   }

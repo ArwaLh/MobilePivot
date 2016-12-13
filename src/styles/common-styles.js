@@ -10,6 +10,11 @@ module.exports = StyleSheet.create({
     flex: 1,
 	backgroundColor: '#53507c'
   },
+  body_login: {
+    flex: 9,
+    alignItems: 'center',
+	marginTop: 220
+  }, 
   body: {
     flex: 9,
     alignItems: 'center',
@@ -79,7 +84,8 @@ module.exports = StyleSheet.create({
 	marginBottom: 10,
 	color: "#fff",
 	fontFamily: 'Roboto',
-	fontSize: 14,
+	fontSize: 12,
+	fontWeight: 'normal',
 	textAlign: 'center'
   },
    primary_button_signup: {

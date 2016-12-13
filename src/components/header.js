@@ -17,7 +17,10 @@ export default class header extends Component {
     return (
       <View style={styles.header}>
         <View style={styles.header_item}>
-			<Image style={{width:280, height: 100}} source={{uri:'http://localhost:8081/img/logo_katomi.png'}}/>
+			<Image style={{width:25,height:25,flex:1}} source={{uri:'http://localhost:8081/img/k.png'}}></Image>
+        </View>
+		<View style={styles.header_item}>
+			<Text style={styles.header_text}>{this.props.text}</Text>
         </View>
         <View style={styles.header_item}>
         {  !this.props.loaded &&
@@ -36,26 +39,25 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
-	height: 100,
     flex: 1,
-	backgroundColor: "transparent",
+	height:60,
+	backgroundColor: '#322a7d',
   },
   header_item: {
-    paddingLeft: 25,
-    paddingRight: 10,
 	position: 'relative',
+	paddingBottom: 3,
+	marginRight: 40,
+	height:30,
+	width:30
   },
   header_text: {
     color: '#FFFFFF',
-	fontSize: 45,
-    margin: 30,
-	textAlign: 'center'
-  },
-  image: {
-    width:150,
-    height:50,
-    flex: 1
-  },
+	fontSize: 18,
+	fontWeight: 'bold',
+	fontFamily: 'Roboto',
+	marginRight: 50
+
+  }
 });
 
 AppRegistry.registerComponent('header', () => header);

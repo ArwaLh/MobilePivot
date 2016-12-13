@@ -8,6 +8,7 @@ import {
   BackAndroid,
   View
 } from 'react-native';
+import GiftedSpinner from 'react-native-gifted-spinner';
 import {Button} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 export default class headerUp extends Component {

@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import {
   ScrollView,
   AppRegistry,
+  AsyncStorage,
   Dimensions,
   StyleSheet,
   Text,
@@ -47,6 +48,33 @@ export default class recherchePatient extends Component {
         }); 
 	}
 	gestionNaevus(){
+			//
+/* 	AsyncStorage.getItem('medecin_username').then((medecin_username) => {
+		  this.setState({
+			username_med: medecin_username
+		  });
+		this.itemsRef.child('medecins/'+medecin_username).child('patients/').on('value', (snap) => {
+			let items=[];
+				// get children as an array
+			snap.forEach((child) => {
+				items.push({
+					antecedents_familiaux :child.val().antecedents_familiaux,
+					antecedents_personnels:child.val().antecedents_personnels,
+					date_de_naissance_pat:child.val().date_de_naissance_pat,
+					lieu_pat:child.val().lieu_pat,
+					nom_pat:child.val().nom_pat,
+					nombre_grain_de_beaute:child.val().nombre_grain_de_beaute,
+					prenom_pat:child.val().prenom_pat,
+					profession_pat:child.val().profession_pat,
+					telephone_patient:child.val().telephone_patient,
+					_key: child.key,
+				});
+			});
+			this.setState({
+				items_pat: items
+			});
+		});
+	}); */	
 		this.props.navigator.push({
           component: GestionNaevus
         }); 
@@ -55,61 +83,50 @@ export default class recherchePatient extends Component {
 		this.props.navigator.pop();
 		return true; // do not exit app
 	}
-	componentDiDmount(){
-		let items = [];
-		//ADDING NEW PATIENT
-		//get listStyleTypetasksRef.on('value', (dataSnapshot) => {
-		this.itemsRef.child('medecins').child('patients').on('value', (snap) => {
-
-		  // get children as an array
-
-		  snap.forEach((child) => {
-			items.push({
-			  nom: child.val().nom,
-			  _key: child.key,
-			  prenom: child.val().prenom,
-			  _key: child.key,
-			  date_de_naissance: child.val().date_de_naissance,
-			  _key: child.key,
-			  lieu: child.val().lieu,
-			  _key: child.key,
-			  profession: child.val().profession,
-			  _key: child.key,
-			  telephone_patient: child.val().telephone_patient,
-			  _key: child.key,
-			  antecedents_personnels: child.val().antecedents_personnels,
-			  _key: child.key,
-			  antecedents_familiaux: child.val().antecedents_familiaux,
-			  _key: child.key,
-			  nombre_grain_de_beaute: child.val().nombre_grain_de_beaute,
-			  _key: child.key,
-			});
-		  });
-
+	 componentDidMount(){
+	   	this.setState({
+			loaded: true
 		});
-		let patients=items;
-		this.setState({
-			items_pat: items
-		});
-		/* this.itemsRef.orderByChild('nom_pat').equalTo(this.state.email_medecin).on("child_added", function(snapshot) {
-			AsyncStorage.setItem('medecin_username', snapshot.key);
-			alert(snapshot.key);
-		}); */
-	}
+   }
 	find_patient(query){
-    if (query === '') {
-      return [];
-    }
-	//
-	this.itemsRef.child('medecins').child('patients').orderByChild('nom_pat').
-	  equalTo(this.state.email_medecin). // The user-inputted search
-	  on('value', function(snap) {
-		alert(snap.val());
-		
-		const { patients } =snap.val();
-		return patients;
+	//look for all the patients in the database
+	AsyncStorage.getItem('medecin_username').then((medecin_username) => {
+		  this.setState({
+			username_med: medecin_username
+		  });
+		  if (query === '') {
+			this.itemsRef.child('medecins/'+medecin_username).child('patients/').on('value', (snap) => {
+			let items=[];
+				// get children as an array
+			snap.forEach((child) => {
+				items.push({
+					antecedents_familiaux :child.val().antecedents_familiaux,
+					antecedents_personnels:child.val().antecedents_personnels,
+					date_de_naissance_pat:child.val().date_de_naissance_pat,
+					lieu_pat:child.val().lieu_pat,
+					nom_pat:child.val().nom_pat,
+					nombre_grain_de_beaute:child.val().nombre_grain_de_beaute,
+					prenom_pat:child.val().prenom_pat,
+					profession_pat:child.val().profession_pat,
+					telephone_patient:child.val().telephone_patient,
+					_key: child.key,
+				});
+			});
+			this.setState({
+				items_pat: items
+			});
+			});
+		  }
+
+		//filter patients
+		this.itemsRef.child('medecins/'+medecin_username).child('patients/').orderByChild('nom_pat').
+		  startAt(this.state.query). // The user-inputted search
+		  on('value', function(snap) {
+			const patients =snap.val();
+			return patients;
+		});
+		//
 	});
-	//
 	}
   render() {
 	const data = this.find_patient(this.state.query);

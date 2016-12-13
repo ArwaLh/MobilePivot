@@ -10,6 +10,7 @@ import {
   Text,
   TextInput,
   View,
+  Image,
   TouchableOpacity,
   AsyncStorage
 } from 'react-native';
@@ -26,7 +27,7 @@ export default class login extends Component {
 
   constructor(props){
     super(props);
-	this.itemsRef = firebase.database().ref('medecins');
+	this.itemsRef = firebase.database().ref();
     this.state = {
       email_medecin: '',
       password: '',
@@ -44,8 +45,8 @@ export default class login extends Component {
   render(){
     return (
       <View style={styles.container}>
-	  <Header text="" loaded={this.state.loaded}/>
-        <View style={styles.body}>
+	  <Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/2.png'}}>
+        <View style={styles.body_login}>
           <TextInput
             style={styles.textinput_email}
             onChangeText={(text) => this.setState({email_medecin: text})}
@@ -72,8 +73,8 @@ export default class login extends Component {
 					}else{
 						this.setState({secureTextEntry: true,count:0});
 					}
-					}}  style={{width: 25,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
-				<Icon name="eye" size={30} style={{color: '#fff', fontSize: 18, width:22,margin:0,padding:0}}/>
+					}}  style={{width: 27,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
+				<Image style={{width:27,height:15,margin:0,padding:0}} source={{uri:'http://localhost:8081/img/eye.png'}}></Image>
 			</TouchableOpacity>
 		  </View>
 		  <Text style={{marginBottom:15}}></Text>
@@ -114,6 +115,7 @@ export default class login extends Component {
           onLogoutFinished={() => alert("User logged out")}
 		  />
         </View>
+		</Image>
       </View>
     );
   }
@@ -124,11 +126,12 @@ export default class login extends Component {
       loaded: false
     });
     firebase.auth().signInWithEmailAndPassword(this.state.email_medecin,this.state.password).then((user_data) =>{
-		this.itemsRef.orderByChild('email_medecin').equalTo(this.state.email_medecin).on("child_added", function(snapshot) {
+		let medecin_userid='';
+		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(this.state.email_medecin).once("child_added", function(snapshot) {
+			medecin_userid=snapshot.key;
 			AsyncStorage.setItem('medecin_username', snapshot.key);
 			alert(snapshot.key);
 		});
-		alert('Login success');
         AsyncStorage.setItem('user_data', JSON.stringify(user_data));
         this.props.navigator.push({
           component: GestionPatient
