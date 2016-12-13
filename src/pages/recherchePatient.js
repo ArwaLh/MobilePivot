@@ -39,7 +39,6 @@ export default class recherchePatient extends Component {
 		this.state = {
 		  loaded: true,
 		  items_pat: [],
-		  query: ''
 		}
 	}
 	uploadP(){
@@ -48,33 +47,6 @@ export default class recherchePatient extends Component {
         }); 
 	}
 	gestionNaevus(){
-			//
-/* 	AsyncStorage.getItem('medecin_username').then((medecin_username) => {
-		  this.setState({
-			username_med: medecin_username
-		  });
-		this.itemsRef.child('medecins/'+medecin_username).child('patients/').on('value', (snap) => {
-			let items=[];
-				// get children as an array
-			snap.forEach((child) => {
-				items.push({
-					antecedents_familiaux :child.val().antecedents_familiaux,
-					antecedents_personnels:child.val().antecedents_personnels,
-					date_de_naissance_pat:child.val().date_de_naissance_pat,
-					lieu_pat:child.val().lieu_pat,
-					nom_pat:child.val().nom_pat,
-					nombre_grain_de_beaute:child.val().nombre_grain_de_beaute,
-					prenom_pat:child.val().prenom_pat,
-					profession_pat:child.val().profession_pat,
-					telephone_patient:child.val().telephone_patient,
-					_key: child.key,
-				});
-			});
-			this.setState({
-				items_pat: items
-			});
-		});
-	}); */	
 		this.props.navigator.push({
           component: GestionNaevus
         }); 
@@ -87,49 +59,8 @@ export default class recherchePatient extends Component {
 	   	this.setState({
 			loaded: true
 		});
-		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
-		  this.setState({
-			username_med: medecin_usernamee
-		  });
-		});
    }
-	find_patient(query){
-	//look for all the patients in the database
-		  if (query === '') {
-			this.itemsRef.child('medecins/'+this.state.username_med).child('patients/').on('value', (snap) => {
-			let items=[];
-				// get children as an array
-			snap.forEach((child) => {
-				items.push({
-					antecedents_familiaux :child.val().antecedents_familiaux,
-					antecedents_personnels:child.val().antecedents_personnels,
-					date_de_naissance_pat:child.val().date_de_naissance_pat,
-					lieu_pat:child.val().lieu_pat,
-					nom_pat:child.val().nom_pat,
-					nombre_grain_de_beaute:child.val().nombre_grain_de_beaute,
-					prenom_pat:child.val().prenom_pat,
-					profession_pat:child.val().profession_pat,
-					telephone_patient:child.val().telephone_patient,
-					_key: child.key,
-				});
-			});
-			this.setState({
-				items_pat: items
-			});
-			});
-		  }
-
-		//filter patients
-		this.itemsRef.child('medecins/'+this.state.username_med).child('patients/').orderByChild('nom_pat').
-		  startAt(query). // The user-inputted search
-		  on('value', function(snap) {
-			const patients =snap.val();
-			return patients;
-		});
-
-	}
   render() {
-	const data = this.find_patient(this.state.query);
     return (
    <View>
 	<HeaderUp text="Rechercher un patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
@@ -152,22 +83,6 @@ export default class recherchePatient extends Component {
 					<InputGroup style={{width: 240}}>
 						 <Input placeholder="Nom Prénom" style={{color:"#29235c"}}/>
                     </InputGroup>
-					<Autocomplete
-						autoCapitalize="none"
-						autoCorrect={false}
-						data={data}
-						defaultValue={this.state.query}
-						placeholder="Nom Prénom"
-						onChangeText={text => this.setState({query: text})}
-						 renderItem={data => (
-						  <TouchableOpacity onPress={() =>
-							  this.setState({query: data})
-							}
-						  >
-							<Text>{data}</Text>
-						  </TouchableOpacity>
-						)}
-					  />
 				</Col>
 				<Col>   
 				 <Button transparent style={{width: 200}}>

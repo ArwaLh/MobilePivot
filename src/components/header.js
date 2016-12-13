@@ -19,7 +19,7 @@ export default class header extends Component {
         <View style={styles.header_item}>
 			<Image style={{width:25,height:25,flex:1}} source={{uri:'http://localhost:8081/img/k.png'}}></Image>
         </View>
-		<View style={styles.header_text}>
+		<View style={styles.header_item}>
 			<Text style={styles.header_text}>{this.props.text}</Text>
         </View>
         <View style={styles.header_item}>
@@ -30,8 +30,6 @@ export default class header extends Component {
       </View>
     );
   }
-
-
 }
 
 const styles = StyleSheet.create({
