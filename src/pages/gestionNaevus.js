@@ -24,6 +24,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const window = Dimensions.get('window');
 import Swiper from 'react-native-swiper';
 import firebase from 'firebase';
+
+import LocatePic from './locatePic';
 export default class gestionNaevus extends Component {
 	constructor (props) {
 		super(props);
@@ -43,7 +45,7 @@ export default class gestionNaevus extends Component {
 		});
 	} */
 	listenForItems(itemsRef) {
-		this.itemsRef.child('medecins/'+"arwa0"+"/patients/").on('value', (snap) => {
+		this.itemsRef.child('medecins/'+"cyrine1"+"/patients/").on('value', (snap) => {
 		// get children as an array
 		var items = [];
 		snap.forEach((child) => {
@@ -67,23 +69,24 @@ export default class gestionNaevus extends Component {
 		this.props.navigator.pop();
 		return true; // do not exit app
 	}
-	uplo(){
+	localiser_photo(){
 		this.props.navigator.push({
-          component: UploadForm
+          component: LocatePic
         }); 
 	}
 	
 	
   render() {
     return ( 
-	<View>
+	<View style={{backgroundColor: 'white'}}>
 	<HeaderUp text="Gestion Naevus" loaded={true} onpress={this.goBack.bind(this)}/>
-	<ScrollView style={{backgroundColor: 'white'}}>
+	<ScrollView style={{backgroundColor: 'black'}}>
+	<View style={{flex:1}}>
 		<ListView dataSource={this.state.dataSource}
         renderRow={(rowData) => 
 					<List style={{backgroundColor:'white'}}>
 					  <ListItem>
-					  <Button style={{height:120}} transparent>
+					  <Button style={{height:120}} onPress={this.localiser_photo.bind(this)} transparent>
 						<Grid>
 						<Col>
 						<Icon name="folder-open" size={45} style={{color: '#29235c', fontSize: 50, width:55,marginLeft: (window.width/2)-130,marginTop:35}}/>
@@ -100,14 +103,15 @@ export default class gestionNaevus extends Component {
 					  </Button>
 					  </ListItem>
 					</List>
-					} style={{backgroundColor: 'white'}}/>		
-		<List style={{backgroundColor: 'white'}}>
+					} style={{backgroundColor: 'white',flex:2}}/>		
+		<List style={{backgroundColor: 'white',height:100}}>
 			<ListItem>
 				<TouchableOpacity>
-				  <Icon name="plus-square-o" size={75} style={{color: '#29235c', fontSize: 70, width:100,marginLeft: (window.width/2)-30}}/> 	
+				  <Icon name="plus-square-o" size={75} style={{color: '#29235c', fontSize: 70, width:100,marginLeft: (window.width/2)-50}}/> 	
 				</TouchableOpacity>
             </ListItem>
         </List>
+	</View>
 	</ScrollView>   
 	</View>
     );

@@ -141,11 +141,11 @@ export default class rechercheP extends Component {
 					  onChangeText={text => this.setState({ query: text })}
 					  placeholder="Nom Prénom"
 					  renderItem={({ nom_pat,telephone_patient }) => (
-						<TouchableHighlight onPress={(autocomplete) => {this.setState({ query: nom_pat})}}>
+						<Button onPress={() => {this.setState({ query: nom_pat})}} transparent>
 						  <Text style={styles.itemText}>
 							M. / Mme {nom_pat}{"\n"} +336{telephone_patient}
 						  </Text>
-						</TouchableHighlight>
+						</Button>
 					  )}
 					/>
 				</Col>
