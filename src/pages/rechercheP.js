@@ -154,7 +154,7 @@ export default class rechercheP extends Component {
 						autoCorrect={false}
 						data={data}
 						defaultValue={this.state.query}
-						placeholder="Nom Prénom"
+						placeholder="Nom & Prénom"
 						onChangeText={text => this.setState({query: text})}
 						 renderItem={data => (
 						  <TouchableOpacity onPress={() =>
