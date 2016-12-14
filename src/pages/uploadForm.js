@@ -206,27 +206,24 @@ export default class uploadForm extends Component {
 					bordered> phototype <Text> {this.state.phototype}</Text></Button>
 				</Col>
                 </Row>
-				
 				<Row>
-				<Col>
-					<Text style={styles.diametre}>Diamètre</Text>
-				</Col>
-				<Col style={{marginLeft:160}}>
-					<Picker
-					    style={{width:140, color:"#29235c" }}
-                        iosHeader="Select one"
-                        mode="dropdown"
-                        selectedValue={this.state.selected4}
-                        onValueChange={this.onValueChangeDiametre.bind(this)}>  
-								<Item label="0.2" value="0.2" />
-								<Item label="1.3" value="1.3" />
-								<Item label="2.3" value="2.3" />
-								<Item label="4.3" value="4.3" />
-								<Item label="5.2" value="5.2" />
-								<Item label="6" value="6" />	
-					</Picker>
-				</Col>
-			</Row>
+				  <Col>
+					<Text style={styles.asymetrie}>Diamètre</Text>
+				  </Col>
+					<Col style={{ marginLeft:160}}>
+						<Picker 
+						    style={{width:100, color:"#29235c" }}
+							iosHeader="Select one"
+							mode="dropdown"
+							selectedValue={this.state.selected5}
+							onValueChange={this.onValueChangeEpaisseur.bind(this)}>  
+									<Item label="0,2" value="0.2" />
+									<Item label="1.3" value="1.3" />
+									<Item label="2.3 " value="2.3" />
+									<Item label="4.3" value="4.3" />
+						</Picker>
+					</Col>	
+				</Row>
 			  <Row>
 				  <Col>
 					<Text style={styles.asymetrie}>Epaisseur</Text>
@@ -244,7 +241,7 @@ export default class uploadForm extends Component {
 									<Item label="4.3" value="4.3" />
 						</Picker>
 					</Col>	
-				</Row>
+				</Row> 
 	       <Row>
 				<Col>
 					<Text style={styles.suspicion}>Suspicion</Text>

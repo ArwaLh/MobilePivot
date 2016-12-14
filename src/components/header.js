@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   header_item: {
 	position: 'relative',
 	paddingBottom: 3,
-	marginRight: 40,
+	marginRight: 20,
 	height:30,
 	width:30
   },
@@ -57,8 +57,9 @@ const styles = StyleSheet.create({
 	color:'white',
 	fontSize: 18,
 	fontWeight: 'bold',
+	color:'white',
 	fontFamily: 'Roboto',
-	marginRight: 50
+	marginRight: 60
   }
 });
 

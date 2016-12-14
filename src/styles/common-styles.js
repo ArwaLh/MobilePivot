@@ -31,7 +31,7 @@ module.exports = StyleSheet.create({
     flex: 9,
     alignItems: 'center',
 	marginTop: 40,
-	marginLeft:50,
+	marginLeft:30,
 	marginRight:20,
   },
   textinput: {
