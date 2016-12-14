@@ -12,6 +12,7 @@ import {
   TextInput,
   Image,
   Dimensions,
+  ListView,
   TouchableOpacity,
   ScrollView,
   AsyncStorage,
@@ -22,12 +23,16 @@ import { List, ListItem, Button, Grid, Col} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 const window = Dimensions.get('window');
 import Swiper from 'react-native-swiper';
+import firebase from 'firebase';
 export default class gestionNaevus extends Component {
 	constructor (props) {
 		super(props);
+		this.itemsRef = firebase.database().ref();
 		this.state = {
-			loaded:true
-		}
+			dataSource: new ListView.DataSource({
+			  rowHasChanged: (row1, row2) => row1 !== row2,
+			})
+		};
 	}
 /* 	componentWillMount(){
 		AsyncStorage.getItem('medecin_username').then((medecin_username) => {
@@ -37,6 +42,27 @@ export default class gestionNaevus extends Component {
 		  });
 		});
 	} */
+	listenForItems(itemsRef) {
+		this.itemsRef.child('medecins/'+"arwa0"+"/patients/").on('value', (snap) => {
+		// get children as an array
+		var items = [];
+		snap.forEach((child) => {
+			items.push({
+			  nom_pat: child.val().nom_pat,
+			  prenom_pat: child.val().prenom_pat,
+			  _key: child.key
+			});
+		});
+		
+		this.setState({
+			dataSource: this.state.dataSource.cloneWithRows(items)
+		 });
+
+		});
+	}
+	componentDidMount(){
+		this.listenForItems(this.itemsRef);
+	}
 	goBack() { 
 		this.props.navigator.pop();
 		return true; // do not exit app
@@ -51,129 +77,34 @@ export default class gestionNaevus extends Component {
   render() {
     return ( 
 	<View>
-	<HeaderUp text="Gestion Naevus" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
-	<ScrollView>
-		<List style={{backgroundColor: 'white'}}>		
-			<ListItem>
-				<Grid>
-					<Col>
-						<Image source={{uri: 'http://www.ospedalebambinogesu.it/documents/10179/0/nei_BambinoGes%C3%B9.jpg/9724bd91-cbc8-4706-8a58-169ac634ac26?t=1393260133105'}} style={{height:280,borderColor: 'black'}}>
-						<Icon name="folder-open-o" size={55} style={{color: '#29235c', fontSize: 50, width:55,marginLeft: (window.width/2)-120,marginTop:120}}/>
-						</Image>
-					</Col>
-					<Col>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
-						Patient : 
-						</Text>
-						<Text style={{margin:5,marginLeft:10}}>XXX</Text>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
-						Nombre de photos: 
-						</Text>
-						<Text style={{margin:5,marginLeft:10}}>5 </Text>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
-						Date de création: 
-						</Text>
-						<Text style={{margin:5,marginLeft:10}}>12/12/2016</Text>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
-						Derniére mise à jour: 
-						</Text>
-						<Text style={{margin:5,marginLeft:10}}>16/12/2016</Text>
-					</Col>
-				</Grid>
-            </ListItem>
-		</List>
-		<List  style={{backgroundColor: 'white'}}>
-			<ListItem>
-				<Grid>
-					<Col>
-						<Image source={{uri: 'http://www.ospedalebambinogesu.it/documents/10179/0/nei_BambinoGes%C3%B9.jpg/9724bd91-cbc8-4706-8a58-169ac634ac26?t=1393260133105'}} style={{height:280,borderColor: 'black'}}>
-						<Icon name="folder-open-o" size={55} style={{color: '#29235c', fontSize: 50, width:55,marginLeft: (window.width/2)-120,marginTop:120}}/>
-						</Image>
-					</Col>
-					<Col>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
-						Patient : 
-						</Text>
-						<Text style={{margin:5,marginLeft:10}}>XXX</Text>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
-						Nombre de photos: 
-						</Text>
-						<Text style={{margin:5,marginLeft:10}}>5 </Text>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
-						Date de création: 
-						</Text>
-						<Text style={{margin:5,marginLeft:10}}>12/12/2016</Text>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
-						Derniére mise à jour: 
-						</Text>
-						<Text style={{margin:5,marginLeft:10}}>16/12/2016</Text>
-					</Col>
-				</Grid>
-            </ListItem>
-		</List>
-		<List style={{backgroundColor: 'white'}}>
-			<ListItem>
-				<Grid>
-					<Col>
-						<Image source={{uri: 'http://www.ospedalebambinogesu.it/documents/10179/0/nei_BambinoGes%C3%B9.jpg/9724bd91-cbc8-4706-8a58-169ac634ac26?t=1393260133105'}} style={{height:280,borderColor: 'black',borderWidth: 0.5}}>
-						<Icon name="folder-open-o" size={55} style={{color: '#29235c', fontSize: 50, width:55,marginLeft: (window.width/2)-120,marginTop:120}}/>
-						</Image>
-					</Col>
-					<Col>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
-						Patient : 
-						</Text>
-						<Text style={{margin:5,marginLeft:10}}>XXX</Text>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
-						Nombre de photos: 
-						</Text>
-						<Text style={{margin:5,marginLeft:10}}>5 </Text>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
-						Date de création: 
-						</Text>
-						<Text style={{margin:5,marginLeft:10}}>12/12/2016</Text>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
-						Derniére mise à jour: 
-						</Text>
-						<Text style={{margin:5,marginLeft:10}}>16/12/2016</Text>
-					</Col>
-				</Grid>
-            </ListItem>
-		</List>
-		<List style={{backgroundColor: 'white'}}>
-			<ListItem>
-				<Grid>
-					<Col>
-						<Image source={{uri: 'http://www.ospedalebambinogesu.it/documents/10179/0/nei_BambinoGes%C3%B9.jpg/9724bd91-cbc8-4706-8a58-169ac634ac26?t=1393260133105'}} style={{height:280,borderColor: 'black'}}>
-						<Icon name="folder-open-o" size={55} style={{color: '#29235c', fontSize: 50, width:55,marginLeft: (window.width/2)-120,marginTop:120}}/>
-						</Image>
-					</Col>
-					<Col>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
-						Patient : 
-						</Text>
-						<Text style={{margin:5,marginLeft:10}}>XXX</Text>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
-						Nombre de photos: 
-						</Text>
-						<Text style={{margin:5,marginLeft:10}}>5 </Text>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
-						Date de création: 
-						</Text>
-						<Text style={{margin:5,marginLeft:10}}>12/12/2016</Text>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14,margin:10}}>
-						Derniére mise à jour: 
-						</Text>
-						<Text style={{margin:5,marginLeft:10}}>16/12/2016</Text>
-					</Col>
-				</Grid>
-			</ListItem>
-		</List>
+	<HeaderUp text="Gestion Naevus" loaded={true} onpress={this.goBack.bind(this)}/>
+	<ScrollView style={{backgroundColor: 'white'}}>
+		<ListView dataSource={this.state.dataSource}
+        renderRow={(rowData) => 
+					<List style={{backgroundColor:'white'}}>
+					  <ListItem>
+					  <Button style={{height:120}} transparent>
+						<Grid>
+						<Col>
+						<Icon name="folder-open" size={45} style={{color: '#29235c', fontSize: 50, width:55,marginLeft: (window.width/2)-130,marginTop:35}}/>
+						</Col>
+						<Col>
+						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>nom patient</Text>
+						<Text style={{color: '#a8a8a8',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>{rowData.nom_pat}</Text>
+						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>prenom patient</Text>
+						<Text style={{color: '#a8a8a8',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>{rowData.prenom_pat}</Text>
+						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>prenom patient</Text>
+						<Text style={{color: '#a8a8a8',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>{rowData.prenom_pat}</Text>
+						</Col>
+						</Grid>
+					  </Button>
+					  </ListItem>
+					</List>
+					} style={{backgroundColor: 'white'}}/>		
 		<List style={{backgroundColor: 'white'}}>
 			<ListItem>
 				<TouchableOpacity>
-				  <Icon name="plus-square-o" size={125} style={{color: '#29235c', fontSize: 250, width:200,marginLeft: 60}}/>
-				  	
+				  <Icon name="plus-square-o" size={75} style={{color: '#29235c', fontSize: 70, width:100,marginLeft: (window.width/2)-30}}/> 	
 				</TouchableOpacity>
             </ListItem>
         </List>
