@@ -14,8 +14,8 @@ import {
   Text,
   TextInput,
   BackAndroid,
-  TouchableHighlight,
   TouchableOpacity,
+  TouchableHighlight,
   View
 } from 'react-native';
 import HeaderOther from '../components/headerOther';
@@ -37,10 +37,9 @@ export default class rechercheP extends Component {
     super(props);
 	this.itemsRef = firebase.database().ref();
 		this.state = {
-		  loaded: true,
 		  patients_array: [],
 		  query: ''
-		}
+		};
 	}
 	uploadP(){
 		this.props.navigator.push({
@@ -57,9 +56,6 @@ export default class rechercheP extends Component {
 		return true; // do not exit app
 	}
 	 componentDidMount(){
-	   	this.setState({
-			loaded: true
-		});
 		//asynchronous storage for medecin id
 		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 			this.setState({
@@ -84,94 +80,29 @@ export default class rechercheP extends Component {
 					});
 				});
 				alert(items.length);
-				const patients_array = items;
+				//const patients_array = items;
+				const patients_array = items; 
 				this.setState({ patients_array });
 			});
 		});	
-		//
-	/* 	var json={
-	  "medecins" : {
-		"arwa0" : {
-		  "email_medecin" : "arwa@osereso.fr",
-		  "patients" : {
-			"gvjfghj_fghh_1" : {
-			  "antecedents_familiaux" : "oui_antec_fam",
-			  "antecedents_personnels" : "non_antec_perso",
-			  "date_de_naissance_pat" : "2016-01-07",
-			  "lieu_pat" : "vhuu",
-			  "nom_pat" : "gvjfghj",
-			  "nombre_grain_de_beaute" : "sup",
-			  "prenom_pat" : "fghh",
-			  "profession_pat" : "ghjj",
-			  "telephone_patient" : "852236"
-			},
-			"gvjuj_fghh_0" : {
-			  "antecedents_familiaux" : "oui_antec_fam",
-			  "antecedents_personnels" : "non_antec_perso",
-			  "date_de_naissance_pat" : "2016-01-07",
-			  "lieu_pat" : "vhuu",
-			  "nom_pat" : "gvjuj",
-			  "nombre_grain_de_beaute" : "sup",
-			  "prenom_pat" : "fghh",
-			  "profession_pat" : "ghjj",
-			  "telephone_patient" : "852236"
-			},
-			"tvbjj_fhii_2" : {
-			  "antecedents_familiaux" : "oui_antec_fam",
-			  "antecedents_personnels" : "non_antec_perso",
-			  "date_de_naissance_pat" : "2016-12-09",
-			  "lieu_pat" : "ghh",
-			  "nom_pat" : "tvbjj",
-			  "nombre_grain_de_beaute" : "sup",
-			  "prenom_pat" : "fhii",
-			  "profession_pat" : "ggb",
-			  "telephone_patient" : "96633"
-			}
-		  }
-		},
-		"chiraz2" : {
-		  "email_medecin" : "chiraz.hamrouni@esprit.tn"
-		},
-		"chiraz3" : {
-		  "email_medecin" : "chiraz@osereso.fr"
-		},
-		"cyrine1" : {
-		  "email_medecin" : "cyrine@osereso.fr",
-		  "patients" : {
-			"aaaa_fvvv_1" : {
-			  "antecedents_familiaux" : "non_antec_fam",
-			  "antecedents_personnels" : "non_antec_perso",
-			  "date_de_naissance_pat" : "2016-12-29",
-			  "lieu_pat" : "hbb",
-			  "nom_pat" : "aaaa",
-			  "nombre_grain_de_beaute" : "sup",
-			  "prenom_pat" : "fvvv",
-			  "profession_pat" : "vvb ",
-			  "telephone_patient" : "896633"
-			},
-			"ghjknnbvhh_fvvv_0" : {
-			  "antecedents_familiaux" : "non_antec_fam",
-			  "antecedents_personnels" : "non_antec_perso",
-			  "date_de_naissance_pat" : "2016-12-29",
-			  "lieu_pat" : "hbb",
-			  "nom_pat" : "ghjknnbvhh",
-			  "nombre_grain_de_beaute" : "sup",
-			  "prenom_pat" : "fvvv",
-			  "profession_pat" : "vvb ",
-			  "telephone_patient" : "896633"
-			}
-		  }
-		}
-	  }
-	} */
    }
+   static renderPatient(patient) {
+    const { nom_pat,prenom_pat,telephone_patient } = patient;
+
+    return (
+      <View>
+        <Text style={styles.titleText}>{nom_pat}</Text>
+        <Text style={styles.directorText}>{prenom_pat}</Text>
+        <Text style={styles.openingText}>{telephone_patient}</Text>
+      </View>
+    );
+  }
 	findPatient(query) {
 	//this method is calleed whenever the user is typing
     if (query === '') {
       return [];
     }
     const { patients_array } = this.state;
-/* 	var arr = Object.keys(patients_array).map(function(k) { return patients_array[k] }); */
     const regex = new RegExp(`${query.trim()}`, 'i');
     return patients_array.filter(patient => patient.nom_pat.search(regex) >= 0);
   }
@@ -181,7 +112,7 @@ export default class rechercheP extends Component {
     const comp = (s, s2) => s.toLowerCase().trim() === s2.toLowerCase().trim();
     return (
    <View>
-	<HeaderUp text="Rechercher un patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text="Rechercher un patient" loaded={true} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
 		<View style={styles.body_recherche_patient}>
 				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:15}}>
@@ -199,8 +130,9 @@ export default class rechercheP extends Component {
 			<Grid>
 				<Col>
 					<Autocomplete
+					  ref="autocomplete"
 					  autoCapitalize="none"
-					  autoCorrect={true}
+					  autoCorrect={false}
 					  containerStyle={styles.autocompleteContainer}
 					  inputContainerStyle={styles.autocompleteInput}
 					  style={{color: '#29235c',backgroundColor: 'transparent'}}
@@ -208,19 +140,14 @@ export default class rechercheP extends Component {
 					  defaultValue={query}
 					  onChangeText={text => this.setState({ query: text })}
 					  placeholder="Nom Prénom"
-					  renderItem={({ nom_pat, prenom_pat , telephone_patient }) => (
-					  <List>
-					  <ListItem>
-						<TouchableOpacity onPress={() => this.setState({ query: nom_pat })}>
+					  renderItem={({ nom_pat,telephone_patient }) => (
+						<TouchableHighlight onPress={(autocomplete) => {this.setState({ query: nom_pat})}}>
 						  <Text style={styles.itemText}>
-							M. / Mme {nom_pat} {prenom_pat} {"\n"} +336 {telephone_patient}
+							M. / Mme {nom_pat}{"\n"} +336{telephone_patient}
 						  </Text>
-						</TouchableOpacity>
-					  </ListItem>
-					  </List>
-					  )
-					  }
-					></Autocomplete>
+						</TouchableHighlight>
+					  )}
+					/>
 				</Col>
 				<Col>
 					<Icon name="search" style={{margin:0,marginTop:25,padding:0,right:0,left:70,color: '#29235c',fontSize:14}}/>	

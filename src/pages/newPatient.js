@@ -52,14 +52,6 @@ export default class newPatient extends Component {
 	  dateNaissance_pat: ''
 	}}
 	 componentWillMount(){
-		this._panResponder = PanResponder.create({
-		  onStartShouldSetPanResponder: (e) => {console.log('onStartShouldSetPanResponder'); return true;},
-		  onMoveShouldSetPanResponder: (e) => {console.log('onMoveShouldSetPanResponder'); return true;},
-		  onPanResponderGrant: (e) => console.log('onPanResponderGrant'),
-		  onPanResponderMove: (e) => console.log('onPanResponderMove'),
-		  onPanResponderRelease: (e) => console.log('onPanResponderRelease'),
-		  onPanResponderTerminate: (e) => console.log('onPanResponderTerminate')
-		});
 		this.setState({
 			loaded: false
 		});

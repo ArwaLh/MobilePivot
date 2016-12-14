@@ -206,7 +206,8 @@ module.exports = StyleSheet.create({
   },
     itemText: {
     fontSize: 15,
-    margin: 2
+    margin: 2,
+	color: 'black'
   },
   descriptionContainer: {
     // `backgroundColor` needs to be set otherwise the
