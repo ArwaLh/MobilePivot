@@ -60,7 +60,36 @@ export default class rechercheP extends Component {
 	   	this.setState({
 			loaded: true
 		});
-		var json={
+		//asynchronous storage for medecin id
+		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
+			this.setState({
+				username_med:medecin_usernamee
+			});
+		//get patients list
+		this.itemsRef.child('medecins/'+medecin_usernamee+"/patients/").on('value', (snap) => {
+				let items=[];
+				// get children as an array
+				snap.forEach((child) => {
+					items.push({
+						antecedents_familiaux :child.val().antecedents_familiaux,
+						antecedents_personnels: child.val().antecedents_personnels,
+						date_de_naissance_pat: child.val().date_de_naissance_pat,
+						lieu_pat: child.val().lieu_pat,
+						nom_pat: child.val().nom_pat,
+						nombre_grain_de_beaute: child.val().nombre_grain_de_beaute,
+						prenom_pat: child.val().prenom_pat,
+						profession_pat: child.val().profession_pat,
+						telephone_patient: child.val().telephone_patient,
+						_key: child.key,
+					});
+				});
+				alert(items.length);
+				const patients_array = items;
+				this.setState({ patients_array });
+			});
+		});	
+		//
+	/* 	var json={
 	  "medecins" : {
 		"arwa0" : {
 		  "email_medecin" : "arwa@osereso.fr",
@@ -134,9 +163,7 @@ export default class rechercheP extends Component {
 		  }
 		}
 	  }
-	}
-      const patients_array = json.medecins.arwa0.patients;
-      this.setState({ patients_array });
+	} */
    }
 	findPatient(query) {
 	//this method is calleed whenever the user is typing
@@ -144,9 +171,9 @@ export default class rechercheP extends Component {
       return [];
     }
     const { patients_array } = this.state;
-	var arr = Object.keys(patients_array).map(function(k) { return patients_array[k] });
+/* 	var arr = Object.keys(patients_array).map(function(k) { return patients_array[k] }); */
     const regex = new RegExp(`${query.trim()}`, 'i');
-    return arr.filter(patient => patient.nom_pat.search(regex) >= 0);
+    return patients_array.filter(patient => patient.nom_pat.search(regex) >= 0);
   }
   render() {
 	const { query } = this.state;
@@ -186,7 +213,7 @@ export default class rechercheP extends Component {
 					  <ListItem>
 						<TouchableOpacity onPress={() => this.setState({ query: nom_pat })}>
 						  <Text style={styles.itemText}>
-							Mr. / Mme {nom_pat} {prenom_pat} {"\n"} +336 {telephone_patient}
+							M. / Mme {nom_pat} {prenom_pat} {"\n"} +336 {telephone_patient}
 						  </Text>
 						</TouchableOpacity>
 					  </ListItem>
