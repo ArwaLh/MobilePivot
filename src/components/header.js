@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
 	marginRight: 40
   },
   header_text: {
+	color:'white',
 	fontSize: 18,
 	fontWeight: 'bold',
 	color:'white',
