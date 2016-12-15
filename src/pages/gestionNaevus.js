@@ -24,7 +24,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const window = Dimensions.get('window');
 import Swiper from 'react-native-swiper';
 import firebase from 'firebase';
-
 import LocatePic from './locatePic';
 export default class gestionNaevus extends Component {
 	constructor (props) {
@@ -33,7 +32,8 @@ export default class gestionNaevus extends Component {
 		this.state = {
 			dataSource: new ListView.DataSource({
 			  rowHasChanged: (row1, row2) => row1 !== row2,
-			})
+			}),
+			dossiers_medicaux: []
 		};
 	}
 /* 	componentWillMount(){
@@ -64,6 +64,24 @@ export default class gestionNaevus extends Component {
 	}
 	componentDidMount(){
 		this.listenForItems(this.itemsRef);
+		this.itemsRef.child('medecins/'+'arwa0'+'/patients/'+'Dupont_Philipe_0/'+'dossiers_medicaux/').on('value', (snap) => {
+			let items=[];
+			// get children as an array
+			snap.forEach((child) => {
+				items.push({
+					date_creation_dossier: child.val().date_creation_dossier,
+					date_MAJ_dossier: child.val().date_MAJ_dossier,
+					nom_patient_dossier: child.val().nom_patient_dossier,
+					prenom_patient_dossier: child.val().prenom_patient_dossier,
+					nombre_images_dossier: child.val().nombre_images_dossier,
+					_key: child.key
+				});
+			});
+			alert(items.length);
+			//const patients_array = items;
+			const dossiers_medicaux = items; 
+			this.setState({ dossiers_medicaux });
+		});
 	}
 	goBack() { 
 		this.props.navigator.pop();
@@ -73,6 +91,18 @@ export default class gestionNaevus extends Component {
 		this.props.navigator.push({
           component: LocatePic
         }); 
+	}
+	nouveau_dossier(){
+		alert("nouveau dossier médical");
+		//ajout d'un dossier médical
+		let dossier_id='arwa0'+'_'+'Dupont_Philipe_0'+'_'+this.state.dossiers_medicaux.length;
+		this.itemsRef.child('medecins/'+'arwa0'+'/patients/'+'Dupont_Philipe_0').child('dossiers_medicaux/'+dossier_id).set({ 
+			date_creation_dossier: new Date(),
+			date_MAJ_dossier: new Date(),
+			nom_patient_dossier: 'Dupont',
+			prenom_patient_dossier: 'Philipe',
+			nombre_images_dossier: 0
+		})
 	}
 	
 	
@@ -92,12 +122,12 @@ export default class gestionNaevus extends Component {
 						<Icon name="folder-open" size={45} style={{color: '#29235c', fontSize: 50, width:55,marginLeft: (window.width/2)-130,marginTop:35}}/>
 						</Col>
 						<Col>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>nom patient</Text>
-						<Text style={{color: '#a8a8a8',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>{rowData.nom_pat}</Text>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>prenom patient</Text>
-						<Text style={{color: '#a8a8a8',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>{rowData.prenom_pat}</Text>
-						<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>prenom patient</Text>
-						<Text style={{color: '#a8a8a8',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>{rowData.prenom_pat}</Text>
+							<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>nom patient</Text>
+							<Text style={{color: '#a8a8a8',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>{rowData.nom_pat}</Text>
+							<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>prenom patient</Text>
+							<Text style={{color: '#a8a8a8',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>{rowData.prenom_pat}</Text>
+							<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>Date MAJ </Text>
+							<Text style={{color: '#a8a8a8',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>{rowData.prenom_pat}</Text>
 						</Col>
 						</Grid>
 					  </Button>
@@ -106,9 +136,9 @@ export default class gestionNaevus extends Component {
 					} style={{backgroundColor: 'white',flex:2}}/>		
 		<List style={{backgroundColor: 'white',height:100}}>
 			<ListItem>
-				<TouchableOpacity>
-				  <Icon name="plus-square-o" size={75} style={{color: '#29235c', fontSize: 70, width:100,marginLeft: (window.width/2)-50}}/> 	
-				</TouchableOpacity>
+				<Button style={{height:120}} onPress={this.nouveau_dossier.bind(this)}transparent>
+				  <Icon name="plus-square-o" style={{color: '#29235c', fontSize: 60, width:70,marginLeft: (window.width/2)-50}}/> 	
+				</Button>
             </ListItem>
         </List>
 	</View>
