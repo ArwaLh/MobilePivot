@@ -94,6 +94,31 @@ export default class newPatient extends Component {
 					items_pat: items
 				});
 			});
+			//la liste des dossieres
+			this.itemsRef.child('medecins/'+arr.medecin_id+'/patients/'+arr.patient_id+'/dossiers_medicaux/').on('value', (snap) => {
+			let items=[];
+			// get children as an array
+			snap.forEach((child) => {
+				items.push({
+					date_creation_dossier: child.val().date_creation_dossier,
+					date_MAJ_dossier: child.val().date_MAJ_dossier,
+					nom_patient_dossier: child.val().nom_patient_dossier,
+					prenom_patient_dossier: child.val().prenom_patient_dossier,
+					nombre_images_dossier: child.val().nombre_images_dossier,
+					_key: child.key
+				});
+			});
+			this.setState({
+			dataSource: this.state.dataSource.cloneWithRows(items),
+			patient_id: arr.patient_id,
+			medecin_id: arr.medecin_id,
+			nom_pat: arr.nom_pat,
+			prenom_pat: arr.prenom_pat,
+			});
+			//const patients_array = items;
+			const dossiers_medicaux = items; 
+			this.setState({ dossiers_medicaux });
+			});
 
 			alert(this.state.items_pat.length);
 			this.setState({patient_id:this.state.nom_pat+'_'+this.state.prenom_pat+'_'+this.state.items_pat.length});
@@ -107,6 +132,14 @@ export default class newPatient extends Component {
 			antecedents_personnels: this.state.antec_perso, 
 			antecedents_familiaux: this.state.antec_fam, 
 			nombre_grain_de_beaute: this.state.nbreGrain, 
+			})
+			let dossier_id=medecin_usernamee+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
+			this.itemsRef.child('medecins/'+this.state.medecin_id+'/patients/'+this.state.patient_id).child('dossiers_medicaux/'+dossier_id).set({ 
+				date_creation_dossier: new Date(),
+				date_MAJ_dossier: new Date(),
+				nom_patient_dossier: this.state.nom_pat,
+				prenom_patient_dossier: this.state.prenom_pat,
+				nombre_images_dossier: 0
 			})
 		AsyncStorage.setItem('patient_medecin',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":this.state.patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat}));
 		});
