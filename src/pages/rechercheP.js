@@ -62,7 +62,7 @@ export default class rechercheP extends Component {
 				username_med:medecin_usernamee
 			});
 		//get patients list
-		this.itemsRef.child('medecins/'+medecin_usernamee+"/patients/").on('value', (snap) => {
+		this.itemsRef.child('medecins/'+'arwa0'+"/patients/").on('value', (snap) => {
 				let items=[];
 				// get children as an array
 				snap.forEach((child) => {
