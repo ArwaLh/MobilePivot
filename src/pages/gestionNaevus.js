@@ -49,7 +49,6 @@ export default class gestionNaevus extends Component {
 			this.setState({
 				patient_medecin_array:patient_medecin_arrayy
 			});
-			alert(patient_medecin_arrayy)
 			this.itemsRef.child('medecins/'+arr.medecin_id+'/patients/'+arr.patient_id+'/dossiers_medicaux/').on('value', (snap) => {
 			let items=[];
 			// get children as an array
@@ -70,7 +69,6 @@ export default class gestionNaevus extends Component {
 			nom_pat: arr.nom_pat,
 			prenom_pat: arr.prenom_pat,
 			});
-			alert(items.length);
 			//const patients_array = items;
 			const dossiers_medicaux = items; 
 			this.setState({ dossiers_medicaux });
@@ -93,8 +91,8 @@ export default class gestionNaevus extends Component {
 		this.itemsRef.child('medecins/'+this.state.medecin_id+'/patients/'+this.state.patient_id).child('dossiers_medicaux/'+dossier_id).set({ 
 			date_creation_dossier: new Date(),
 			date_MAJ_dossier: new Date(),
-			nom_patient_dossier: 'Dupont',
-			prenom_patient_dossier: 'Philipe',
+			nom_patient_dossier: this.state.nom_pat,
+			prenom_patient_dossier: this.state.prenom_pat,
 			nombre_images_dossier: 0
 		})
 	}

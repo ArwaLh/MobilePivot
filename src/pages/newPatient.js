@@ -29,6 +29,7 @@ export default class newPatient extends Component {
 	constructor (props) {
     super(props);
 	this.itemsRef = firebase.database().ref();
+	AsyncStorage.removeItem('patient_medecin');
     this.state = {
 	loaded:true,
       types1: [{label: 'Régulier', value: 0}, {label: 'Irrégulier', value: 1}],
@@ -49,6 +50,7 @@ export default class newPatient extends Component {
 	  items_pat:[],
 	  date:"",
 	  username_med: '',
+	  patient_id: '',
 	  dateNaissance_pat: ''
 	}}
 	 componentWillMount(){
@@ -79,11 +81,6 @@ export default class newPatient extends Component {
   
 	locatePic(){
 		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
-			this.setState({
-				username_med:medecin_usernamee,
-				loaded: true
-			});
-
 			this.itemsRef.child('medecins/'+medecin_usernamee).child('patients/').on('value', (snap) => {
 				let items=[];
 				// get children as an array
@@ -99,8 +96,8 @@ export default class newPatient extends Component {
 			});
 
 			alert(this.state.items_pat.length);
-			let patient_id=this.state.nom_pat+'_'+this.state.prenom_pat+'_'+this.state.items_pat.length;
-			this.itemsRef.child('medecins/'+medecin_usernamee).child('patients/'+patient_id).set({ 
+			this.setState({patient_id:this.state.nom_pat+'_'+this.state.prenom_pat+'_'+this.state.items_pat.length});
+			this.itemsRef.child('medecins/'+medecin_usernamee).child('patients/'+this.state.patient_id).set({ 
 			nom_pat: this.state.nom_pat, 
 			prenom_pat: this.state.prenom_pat, 
 			date_de_naissance_pat: this.state.dateNaissance_pat, 
@@ -111,7 +108,7 @@ export default class newPatient extends Component {
 			antecedents_familiaux: this.state.antec_fam, 
 			nombre_grain_de_beaute: this.state.nbreGrain, 
 			})
-		AsyncStorage.setItem('patient_medecin',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat}));
+		AsyncStorage.setItem('patient_medecin',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":this.state.patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat}));
 		});
 		alert("sucesss patient added"); 
 		this.props.navigator.push({
@@ -125,7 +122,7 @@ export default class newPatient extends Component {
   render() {
     return ( 
 	<View>
-	<HeaderUp text="1/4 Ajouter un patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text="1/4 Ajouter un patient" loaded={true} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
 		<View> 
 				<TextInput
