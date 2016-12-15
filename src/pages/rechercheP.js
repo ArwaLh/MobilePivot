@@ -47,6 +47,7 @@ export default class rechercheP extends Component {
         }); 
 	}
 	gestionNaevus(){
+		AsyncStorage.setItem('patient_medecin',JSON.stringify({"medecin_id":this.state.username_med,"patient_id":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat}));
 		this.props.navigator.push({
         component: GestionNaevus
         }); 
@@ -62,7 +63,7 @@ export default class rechercheP extends Component {
 				username_med:medecin_usernamee
 			});
 		//get patients list
-		this.itemsRef.child('medecins/'+'arwa0'+"/patients/").on('value', (snap) => {
+		this.itemsRef.child('medecins/'+medecin_usernamee+"/patients/").on('value', (snap) => {
 				let items=[];
 				// get children as an array
 				snap.forEach((child) => {

@@ -34,40 +34,23 @@ export default class gestionNaevus extends Component {
 			  rowHasChanged: (row1, row2) => row1 !== row2,
 			}),
 			dossiers_medicaux: [],
-			patient_medecin_array: {}
+			patient_medecin_array: {},
+			patient_id: '',
+			medecin_id: '',
+			nom_pat: '',
+			prenom_pat: '',
 		};
 	}
-	listenForItems(itemsRef) {
-		this.itemsRef.child('medecins/'+"cyrine1"+"/patients/").on('value', (snap) => {
-		// get children as an array
-		var items = [];
-		snap.forEach((child) => {
-			items.push({
-			  nom_pat: child.val().nom_pat,
-			  prenom_pat: child.val().prenom_pat,
-			  _key: child.key
-			});
-		});
-		
-		this.setState({
-			dataSource: this.state.dataSource.cloneWithRows(items)
-		 });
-
-		});
-	}
 	componentDidMount(){
-		this.listenForItems(this.itemsRef);
-		patient_medecin
+		//this.listenForItems(this.itemsRef);
 		//
 		AsyncStorage.getItem('patient_medecin').then((patient_medecin_arrayy) => {
-			var arr=JSON.parse(patient_medecin_arrayy);
+			const arr=JSON.parse(patient_medecin_arrayy);
 			this.setState({
-				patient_medecin_array:arr,
-				patient_id:arr['patient_id'],
-				medecin_id:arr['medecin_id']
+				patient_medecin_array:patient_medecin_arrayy
 			});
-		});
-		this.itemsRef.child('medecins/'+this.state.medecin_id+'/patients/'+this.state.patient_id+'/dossiers_medicaux/').on('value', (snap) => {
+			alert(patient_medecin_arrayy)
+			this.itemsRef.child('medecins/'+arr.medecin_id+'/patients/'+arr.patient_id+'/dossiers_medicaux/').on('value', (snap) => {
 			let items=[];
 			// get children as an array
 			snap.forEach((child) => {
@@ -80,10 +63,18 @@ export default class gestionNaevus extends Component {
 					_key: child.key
 				});
 			});
+			this.setState({
+			dataSource: this.state.dataSource.cloneWithRows(items),
+			patient_id: arr.patient_id,
+			medecin_id: arr.medecin_id,
+			nom_pat: arr.nom_pat,
+			prenom_pat: arr.prenom_pat,
+			});
 			alert(items.length);
 			//const patients_array = items;
 			const dossiers_medicaux = items; 
 			this.setState({ dossiers_medicaux });
+			});
 		});
 	}
 	goBack() { 
@@ -98,8 +89,8 @@ export default class gestionNaevus extends Component {
 	nouveau_dossier(){
 		alert("nouveau dossier médical");
 		//ajout d'un dossier médical
-		let dossier_id='arwa0'+'_'+'Dupont_Philipe_0'+'_'+this.state.dossiers_medicaux.length;
-		this.itemsRef.child('medecins/'+'arwa0'+'/patients/'+'Dupont_Philipe_0').child('dossiers_medicaux/'+dossier_id).set({ 
+		let dossier_id=this.state.medecin_id+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
+		this.itemsRef.child('medecins/'+this.state.medecin_id+'/patients/'+this.state.patient_id).child('dossiers_medicaux/'+dossier_id).set({ 
 			date_creation_dossier: new Date(),
 			date_MAJ_dossier: new Date(),
 			nom_patient_dossier: 'Dupont',
@@ -116,6 +107,7 @@ export default class gestionNaevus extends Component {
 	<ScrollView style={{backgroundColor: 'black'}}>
 	<View style={{flex:1}}>
 		<ListView dataSource={this.state.dataSource}
+		enableEmptySections={true}
         renderRow={(rowData) => 
 					<List style={{backgroundColor:'white'}}>
 					  <ListItem>

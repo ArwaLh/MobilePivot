@@ -78,13 +78,13 @@ export default class newPatient extends Component {
     }
   
 	locatePic(){
-		AsyncStorage.getItem('medecin_username').then((medecin_username) => {
+		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 			this.setState({
-				username_med:medecin_username,
+				username_med:medecin_usernamee,
 				loaded: true
 			});
 
-			this.itemsRef.child('medecins/'+medecin_username).child('patients/').on('value', (snap) => {
+			this.itemsRef.child('medecins/'+medecin_usernamee).child('patients/').on('value', (snap) => {
 				let items=[];
 				// get children as an array
 				snap.forEach((child) => {
@@ -100,7 +100,7 @@ export default class newPatient extends Component {
 
 			alert(this.state.items_pat.length);
 			let patient_id=this.state.nom_pat+'_'+this.state.prenom_pat+'_'+this.state.items_pat.length;
-			this.itemsRef.child('medecins/'+medecin_username).child('patients/'+patient_id).set({ 
+			this.itemsRef.child('medecins/'+medecin_usernamee).child('patients/'+patient_id).set({ 
 			nom_pat: this.state.nom_pat, 
 			prenom_pat: this.state.prenom_pat, 
 			date_de_naissance_pat: this.state.dateNaissance_pat, 
@@ -111,7 +111,7 @@ export default class newPatient extends Component {
 			antecedents_familiaux: this.state.antec_fam, 
 			nombre_grain_de_beaute: this.state.nbreGrain, 
 			})
-		AsyncStorage.setItem('patient_medecin',JSON.stringify({"medecin_id":medecin_username,"patient_id":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat}));
+		AsyncStorage.setItem('patient_medecin',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat}));
 		});
 		alert("sucesss patient added"); 
 		this.props.navigator.push({
