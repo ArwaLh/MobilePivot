@@ -23,6 +23,7 @@ import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
 import GestionNaevus from './gestionNaevus';
+import LocatePic from './locatePic';
 import firebase from 'firebase';
 import DatePicker from 'react-native-datepicker';
 export default class newPatient extends Component {
@@ -145,7 +146,7 @@ export default class newPatient extends Component {
 		});
 		alert("sucesss patient added"); 
 		this.props.navigator.push({
-          component: GestionNaevus
+          component: LocatePic
         });
 	}
 	goBack() {
