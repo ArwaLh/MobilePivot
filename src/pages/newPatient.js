@@ -111,7 +111,7 @@ export default class newPatient extends Component {
 			antecedents_familiaux: this.state.antec_fam, 
 			nombre_grain_de_beaute: this.state.nbreGrain, 
 			})
-		AsyncStorage.setItem('patient_id',patient_id);
+		AsyncStorage.setItem('patient_medecin',JSON.stringify({"medecin_id":medecin_username,"patient_id":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat}));
 		});
 		alert("sucesss patient added"); 
 		this.props.navigator.push({

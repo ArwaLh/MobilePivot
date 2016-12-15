@@ -33,17 +33,10 @@ export default class gestionNaevus extends Component {
 			dataSource: new ListView.DataSource({
 			  rowHasChanged: (row1, row2) => row1 !== row2,
 			}),
-			dossiers_medicaux: []
+			dossiers_medicaux: [],
+			patient_medecin_array: {}
 		};
 	}
-/* 	componentWillMount(){
-		AsyncStorage.getItem('medecin_username').then((medecin_username) => {
-		  this.setState({
-			username_med: medecin_username,
-			loaded: true
-		  });
-		});
-	} */
 	listenForItems(itemsRef) {
 		this.itemsRef.child('medecins/'+"cyrine1"+"/patients/").on('value', (snap) => {
 		// get children as an array
@@ -64,7 +57,17 @@ export default class gestionNaevus extends Component {
 	}
 	componentDidMount(){
 		this.listenForItems(this.itemsRef);
-		this.itemsRef.child('medecins/'+'arwa0'+'/patients/'+'Dupont_Philipe_0/'+'dossiers_medicaux/').on('value', (snap) => {
+		patient_medecin
+		//
+		AsyncStorage.getItem('patient_medecin').then((patient_medecin_arrayy) => {
+			var arr=JSON.parse(patient_medecin_arrayy);
+			this.setState({
+				patient_medecin_array:arr,
+				patient_id:arr['patient_id'],
+				medecin_id:arr['medecin_id']
+			});
+		});
+		this.itemsRef.child('medecins/'+this.state.medecin_id+'/patients/'+this.state.patient_id+'/dossiers_medicaux/').on('value', (snap) => {
 			let items=[];
 			// get children as an array
 			snap.forEach((child) => {
