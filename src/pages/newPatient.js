@@ -44,8 +44,8 @@ export default class newPatient extends Component {
 		chickenWings: 1.5,
 		value: 1.0,
 		selectedItem: undefined,
-		antec_perso: 'oui_antec_perso',
-		antec_fam: 'oui_antec_fam',
+		antec_perso: 'oui',
+		antec_fam: 'oui',
 		nbreGrain: 'sup',
 		items_pat:[],
 		date:"",
@@ -296,8 +296,8 @@ export default class newPatient extends Component {
 								mode="dropdown"
 								selectedValue={this.state.antec_perso}
 								onValueChange={this.onValueChangePerso.bind(this)}>
-								<Item label="oui" value="oui_antec_perso" />
-								<Item label="non" value="non_antec_perso" />  
+								<Item label="oui" value="oui" />
+								<Item label="non" value="non" />  
 						   </Picker>
 					 </Col> 
 				   </Grid>			 
@@ -311,8 +311,8 @@ export default class newPatient extends Component {
 								mode="dropdown"
 								selectedValue={this.state.antec_fam}
 								onValueChange={this.onValueChangeFam.bind(this)}>
-								<Item label="oui" value="oui_antec_fam" />
-								<Item label="non" value="non_antec_fam" />  
+								<Item label="oui" value="oui" />
+								<Item label="non" value="non" />  
 						   </Picker>
 					 </Col> 
 				   </Grid>			 
@@ -327,8 +327,8 @@ export default class newPatient extends Component {
 							mode="dropdown"
 							selectedValue={this.state.nbreGrain}
 							onValueChange={this.onValueChangeNbreGrain.bind(this)}>
-							<Item label="> 50" value="sup" />
-							<Item label="< 50" value="inf" />  
+							<Item label="> 50" value="> 50" />
+							<Item label="< 50" value="< 50" />  
 						</Picker>
 					</Col>
 				</Grid>
