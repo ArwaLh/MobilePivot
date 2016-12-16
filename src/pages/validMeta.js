@@ -30,7 +30,8 @@ export default class validMeta extends Component {
 		this.state = {
 			bords: '',
 			couleur: '',
-			loaded: true
+			loaded: true,
+			textColor2: '#29235c'
 		}
 	}
 	goBack() {
@@ -173,7 +174,7 @@ export default class validMeta extends Component {
 					
 					  <Grid>
 							  <Col style={{width:200}}>
-								 <Button onPress={this.uploadP.bind(this)} textStyle={{fontFamily: 'Roboto',fontSize:13,textShadowColor:'#29235c', marginTop:10}} transparent>
+								 <Button onPress={this.uploadP.bind(this)} textStyle={{fontFamily: 'Roboto',fontSize:13,color: this.state.textColor2, marginTop:10}} transparent>
 								   
 										 MODIFIER LES INORMATIONS
 								 </Button> 

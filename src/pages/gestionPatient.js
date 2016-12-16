@@ -45,6 +45,11 @@ export default class gestionPatient extends Component {
           component: RechercheP
         }); 
 	}
+	upl(){
+		this.props.navigator.push({
+          component: UploadForm
+        }); 
+	}	
 	goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
@@ -85,7 +90,7 @@ export default class gestionPatient extends Component {
 			</Row>
 			<Row>
 					<Button
-					onPress={this.modPat.bind(this)}
+					onPress={this.upl.bind(this)}
 					style={styles.primary_button_ajout_patient}
 					textStyle={styles.primary_button_text_ajout_patient}>MODIFIER LA FICHE PATIENT</Button>
 			</Row>

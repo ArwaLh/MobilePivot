@@ -215,7 +215,7 @@ export default class uploadForm extends Component {
 						    style={{width:100, color:"#29235c" }}
 							iosHeader="Select one"
 							mode="dropdown"
-							selectedValue={this.state.selected5}
+							selectedValue={this.state.selected4}
 							onValueChange={this.onValueChangeEpaisseur.bind(this)}>  
 									<Item label="0,2" value="0.2" />
 									<Item label="1.3" value="1.3" />
