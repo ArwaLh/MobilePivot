@@ -30,29 +30,28 @@ export default class newPatient extends Component {
 	constructor (props) {
     super(props);
 	this.itemsRef = firebase.database().ref();
-	AsyncStorage.removeItem('patient_medecin');
     this.state = {
-	loaded:true,
-      types1: [{label: 'Régulier', value: 0}, {label: 'Irrégulier', value: 1}],
-      value1: 0,
-      value1Index: 0,
-      types2: [{label: 'Brun foncé', value: 0}, {label: 'Brun clair', value: 1}],
-      value2: 0,
-      value2Index: 0,
-      types3: [{label: 'Oui', value: 0}, {label: 'Non', value: 1}],
-      value3: 0,
-      value3Index: 0,
-	  chickenWings: 1.5,
-	  value: 1.0,
-	  selectedItem: undefined,
-      antec_perso: 'oui_antec_perso',
-      antec_fam: 'oui_antec_fam',
-      nbreGrain: 'sup',
-	  items_pat:[],
-	  date:"",
-	  username_med: '',
-	  patient_id: '',
-	  dateNaissance_pat: ''
+		loaded:true,
+		types1: [{label: 'Régulier', value: 0}, {label: 'Irrégulier', value: 1}],
+		value1: 0,
+		value1Index: 0,
+		types2: [{label: 'Brun foncé', value: 0}, {label: 'Brun clair', value: 1}],
+		value2: 0,
+		value2Index: 0,
+		types3: [{label: 'Oui', value: 0}, {label: 'Non', value: 1}],
+		value3: 0,
+		value3Index: 0,
+		chickenWings: 1.5,
+		value: 1.0,
+		selectedItem: undefined,
+		antec_perso: 'oui_antec_perso',
+		antec_fam: 'oui_antec_fam',
+		nbreGrain: 'sup',
+		items_pat:[],
+		date:"",
+		username_med: '',
+		patient_id: '',
+		dateNaissance_pat: ''
 	}}
 	 componentWillMount(){
 		this.setState({
@@ -91,12 +90,25 @@ export default class newPatient extends Component {
 					  _key: child.key,
 					});
 				});
-				this.setState({
-					items_pat: items
-				});
+				const items_pat = items;
+				this.setState({ items_pat });
 			});
-			//la liste des dossieres
-			this.itemsRef.child('medecins/'+arr.medecin_id+'/patients/'+arr.patient_id+'/dossiers_medicaux/').on('value', (snap) => {
+
+			alert(this.state.items_pat.length);
+			this.setState({patient_id:this.state.nom_pat+'_'+this.state.prenom_pat+'_'+this.state.items_pat.length});
+			this.itemsRef.child('medecins/'+medecin_usernamee).child('patients/'+this.state.patient_id).set({ 
+				nom_pat: this.state.nom_pat, 
+				prenom_pat: this.state.prenom_pat, 
+				date_de_naissance_pat: this.state.dateNaissance_pat, 
+				lieu_pat: this.state.lieu_pat, 
+				profession_pat: this.state.profession_pat, 
+				telephone_patient: this.state.telephone_patient, 
+				antecedents_personnels: this.state.antec_perso, 
+				antecedents_familiaux: this.state.antec_fam, 
+				nombre_grain_de_beaute: this.state.nbreGrain, 
+			})
+			//récupérer la liste des dossiers
+			this.itemsRef.child('medecins/'+medecin_usernamee+'/patients/'+this.state.patient_id+'/dossiers_medicaux/').on('value', (snap) => {
 			let items=[];
 			// get children as an array
 			snap.forEach((child) => {
@@ -109,33 +121,12 @@ export default class newPatient extends Component {
 					_key: child.key
 				});
 			});
-			this.setState({
-			dataSource: this.state.dataSource.cloneWithRows(items),
-			patient_id: arr.patient_id,
-			medecin_id: arr.medecin_id,
-			nom_pat: arr.nom_pat,
-			prenom_pat: arr.prenom_pat,
-			});
 			//const patients_array = items;
 			const dossiers_medicaux = items; 
 			this.setState({ dossiers_medicaux });
 			});
-
-			alert(this.state.items_pat.length);
-			this.setState({patient_id:this.state.nom_pat+'_'+this.state.prenom_pat+'_'+this.state.items_pat.length});
-			this.itemsRef.child('medecins/'+medecin_usernamee).child('patients/'+this.state.patient_id).set({ 
-			nom_pat: this.state.nom_pat, 
-			prenom_pat: this.state.prenom_pat, 
-			date_de_naissance_pat: this.state.dateNaissance_pat, 
-			lieu_pat: this.state.lieu_pat, 
-			profession_pat: this.state.profession_pat, 
-			telephone_patient: this.state.telephone_patient, 
-			antecedents_personnels: this.state.antec_perso, 
-			antecedents_familiaux: this.state.antec_fam, 
-			nombre_grain_de_beaute: this.state.nbreGrain, 
-			})
 			let dossier_id=medecin_usernamee+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
-			this.itemsRef.child('medecins/'+this.state.medecin_id+'/patients/'+this.state.patient_id).child('dossiers_medicaux/'+dossier_id).set({ 
+			this.itemsRef.child('medecins/'+medecin_usernamee+'/patients/'+this.state.patient_id).child('dossiers_medicaux/'+dossier_id).set({ 
 				date_creation_dossier: new Date(),
 				date_MAJ_dossier: new Date(),
 				nom_patient_dossier: this.state.nom_pat,

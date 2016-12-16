@@ -15,6 +15,8 @@ import {
 } from 'react-native';
 import UploadForm from './uploadForm';
 import Camera from 'react-native-camera';
+
+const window = Dimensions.get('window');
 export default class takePic extends Component {
 	 constructor(props) {
     super(props);
@@ -180,7 +182,7 @@ export default class takePic extends Component {
         </View>
 		 <View style={[styles.overlay, styles.middleOverlay]}>
 				<Image
-                  source={require('./assets/trans2.png')}
+                  source={{uri: 'http://localhost:8081/src/pages/assets/overlay_trans.png'}}
 				/>
 		</View>
         <View style={[styles.overlay, styles.bottomOverlay]}>
@@ -224,6 +226,8 @@ const styles = StyleSheet.create({
   middleOverlay: {
     paddingTop: 200,
 	paddingLeft: 20,
+	height:(window.height)-100,
+	width:(window.width)-60,
 	top: 0,
     flex: 1,
     flexDirection: 'row',
