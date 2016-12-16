@@ -33,7 +33,7 @@ export default class locatePic extends Component {
     super(props);
 		this.state = {
 		  loaded: true,
-		  uri_img:'http://localhost:8081/img/vue_face_locate.png',
+		  uri_img:'http://localhost:8081/img/Katomi-face-1.png',
 		  cou: this.localiser_cou.bind(this),
 		  epaule_gauche: this.localiser_epaule_gauche.bind(this),
 		  epaule_droite: this.localiser_epaule_droite.bind(this),
@@ -235,7 +235,7 @@ export default class locatePic extends Component {
 			<View style={{flexDirection: 'row', flexWrap:'wrap',backgroundColor: 'transparent'}}>
 				<Button onPress={(img) =>{
 						this.setState({
-							uri_img: 'http://localhost:8081/img/vue_face_locate.png',
+							uri_img: 'http://localhost:8081/img/Katomi-face-1.png',
 							cou: this.localiser_cou.bind(this),
 							epaule_gauche: this.localiser_epaule_gauche.bind(this),
 							epaule_droite: this.localiser_epaule_droite.bind(this),
@@ -251,7 +251,7 @@ export default class locatePic extends Component {
 				</Button>
 				<Button onPress={(img) =>{
 						this.setState({
-							uri_img: 'http://localhost:8081/img/vue_arriere_locate.png',
+							uri_img: 'http://localhost:8081/img/Katomi-Face-2.png',
 							cou: this.localiser_nuque.bind(this),
 							epaule_gauche: this.localiser_epaule_droite.bind(this),
 							epaule_droite: this.localiser_epaule_gauche.bind(this),
