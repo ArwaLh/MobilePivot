@@ -48,6 +48,7 @@ export default class uploadForm extends Component {
 		loaded:true,
 	      choisir:'choisir',
 		  phototype: '',
+		  sed:'',
 		  mel: 0.0,
 		  selectedItem: undefined,
          selected1: 'Régulier',
@@ -57,7 +58,13 @@ export default class uploadForm extends Component {
 		 selected5: '0.2',
 		}
 	}
-
+    componentDidMount(){
+		AsyncStorage.getItem('Sed_Value').then((phototypeSED) => {
+		  this.setState({
+			sed: phototypeSED
+		  });
+	    });
+	}
 	componentWillMount(){
 		AsyncStorage.getItem('Phototype_value').then((phototypee) => {
 		  this.setState({
@@ -271,14 +278,15 @@ export default class uploadForm extends Component {
     );
   }
   	 validMetadata(){
-		AsyncStorage.setItem('Bords_value',this.state.selected1); 
-		AsyncStorage.setItem('Couleur_value',this.state.selected2); 
-		AsyncStorage.setItem('Asymetrie_value',this.state.selected3);  
-		AsyncStorage.setItem('Phototype_value',this.state.phototype);
-		AsyncStorage.setItem('Sed_Value',this.state.sed);
-		AsyncStorage.setItem('Diametre_value',this.state.selected4);  
-		AsyncStorage.setItem('Epaisseur_value',this.state.selected5);
-		AsyncStorage.setItem('Suspicion_value',JSON.stringify(this.state.mel));  
+	    AsyncStorage.setItem('update_data',JSON.stringify({
+			'Bords_value':this.state.selected1,
+			'Couleur_value':this.state.selected2,
+			'Asymetrie_value':this.state.selected3,
+			'Phototype_value':this.state.phototype,
+			'Sed_Value':this.state.sed,
+			'Diametre_value':this.state.selected4,
+			'Epaisseur_value':this.state.selected5,
+			'Suspicion_value':this.state.mel}));  
 		this.props.navigator.push({
 		  component: ValidMeta
 		  

@@ -43,48 +43,23 @@ export default class validMeta extends Component {
           component: UploadForm
         }); 
 	}
+
+
 	componentWillMount(){
-		AsyncStorage.getItem('Bords_value').then((bordss) => {
+		AsyncStorage.getItem('update_data').then((update_dataa) => {
+		  const arr =JSON.parse(update_dataa);
 		  this.setState({
-			bords: bordss
-		  });
-		});
-		AsyncStorage.getItem('Couleur_value').then((couleurr) => {
-		  this.setState({
-			couleur: couleurr
-		  });
-		});
-		AsyncStorage.getItem('Asymetrie_value').then((asymetriee) => {
-			this.setState({
-			asymetrie: asymetriee
-			});
-		});
-		AsyncStorage.getItem('Phototype_value').then((phototypee) => {
-		  this.setState({
-			phototype: phototypee
-		  });
-		});
-		AsyncStorage.getItem('Diametre_value').then((diametree) => {
-		  this.setState({
-			diametre: diametree
-		  })
-		});
-		AsyncStorage.getItem('Epaisseur_value').then((epaisseurr) => {
-		  this.setState({
-			epaisseur: epaisseurr
+			bords: arr.Bords_value,
+			couleur: arr.Couleur_value,
+			asymetrie: arr.Asymetrie_value,
+			phototype: arr.Phototype_value,
+			sed: arr.Sed_Value,
+			diametre: arr.Diametre_value,
+			epaisseur: arr.Epaisseur_value,
+			suspicion: arr.Suspicion_value
+			
 		  });
 		});	
-		AsyncStorage.getItem('Suspicion_value').then((suspicionn) => {
-			var a =JSON.parse(suspicionn);
-			this.setState({
-				suspicion: a
-			});
-		});	
-       AsyncStorage.getItem('Sed_Value').then((sedd) => {
-		  this.setState({
-			sed: sedd
-		  });
-		});		
 	}
   render() {
     return ( 
