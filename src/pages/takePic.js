@@ -182,7 +182,7 @@ export default class takePic extends Component {
         </View>
 		 <View style={[styles.overlay, styles.middleOverlay]}>
 				<Image
-                  source={{uri: 'http://localhost:8081/src/pages/assets/overlay_trans.png'}} style={{height:(window.height)-100,width:window.width,marginBottom:170,marginLeft:30}}
+                  source={{uri: 'http://localhost:8081/src/pages/assets/overlay_trans.png'}} style={{height:(window.height)-100,width:window.width,marginBottom:180,marginLeft:35}}
 				/>
 		</View>
         <View style={[styles.overlay, styles.bottomOverlay]}>
