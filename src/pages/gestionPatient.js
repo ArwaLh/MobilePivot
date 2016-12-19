@@ -52,7 +52,7 @@ export default class gestionPatient extends Component {
 	}	
 	goBack() {
 		this.props.navigator.pop();
-		return true; // do not exit app
+		return true;
 	}	
   render() {
     return (
@@ -69,10 +69,10 @@ export default class gestionPatient extends Component {
 				</Col>
 			</Row>
 			<Row>
-					<Button
-					onPress={this.ajoutPat.bind(this)}
-					style={styles.primary_button_ajout_patient}
-					textStyle={styles.primary_button_text_ajout_patient}>AJOUTER UN NOUVEAU PATIENT</Button>
+				<Button
+				onPress={this.ajoutPat.bind(this)}
+				style={styles.primary_button_ajout_patient}
+				textStyle={styles.primary_button_text_ajout_patient}>AJOUTER UN NOUVEAU PATIENT</Button>
 			</Row>
 			</Grid>
 		 </ListItem>
@@ -89,10 +89,10 @@ export default class gestionPatient extends Component {
 				</Col>
 			</Row>
 			<Row>
-					<Button
-					onPress={this.upl.bind(this)}
-					style={styles.primary_button_ajout_patient}
-					textStyle={styles.primary_button_text_ajout_patient}>MODIFIER LA FICHE PATIENT</Button>
+				<Button
+				onPress={this.modPat.bind(this)}
+				style={styles.primary_button_ajout_patient}
+				textStyle={styles.primary_button_text_ajout_patient}>MODIFIER LA FICHE PATIENT</Button>
 			</Row>
 			</Grid>
 		 </ListItem>

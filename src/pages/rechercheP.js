@@ -12,6 +12,7 @@ import {
   Dimensions,
   StyleSheet,
   Text,
+  Image,
   TextInput,
   BackAndroid,
   TouchableOpacity,
@@ -38,7 +39,8 @@ export default class rechercheP extends Component {
 	this.itemsRef = firebase.database().ref();
 		this.state = {
 		  patients_array: [],
-		  query: ''
+		  query: '',
+		  patient_id: '',
 		};
 	}
 	uploadP(){
@@ -47,7 +49,7 @@ export default class rechercheP extends Component {
         }); 
 	}
 	gestionNaevus(){
-		AsyncStorage.setItem('patient_medecin',JSON.stringify({"medecin_id":this.state.username_med,"patient_id":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat}));
+		AsyncStorage.setItem('patient_medecin',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":this.state.patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat}));
 		this.props.navigator.push({
         component: GestionNaevus
         }); 
@@ -56,7 +58,7 @@ export default class rechercheP extends Component {
 		this.props.navigator.pop();
 		return true; // do not exit app
 	}
-	 componentDidMount(){
+	componentDidMount(){
 		//asynchronous storage for medecin id
 		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 			this.setState({
@@ -68,19 +70,12 @@ export default class rechercheP extends Component {
 				// get children as an array
 				snap.forEach((child) => {
 					items.push({
-						antecedents_familiaux :child.val().antecedents_familiaux,
-						antecedents_personnels: child.val().antecedents_personnels,
-						date_de_naissance_pat: child.val().date_de_naissance_pat,
-						lieu_pat: child.val().lieu_pat,
 						nom_pat: child.val().nom_pat,
-						nombre_grain_de_beaute: child.val().nombre_grain_de_beaute,
 						prenom_pat: child.val().prenom_pat,
-						profession_pat: child.val().profession_pat,
 						telephone_patient: child.val().telephone_patient,
 						_key: child.key,
 					});
 				});
-				alert(items.length);
 				//const patients_array = items;
 				const patients_array = items; 
 				this.setState({ patients_array });
@@ -104,6 +99,7 @@ export default class rechercheP extends Component {
       return [];
     }
     const { patients_array } = this.state;
+	//alert(JSON.stringify(this.state.patients_array));	
     const regex = new RegExp(`${query.trim()}`, 'i');
     return patients_array.filter(patient => patient.nom_pat.search(regex) >= 0);
   }
@@ -112,55 +108,47 @@ export default class rechercheP extends Component {
     const patients_array = this.findPatient(query);
     const comp = (s, s2) => s.toLowerCase().trim() === s2.toLowerCase().trim();
     return (
-   <View>
-	<HeaderUp text="Rechercher un patient" loaded={true} onpress={this.goBack.bind(this)}/>
-	<ScrollView>
-		<View style={styles.body_recherche_patient}>
-				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:15}}>
+	 <View style={styles.firstContainer}>
+	 <View style={styles.header}>
+		<Button transparent onPress={this.goBack.bind(this)}>
+	  	 <Image style={{width:20,height:20,flex:1}} source={{uri: 'http://localhost:8081/img/arrow-left.png'}}></Image>
+		</Button>
+        <View style={styles.header_item}>
+			<Text style={styles.header_text}>Recherche patient</Text>
+        </View>
+      </View>
+				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:55,margin:25}}>
 					  Ajouter et modifier des nouvelles données dans le dossier medical du patient
 				</Text>
-				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:15}}>
+				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:15,margin:25}}>
 					  Afin de modifier le dossier médical du patient existant:
 				</Text>
-				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:15}}>
+				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:15,margin:25}}>
 					  -Saisissez le nom et prénom du patient {"\n"}
 					  -Sélectionnez le dossier patient
 				</Text>
-		</View>
-		<View style={{marginLeft:38,marginBottom:20,flexDirection:'row', flexWrap:'wrap',flex: 1}}> 
-			<Grid>
-				<Col>
-					<Autocomplete
-					  ref="autocomplete"
-					  autoCapitalize="none"
-					  autoCorrect={false}
-					  containerStyle={styles.autocompleteContainer}
-					  inputContainerStyle={styles.autocompleteInput}
-					  style={{color: '#29235c',backgroundColor: 'transparent'}}
-					  data={patients_array.length === 1 && comp(query, patients_array[0].nom_pat) ? [] : patients_array}
-					  defaultValue={query}
-					  onChangeText={text => this.setState({ query: text })}
-					  placeholder="Nom Prénom"
-					  renderItem={({ nom_pat,telephone_patient }) => (
-						<Button onPress={() => {this.setState({ query: nom_pat})}} transparent>
-						  <Text style={styles.itemText}>
-							M. / Mme {nom_pat}{"\n"} +336{telephone_patient}
-						  </Text>
-						</Button>
-					  )}
-					/>
-				</Col>
-				<Col>
-					<Icon name="search" style={{margin:0,marginTop:25,padding:0,right:0,left:70,color: '#29235c',fontSize:14}}/>	
-				</Col>
-			</Grid>
-		</View> 
-		<Button
-			onPress={this.gestionNaevus.bind(this)}
-			style={styles.primary_button}
+        <Autocomplete
+			  ref="autocomplete"
+			  autoCapitalize="none"
+			  autoCorrect={false}
+			  containerStyle={styles.autocompleteContainer}
+			  inputContainerStyle={styles.autocompleteInput}
+			  data={patients_array.length === 1 && comp(query, patients_array[0].nom_pat) ? [] : patients_array}
+			  defaultValue={query}
+			  onChangeText={text => this.setState({ query: text })}
+			  placeholder="Nom Prénom"
+			  renderItem={({ nom_pat,prenom_pat,telephone_patient }) => (
+				<TouchableOpacity onPress={() => {this.setState({ query: nom_pat,prenom_pat})}}>
+				  <Text style={styles.itemText}>
+					M. / Mme {nom_pat} {prenom_pat}{"\n"} +336{telephone_patient}
+				  </Text>
+				</TouchableOpacity>
+				)}
+			/>
+			<Button
+			style={styles.primary_button_naevus}
 			textStyle={styles.primary_button_text}>Gérer naevus</Button>
-    </ScrollView>
-   </View>
+      </View>
     );
   }
 }

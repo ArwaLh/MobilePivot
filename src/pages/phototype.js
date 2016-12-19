@@ -98,20 +98,20 @@ export default class phototype extends Component {
 	}
   goBack() {
 		this.props.navigator.pop();
-		return true; // do not exit app
+		return true; 
 	}
   render() {
     return ( 
 	<View>
 	  <HeaderUp text="Phototype" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 		<ScrollView>	
-		  <List style={{height:550}}>
+		  <List style={{height:600}}>
 	        <ListItem  style={styles.list_Phototype}>
 			   <Grid> 
 				    <Button onPress={this.phototype_1.bind(this)} style={{backgroundColor: this.state.back_color,height:110, width:400}} textStyle={{color: this.state.textColor}} transparent>
 					     <Row style={{height:110, marginBottom:8, marginTop:0}}>
 								<Col style={{width:70, height:130}}>
-									<Image style={styles.circle} source={{uri:'http://localhost:8081/img/img1.jpg'}}/>
+									<Image style={styles.circle} source={{uri:'http://localhost:8081/img/1.jpg'}}/>
 								</Col>
 								<Col style={{width:250, marginLeft:25}}>
 									<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor}}>Phototypes I{"\n"}</Text> 
@@ -127,7 +127,7 @@ export default class phototype extends Component {
 				 <Button onPress={this.phototype_2.bind(this)} style={{backgroundColor: this.state.back_color1, height:110, width:400, marginBottom:110}} textStyle={{color: this.state.textColor1}} transparent>
 						<Row  style={{height:110, marginBottom:8}}>
 							<Col style={{width:65}}>
-								<Image style={styles.circle} source={{uri:'http://localhost:8081/img/img2.jpg'}}/>
+								<Image style={styles.circle} source={{uri:'http://localhost:8081/img/2.jpg'}}/>
 							</Col> 
 							<Col style={{width:250, marginLeft:25}}>
 								<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor1}}>Phototypes II{"\n"}</Text> 
@@ -141,8 +141,8 @@ export default class phototype extends Component {
 			   <Grid> 
 				 <Button onPress={this.phototype_3.bind(this)} style={{backgroundColor: this.state.back_color2,height:110, width:400, marginBottom:110}} textStyle={{color: this.state.textColor2}} transparent>
 						<Row style={{height:110, marginBottom:8}}>
-							<Col style={{width:65}}>
-								<Image style={styles.circle} source={{uri:'http://localhost:8081/img/img3.jpg'}}/>
+							<Col style={{width:65,height:70}}>
+								<Image style={styles.circle} source={{uri:'http://localhost:8081/img/3.jpg'}}/>
 							</Col>
 							<Col style={{width:200,marginTop:10, marginLeft:25}}>
 								<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor2}}>Phototypes III{"\n"}</Text> 
@@ -157,7 +157,7 @@ export default class phototype extends Component {
 				 <Button onPress={this.phototype_4.bind(this)} style={{backgroundColor: this.state.back_color3,height:110, width:400, marginBottom:110}} textStyle={{color: this.state.textColor3}} transparent>
 						<Row style={{height:110, marginBottom:8}} >
 							<Col style={{width:67}}>
-								<Image style={styles.circle} source={{uri:'http://localhost:8081/img/img4.jpg'}}/>
+								<Image style={styles.circle} source={{uri:'http://localhost:8081/img/4.jpg'}}/>
 							</Col>
 							<Col style={{width:200, marginLeft:25}}>
 								<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor3}}>Phototypes IV{"\n"}</Text> 
@@ -172,7 +172,7 @@ export default class phototype extends Component {
 				 <Button onPress={this.phototype_5.bind(this)} style={{backgroundColor: this.state.back_color4,height:110, width:400, marginBottom:110}} textStyle={{color: this.state.textColor4}} transparent>
 						<Row style={{height:110, marginBottom:8}}>
 							<Col style={{width:65, height:130}}>
-								<Image style={styles.circle} source={{uri:'http://localhost:8081/img/img5.jpg'}}/>
+								<Image style={styles.circle} source={{uri:'http://localhost:8081/img/5.jpg'}}/>
 							</Col>
 							<Col style={{width:200, marginLeft:25}}>
 								<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor4}}>Phototypes V{"\n"}</Text> 
@@ -187,11 +187,11 @@ export default class phototype extends Component {
 				 <Button onPress={this.phototype_6.bind(this)} style={{backgroundColor: this.state.back_color5,height:110, width:400, marginBottom:50}} textStyle={{color: this.state.textColor5}} transparent>
 						<Row style={{height:110, marginBottom:8}}>
 							<Col style={{width:65}}>
-								<Image style={styles.circle} source={{uri:'http://localhost:8081/img/img6.jpg'}}/>
+								<Image style={styles.circle} source={{uri:'http://localhost:8081/img/6.jpg'}}/>
 							</Col>
 							<Col style={{width:200, marginLeft:25}}>
 								<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor5}}>Phototypes VI{"\n"}</Text> 
-								<Text style={{fontSize: 13,color: this.state.text7}}>Peau noire, yeux noirs,cheveux noirs.</Text>
+								<Text style={{fontSize: 13,color: this.state.text7}}>Peau noire, yeux noirs,cheveux noirs.</Text> 
 							</Col>
 						 </Row>	
 			     </Button>			 
@@ -243,8 +243,8 @@ const styles = StyleSheet.create({
     marginBottom:30	
   },
   circle : {
-    width: 67,
-    height: 67,
+    width: 70,
+    height: 70,
     borderRadius: 70/2,
 },
   title_upload:{

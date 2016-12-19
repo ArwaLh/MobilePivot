@@ -149,7 +149,7 @@ export default class uploadForm extends Component {
 	<ScrollView>
 		    <ListItem>
 
-			 <Image style={{width:330, height: 160}} source={{uri:this.state.path}}/>
+			 <Image style={{width:330, height: 230}} source={{uri:this.state.path}}/>
 
 			</ListItem>
 			<Grid>

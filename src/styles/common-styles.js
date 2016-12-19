@@ -6,6 +6,25 @@ const window = Dimensions.get('window');
 let height_im= window.height-150;
 let mar_left=(window.width-170)/2;
 module.exports = StyleSheet.create({
+	header: {
+    padding: 10,
+    flexDirection: 'row',
+	backgroundColor: '#322a7d',
+  },
+  header_item: {
+	position: 'relative',
+	paddingBottom: 3,
+	marginRight: 40
+  },
+  header_text: {
+    color: '#FFFFFF',
+	fontSize: 18,
+	fontWeight: 'bold',
+	fontFamily: 'Roboto',
+	marginRight: 50,
+	marginTop: 10
+
+  },
   container: {
     flex: 1,
 	backgroundColor: '#53507c'
@@ -104,6 +123,14 @@ module.exports = StyleSheet.create({
     padding: 15,
     backgroundColor: '#29235c',
   },
+  primary_button_naevus: {
+	width: 250,
+	height: 40,
+    margin: 10,
+	marginTop: 15,
+	marginLeft: 55,
+    backgroundColor: '#29235c',
+  },
     primary_button_ajout_patient: {
 	width: 250,
 	height: 40,
@@ -150,7 +177,7 @@ module.exports = StyleSheet.create({
 	resizeMode:'stretch',
 	backgroundColor: 'white',
 	width: window.width,
-	height: window.height-85,
+	height: window.height-95,
   },
   image_splash: {
 	top:0,
@@ -196,7 +223,7 @@ module.exports = StyleSheet.create({
   },
   autocompleteContainer: {
 	backgroundColor: 'transparent',
-    marginLeft: 0,
+    marginLeft: 30,
     marginRight: 0,
 	width:270
   },
@@ -208,6 +235,10 @@ module.exports = StyleSheet.create({
     fontSize: 15,
     margin: 2,
 	color: 'black'
+  },
+  firstContainer: {
+    backgroundColor: '#F5FCFF',
+    flex: 1
   },
   descriptionContainer: {
     // `backgroundColor` needs to be set otherwise the
