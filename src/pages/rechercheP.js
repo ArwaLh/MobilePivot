@@ -138,13 +138,14 @@ export default class rechercheP extends Component {
 			  onChangeText={text => this.setState({ query: text })}
 			  placeholder="Nom Prénom"
 			  renderItem={({ nom_pat,prenom_pat,telephone_patient }) => (
-				<TouchableOpacity onPress={() => {this.setState({ query: nom_pat,prenom_pat})}}>
+				<TouchableOpacity onPress={() => {this.setState({ query: nom_pat})}}>
 				  <Text style={styles.itemText}>
 					M. / Mme {nom_pat} {prenom_pat}{"\n"} +336{telephone_patient}
 				  </Text>
 				</TouchableOpacity>
 				)}
 			/>
+			<Icon name="search" style={{margin:0,marginTop:25,padding:0,right:0,left:70,color: '#29235c',fontSize:14}}/>	
 			<Button
 			style={styles.primary_button_naevus}
 			textStyle={styles.primary_button_text}>Gérer naevus</Button>

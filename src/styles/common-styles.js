@@ -22,7 +22,7 @@ module.exports = StyleSheet.create({
 	fontWeight: 'bold',
 	fontFamily: 'Roboto',
 	marginRight: 50,
-	marginTop: 10
+	marginTop: 5
 
   },
   container: {
