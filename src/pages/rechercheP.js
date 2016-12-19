@@ -144,8 +144,7 @@ export default class rechercheP extends Component {
 				  </Text>
 				</TouchableOpacity>
 				)}
-			/>
-			<Icon name="search" style={{margin:0,marginTop:25,padding:0,right:0,left:70,color: '#29235c',fontSize:14}}/>	
+			/>	
 			<Button
 			style={styles.primary_button_naevus}
 			textStyle={styles.primary_button_text}>Gérer naevus</Button>
