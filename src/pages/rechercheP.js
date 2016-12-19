@@ -19,8 +19,7 @@ import {
   TouchableHighlight,
   View
 } from 'react-native';
-import HeaderOther from '../components/headerOther';
-import HeaderUp from '../components/headerUp';
+import HeaderSearch from '../components/headerSearch';
 import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input, Button, Card, CardItem, Header, List,ListItem} from 'native-base';
@@ -49,7 +48,14 @@ export default class rechercheP extends Component {
         }); 
 	}
 	gestionNaevus(){
-		AsyncStorage.setItem('patient_medecin',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":this.state.patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat}));
+		this.itemsRef.child('medecins/'+this.state.username_med+'/patients').orderByChild('nom_pat').equalTo(this.state.query).once("child_added", function(snapshot) {
+			AsyncStorage.setItem("patient_id",snapshot.key);
+			alert(snapshot.key);
+		});
+		AsyncStorage.getItem('patient_id').then((patient_idd) => {
+			AsyncStorage.removeItem("medecin_patient");
+			AsyncStorage.setItem("medecin_patient",JSON.stringify({"patient_id":patient_idd,"medecin_id":this.state.username_med}));
+		});
 		this.props.navigator.push({
         component: GestionNaevus
         }); 
@@ -109,35 +115,28 @@ export default class rechercheP extends Component {
     const comp = (s, s2) => s.toLowerCase().trim() === s2.toLowerCase().trim();
     return (
 	 <View style={styles.firstContainer}>
-	 <View style={styles.header}>
-		<Button transparent onPress={this.goBack.bind(this)}>
-	  	 <Image style={{width:20,height:20,flex:1}} source={{uri: 'http://localhost:8081/img/arrow-left.png'}}></Image>
-		</Button>
-        <View style={styles.header_item}>
-			<Text style={styles.header_text}>Recherche patient</Text>
-        </View>
-      </View>
-				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:55,marginLeft:25,marginRight:25}}>
-					  Ajouter et modifier des nouvelles données dans le dossier medical du patient
-				</Text>
-				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black',marginLeft:25,marginRight:25}}>
-					  Afin de modifier le dossier médical du patient existant:
-				</Text>
-				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black',marginLeft:25,marginRight:25}}>
-					  -Saisissez le nom et prénom du patient {"\n"}
-					  -Sélectionnez le dossier patient
-				</Text>
+		<HeaderSearch text="Rechercher un patient" onpress={this.goBack.bind(this)}/>
+		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:55,marginLeft:25,marginRight:25}}>
+		Ajouter et modifier des nouvelles données dans le dossier medical du patient
+		</Text>
+		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black',marginLeft:25,marginRight:25}}>
+		 Afin de modifier le dossier médical du patient existant:
+		</Text>
+		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black',marginLeft:25,marginRight:25}}>
+		 -Saisissez le nom et prénom du patient {"\n"}
+		 -Sélectionnez le dossier patient
+		</Text>
         <Autocomplete
-			  ref="autocomplete"
-			  autoCapitalize="none"
-			  autoCorrect={false}
-			  containerStyle={styles.autocompleteContainer}
-			  inputContainerStyle={styles.autocompleteInput}
-			  data={patients_array.length === 1 && comp(query, patients_array[0].nom_pat) ? [] : patients_array}
-			  defaultValue={query}
-			  onChangeText={text => this.setState({ query: text })}
-			  placeholder="Nom Prénom"
-			  renderItem={({ nom_pat,prenom_pat,telephone_patient }) => (
+			ref="autocomplete"
+			autoCapitalize="none"
+			autoCorrect={false}
+			containerStyle={styles.autocompleteContainer}
+			inputContainerStyle={styles.autocompleteInput}
+			data={patients_array.length === 1 && comp(query, patients_array[0].nom_pat) ? [] : patients_array}
+			defaultValue={query}
+			onChangeText={text => this.setState({ query: text })}
+			placeholder="Nom Prénom"
+			renderItem={({ nom_pat,prenom_pat,telephone_patient }) => (
 			  <List>
 			  <ListItem>
 				<Button onPress={() => {this.setState({ query: nom_pat})}} transparent>
@@ -151,8 +150,9 @@ export default class rechercheP extends Component {
 			  </ListItem>
 			  </List>
 				)}
-			/>	
-			<Button
+		/>	
+		<Button
+			onPress={this.gestionNaevus.bind(this)}
 			style={styles.primary_button_naevus}
 			textStyle={styles.primary_button_text}>Gérer dossier</Button>
       </View>

@@ -33,6 +33,7 @@ export default class gestionNaevus extends Component {
 			dataSource: new ListView.DataSource({
 			  rowHasChanged: (row1, row2) => row1 !== row2,
 			}),
+			patient: null,
 			dossiers_medicaux: [],
 			patient_medecin_array: {},
 			patient_id: '',
@@ -43,8 +44,8 @@ export default class gestionNaevus extends Component {
 	}
 	componentDidMount(){
 		//this.listenForItems(this.itemsRef);
-		//
-		AsyncStorage.getItem('patient_medecin').then((patient_medecin_arrayy) => {
+		AsyncStorage.getItem('medecin_patient').then((patient_medecin_arrayy) => {
+			alert(patient_medecin_arrayy);
 			const arr=JSON.parse(patient_medecin_arrayy);
 			this.setState({
 				patient_medecin_array:patient_medecin_arrayy
@@ -54,8 +55,6 @@ export default class gestionNaevus extends Component {
 			// get children as an array
 			snap.forEach((child) => {
 				items.push({
-					date_creation_dossier: child.val().date_creation_dossier,
-					date_MAJ_dossier: child.val().date_MAJ_dossier,
 					nom_patient_dossier: child.val().nom_patient_dossier,
 					prenom_patient_dossier: child.val().prenom_patient_dossier,
 					nombre_images_dossier: child.val().nombre_images_dossier,
@@ -66,8 +65,6 @@ export default class gestionNaevus extends Component {
 			dataSource: this.state.dataSource.cloneWithRows(items),
 			patient_id: arr.patient_id,
 			medecin_id: arr.medecin_id,
-			nom_pat: arr.nom_pat,
-			prenom_pat: arr.prenom_pat,
 			});
 			//const patients_array = items;
 			const dossiers_medicaux = items; 
@@ -77,7 +74,7 @@ export default class gestionNaevus extends Component {
 	}
 	goBack() { 
 		this.props.navigator.pop();
-		return true; // do not exit app
+		return true;
 	}
 	localiser_photo(){
 		this.props.navigator.push({
@@ -87,17 +84,20 @@ export default class gestionNaevus extends Component {
 	nouveau_dossier(){
 		alert("nouveau dossier médical");
 		//ajout d'un dossier médical
+		//search for patient by id
+		this.itemsRef.child('medecins/'+this.state.username_med+'/patients').equalTo(this.state.patient_id).once("child_added", function(snapshot) {
+			alert(JSON.stringify(snapshot));
+			this.setState({patient: snapshot});
+		});
 		let dossier_id=this.state.medecin_id+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
 		this.itemsRef.child('medecins/'+this.state.medecin_id+'/patients/'+this.state.patient_id).child('dossiers_medicaux/'+dossier_id).set({ 
 			date_creation_dossier: new Date(),
 			date_MAJ_dossier: new Date(),
-			nom_patient_dossier: this.state.nom_pat,
-			prenom_patient_dossier: this.state.prenom_pat,
+			nom_patient_dossier: this.state.patient.nom_pat,
+			prenom_patient_dossier: this.state.patient.prenom_pat,
 			nombre_images_dossier: 0
 		})
 	}
-	
-	
   render() {
     return ( 
 	<View style={{backgroundColor: 'white'}}>
@@ -109,18 +109,20 @@ export default class gestionNaevus extends Component {
         renderRow={(rowData) => 
 					<List style={{backgroundColor:'white'}}>
 					  <ListItem>
-					  <Button style={{height:120}} onPress={this.localiser_photo.bind(this)} transparent>
+					  <Button style={{height:190}} onPress={this.localiser_photo.bind(this)} transparent>
 						<Grid>
 						<Col>
 						<Icon name="folder-open" size={45} style={{color: '#29235c', fontSize: 50, width:55,marginLeft: (window.width/2)-130,marginTop:35}}/>
 						</Col>
 						<Col>
+							<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>ID dossier</Text>
+							<Text style={{color: '#a8a8a8',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>{rowData._key}</Text>
 							<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>nom patient</Text>
-							<Text style={{color: '#a8a8a8',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>{rowData.nom_pat}</Text>
+							<Text style={{color: '#a8a8a8',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>{rowData.nom_patient_dossier}</Text>
 							<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>prenom patient</Text>
-							<Text style={{color: '#a8a8a8',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>{rowData.prenom_pat}</Text>
-							<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>Date MAJ </Text>
-							<Text style={{color: '#a8a8a8',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>{rowData.prenom_pat}</Text>
+							<Text style={{color: '#a8a8a8',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>{rowData.prenom_patient_dossier}</Text>
+							<Text style={{color: '#29235c',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>Nombre d'image dans le dossier</Text>
+							<Text style={{color: '#a8a8a8',fontFamily:'Roboto',fontWeight: 'bold', fontSize:14}}>{rowData.nombre_images_dossier}</Text>
 						</Col>
 						</Grid>
 					  </Button>

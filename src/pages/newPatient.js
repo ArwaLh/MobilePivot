@@ -285,7 +285,6 @@ export default class newPatient extends Component {
 					maxLength = {20}
 					dataDetectorTypes ='phoneNumber'
 					underlineColorAndroid="#53507c"/>	
-
 				  <Grid style={{marginTop:10}}>
 					  <Col>
 							<Text style={styles.a_a_n}>Antécédents personnel</Text>

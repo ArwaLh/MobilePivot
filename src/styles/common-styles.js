@@ -6,25 +6,6 @@ const window = Dimensions.get('window');
 let height_im= window.height-150;
 let mar_left=(window.width-170)/2;
 module.exports = StyleSheet.create({
-	header: {
-    padding: 10,
-    flexDirection: 'row',
-	backgroundColor: '#322a7d',
-  },
-  header_item: {
-	position: 'relative',
-	paddingBottom: 3,
-	marginRight: 40
-  },
-  header_text: {
-    color: '#FFFFFF',
-	fontSize: 18,
-	fontWeight: 'bold',
-	fontFamily: 'Roboto',
-	marginRight: 50,
-	marginTop: 7
-
-  },
   container: {
     flex: 1,
 	backgroundColor: '#53507c'
