@@ -117,13 +117,13 @@ export default class rechercheP extends Component {
 			<Text style={styles.header_text}>Recherche patient</Text>
         </View>
       </View>
-				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:55,margin:25}}>
+				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:55,marginLeft:25,marginRight:25}}>
 					  Ajouter et modifier des nouvelles données dans le dossier medical du patient
 				</Text>
-				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:15,margin:25}}>
+				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black',marginLeft:25,marginRight:25}}>
 					  Afin de modifier le dossier médical du patient existant:
 				</Text>
-				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:15,margin:25}}>
+				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black',marginLeft:25,marginRight:25}}>
 					  -Saisissez le nom et prénom du patient {"\n"}
 					  -Sélectionnez le dossier patient
 				</Text>
@@ -138,16 +138,23 @@ export default class rechercheP extends Component {
 			  onChangeText={text => this.setState({ query: text })}
 			  placeholder="Nom Prénom"
 			  renderItem={({ nom_pat,prenom_pat,telephone_patient }) => (
-				<TouchableOpacity onPress={() => {this.setState({ query: nom_pat})}}>
+			  <List>
+			  <ListItem>
+				<Button onPress={() => {this.setState({ query: nom_pat})}} transparent>
 				  <Text style={styles.itemText}>
-					M. / Mme {nom_pat} {prenom_pat}{"\n"} +336{telephone_patient}
+					M. / Mme {nom_pat} {prenom_pat}
 				  </Text>
-				</TouchableOpacity>
+				  <Text style={styles.itemText_phone}>
+					{"\n"} +336{telephone_patient}
+				  </Text>
+				</Button>
+			  </ListItem>
+			  </List>
 				)}
 			/>	
 			<Button
 			style={styles.primary_button_naevus}
-			textStyle={styles.primary_button_text}>Gérer naevus</Button>
+			textStyle={styles.primary_button_text}>Gérer dossier</Button>
       </View>
     );
   }

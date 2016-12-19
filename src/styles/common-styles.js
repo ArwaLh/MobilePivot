@@ -22,7 +22,7 @@ module.exports = StyleSheet.create({
 	fontWeight: 'bold',
 	fontFamily: 'Roboto',
 	marginRight: 50,
-	marginTop: 5
+	marginTop: 7
 
   },
   container: {
@@ -224,6 +224,7 @@ module.exports = StyleSheet.create({
   autocompleteContainer: {
 	backgroundColor: 'transparent',
     marginLeft: 30,
+    marginTop: 50,
     marginRight: 0,
 	width:270
   },
@@ -233,8 +234,12 @@ module.exports = StyleSheet.create({
   },
     itemText: {
     fontSize: 15,
-    margin: 2,
 	color: 'black'
+  },
+  itemText_phone: {
+    fontSize: 13,
+    margin: 2,
+	color: '#939393'
   },
   firstContainer: {
     backgroundColor: '#F5FCFF',
