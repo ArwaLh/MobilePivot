@@ -102,7 +102,7 @@ export default class newPatient extends Component {
 				date_de_naissance_pat: this.state.dateNaissance_pat, 
 				lieu_pat: this.state.lieu_pat, 
 				profession_pat: this.state.profession_pat, 
-				telephone_patient: this.state.telephone_patient, 
+				telephone_patient: "+336 "+this.state.telephone_patient, 
 				antecedents_personnels: this.state.antec_perso, 
 				antecedents_familiaux: this.state.antec_fam, 
 				nombre_grain_de_beaute: this.state.nbreGrain, 
@@ -283,9 +283,8 @@ export default class newPatient extends Component {
 					keyboardType = 'numeric'
 					placeholder={"Téléphone"}
 					maxLength = {20}
-					dataDetectorTypes ='phoneNumber'
+					dataDetectorTypes ='+336 phoneNumber'
 					underlineColorAndroid="#53507c"/>	
-
 				  <Grid style={{marginTop:10}}>
 					  <Col>
 							<Text style={styles.a_a_n}>Antécédents personnel</Text>
