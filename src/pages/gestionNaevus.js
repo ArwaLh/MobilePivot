@@ -43,7 +43,6 @@ export default class gestionNaevus extends Component {
 		};
 	}
 	componentDidMount(){
-		//this.listenForItems(this.itemsRef);
 		AsyncStorage.getItem('medecin_patient').then((patient_medecin_arrayy) => {
 			alert(patient_medecin_arrayy);
 			const arr=JSON.parse(patient_medecin_arrayy);
@@ -70,6 +69,13 @@ export default class gestionNaevus extends Component {
 			const dossiers_medicaux = items; 
 			this.setState({ dossiers_medicaux });
 			});
+			let patient=null;
+			this.itemsRef.child('medecins/'+arr.medecin_id+'/patients').orderByKey().equalTo(arr.patient_id).once("child_added", function(snapshot) {
+				patient = snapshot.val(); 
+				alert(JSON.stringify(snapshot.val().nom_pat));
+			});
+			this.setState({patient:patient});
+			alert(JSON.stringify(this.state.patient));
 		});
 	}
 	goBack() { 
@@ -85,16 +91,20 @@ export default class gestionNaevus extends Component {
 		alert("nouveau dossier médical");
 		//ajout d'un dossier médical
 		//search for patient by id
-		this.itemsRef.child('medecins/'+this.state.username_med+'/patients').equalTo(this.state.patient_id).once("child_added", function(snapshot) {
+		/* this.itemsRef.child('medecins/'+this.state.username_med+'/patients').equalTo(this.state.patient_id).once("child_added", function(snapshot) {
 			alert(JSON.stringify(snapshot));
 			this.setState({patient: snapshot});
-		});
+		}); */
+		//order by key
+		//
+		let my_date=new Date();
 		let dossier_id=this.state.medecin_id+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
 		this.itemsRef.child('medecins/'+this.state.medecin_id+'/patients/'+this.state.patient_id).child('dossiers_medicaux/'+dossier_id).set({ 
-			date_creation_dossier: new Date(),
-			date_MAJ_dossier: new Date(),
+			date_creation_dossier: my_date.toString(),
+			date_MAJ_dossier: my_date.toString(),
 			nom_patient_dossier: this.state.patient.nom_pat,
 			prenom_patient_dossier: this.state.patient.prenom_pat,
+			telephone_patient_dossier: this.state.patient.telephone_patient,
 			nombre_images_dossier: 0
 		})
 	}

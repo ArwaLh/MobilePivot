@@ -49,6 +49,7 @@ export default class rechercheP extends Component {
 	}
 	gestionNaevus(){
 		this.itemsRef.child('medecins/'+this.state.username_med+'/patients').orderByChild('nom_pat').equalTo(this.state.query).once("child_added", function(snapshot) {
+			AsyncStorage.removeItem("patient_id");
 			AsyncStorage.setItem("patient_id",snapshot.key);
 			alert(snapshot.key);
 		});
