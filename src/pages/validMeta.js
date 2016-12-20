@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 
 import HeaderUp from '../components/headerUp';
+import styles from '../styles/common-styles.js';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import {Button, List, ListItem, Header, InputGroup, Input, Card, CardItem} from 'native-base';
 import Slider from 'react-native-slider';
@@ -168,77 +169,4 @@ export default class validMeta extends Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  component: {
-   marginBottom: 15,
-   marginLeft: 20,
-  },
-  radioStyle: {
-	/* borderRightWidth: 1,
-    borderColor: '#2196f3',
-    marginLeft: 50, */
-  },
-  radioButtonWrap: {
-    marginRight: 30,
-  },
- list_MetaData:{
-	borderColor:'#29235c',
-	height:57,
-	width:330,
-	marginBottom:0,
-	marginTop:0
-  },
-  metaDataForm: {
-   fontFamily: 'Roboto',
-	fontSize:16,
-	color:'#29235c',  
-	margin:10
-  },
-  metaDataForm2: {
-   fontFamily: 'Roboto',
-	fontSize:16,
-	color:'#29235c',  
-	margin:10
-  },
-  metaDataForm3: {
-   fontFamily: 'Roboto',
-	fontSize:16,
-	color:'#29235c',  
-	margin:10
-  },
-  mélanomeF: {
-	fontFamily: 'Roboto',
-	fontSize:16,
-	color:'#29235c',  
-	margin:10  
-  },  
-  phototypeF: {
-	fontFamily: 'Roboto',
-	fontSize:16,
-	color:'#29235c',  
-	margin:10  
-  },
-  title_upload:{
-	  color:"#fff",
-	  fontSize:18,
-	  paddingTop:10,
-	  height:40,
-      fontWeight:'bold'}
-  });
-
 AppRegistry.registerComponent('validMeta', () => validMeta);

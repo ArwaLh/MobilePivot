@@ -270,5 +270,57 @@ module.exports = StyleSheet.create({
 	width:55,
 	marginLeft: (window.width/2)-140,
 	marginTop:135
+  },
+  /*valid Meta*/
+  component: {
+   marginBottom: 15,
+   marginLeft: 20,
+  },
+  radioButtonWrap: {
+    marginRight: 30,
+  },
+ list_MetaData:{
+	borderColor:'#29235c',
+	height:57,
+	width:330,
+	marginBottom:0,
+	marginTop:0
+  },
+  metaDataForm: {
+   fontFamily: 'Roboto',
+	fontSize:16,
+	color:'#29235c',  
+	margin:10
+  },
+  metaDataForm2: {
+   fontFamily: 'Roboto',
+	fontSize:16,
+	color:'#29235c',  
+	margin:10
+  },
+  metaDataForm3: {
+   fontFamily: 'Roboto',
+	fontSize:16,
+	color:'#29235c',  
+	margin:10
+  },
+  mélanomeF: {
+	fontFamily: 'Roboto',
+	fontSize:16,
+	color:'#29235c',  
+	margin:10  
+  },  
+  phototypeF: {
+	fontFamily: 'Roboto',
+	fontSize:16,
+	color:'#29235c',  
+	margin:10  
+  },
+  title_upload:{
+	color:"#fff",
+	fontSize:18,
+	paddingTop:10,
+	height:40,
+    fontWeight:'bold'
   }
 });
