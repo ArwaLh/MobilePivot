@@ -45,6 +45,11 @@ export default class gestionPatient extends Component {
           component: RechercheP
         }); 
 	}
+	upl(){
+		this.props.navigator.push({
+          component: UploadForm
+        }); 
+	}	
 	goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
@@ -58,7 +63,7 @@ export default class gestionPatient extends Component {
 		 <ListItem style={{height:(window.height/2)-70}}>
 		   <Grid>
 		   <Row>
-		      <Col style={{width:30, marginTop:5}}><Icon name="plus-circle" style={{color:'#29235c', fontSize:20}}  /></Col>
+		      <Col style={{width:30,height:100, marginTop:5}}><Icon name="plus-circle" style={{color:'#29235c', fontSize:20}}  /></Col>
 			    <Col>
 					<Text style={{width:220, fontFamily: 'Roboto', fontSize:18, color:'#29235c'}}>Ajouter un patient</Text>
 				</Col>
@@ -78,7 +83,7 @@ export default class gestionPatient extends Component {
 		 <ListItem style={{height:(window.height/2)-70}}>
 		   <Grid>
 		   <Row>
-		      <Col style={{width:30, marginTop:5}}><Icon name="edit" style={{color:'#29235c', fontSize:20}}  /></Col>
+		      <Col style={{width:30,height:100, marginTop:5}}><Icon name="edit" style={{color:'#29235c', fontSize:20}}  /></Col>
 			    <Col>
 					<Text style={{width:250, fontFamily: 'Roboto', fontSize:18, color:'#29235c'}}>Modifier la fiche patient</Text>
 				</Col>

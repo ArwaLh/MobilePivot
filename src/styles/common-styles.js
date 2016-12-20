@@ -31,7 +31,7 @@ module.exports = StyleSheet.create({
     flex: 9,
     alignItems: 'center',
 	marginTop: 40,
-	marginLeft:50,
+	marginLeft:30,
 	marginRight:20,
   },
   textinput: {
@@ -206,7 +206,8 @@ module.exports = StyleSheet.create({
   },
     itemText: {
     fontSize: 15,
-    margin: 2
+    margin: 2,
+	color: 'black'
   },
   descriptionContainer: {
     // `backgroundColor` needs to be set otherwise the

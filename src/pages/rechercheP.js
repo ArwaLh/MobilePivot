@@ -14,8 +14,8 @@ import {
   Text,
   TextInput,
   BackAndroid,
-  TouchableHighlight,
   TouchableOpacity,
+  TouchableHighlight,
   View
 } from 'react-native';
 import HeaderOther from '../components/headerOther';
@@ -37,11 +37,10 @@ export default class rechercheP extends Component {
     super(props);
 	this.itemsRef = firebase.database().ref();
 		this.state = {
-		  loaded: true,
 		  patients_array: [],
 		  items_pat: [],
 		  query: ''
-		}
+		};
 	}
 	uploadP(){
 		this.props.navigator.push({
@@ -49,6 +48,7 @@ export default class rechercheP extends Component {
         }); 
 	}
 	gestionNaevus(){
+		AsyncStorage.setItem('patient_medecin',JSON.stringify({"medecin_id":this.state.username_med,"patient_id":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat}));
 		this.props.navigator.push({
         component: GestionNaevus
         }); 
@@ -58,16 +58,15 @@ export default class rechercheP extends Component {
 		return true; // do not exit app
 	}
 	 componentDidMount(){
-	   	this.setState({
-			loaded: true
-		});
-		AsyncStorage.getItem('medecin_username').then((medecin_username) => {
+		//asynchronous storage for medecin id
+		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 			this.setState({
-				username_med:medecin_username
+				username_med:medecin_usernamee
 			});
-		});
-		let items=[];
-		this.itemsRef.child('medecins/'+medecin_username+"patients/").once('child-added', (snap) => {
+		//get patients list
+		this.itemsRef.child('medecins/'+medecin_usernamee+"/patients/").on('value', (snap) => {
+				let items=[];
+
 				// get children as an array
 				snap.forEach((child) => {
 					items.push({
@@ -77,103 +76,39 @@ export default class rechercheP extends Component {
 						lieu_pat: child.val().lieu_pat,
 						nom_pat: child.val().nom_pat,
 						nombre_grain_de_beaute: child.val().nombre_grain_de_beaute,
+						prenom_pat: child.val().prenom_pat,
 						profession_pat: child.val().profession_pat,
-						profession_pat: child.val().profession_pat,
-						telephone_patient:child.val().telephone_patient,
-					  _key: child.key,
+						telephone_patient: child.val().telephone_patient,
+						_key: child.key,
 					});
 				});
-				this.setState({
-					items_pat: items
-				});
+				alert(items.length);
+				//const patients_array = items;
+				const patients_array = items; 
+				this.setState({ patients_array });
 			});
-/* 		var json={
-	  "medecins" : {
-		"arwa0" : {
-		  "email_medecin" : "arwa@osereso.fr",
-		  "patients" : {
-			"gvjfghj_fghh_1" : {
-			  "antecedents_familiaux" : "oui_antec_fam",
-			  "antecedents_personnels" : "non_antec_perso",
-			  "date_de_naissance_pat" : "2016-01-07",
-			  "lieu_pat" : "vhuu",
-			  "nom_pat" : "gvjfghj",
-			  "nombre_grain_de_beaute" : "sup",
-			  "prenom_pat" : "fghh",
-			  "profession_pat" : "ghjj",
-			  "telephone_patient" : "852236"
-			},
-			"gvjuj_fghh_0" : {
-			  "antecedents_familiaux" : "oui_antec_fam",
-			  "antecedents_personnels" : "non_antec_perso",
-			  "date_de_naissance_pat" : "2016-01-07",
-			  "lieu_pat" : "vhuu",
-			  "nom_pat" : "gvjuj",
-			  "nombre_grain_de_beaute" : "sup",
-			  "prenom_pat" : "fghh",
-			  "profession_pat" : "ghjj",
-			  "telephone_patient" : "852236"
-			},
-			"tvbjj_fhii_2" : {
-			  "antecedents_familiaux" : "oui_antec_fam",
-			  "antecedents_personnels" : "non_antec_perso",
-			  "date_de_naissance_pat" : "2016-12-09",
-			  "lieu_pat" : "ghh",
-			  "nom_pat" : "tvbjj",
-			  "nombre_grain_de_beaute" : "sup",
-			  "prenom_pat" : "fhii",
-			  "profession_pat" : "ggb",
-			  "telephone_patient" : "96633"
-			}
-		  }
-		},
-		"chiraz2" : {
-		  "email_medecin" : "chiraz.hamrouni@esprit.tn"
-		},
-		"chiraz3" : {
-		  "email_medecin" : "chiraz@osereso.fr"
-		},
-		"cyrine1" : {
-		  "email_medecin" : "cyrine@osereso.fr",
-		  "patients" : {
-			"aaaa_fvvv_1" : {
-			  "antecedents_familiaux" : "non_antec_fam",
-			  "antecedents_personnels" : "non_antec_perso",
-			  "date_de_naissance_pat" : "2016-12-29",
-			  "lieu_pat" : "hbb",
-			  "nom_pat" : "aaaa",
-			  "nombre_grain_de_beaute" : "sup",
-			  "prenom_pat" : "fvvv",
-			  "profession_pat" : "vvb ",
-			  "telephone_patient" : "896633"
-			},
-			"ghjknnbvhh_fvvv_0" : {
-			  "antecedents_familiaux" : "non_antec_fam",
-			  "antecedents_personnels" : "non_antec_perso",
-			  "date_de_naissance_pat" : "2016-12-29",
-			  "lieu_pat" : "hbb",
-			  "nom_pat" : "ghjknnbvhh",
-			  "nombre_grain_de_beaute" : "sup",
-			  "prenom_pat" : "fvvv",
-			  "profession_pat" : "vvb ",
-			  "telephone_patient" : "896633"
-			}
-		  }
-		}
-	  }
-	} */
-      const patients_array = items;
-      this.setState({ patients_array });
+		});	
    }
+   static renderPatient(patient) {
+    const { nom_pat,prenom_pat,telephone_patient } = patient;
+
+    return (
+      <View>
+        <Text style={styles.titleText}>{nom_pat}</Text>
+        <Text style={styles.directorText}>{prenom_pat}</Text>
+        <Text style={styles.openingText}>{telephone_patient}</Text>
+      </View>
+    );
+  }
 	findPatient(query) {
 	//this method is calleed whenever the user is typing
     if (query === '') {
       return [];
     }
     const { patients_array } = this.state;
-	var arr = Object.keys(patients_array).map(function(k) { return patients_array[k] });
     const regex = new RegExp(`${query.trim()}`, 'i');
-    return arr.filter(patient => patient.nom_pat.search(regex) >= 0);
+	const { nom_pat, prenom_pat, telephone_patient} = patient;
+    return patients_array.filter(patient => patient.nom_pat.search(regex) >= 0);
   }
   render() {
 	const { query } = this.state;
@@ -181,7 +116,7 @@ export default class rechercheP extends Component {
     const comp = (s, s2) => s.toLowerCase().trim() === s2.toLowerCase().trim();
     return (
    <View>
-	<HeaderUp text="Rechercher un patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text="Rechercher un patient" loaded={true} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
 		<View style={styles.body_recherche_patient}>
 				<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:15}}>
@@ -199,8 +134,9 @@ export default class rechercheP extends Component {
 			<Grid>
 				<Col>
 					<Autocomplete
+					  ref="autocomplete"
 					  autoCapitalize="none"
-					  autoCorrect={true}
+					  autoCorrect={false}
 					  containerStyle={styles.autocompleteContainer}
 					  inputContainerStyle={styles.autocompleteInput}
 					  style={{color: '#29235c',backgroundColor: 'transparent'}}
@@ -208,24 +144,19 @@ export default class rechercheP extends Component {
 					  defaultValue={query}
 					  onChangeText={text => this.setState({ query: text })}
 					  placeholder="Nom Prénom"
-					  renderItem={({ nom_pat, prenom_pat , telephone_patient }) => (
-					  <List>
-					  <ListItem>
-						<TouchableOpacity onPress={() => this.setState({ query: nom_pat })}>
+					  renderItem={({ nom_pat,telephone_patient }) => (
+						<Button onPress={() => {this.setState({ query: nom_pat})}} transparent>
 						  <Text style={styles.itemText}>
-							M. / Mme {nom_pat} {prenom_pat} {"\n"} +336 {telephone_patient}
+							M. / Mme {nom_pat}{"\n"} +336{telephone_patient}
 						  </Text>
-						</TouchableOpacity>
-					  </ListItem>
-					  </List>
-					  )
-					  }
-					></Autocomplete>
+						</Button>
+					  )}
+					/>
 				</Col>
 				<Col>
 					<Icon name="search" style={{margin:0,marginTop:25,padding:0,right:0,left:70,color: '#29235c',fontSize:14}}/>	
 				</Col>
-			</Grid>
+			</Grid>ç
 		</View> 
 		<Button
 			onPress={this.gestionNaevus.bind(this)}

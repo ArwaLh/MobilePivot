@@ -23,6 +23,7 @@ import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
 import GestionNaevus from './gestionNaevus';
+import LocatePic from './locatePic';
 import firebase from 'firebase';
 import DatePicker from 'react-native-datepicker';
 export default class newPatient extends Component {
@@ -30,36 +31,29 @@ export default class newPatient extends Component {
     super(props);
 	this.itemsRef = firebase.database().ref();
     this.state = {
-	loaded:true,
-      types1: [{label: 'Régulier', value: 0}, {label: 'Irrégulier', value: 1}],
-      value1: 0,
-      value1Index: 0,
-      types2: [{label: 'Brun foncé', value: 0}, {label: 'Brun clair', value: 1}],
-      value2: 0,
-      value2Index: 0,
-      types3: [{label: 'Oui', value: 0}, {label: 'Non', value: 1}],
-      value3: 0,
-      value3Index: 0,
-	  chickenWings: 1.5,
-	  value: 1.0,
-	  selectedItem: undefined,
-      antec_perso: 'oui_antec_perso',
-      antec_fam: 'oui_antec_fam',
-      nbreGrain: 'sup',
-	  items_pat:[],
-	  date:"",
-	  username_med: '',
-	  dateNaissance_pat: ''
+		loaded:true,
+		types1: [{label: 'Régulier', value: 0}, {label: 'Irrégulier', value: 1}],
+		value1: 0,
+		value1Index: 0,
+		types2: [{label: 'Brun foncé', value: 0}, {label: 'Brun clair', value: 1}],
+		value2: 0,
+		value2Index: 0,
+		types3: [{label: 'Oui', value: 0}, {label: 'Non', value: 1}],
+		value3: 0,
+		value3Index: 0,
+		chickenWings: 1.5,
+		value: 1.0,
+		selectedItem: undefined,
+		antec_perso: 'oui',
+		antec_fam: 'oui',
+		nbreGrain: 'sup',
+		items_pat:[],
+		date:"",
+		username_med: '',
+		patient_id: '',
+		dateNaissance_pat: ''
 	}}
 	 componentWillMount(){
-		this._panResponder = PanResponder.create({
-		  onStartShouldSetPanResponder: (e) => {console.log('onStartShouldSetPanResponder'); return true;},
-		  onMoveShouldSetPanResponder: (e) => {console.log('onMoveShouldSetPanResponder'); return true;},
-		  onPanResponderGrant: (e) => console.log('onPanResponderGrant'),
-		  onPanResponderMove: (e) => console.log('onPanResponderMove'),
-		  onPanResponderRelease: (e) => console.log('onPanResponderRelease'),
-		  onPanResponderTerminate: (e) => console.log('onPanResponderTerminate')
-		});
 		this.setState({
 			loaded: false
 		});
@@ -86,13 +80,8 @@ export default class newPatient extends Component {
     }
   
 	locatePic(){
-		AsyncStorage.getItem('medecin_username').then((medecin_username) => {
-			this.setState({
-				username_med:medecin_username,
-				loaded: true
-			});
-
-			this.itemsRef.child('medecins/'+medecin_username).child('patients/').on('value', (snap) => {
+		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
+			this.itemsRef.child('medecins/'+medecin_usernamee).child('patients/').on('value', (snap) => {
 				let items=[];
 				// get children as an array
 				snap.forEach((child) => {
@@ -101,29 +90,54 @@ export default class newPatient extends Component {
 					  _key: child.key,
 					});
 				});
-				this.setState({
-					items_pat: items
-				});
+				const items_pat = items;
+				this.setState({ items_pat });
 			});
 
 			alert(this.state.items_pat.length);
-			let patient_id=this.state.nom_pat+'_'+this.state.prenom_pat+'_'+this.state.items_pat.length;
-			this.itemsRef.child('medecins/'+medecin_username).child('patients/'+patient_id).set({ 
-			nom_pat: this.state.nom_pat, 
-			prenom_pat: this.state.prenom_pat, 
-			date_de_naissance_pat: this.state.dateNaissance_pat, 
-			lieu_pat: this.state.lieu_pat, 
-			profession_pat: this.state.profession_pat, 
-			telephone_patient: this.state.telephone_patient, 
-			antecedents_personnels: this.state.antec_perso, 
-			antecedents_familiaux: this.state.antec_fam, 
-			nombre_grain_de_beaute: this.state.nbreGrain, 
+			this.setState({patient_id:this.state.nom_pat+'_'+this.state.prenom_pat+'_'+this.state.items_pat.length});
+			this.itemsRef.child('medecins/'+medecin_usernamee).child('patients/'+this.state.patient_id).set({ 
+				nom_pat: this.state.nom_pat, 
+				prenom_pat: this.state.prenom_pat, 
+				date_de_naissance_pat: this.state.dateNaissance_pat, 
+				lieu_pat: this.state.lieu_pat, 
+				profession_pat: this.state.profession_pat, 
+				telephone_patient: this.state.telephone_patient, 
+				antecedents_personnels: this.state.antec_perso, 
+				antecedents_familiaux: this.state.antec_fam, 
+				nombre_grain_de_beaute: this.state.nbreGrain, 
 			})
-		AsyncStorage.setItem('patient_id',patient_id);
+			//récupérer la liste des dossiers
+			this.itemsRef.child('medecins/'+medecin_usernamee+'/patients/'+this.state.patient_id+'/dossiers_medicaux/').on('value', (snap) => {
+			let items=[];
+			// get children as an array
+			snap.forEach((child) => {
+				items.push({
+					date_creation_dossier: child.val().date_creation_dossier,
+					date_MAJ_dossier: child.val().date_MAJ_dossier,
+					nom_patient_dossier: child.val().nom_patient_dossier,
+					prenom_patient_dossier: child.val().prenom_patient_dossier,
+					nombre_images_dossier: child.val().nombre_images_dossier,
+					_key: child.key
+				});
+			});
+			//const patients_array = items;
+			const dossiers_medicaux = items; 
+			this.setState({ dossiers_medicaux });
+			});
+			let dossier_id=medecin_usernamee+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
+			this.itemsRef.child('medecins/'+medecin_usernamee+'/patients/'+this.state.patient_id).child('dossiers_medicaux/'+dossier_id).set({ 
+				date_creation_dossier: new Date(),
+				date_MAJ_dossier: new Date(),
+				nom_patient_dossier: this.state.nom_pat,
+				prenom_patient_dossier: this.state.prenom_pat,
+				nombre_images_dossier: 0
+			})
+		AsyncStorage.setItem('patient_medecin',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":this.state.patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat}));
 		});
 		alert("sucesss patient added"); 
 		this.props.navigator.push({
-          component: GestionNaevus
+          component: LocatePic
         });
 	}
 	goBack() {
@@ -133,7 +147,7 @@ export default class newPatient extends Component {
   render() {
     return ( 
 	<View>
-	<HeaderUp text="1/4 Ajouter un patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text="1/4 Ajouter un patient" loaded={true} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
 		<View> 
 				<TextInput
@@ -282,8 +296,8 @@ export default class newPatient extends Component {
 								mode="dropdown"
 								selectedValue={this.state.antec_perso}
 								onValueChange={this.onValueChangePerso.bind(this)}>
-								<Item label="oui" value="oui_antec_perso" />
-								<Item label="non" value="non_antec_perso" />  
+								<Item label="oui" value="oui" />
+								<Item label="non" value="non" />  
 						   </Picker>
 					 </Col> 
 				   </Grid>			 
@@ -297,8 +311,8 @@ export default class newPatient extends Component {
 								mode="dropdown"
 								selectedValue={this.state.antec_fam}
 								onValueChange={this.onValueChangeFam.bind(this)}>
-								<Item label="oui" value="oui_antec_fam" />
-								<Item label="non" value="non_antec_fam" />  
+								<Item label="oui" value="oui" />
+								<Item label="non" value="non" />  
 						   </Picker>
 					 </Col> 
 				   </Grid>			 
@@ -313,8 +327,8 @@ export default class newPatient extends Component {
 							mode="dropdown"
 							selectedValue={this.state.nbreGrain}
 							onValueChange={this.onValueChangeNbreGrain.bind(this)}>
-							<Item label="> 50" value="sup" />
-							<Item label="< 50" value="inf" />  
+							<Item label="> 50" value="> 50" />
+							<Item label="< 50" value="< 50" />  
 						</Picker>
 					</Col>
 				</Grid>

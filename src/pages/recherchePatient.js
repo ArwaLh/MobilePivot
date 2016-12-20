@@ -92,7 +92,7 @@ export default class recherchePatient extends Component {
 		      </Grid>
 		</View> 
 		<Button
-			onPress={this.gestionNaevus.bind(this)}
+			onPress={this.uploadP.bind(this)}
 			style={styles.primary_button}
 			textStyle={styles.primary_button_text}>Gérer naevus</Button>
 		
