@@ -51,7 +51,6 @@ export default class rechercheP extends Component {
 		this.itemsRef.child('medecins/'+this.state.username_med+'/patients').orderByChild('nom_pat').equalTo(this.state.query).once("child_added", function(snapshot) {
 			AsyncStorage.removeItem("patient_id");
 			AsyncStorage.setItem("patient_id",snapshot.key);
-			alert(snapshot.key);
 		});
 		AsyncStorage.getItem('patient_id').then((patient_idd) => {
 			AsyncStorage.removeItem("medecin_patient");
@@ -145,7 +144,7 @@ export default class rechercheP extends Component {
 					M. / Mme {nom_pat} {prenom_pat}
 				  </Text>
 				  <Text style={styles.itemText_phone}>
-					{"\n"} +336{telephone_patient}
+					{"\n"}{telephone_patient}
 				  </Text>
 				</Button>
 			  </ListItem>

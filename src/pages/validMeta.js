@@ -31,7 +31,10 @@ export default class validMeta extends Component {
 			bords: '',
 			couleur: '',
 			loaded: true,
-			textColor2: '#29235c'
+			textColor2: '#29235c',
+			dossier_id: '',
+			medecin_id: '',
+			patient_id: ''
 		}
 	}
 	goBack() {

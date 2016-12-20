@@ -250,5 +250,25 @@ module.exports = StyleSheet.create({
   },
   openingText: {
     textAlign: 'center'
+  },
+  /*gestion naevus*/
+  listViewText1:{
+	color: '#29235c',
+	fontFamily:'Roboto',
+	fontWeight: 'bold',
+	fontSize:14
+  },
+  listViewText2:{
+	color: '#a8a8a8',
+	fontFamily:'Roboto',
+	fontWeight: 'bold',
+	fontSize:14
+  },
+  icon_folder:{
+	color: '#29235c',
+	fontSize: 50,
+	width:55,
+	marginLeft: (window.width/2)-140,
+	marginTop:135
   }
 });
