@@ -36,10 +36,10 @@ export default class rechercheP extends Component {
 	constructor(props){
     super(props);
 	this.itemsRef = firebase.database().ref();
+	AsyncStorage.multiRemove(["patient_id","medecin_patient"]);
 		this.state = {
 		  patients_array: [],
-		  query: '',
-		  patient_id: '',
+		  query: ''
 		};
 	}
 	uploadP(){
@@ -48,14 +48,11 @@ export default class rechercheP extends Component {
         }); 
 	}
 	gestionNaevus(){
+		let patient_id='';
 		this.itemsRef.child('medecins/'+this.state.username_med+'/patients').orderByChild('nom_pat').equalTo(this.state.query).once("child_added", function(snapshot) {
-			AsyncStorage.removeItem("patient_id");
-			AsyncStorage.setItem("patient_id",snapshot.key);
+			patient_id=snapshot.key;
 		});
-		AsyncStorage.getItem('patient_id').then((patient_idd) => {
-			AsyncStorage.removeItem("medecin_patient");
-			AsyncStorage.setItem("medecin_patient",JSON.stringify({"patient_id":patient_idd,"medecin_id":this.state.username_med}));
-		});
+		AsyncStorage.setItem("medecin_patient",JSON.stringify({"patient_id":patient_id,"medecin_id":this.state.username_med}));
 		this.props.navigator.push({
         component: GestionNaevus
         }); 
@@ -108,7 +105,6 @@ export default class rechercheP extends Component {
     const { patients_array } = this.state;
 	//alert(JSON.stringify(this.state.patients_array));	
     const regex = new RegExp(`${query.trim()}`, 'i');
-	const { nom_pat, prenom_pat, telephone_patient} = patient;
     return patients_array.filter(patient => patient.nom_pat.search(regex) >= 0);
   }
   render() {

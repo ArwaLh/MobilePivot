@@ -269,7 +269,7 @@ module.exports = StyleSheet.create({
 	fontSize: 50,
 	width:55,
 	marginLeft: (window.width/2)-140,
-	marginTop:135
+	marginTop:145
   },
   /*valid Meta*/
   component: {
@@ -322,5 +322,19 @@ module.exports = StyleSheet.create({
 	paddingTop:10,
 	height:40,
     fontWeight:'bold'
+  },
+  send_button_valid_meta:{
+	flex:9,
+	backgroundColor: "#29235c",
+	width:130,
+	height:37,
+	marginTop:8,
+	alignItems:'center'
+  },
+  back_to_upload_button_valid_meta:{
+	fontFamily: 'Roboto',
+	fontSize:13,
+	color: this.state.textColor2,
+	marginTop:10
   }
 });

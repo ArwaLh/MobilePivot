@@ -110,7 +110,7 @@ export default class gestionNaevus extends Component {
         renderRow={(rowData) => 
 					<List style={{backgroundColor:'white'}}>
 					  <ListItem>
-					  <Button style={{height:320}} onPress={this.localiser_photo.bind(this,rowData._key)} transparent>
+					  <Button style={{height:330}} onPress={this.localiser_photo.bind(this,rowData._key)} transparent>
 						<Grid>
 						<Col>
 						<Icon name="folder-open" style={styles.icon_folder}/>

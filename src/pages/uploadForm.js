@@ -28,18 +28,6 @@ import * as Progress from 'react-native-progress';
 const Item = Picker.Item;
 import ValidMeta from './validMeta';
 import Phototype from './phototype';
-const testImageName = `patient-pic-${Platform.OS}-${new Date()}.jpg`
-const EMAIL = 'arwa.louihig@esprit.tn'
-const PASSWORD = 'arwa24961322'
-import firebase from 'firebase';
-import RNFetchBlob from 'react-native-fetch-blob'; 
-const fs = RNFetchBlob.fs
-const Blob = RNFetchBlob.polyfill.Blob
-window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
-window.Blob = Blob
-const dirs = RNFetchBlob.fs.dirs
-const path=null;
-const testFile = null
 var progress=0;
 export default class uploadForm extends Component {
 	constructor (props) {
@@ -51,14 +39,27 @@ export default class uploadForm extends Component {
 		  sed:'',
 		  mel: 0.0,
 		  selectedItem: undefined,
-         selected1: 'Régulier',
-		 selected2: 'Brun foncé',
-		 selected3: 'Oui',
-		 selected4: '0.2',
-		 selected5: '0.2',
+          selected1: 'Régulier',
+		  selected2: 'Brun foncé',
+		  selected3: 'Oui',
+		  selected4: '0.2',
+		  selected5: '0.2',
+		  dossier_id: '',
+		  medecin_id: '',
+		  patient_id: '',
+		  med_pat_file:{},
 		}
 	}
     componentDidMount(){
+		AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
+		  const array=JSON.parse(med_pat_file_locationn);
+			this.setState({ 
+				med_pat_file:array,
+				dossier_id: array.id_dossier,
+				medecin_id: array.id_medecin,
+				patient_id: array.id_patient
+			});
+	    });
 		AsyncStorage.getItem('Sed_Value').then((phototypeSED) => {
 		  this.setState({
 			sed: phototypeSED
@@ -79,7 +80,7 @@ export default class uploadForm extends Component {
 		  path= this.state.path;
 		  alert(path);
 		});
-	 }
+	}
 	onValueChangeBords (value: string) {
         this.setState({
             selected1 : value
@@ -107,40 +108,7 @@ export default class uploadForm extends Component {
   
 	goBack() {
 		this.props.navigator.pop();
-		return true; // do not exit app
-	}
-
-	uploadPic(){
-		firebase.auth()
-          .signInWithEmailAndPassword(EMAIL, PASSWORD)
-          .catch((err) => {
-            console.log('firebase sigin failed', err)
-          })
-
-		firebase.auth().onAuthStateChanged((user) => {
-			<Text>{JSON.stringify(user)}</Text>
-		})
-		const rnfbURI= RNFetchBlob.wrap(path);
-		// create Blob from file path
-		Blob
-			.build(rnfbURI, { type : 'image/jpg;'})
-			.then((blob) => {
-			  // upload image using Firebase SDK
-			  var uploadTask= firebase.storage()
-				.ref('images')
-				.child(testImageName)
-				.put(blob, {contentType : 'image/jpg'});
-				uploadTask.on('state_changed', function(snapshot){
-					progress =Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-					alert(progress); 
-				}, function(error) {
-				  alert("error in uploading");
-				}, function() {
-				  blob.close();
-				  var downloadURL = uploadTask.snapshot.downloadURL;
-				  alert("done uploading here is the download URL",downloadURL);
-				});
-			})
+		return true;
 	}
   render() {
     return ( 
@@ -278,15 +246,22 @@ export default class uploadForm extends Component {
     );
   }
   	 validMetadata(){
-	    AsyncStorage.setItem('update_data',JSON.stringify({
-			'Bords_value':this.state.selected1,
-			'Couleur_value':this.state.selected2,
-			'Asymetrie_value':this.state.selected3,
-			'Phototype_value':this.state.phototype,
-			'Sed_Value':this.state.sed,
-			'Diametre_value':this.state.selected4,
-			'Epaisseur_value':this.state.selected5,
-			'Suspicion_value':this.state.mel}));  
+		AsyncStorage.removeItem('med_pat_file_location_image_data');
+		AsyncStorage.setItem('med_pat_file_location_image_data', JSON.stringify({
+			"id_medecin":this.state.med_pat_file.medecin_id,
+			"id_patient":this.state.med_pat_file.patient_id,
+			"id_dossier":this.state.med_pat_file.dossier_id,
+			"emplacement":this.state.med_pat_file.emplacement,
+			"imageURL":this.state.path,
+			'bords':this.state.selected1,
+			'couleur':this.state.selected2,
+			'asymetrie':this.state.selected3,
+			'phototype':this.state.phototype,
+			'sed':this.state.sed,
+			'diametre':this.state.selected4,
+			'epaisseur':this.state.selected5,
+			'suspicion':this.state.mel
+			}));  
 		this.props.navigator.push({
 		  component: ValidMeta
 		  

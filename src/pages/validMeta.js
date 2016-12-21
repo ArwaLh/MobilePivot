@@ -25,10 +25,23 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
 import UploadForm from './uploadForm';
 
+const testImageName = `patient-pic-${Platform.OS}-${new Date()}.jpg`
+const EMAIL = 'arwa.louihig@esprit.tn'
+const PASSWORD = 'arwa24961322'
+import firebase from 'firebase';
+import RNFetchBlob from 'react-native-fetch-blob'; 
+const fs = RNFetchBlob.fs
+const Blob = RNFetchBlob.polyfill.Blob
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
+const dirs = RNFetchBlob.fs.dirs
+const path=null;
+const testFile = null
 export default class validMeta extends Component {
 	constructor (props) {
     super(props);
 		this.state = {
+			array: [],
 			bords: '',
 			couleur: '',
 			loaded: true,
@@ -47,23 +60,46 @@ export default class validMeta extends Component {
           component: UploadForm
         }); 
 	}
-
-
-	componentWillMount(){
-		AsyncStorage.getItem('update_data').then((update_dataa) => {
-		  const arr =JSON.parse(update_dataa);
-		  this.setState({
-			bords: arr.Bords_value,
-			couleur: arr.Couleur_value,
-			asymetrie: arr.Asymetrie_value,
-			phototype: arr.Phototype_value,
-			sed: arr.Sed_Value,
-			diametre: arr.Diametre_value,
-			epaisseur: arr.Epaisseur_value,
-			suspicion: arr.Suspicion_value
-			
-		  });
+	componentDidMount(){
+		AsyncStorage.getItem('med_pat_file_location_image_data').then((med_pat_file_location_image_dataa) => {
+			const arr =JSON.parse(med_pat_file_location_image_dataa);
+				this.setState({
+					array:arr
+				});
 		});	
+	}
+	//upload method 	
+	uploadPic(){
+		firebase.auth()
+          .signInWithEmailAndPassword(EMAIL, PASSWORD)
+          .catch((err) => {
+            console.log('firebase sigin failed', err)
+          })
+
+		firebase.auth().onAuthStateChanged((user) => {
+			<Text>{JSON.stringify(user)}</Text>
+		})
+		const rnfbURI= RNFetchBlob.wrap(path);
+		// create Blob from file path
+		Blob
+			.build(rnfbURI, { type : 'image/jpg;'})
+			.then((blob) => {
+			  // upload image using Firebase SDK
+			  var uploadTask= firebase.storage()
+				.ref('images')
+				.child(testImageName)
+				.put(blob, {contentType : 'image/jpg'});
+				uploadTask.on('state_changed', function(snapshot){
+					progress =Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+					alert(progress); 
+				}, function(error) {
+				  alert("error in uploading");
+				}, function() {
+				  blob.close();
+				  var downloadURL = uploadTask.snapshot.downloadURL;
+				  alert("done uploading here is the download URL",downloadURL);
+				});
+			})
 	}
   render() {
     return ( 
@@ -76,7 +112,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Bords</Text>
 							  </Col>
 							  <Col>
-								 <Text  style={styles.metaDataForm2} >{this.state.bords}</Text>
+								 <Text  style={styles.metaDataForm2} >{this.state.array.bords}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem>	
@@ -86,7 +122,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Couleur</Text>
 							  </Col>
 							  <Col>
-									 <Text  style={styles.metaDataForm2} >{this.state.couleur}</Text>
+									 <Text  style={styles.metaDataForm2} >{this.state.array.couleur}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem> 
@@ -96,7 +132,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Asymétrie</Text>
 							  </Col>
 							  <Col>
-									<Text style={styles.metaDataForm3}>{this.state.asymetrie}</Text>
+									<Text style={styles.metaDataForm3}>{this.state.array.asymetrie}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem>
@@ -106,7 +142,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Phototype </Text>
 							  </Col>
 							  <Col>
-									 <Text style={styles.phototypeF}> Phototype {this.state.phototype}</Text>
+									 <Text style={styles.phototypeF}> Phototype {this.state.array.phototype}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem> 
@@ -116,7 +152,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>SED </Text>
 							  </Col>
 							  <Col>
-									 <Text style={styles.metaDataForm3} > {this.state.sed}</Text>
+									 <Text style={styles.metaDataForm3} > {this.state.array.sed}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem> 	  
@@ -126,7 +162,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Diamètre</Text> 
 							  </Col>
 							  <Col>
-									<Text style={styles.metaDataForm3}>{this.state.diametre}</Text>
+									<Text style={styles.metaDataForm3}>{this.state.array.diametre}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem> 
@@ -136,7 +172,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Epaisseur</Text> 
 							  </Col>
 							  <Col>
-								<Text style={styles.metaDataForm3}> {this.state.epaisseur}</Text>
+								<Text style={styles.metaDataForm3}> {this.state.array.epaisseur}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem>	 
@@ -146,21 +182,20 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Suspicion</Text> 
 							  </Col>
 							  <Col>
-									<Text style={styles.mélanomeF}> Mélanome: {this.state.suspicion}%</Text>
+									<Text style={styles.mélanomeF}> Mélanome: {this.state.array.suspicion}%</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem>	 
 					
 					  <Grid>
 							  <Col style={{width:200}}>
-								 <Button onPress={this.uploadP.bind(this)} textStyle={{fontFamily: 'Roboto',fontSize:13,color: this.state.textColor2, marginTop:10}} transparent>
-								   
+								 <Button onPress={this.uploadP.bind(this)} textStyle={styles.back_to_upload_button_valid_meta} transparent>
 										 MODIFIER LES INORMATIONS
 								 </Button> 
 							  </Col>
 							 <Col>	
 								<Button
-									style={{flex:9,backgroundColor: "#29235c",width:130,height:37,marginTop:8,alignItems:'center'}}
+									style={styles.send_button_valid_meta}
 									textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
 							</Col>	
 					 </Grid>			
