@@ -19,6 +19,7 @@ import {
 } from 'react-native';
 
 import HeaderUp from '../components/headerUp';
+import styles from '../styles/common-styles.js';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import {Button, List, ListItem, Header, Picker} from 'native-base';
 import Slider from 'react-native-slider';
@@ -105,7 +106,34 @@ export default class uploadForm extends Component {
 			this.setState({
 				selected5 : value
 		});}
-  
+	validMetadata(){
+		AsyncStorage.removeItem('med_pat_file_location_image_data');
+		AsyncStorage.setItem('med_pat_file_location_image_data', JSON.stringify({
+			"id_medecin":this.state.med_pat_file.medecin_id,
+			"id_patient":this.state.med_pat_file.patient_id,
+			"id_dossier":this.state.med_pat_file.dossier_id,
+			"emplacement":this.state.med_pat_file.emplacement,
+			"imageURL":this.state.path,
+			'bords':this.state.selected1,
+			'couleur':this.state.selected2,
+			'asymetrie':this.state.selected3,
+			'phototype':this.state.phototype,
+			'sed':this.state.sed,
+			'diametre':this.state.selected4,
+			'epaisseur':this.state.selected5,
+			'suspicion':this.state.mel
+			}));  
+		this.props.navigator.push({
+		  component: ValidMeta
+		  
+		});
+	  }      
+    phototypeb(){
+		this.setState({choisir: '', loaded :true});
+		this.props.navigator.push({
+		  component: Phototype
+		});
+	  }
 	goBack() {
 		this.props.navigator.pop();
 		return true;
@@ -117,7 +145,7 @@ export default class uploadForm extends Component {
 	<ScrollView>
 		    <ListItem>
 
-			 <Image style={{width:330, height: 230}} source={{uri:this.state.path}}/>
+			 <Image style={styles.pic_cam} source={{uri:this.state.path}}/>
 
 			</ListItem>
 			<Grid>
@@ -237,134 +265,14 @@ export default class uploadForm extends Component {
 			<ListItem>
 			<Button
 			    onPress={this.validMetadata.bind(this)}
-				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:60,marginBottom:50,alignItems:'center'}}
-				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}
+				style={styles.go_to_valid_meta_button}
+				textStyle={styles.go_to_valid_meta_text}
 				>Valider</Button>
 			</ListItem>
          </ScrollView> 
 	</View>
     );
   }
-  	 validMetadata(){
-		AsyncStorage.removeItem('med_pat_file_location_image_data');
-		AsyncStorage.setItem('med_pat_file_location_image_data', JSON.stringify({
-			"id_medecin":this.state.med_pat_file.medecin_id,
-			"id_patient":this.state.med_pat_file.patient_id,
-			"id_dossier":this.state.med_pat_file.dossier_id,
-			"emplacement":this.state.med_pat_file.emplacement,
-			"imageURL":this.state.path,
-			'bords':this.state.selected1,
-			'couleur':this.state.selected2,
-			'asymetrie':this.state.selected3,
-			'phototype':this.state.phototype,
-			'sed':this.state.sed,
-			'diametre':this.state.selected4,
-			'epaisseur':this.state.selected5,
-			'suspicion':this.state.mel
-			}));  
-		this.props.navigator.push({
-		  component: ValidMeta
-		  
-		});
-	  }      
-    phototypeb(){
-		this.setState({choisir: '', loaded :true});
-		this.props.navigator.push({
-		  component: Phototype
-		});
-	  }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  component: {
-   marginBottom: 15,
-   marginLeft: 20,
-  },
-  radioStyle: {
-	/* borderRightWidth: 1,
-    borderColor: '#2196f3',
-    marginLeft: 50, */
-  },
-  radioButtonWrap: {
-    marginRight: 30,
-	
-  },
-  suspicion: {
-	fontFamily: 'Roboto',
-	fontSize:17,
-	color:'#29235c',  
-	margin:10
-  },
-  melanome: {
-	fontFamily: 'Roboto',
-	fontSize:15,
-	color:'#29235c',
-	marginLeft:50,
-	marginTop:12
-  },
-  slidee: {
-	width:280,
-	marginLeft:30,
-  },
-  diametre: {
-	fontFamily: 'Roboto',
-	fontSize:17,
-	color:'#29235c',
-	marginTop:10,	
-	marginBottom:15,
-	margin:10
-  },
-  asymetrie: {
-	fontFamily: 'Roboto',
-	fontSize:17,
-	color:'#29235c',
-	marginTop:10,
-    margin:10	
-  },
-  couleur: {
-  	fontFamily: 'Roboto',
-	fontSize:17,
-	color:'#29235c',
-	marginTop:10,
-	marginBottom:15,
-    margin:10	
-  },
-  phototypee: {
-	fontFamily: 'Roboto',
-	fontSize:17,
-	color:'#29235c',  
-	marginTop:10,
-	marginBottom:15,
-	margin:10
-  },
-  title_upload:{
-	  color:"#fff",
-	  fontSize:18,
-	  paddingTop:10,
-	  height:40,
-	  fontWeight:'bold'
-  },
-  bords: {
-	fontFamily: 'Roboto',
-	fontSize:17,
-	color:'#29235c',
-	marginTop:10,
-	marginBottom:15,
-	margin:10}
-});
 
 AppRegistry.registerComponent('uploadForm', () => uploadForm);

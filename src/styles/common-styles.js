@@ -334,7 +334,93 @@ module.exports = StyleSheet.create({
   back_to_upload_button_valid_meta:{
 	fontFamily: 'Roboto',
 	fontSize:13,
-	color: this.state.textColor2,
+	color: '#29235c',
 	marginTop:10
-  }
+  },
+  /*Upload Form*/
+  go_to_valid_meta_button:{
+	flex:9,
+	backgroundColor: "#29235c",
+	width:200,
+	height:40,
+	marginLeft:60,
+	marginBottom:50,
+	alignItems:'center'
+  },
+  go_to_valid_meta_text:{
+	fontSize: 18,
+	color:'#fff',
+	fontWeight:"bold"
+  },
+  pic_cam:{
+	width:330, 
+	height: 230
+  },
+  radioButtonWrap: {
+    marginRight: 30,
+	
+  },
+  suspicion: {
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',  
+	margin:10
+  },
+  melanome: {
+	fontFamily: 'Roboto',
+	fontSize:15,
+	color:'#29235c',
+	marginLeft:50,
+	marginTop:12
+  },
+  slidee: {
+	width:280,
+	marginLeft:30,
+  },
+  diametre: {
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
+	marginTop:10,	
+	marginBottom:15,
+	margin:10
+  },
+  asymetrie: {
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
+	marginTop:10,
+    margin:10	
+  },
+  couleur: {
+  	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
+	marginTop:10,
+	marginBottom:15,
+    margin:10	
+  },
+  phototypee: {
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',  
+	marginTop:10,
+	marginBottom:15,
+	margin:10
+  },
+  title_upload:{
+	color:"#fff",
+	fontSize:18,
+	paddingTop:10,
+	height:40,
+	fontWeight:'bold'
+  },
+  bords: {
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
+	marginTop:10,
+	marginBottom:15,
+	margin:10
+	}
 });

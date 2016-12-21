@@ -9,6 +9,7 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  Platform,
   Picker,
   AsyncStorage,
   ScrollView,
@@ -40,16 +41,17 @@ const testFile = null
 export default class validMeta extends Component {
 	constructor (props) {
     super(props);
-		this.state = {
-			array: [],
-			bords: '',
-			couleur: '',
-			loaded: true,
-			textColor2: '#29235c',
-			dossier_id: '',
-			medecin_id: '',
-			patient_id: ''
-		}
+	this.itemsRef = firebase.database().ref();
+	this.state = {
+		array: [],
+		bords: '',
+		couleur: '',
+		loaded: true,
+		dossier_id: '',
+		medecin_id: '',
+		patient_id: ''
+	}
+		this.itemsRef = firebase.database().ref();
 	}
 	goBack() {
 		this.props.navigator.pop();
@@ -60,6 +62,16 @@ export default class validMeta extends Component {
           component: UploadForm
         }); 
 	}
+	componentWillMount(){
+		AsyncStorage.getItem('path').then((pathUp) => {                                                   
+		  this.setState({
+			path:pathUp,
+			loaded: true
+		  });
+		  path= this.state.path;
+		  alert(path);
+		});
+	}
 	componentDidMount(){
 		AsyncStorage.getItem('med_pat_file_location_image_data').then((med_pat_file_location_image_dataa) => {
 			const arr =JSON.parse(med_pat_file_location_image_dataa);
@@ -68,8 +80,24 @@ export default class validMeta extends Component {
 				});
 		});	
 	}
-	//upload method 	
-	uploadPic(){
+	
+	validate(){
+		alert("Patientez SVP");
+		/*-----Add to firebase databse method ----*/
+		let image_id=testImageName;
+		this.itemsRef.child('medecins/'+this.state.array.id_medecin+'/patients/'+this.state.array.id_patient).child('dossiers_medicaux/'+this.state.array.id_dossier).child('images/'+image_id).set({ 
+			date_creation_image: new Date(),
+			bords:this.state.array.bords,
+			couleur:this.state.array.couleur,
+			epaisseur:this.state.array.epaisseur,
+			diametre:this.state.array.diametre,
+			asymetrie:this.state.array.asymetrie,
+			phototype:this.state.array.phototype,
+			SED:this.state.array.sed,
+			emplacement:this.state.array.emplacement,
+			suspicion:this.state.array.suspicion
+		})
+		/*-----upload to firebase storage method ----*/
 		firebase.auth()
           .signInWithEmailAndPassword(EMAIL, PASSWORD)
           .catch((err) => {
@@ -86,7 +114,7 @@ export default class validMeta extends Component {
 			.then((blob) => {
 			  // upload image using Firebase SDK
 			  var uploadTask= firebase.storage()
-				.ref('images')
+				.ref(this.state.array.id_medecin).child(this.state.array.id_patient).child(this.state.array.id_dossier)
 				.child(testImageName)
 				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
@@ -100,6 +128,7 @@ export default class validMeta extends Component {
 				  alert("done uploading here is the download URL",downloadURL);
 				});
 			})
+		alert("Vous avez ajouter une nouvelle photo!!");
 	}
   render() {
     return ( 
@@ -195,6 +224,7 @@ export default class validMeta extends Component {
 							  </Col>
 							 <Col>	
 								<Button
+									onPress={this.validate.bind(this)}
 									style={styles.send_button_valid_meta}
 									textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
 							</Col>	
