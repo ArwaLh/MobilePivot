@@ -109,9 +109,9 @@ export default class uploadForm extends Component {
 	validMetadata(){
 		AsyncStorage.removeItem('med_pat_file_location_image_data');
 		AsyncStorage.setItem('med_pat_file_location_image_data', JSON.stringify({
-			"id_medecin":this.state.med_pat_file.medecin_id,
-			"id_patient":this.state.med_pat_file.patient_id,
-			"id_dossier":this.state.med_pat_file.dossier_id,
+			"id_medecin":this.state.medecin_id,
+			"id_patient":this.state.patient_id,
+			"id_dossier":this.state.dossier_id,
 			"emplacement":this.state.med_pat_file.emplacement,
 			"imageURL":this.state.path,
 			'bords':this.state.selected1,

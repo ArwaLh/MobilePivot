@@ -21,6 +21,7 @@ import GestionPatient from './gestionPatient';
 
 import styles from '../styles/common-styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Hr from 'react-native-hr';
 import {InputGroup, Input, Button} from 'native-base';
 import firebase from 'firebase';
 export default class login extends Component {
@@ -88,8 +89,9 @@ export default class login extends Component {
 				style={{borderColor: "#fff",marginLeft:15}}
 				textStyle={{fontSize: 16, color:'#fff'}}
 				bordered>CONNEXION</Button>
-			</View>
-		  <Text style={{marginBottom:15}}></Text>
+		  </View>
+			<Hr lineColor='#ffffff' text='OU' textColor='#ffffff' line={{width:30}}/>
+		  <Text style={{marginBottom:25,color:'#fff'}}>connectez vous avec votre compte facebook</Text>
 		  <LoginButton
 		  style={{height:30,width:180}}
           publishPermissions={["publish_actions"]}

@@ -21,7 +21,7 @@ import {
 import HeaderUp from '../components/headerUp';
 import styles from '../styles/common-styles.js';
 import { List, ListItem, Button, Grid, Col} from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';import Hr from 'react-native-hr';
 const window = Dimensions.get('window');
 import Swiper from 'react-native-swiper';
 import firebase from 'firebase';
@@ -56,6 +56,7 @@ export default class gestionNaevus extends Component {
 					telephone_patient_dossier: child.val().telephone_patient_dossier,
 					date_creation_dossier: child.val().date_creation_dossier,
 					date_MAJ_dossier: child.val().date_MAJ_dossier,
+					categorie: child.val().categorie,
 					_key: child.key
 				});
 			});
@@ -68,11 +69,17 @@ export default class gestionNaevus extends Component {
 			const dossiers_medicaux = items; 
 			this.setState({ dossiers_medicaux });
 			});
-			let patient=null;
+			let patient_a=null;
 			this.itemsRef.child('medecins/'+arr.medecin_id+'/patients').orderByKey().equalTo(arr.patient_id).once("child_added", function(snapshot) {
-				patient = snapshot.val(); 
+				patient_a = snapshot.val(); 
 			});
-			this.setState({patient:patient});
+			alert(patient_a);
+			this.setState({
+				patient:patient_a,
+				patient_name:patient_a.nom_pat,
+				patient_tel:patient_a.telephone_patient,
+				patient_lastname:patient_a.prenom_pat
+			});
 		});
 	}
 	goBack() { 
@@ -96,21 +103,24 @@ export default class gestionNaevus extends Component {
 			nom_patient_dossier: this.state.patient.nom_pat,
 			prenom_patient_dossier: this.state.patient.prenom_pat,
 			telephone_patient_dossier: this.state.patient.telephone_patient,
-			nombre_images_dossier: 0
+			nombre_images_dossier: 0,
+			categorie: "grain de beauté"
 		})
 	}
   render() {
     return ( 
 	<View style={{backgroundColor: 'white'}}>
-	<HeaderUp text="Gestion Naevus" loaded={true} onpress={this.goBack.bind(this)}/>
-	<ScrollView style={{backgroundColor: 'black'}}>
+	<HeaderUp text="Gestion des dossiers" loaded={true} onpress={this.goBack.bind(this)}/>
+	<ScrollView style={{backgroundColor: '#fff'}}>
 	<View style={{flex:1}}>
+		<Text style={{color: "#29235c",margin:10,marginLeft:30,fontSize:17,fontFamily: 'Roboto'}}>{this.state.patient_name} {this.state.patient_lastname}</Text>
+		<Text style={{color: "#29235c",margin:10,marginLeft:30,marginBottom:0,fontSize:17,fontFamily: 'Roboto'}}>{this.state.patient_tel}</Text>
 		<ListView dataSource={this.state.dataSource}
 		enableEmptySections={true}
         renderRow={(rowData) => 
-					<List style={{backgroundColor:'white'}}>
-					  <ListItem>
-					  <Button style={{height:330}} onPress={this.localiser_photo.bind(this,rowData._key)} transparent>
+					<List style={{backgroundColor:'white',margin:0,padding:0,height:310,paddingTop:0}}>
+					  <ListItem style={{margin:0,height:300,paddingTop:0}}>
+					  <Button style={{height:300}} onPress={this.localiser_photo.bind(this,rowData._key)} transparent>
 						<Grid>
 						<Col>
 						<Icon name="folder-open" style={styles.icon_folder}/>
@@ -118,18 +128,14 @@ export default class gestionNaevus extends Component {
 						<Col>
 							<Text style={styles.listViewText1}>Nom dossier</Text>
 							<Text style={styles.listViewText2}>{rowData._key}</Text>
-							<Text style={styles.listViewText1}>nom patient</Text>
-							<Text style={styles.listViewText2}>{rowData.nom_patient_dossier}</Text>
-							<Text style={styles.listViewText1}>prenom patient</Text>
-							<Text style={styles.listViewText2}>{rowData.prenom_patient_dossier}</Text>
-							<Text style={styles.listViewText1}>Téléphone patient</Text>
-							<Text style={styles.listViewText2}>{rowData.telephone_patient_dossier}</Text>
 							<Text style={styles.listViewText1}>Nombre d'image</Text>
 							<Text style={styles.listViewText2}>{rowData.nombre_images_dossier}</Text>
 							<Text style={styles.listViewText1}>Date de création</Text>
 							<Text style={styles.listViewText2}>{rowData.date_creation_dossier.substring(0,24)}</Text>
 							<Text style={styles.listViewText1}>Derniére MAJ</Text>
 							<Text style={styles.listViewText2}>{rowData.date_MAJ_dossier.substring(0,24)}</Text>
+							<Text style={styles.listViewText1}>Catégorie</Text>
+							<Text style={styles.listViewText2}>{rowData.categorie}</Text>
 						</Col>
 						</Grid>
 					  </Button>

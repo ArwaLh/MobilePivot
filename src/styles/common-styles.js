@@ -13,7 +13,7 @@ module.exports = StyleSheet.create({
   body_login: {
     flex: 9,
     alignItems: 'center',
-	marginTop: 220
+	marginTop: 190
   }, 
   body: {
     flex: 9,
@@ -269,7 +269,7 @@ module.exports = StyleSheet.create({
 	fontSize: 50,
 	width:55,
 	marginLeft: (window.width/2)-140,
-	marginTop:145
+	marginTop:105
   },
   /*valid Meta*/
   component: {

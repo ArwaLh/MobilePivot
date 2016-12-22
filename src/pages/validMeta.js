@@ -62,41 +62,24 @@ export default class validMeta extends Component {
           component: UploadForm
         }); 
 	}
-	componentWillMount(){
-		AsyncStorage.getItem('path').then((pathUp) => {                                                   
-		  this.setState({
-			path:pathUp,
-			loaded: true
-		  });
-		  path= this.state.path;
-		  alert(path);
-		});
-	}
 	componentDidMount(){
 		AsyncStorage.getItem('med_pat_file_location_image_data').then((med_pat_file_location_image_dataa) => {
 			const arr =JSON.parse(med_pat_file_location_image_dataa);
+			alert(JSON.stringify(arr));
 				this.setState({
-					array:arr
+					array:arr,
 				});
-		});	
+		});
+		AsyncStorage.getItem('path').then((pathUp) => {                                                   
+		  this.setState({
+			path:pathUp
+		  });
+		  path= this.state.path;
+		});		
 	}
 	
 	validate(){
 		alert("Patientez SVP");
-		/*-----Add to firebase databse method ----*/
-		let image_id=testImageName;
-		this.itemsRef.child('medecins/'+this.state.array.id_medecin+'/patients/'+this.state.array.id_patient).child('dossiers_medicaux/'+this.state.array.id_dossier).child('images/'+image_id).set({ 
-			date_creation_image: new Date(),
-			bords:this.state.array.bords,
-			couleur:this.state.array.couleur,
-			epaisseur:this.state.array.epaisseur,
-			diametre:this.state.array.diametre,
-			asymetrie:this.state.array.asymetrie,
-			phototype:this.state.array.phototype,
-			SED:this.state.array.sed,
-			emplacement:this.state.array.emplacement,
-			suspicion:this.state.array.suspicion
-		})
 		/*-----upload to firebase storage method ----*/
 		firebase.auth()
           .signInWithEmailAndPassword(EMAIL, PASSWORD)
@@ -114,7 +97,7 @@ export default class validMeta extends Component {
 			.then((blob) => {
 			  // upload image using Firebase SDK
 			  var uploadTask= firebase.storage()
-				.ref(this.state.array.id_medecin).child(this.state.array.id_patient).child(this.state.array.id_dossier)
+				.ref(this.state.medecin_id+this.state.patient_id+this.state.id_dossier)
 				.child(testImageName)
 				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
@@ -128,6 +111,27 @@ export default class validMeta extends Component {
 				  alert("done uploading here is the download URL",downloadURL);
 				});
 			})
+		alert("uplaod file done");
+		/*-----Add to firebase databse method ----*/
+		let image_id=testImageName.substring(0,24).replace(/" "/g, "");
+		this.itemsRef.child('medecins/'+this.state.array.id_medecin+'/patients/'+this.state.array.id_patient+'/dossiers_medicaux/'+this.state.array.id_dossier+'/images/'+image_id).set({ 
+			date_creation_image: new Date(),
+			bords:this.state.array.bords,
+			couleur:this.state.array.couleur,
+			epaisseur:this.state.array.epaisseur,
+			diametre:this.state.array.diametre,
+			asymetrie:this.state.array.asymetrie,
+			phototype:this.state.array.phototype,
+			SED:this.state.array.sed,
+			emplacement:this.state.array.emplacement,
+			suspicion:this.state.array.suspicion
+		})
+		//upadet medical folder data
+		this.itemsRef.child('medecins/'+this.state.array.id_medecin+'/patients/'+this.state.array.id_patient+'/dossiers_medicaux/'+this.state.array.id_dossier).update({ 
+		
+		})
+		
+		
 		alert("Vous avez ajouter une nouvelle photo!!");
 	}
   render() {
