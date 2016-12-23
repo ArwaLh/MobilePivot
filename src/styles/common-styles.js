@@ -364,7 +364,7 @@ module.exports = StyleSheet.create({
 	fontFamily: 'Roboto',
 	fontSize:17,
 	color:'#29235c',  
-	margin:10
+	margin:20
   },
   melanome: {
 	fontFamily: 'Roboto',
@@ -383,14 +383,14 @@ module.exports = StyleSheet.create({
 	color:'#29235c',
 	marginTop:10,	
 	marginBottom:10,
-	margin:10
+	margin:20
   },
   asymetrie: {
 	fontFamily: 'Roboto',
 	fontSize:17,
 	color:'#29235c',
 	marginTop:10,
-    margin:10	
+    margin:20	
   },
   couleur: {
   	fontFamily: 'Roboto',
@@ -398,7 +398,7 @@ module.exports = StyleSheet.create({
 	color:'#29235c',
 	marginTop:10,
 	marginBottom:15,
-    margin:10	
+    margin:20	
   },
   phototypee: {
 	fontFamily: 'Roboto',
@@ -406,7 +406,7 @@ module.exports = StyleSheet.create({
 	color:'#29235c',  
 	marginTop:10,
 	marginBottom:15,
-	margin:10
+	margin:20
   },
   title_upload:{
 	color:"#fff",
@@ -421,6 +421,6 @@ module.exports = StyleSheet.create({
 	color:'#29235c',
 	marginTop:10,
 	marginBottom:15,
-	margin:10
+	margin:20
 	}
 });

@@ -38,7 +38,7 @@ export default class splashscreen extends Component {
 					<Button
 						onPress={this.demarrer.bind(this)}
 						style={{width:200,height:50,marginLeft:(window.width/2)-100,marginTop:500,marginBottom:1,borderColor: 'white'}}
-						bordered><Text style={{color: 'white'}}>DÉMARRER</Text></Button>
+						bordered><Text style={{color: 'white'}}>DEMARRER</Text></Button>
 					<Button
 						onPress={this.didacticiel.bind(this)}
 						style={{width:200,height:50,marginLeft:(window.width/2)-100,marginTop:0,marginBottom:15}}

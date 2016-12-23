@@ -156,9 +156,9 @@ export default class uploadForm extends Component {
 			<Col>  
 				<Text style={styles.bords}>Bords</Text>
 			</Col>
-			<Col style={{ marginLeft:100}}>	
+			<Col style={{ marginLeft:130}}>	
 					<Picker 
-					    style={{width:70, color:"#29235c" }}
+					    style={{width:100, color:"#29235c" }}
                         iosHeader="Select one"
                         mode="dropdown"
                         selectedValue={this.state.selected1}
@@ -172,7 +172,7 @@ export default class uploadForm extends Component {
 			  <Col>
 				<Text style={styles.couleur}>Couleur</Text>
 			  </Col>
-			  <Col style={{ marginLeft:70}}>	
+			  <Col style={{ marginLeft:40}}>	
 				 <Picker
 						style={{width:145, color:"#29235c" }}
                         iosHeader="Select one"
@@ -185,10 +185,10 @@ export default class uploadForm extends Component {
 					</Col>
 				</Row>	
 			  <Row>
-			  <Col>
+			  <Col style={{width:140}}>
 				<Text style={styles.asymetrie}>Asymétrie</Text>
 			  </Col>
-				<Col style={{ marginLeft:160}}>
+				<Col style={{ marginLeft:105}}>
 					<Picker 
 					    style={{width:100, color:"#29235c" }}
                         iosHeader="Select one"
@@ -201,13 +201,13 @@ export default class uploadForm extends Component {
 				</Col>	
 				</Row>
 				<Row>
-				<Col style={{width:110}}>
+				<Col style={{width:140}}>
 				<Text style={styles.phototypee}>Phototype</Text>
 				 </Col>
-				 <Col style={{width:200}}>
+				 <Col style={{width:190}}>
 				 	<Button
 				    onPress={this.phototypeb.bind(this)}
-					style={{borderColor: "#53507c",width:165,height:35,marginLeft:79}}
+					style={{borderColor: "#53507c",width:150,height:35,marginLeft:50}}
 					textStyle={{fontSize: 15, color:'#53507c'}}
 					bordered> phototype <Text> {this.state.phototype}</Text></Button>
 				</Col>
