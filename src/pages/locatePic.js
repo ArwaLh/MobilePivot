@@ -52,8 +52,8 @@ export default class locatePic extends Component {
 		  text_epaule_droite: 'Épaule droite',
 		  text_epaule_gauche: 'Épaule gauche',
 		  text_jambe_droite: 'Jambe droite',
-		  text_jambe_gauche: 'Jambe droite',
-		  text_main_droite: 'Main gauche',
+		  text_jambe_gauche: 'Jambe gauche',
+		  text_main_droite: 'Main droite',
 		  text_main_gauche: 'Main gauche',
 		}
 	}

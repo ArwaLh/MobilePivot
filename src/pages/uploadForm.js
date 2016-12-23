@@ -15,6 +15,7 @@ import {
   AsyncStorage,
   Platform,
   ProgressBar,
+  TextInput,
   View
 } from 'react-native';
 
@@ -45,6 +46,8 @@ export default class uploadForm extends Component {
 		  selected3: 'Oui',
 		  selected4: '0.2',
 		  selected5: '0.2',
+		  diametre: '0.0',
+		  epaisseur: '0.0',
 		  dossier_id: '',
 		  medecin_id: '',
 		  patient_id: '',
@@ -155,7 +158,7 @@ export default class uploadForm extends Component {
 			</Col>
 			<Col style={{ marginLeft:100}}>	
 					<Picker 
-					    style={{width:130, color:"#29235c" }}
+					    style={{width:70, color:"#29235c" }}
                         iosHeader="Select one"
                         mode="dropdown"
                         selectedValue={this.state.selected1}
@@ -211,38 +214,34 @@ export default class uploadForm extends Component {
                 </Row>
 				<Row>
 				  <Col>
-					<Text style={styles.asymetrie}>Diamètre</Text>
+					<Text style={styles.diametre}>Diamètre</Text>
 				  </Col>
-					<Col style={{ marginLeft:160}}>
-						<Picker 
-						    style={{width:100, color:"#29235c" }}
-							iosHeader="Select one"
-							mode="dropdown"
-							selectedValue={this.state.selected4}
-							onValueChange={this.onValueChangeEpaisseur.bind(this)}>  
-									<Item label="0,2" value="0.2" />
-									<Item label="1.3" value="1.3" />
-									<Item label="2.3 " value="2.3" />
-									<Item label="4.3" value="4.3" />
-						</Picker>
+					<Col style={{ marginLeft:80,marginRight:10}}>
+						 <TextInput
+							ref="diametre"
+							style={{width:120}}
+							onChangeText={(text) => this.setState({diametre: text})}
+							value={this.state.diametre}
+							keyboardType='numeric'
+							underlineColorAndroid="#29235c"
+						  />
 					</Col>	
 				</Row>
 			  <Row>
 				  <Col>
 					<Text style={styles.asymetrie}>Epaisseur</Text>
 				  </Col>
-					<Col style={{marginLeft:160}}>
-						<Picker 
-						    style={{width:100, color:"#29235c" }}
-							iosHeader="Select one"
-							mode="dropdown"
-							selectedValue={this.state.selected5}
-							onValueChange={this.onValueChangeEpaisseur.bind(this)}>  
-									<Item label="0.2" value="0.2" />
-									<Item label="1.3" value="1.3" />
-									<Item label="2.3 " value="2.3" />
-									<Item label="4.3" value="4.3" />
-						</Picker>
+					<Col style={{marginLeft:80}}>
+					<TextInput
+							ref="epaisseur"
+							style={{width:120, color:"#29235c"}}
+							onChangeText={(text) => this.setState({epaisseur: text})}
+							value={this.state.epaisseur}
+							placeholder={""}
+							keyboardType='numeric'
+							placeholderTextColor="#fff"
+							underlineColorAndroid="#29235c"
+						  />
 					</Col>	
 				</Row> 
 	       <Row>

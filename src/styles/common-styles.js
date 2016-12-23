@@ -382,7 +382,7 @@ module.exports = StyleSheet.create({
 	fontSize:17,
 	color:'#29235c',
 	marginTop:10,	
-	marginBottom:15,
+	marginBottom:10,
 	margin:10
   },
   asymetrie: {
