@@ -213,13 +213,13 @@ export default class uploadForm extends Component {
 				</Col>
                 </Row>
 				<Row>
-				  <Col>
+				  <Col style={{width:140}}>
 					<Text style={styles.diametre}>Diamètre</Text>
 				  </Col>
-					<Col style={{ marginLeft:80,marginRight:10}}>
+					<Col style={{ marginLeft:160}}>
 						 <TextInput
 							ref="diametre"
-							style={{width:120}}
+							style={{width:45, textAlign :"center"}}
 							onChangeText={(text) => this.setState({diametre: text})}
 							value={this.state.diametre}
 							keyboardType='numeric'
@@ -228,13 +228,13 @@ export default class uploadForm extends Component {
 					</Col>	
 				</Row>
 			  <Row>
-				  <Col>
+				  <Col style={{width:140}}>
 					<Text style={styles.asymetrie}>Epaisseur</Text>
 				  </Col>
-					<Col style={{marginLeft:80}}>
+					<Col style={{marginLeft:160}}>
 					<TextInput
 							ref="epaisseur"
-							style={{width:120, color:"#29235c"}}
+							style={{width:45, color:"#29235c", textAlign :"center"}}
 							onChangeText={(text) => this.setState({epaisseur: text})}
 							value={this.state.epaisseur}
 							placeholder={""}
