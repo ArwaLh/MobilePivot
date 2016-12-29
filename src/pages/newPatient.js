@@ -156,6 +156,7 @@ export default class newPatient extends Component {
 					onChangeText={(text) => this.setState({nom_pat: text})}
 					value={this.state.nom_pat}
 					placeholder={"Nom"}
+				    multiline = {true}
 					underlineColorAndroid="#53507c"/>
 				<TextInput
 					style={styles.textinput_new_patinet}
@@ -175,7 +176,7 @@ export default class newPatient extends Component {
 							mode="date"
 							placeholder={this.state.dateNaissance_pat}
 							format="YYYY-MM-DD"
-							minDate="1980-01-01"
+							minDate="1940-01-01"
 							maxDate="2030-01-01"
 							confirmBtnText="Confirm"
 							cancelBtnText="Cancel"
@@ -280,7 +281,7 @@ export default class newPatient extends Component {
 					placeholderTextColor="#29235c"
 					onChangeText={(text) => this.setState({telephone_patient: text})}
 					value={this.state.telephone_patient}
-					keyboardType = 'numeric'
+					keyboardType = 'phone-pad'
 					placeholder={"Téléphone"}
 					maxLength = {20}
 					dataDetectorTypes ='+336 phoneNumber'

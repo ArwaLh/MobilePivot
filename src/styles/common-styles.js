@@ -281,7 +281,7 @@ module.exports = StyleSheet.create({
   },
  list_MetaData:{
 	borderColor:'#29235c',
-	height:57,
+	height:60,
 	width:330,
 	marginBottom:0,
 	marginTop:0

@@ -122,86 +122,81 @@ export default class phototype extends Component {
 			         </Button>			 
                </Grid>				 
 			</ListItem>  
-			<ListItem  style={styles.list_Phototype}>
-			   <Grid> 
-				    <Button onPress={this.phototype_1.bind(this)} style={{backgroundColor: this.state.back_color, borderColor:'black', width: 420,height:90}} textStyle={{color: this.state.textColor}} transparent>
-					     <Row style={{width: 400,height:90}} >
-								<Col style={{width: 75}}>
-									<Image style={styles.circle} source={{uri:'http://localhost:8081/img/2.jpg'}}/>
-								</Col>
-								<Col style={{width: 325}}>
-									<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor}}>Phototypes II{"\n"}</Text> 
-									<Text style={{fontSize: 13,color: this.state.text2}}>Peau trés blanche, yeux clairs,cheveux{"\n"}roux/blonds,taches de rousseur ++</Text>
-								</Col>
-						</Row>		
-						
-			         </Button>			 
+			 <ListItem style={styles.list_Phototype}>
+			  <Grid> 
+				 <Button onPress={this.phototype_2.bind(this)} style={{backgroundColor: this.state.back_color1, width: 420,height:90}} textStyle={{color: this.state.textColor1}} transparent>
+						 <Row style={{width: 400,height:90}} >
+							<Col style={{width:75}}>
+								<Image style={styles.circle} source={{uri:'http://localhost:8081/img/2.jpg'}}/>
+							</Col> 
+							<Col style={{width: 325}}>
+								<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor1}}>Phototypes II{"\n"}</Text> 
+								<Text style={{fontSize: 13,color: this.state.text3}}>Peau claire, yeux clairs,cheveux blonds/chatains,{"\n"}taches de rousseur +</Text>
+							</Col>
+						 </Row>	
+			     </Button>			 
                </Grid>				 
-			</ListItem> 
-			<ListItem  style={styles.list_Phototype}>
+			 </ListItem>
+			 <ListItem  style={styles.list_Phototype}>
 			   <Grid> 
-				    <Button onPress={this.phototype_1.bind(this)} style={{backgroundColor: this.state.back_color, borderColor:'black', width: 420,height:90}} textStyle={{color: this.state.textColor}} transparent>
-					     <Row style={{width: 400,height:90}} >
-								<Col style={{width: 75}}>
-									<Image style={styles.circle} source={{uri:'http://localhost:8081/img/3.jpg'}}/>
-								</Col>
-								<Col style={{width: 325}}>
-									<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor}}>Phototypes III{"\n"}</Text> 
-									<Text style={{fontSize: 13,color: this.state.text2}}>Peau trés blanche, yeux clairs,cheveux{"\n"}roux/blonds,taches de rousseur ++</Text>
-								</Col>
-						</Row>		
-						
-			         </Button>			 
-               </Grid>				 
-			</ListItem> 
-			<ListItem  style={styles.list_Phototype}>
-			   <Grid> 
-				    <Button onPress={this.phototype_1.bind(this)} style={{backgroundColor: this.state.back_color, borderColor:'black', width: 420,height:90}} textStyle={{color: this.state.textColor}} transparent>
-					     <Row style={{width: 400,height:90}} >
-								<Col style={{width: 75}}>
-									<Image style={styles.circle} source={{uri:'http://localhost:8081/img/4.jpg'}}/>
-								</Col>
-								<Col style={{width: 325}}>
-									<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor}}>Phototypes IV{"\n"}</Text> 
-									<Text style={{fontSize: 13,color: this.state.text2}}>Peau trés blanche, yeux clairs,cheveux{"\n"}roux/blonds,taches de rousseur ++</Text>
-								</Col>
-						</Row>		
-						
-			         </Button>			 
-               </Grid>				 
-			</ListItem> 
-			<ListItem  style={styles.list_Phototype}>
-			   <Grid> 
-				    <Button onPress={this.phototype_1.bind(this)} style={{backgroundColor: this.state.back_color, borderColor:'black', width: 420,height:90}} textStyle={{color: this.state.textColor}} transparent>
-					     <Row style={{width: 400,height:90}} >
-								<Col style={{width: 75}}>
-									<Image style={styles.circle} source={{uri:'http://localhost:8081/img/5.jpg'}}/>
-								</Col>
-								<Col style={{width: 325}}>
-									<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor}}>Phototypes V{"\n"}</Text> 
-									<Text style={{fontSize: 13,color: this.state.text2}}>Peau trés blanche, yeux clairs,cheveux{"\n"}roux/blonds,taches de rousseur ++</Text>
-								</Col>
-						</Row>		
-						
-			         </Button>			 
+				 <Button onPress={this.phototype_3.bind(this)} style={{backgroundColor: this.state.back_color2, width: 420,height:90}} textStyle={{color: this.state.textColor2}} transparent>
+					  <Row style={{width: 400,height:90}} >
+							<Col style={{width:75}}>
+								<Image style={styles.circle} source={{uri:'http://localhost:8081/img/3.jpg'}}/>
+							</Col>
+							<Col style={{width: 325}}>
+								<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor2}}>Phototypes III{"\n"}</Text> 
+								<Text style={{fontSize: 13,color: this.state.text4}}>Peau intermédiaire, yeux bruns,{"\n"}cheveux chatains</Text>
+							</Col>
+						 </Row>	
+			     </Button>			 
                </Grid>				 
 			</ListItem>
 			<ListItem  style={styles.list_Phototype}>
 			   <Grid> 
-				    <Button onPress={this.phototype_1.bind(this)} style={{backgroundColor: this.state.back_color, borderColor:'black', width: 420,height:90}} textStyle={{color: this.state.textColor}} transparent>
-					     <Row style={{width: 400,height:90,marginTop:0}} >
-								<Col style={{width: 75}}>
-									<Image style={styles.circle} source={{uri:'http://localhost:8081/img/6.jpg'}}/>
-								</Col>
-								<Col style={{width: 325}}>
-									<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor}}>Phototypes VI{"\n"}</Text> 
-									<Text style={{fontSize: 13,color: this.state.text2}}>Peau trés blanche, yeux clairs,cheveux{"\n"}roux/blonds,taches de rousseur ++</Text>
-								</Col>
-						</Row>		
-						
-			         </Button>			 
+				 <Button onPress={this.phototype_4.bind(this)} style={{backgroundColor: this.state.back_color3,width: 420,height:90}} textStyle={{color: this.state.textColor3}} transparent>
+						 <Row style={{width: 400,height:90}} >
+							<Col style={{width:75}}>
+								<Image style={styles.circle} source={{uri:'http://localhost:8081/img/4.jpg'}}/>
+							</Col>
+							<Col style={{width: 325}}>
+								<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor3}}>Phototypes IV{"\n"}</Text> 
+								<Text style={{fontSize: 13,color: this.state.text5}}>Peau mate, yeux bruns/noirs,{"\n"}cheveux bruns/noirs</Text>
+							</Col>
+						 </Row>	
+			     </Button>			 
                </Grid>				 
-			</ListItem> 
+			</ListItem>
+			<ListItem  style={styles.list_Phototype}>
+			   <Grid> 
+				 <Button onPress={this.phototype_5.bind(this)} style={{backgroundColor: this.state.back_color4, width: 420,height:90}} textStyle={{color: this.state.textColor4}} transparent>
+						 <Row style={{width: 400,height:90}} >
+							<Col style={{width:75}}>
+								<Image style={styles.circle} source={{uri:'http://localhost:8081/img/5.jpg'}}/>
+							</Col>
+							<Col style={{width: 325}}>
+								<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor4}}>Phototypes V{"\n"}</Text> 
+								<Text style={{fontSize: 13,color: this.state.text6}}>Peau brune foncée, yeux noirs,{"\n"}cheveux noirs</Text>
+							</Col>
+						 </Row>	
+			     </Button>			 
+               </Grid>				 
+			</ListItem>
+			<ListItem  style={styles.list_Phototype}>
+			   <Grid> 
+				 <Button onPress={this.phototype_6.bind(this)} style={{backgroundColor: this.state.back_color5,width: 420,height:90}} textStyle={{color: this.state.textColor5}} transparent>
+						 <Row style={{width: 400,height:90}} >
+							<Col style={{width:75}}>
+								<Image style={styles.circle} source={{uri:'http://localhost:8081/img/6.jpg'}}/>
+							</Col>
+							<Col style={{width: 325}}>
+								<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor5}}>Phototypes VI{"\n"}</Text> 
+								<Text style={{fontSize: 13,color: this.state.text7}}>Peau noire, yeux noirs,cheveux noirs.</Text> 
+							</Col>
+						 </Row>	
+			     </Button>			 
+               </Grid>				 
+			</ListItem>
 		  </List>
 		  
 		</ScrollView>      

@@ -221,6 +221,7 @@ export default class validMeta extends Component {
 			</ListItem>	 
 					
 					  <Grid>
+					    <Row style={{marginTop:20, marginLeft:10}}>
 							  <Col style={{width:200}}>
 								 <Button onPress={this.uploadP.bind(this)} textStyle={styles.back_to_upload_button_valid_meta} transparent>
 										 MODIFIER LES INORMATIONS
@@ -231,7 +232,8 @@ export default class validMeta extends Component {
 									onPress={this.validate.bind(this)}
 									style={styles.send_button_valid_meta}
 									textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
-							</Col>	
+							</Col>
+						</Row>	
 					 </Grid>			
 		</ScrollView>   
 	</View>

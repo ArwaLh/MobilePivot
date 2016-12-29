@@ -74,7 +74,7 @@ export default class login extends Component {
 					}else{
 						this.setState({secureTextEntry: true,count:0});
 					}
-					}}  style={{width: 27,margin:0,padding:0,marginBottom:0,height:15,marginTop:30}}>
+					}}  style={{width: 27,margin:0 ,padding:0,marginBottom:0,height:15,marginTop:30}}>
 				<Image style={{width:27,height:15,margin:0,padding:0}} source={{uri:'http://localhost:8081/img/eye.png'}}></Image>
 			</TouchableOpacity>
 		  </View>
@@ -90,8 +90,8 @@ export default class login extends Component {
 				textStyle={{fontSize: 16, color:'#fff'}}
 				bordered>CONNEXION</Button>
 		  </View>
-			<Hr lineColor='#ffffff' text='OU' textColor='#ffffff' line={{width:30}}/>
-		  <Text style={{marginBottom:25,color:'#fff'}}>connectez vous avec votre compte facebook</Text>
+			<Hr lineColor='#ffffff' text='OU' textColor='#ffffff' line={{width:10}}/>
+		  <Text style={{marginBottom:45,color:'#fff'}}>connectez vous avec votre compte facebook</Text>
 		  <LoginButton
 		  style={{height:30,width:180}}
           publishPermissions={["publish_actions"]}

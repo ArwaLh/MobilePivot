@@ -146,7 +146,7 @@ export default class uploadForm extends Component {
 	<View>
 	<HeaderUp text=" 3/4 Upload Photo" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
-		    <ListItem>
+		    <ListItem style={{marginRight:35}}>
 
 			 <Image style={styles.pic_cam} source={{uri:this.state.path}}/>
 
@@ -172,9 +172,9 @@ export default class uploadForm extends Component {
 			  <Col>
 				<Text style={styles.couleur}>Couleur</Text>
 			  </Col>
-			  <Col style={{ marginLeft:40}}>	
+			  <Col style={{ marginLeft:110}}>	
 				 <Picker
-						style={{width:145, color:"#29235c" }}
+						style={{width:109, color:"#29235c" }}
                         iosHeader="Select one"
                         mode="dropdown"
                         selectedValue={this.state.selected2}
@@ -188,9 +188,9 @@ export default class uploadForm extends Component {
 			  <Col style={{width:140}}>
 				<Text style={styles.asymetrie}>Asymétrie</Text>
 			  </Col>
-				<Col style={{ marginLeft:105}}>
+				<Col style={{ marginLeft:135}}>
 					<Picker 
-					    style={{width:100, color:"#29235c" }}
+					    style={{width:65, color:"#29235c" }}
                         iosHeader="Select one"
                         mode="dropdown"
                         selectedValue={this.state.selected3}
@@ -223,6 +223,7 @@ export default class uploadForm extends Component {
 							onChangeText={(text) => this.setState({diametre: text})}
 							value={this.state.diametre}
 							keyboardType='numeric'
+							maxLength = {4}
 							underlineColorAndroid="#29235c"
 						  />
 					</Col>	
@@ -239,6 +240,7 @@ export default class uploadForm extends Component {
 							value={this.state.epaisseur}
 							placeholder={""}
 							keyboardType='numeric'
+							maxLength = {4}
 							placeholderTextColor="#fff"
 							underlineColorAndroid="#29235c"
 						  />
