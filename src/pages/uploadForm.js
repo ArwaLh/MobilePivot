@@ -146,7 +146,7 @@ export default class uploadForm extends Component {
 	<View>
 	<HeaderUp text=" 3/4 Upload Photo" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
-		    <ListItem style={{marginRight:35}}>
+		    <ListItem style={{marginRight:10,marginLeft:15, borderColor:'#29235c'}}>
 
 			 <Image style={styles.pic_cam} source={{uri:this.state.path}}/>
 

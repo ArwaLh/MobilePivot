@@ -344,7 +344,7 @@ module.exports = StyleSheet.create({
 	width:200,
 	height:40,
 	marginLeft:60,
-	marginBottom:50,
+	marginBottom:0,
 	alignItems:'center'
   },
   go_to_valid_meta_text:{
