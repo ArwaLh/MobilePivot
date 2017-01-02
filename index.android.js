@@ -41,8 +41,11 @@ export default class FacebookApp extends Component {
 		return (
 		  <Navigator
 			  initialRoute={{component: SplashScreen}}
-			  configureScene={() => {
-				return Navigator.SceneConfigs.HorizontalSwipeJump;
+			  configureScene={(route) => {
+				return {
+					...Navigator.SceneConfigs.HorizontalSwipeJump,
+					gestures: {}
+				};
 			  }}
 			  renderScene={(route, navigator) => {
 				if(route.component){

@@ -16,6 +16,9 @@ import styles from '../styles/common-styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {InputGroup, Input, Button} from 'native-base';
 import * as firebase from 'firebase';
+
+// either import the whole module and call as Communications.method()
+import Communications from 'react-native-communications';
 export default class signup extends Component {
   constructor(props){
     super(props);
@@ -73,6 +76,9 @@ export default class signup extends Component {
 	  }else{
 		  alert("les champs mot de passe et confirmer mot de passe doivent être identiques")
 	  }
+	  //send email to web process react-native-communications:email(to, cc, bcc, subject, body)
+	  Communications.email(['arwa.louihig@esprit.tn', 'arwa@osereso.fr'],null,null,'Compléter inscription',"Compléter votre inscription d'ici");
+
   }
   goToLogin(){
     this.props.navigator.push({
