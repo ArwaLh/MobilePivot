@@ -20,7 +20,7 @@ import {
 } from 'react-native';
 import HeaderUp from '../components/headerUp';
 import styles from '../styles/common-styles.js';
-import { List, ListItem, Button, Grid, Col} from 'native-base';
+import { List, ListItem, Button, Grid, Col, Row} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';import Hr from 'react-native-hr';
 const window = Dimensions.get('window');
 import Swiper from 'react-native-swiper';
@@ -95,7 +95,7 @@ export default class gestionNaevus extends Component {
         }); 
 	}
 	nouveau_dossier(){
-		let my_date=new Date("YYYY-MM-DDTHH:MM:SS");
+		let my_date=new Date();
 		let dossier_id=this.state.medecin_id+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
 		this.itemsRef.child('medecins/'+this.state.medecin_id+'/patients/'+this.state.patient_id).child('dossiers_medicaux/'+dossier_id).set({ 
 			date_creation_dossier: my_date.toString(),
@@ -113,22 +113,26 @@ export default class gestionNaevus extends Component {
 	<HeaderUp text="Gestion des dossiers" loaded={true} onpress={this.goBack.bind(this)}/>
 	<ScrollView style={{backgroundColor: '#fff'}}>
 	<View style={{flex:1}}>
-		<Text style={{color: "#29235c",margin:10,marginLeft:30,fontSize:17,fontFamily: 'Roboto'}}>{this.state.patient_name} {this.state.patient_lastname}</Text>
-		<Text style={{color: "#29235c",margin:10,marginLeft:30,marginBottom:0,fontSize:17,fontFamily: 'Roboto'}}>{this.state.patient_tel}</Text>
+	<ListItem style={{borderColor:'#29235c', width:340}}>
+	   <Grid>
+			<Row><Text style={{color: "#29235c",marginLeft:10,fontSize:20,fontFamily: 'Roboto',fontWeight:"bold"}}>{this.state.patient_name} {this.state.patient_lastname}</Text></Row>
+			<Row><Text style={{color: "#29235c",marginLeft:13,marginBottom:0,fontSize:15,fontFamily: 'Roboto'}}>Téléphone : {this.state.patient_tel}</Text></Row>
+		</Grid>
+	</ListItem>	
 		<ListView dataSource={this.state.dataSource}
 		enableEmptySections={true}
         renderRow={(rowData) => 
-					<List style={{backgroundColor:'white',margin:0,padding:0,height:310,paddingTop:0}}>
-					  <ListItem style={{margin:0,height:300,paddingTop:0}}>
-					  <Button style={{height:300}} onPress={this.localiser_photo.bind(this,rowData._key)} transparent>
+					<List style={{backgroundColor:'white',height:220, borderColor:'#29235c'}}>
+					  <ListItem style={{height:220, borderColor:'#29235c', width:340, marginBottom:20}}>
+					  <Button style={{height:210}} onPress={this.localiser_photo.bind(this,rowData._key)} transparent>
 						<Grid>
-						<Col>
-						<Icon name="folder-open" style={styles.icon_folder}/>
+						<Col style={{width:70}}>
+						<Image style={{width:65,height:60}} source={{uri:'http://localhost:8081/img/Icdossier.png'}}/>
 						</Col>
-						<Col>
+						<Col style={{width:230, margin:10}}>
 							<Text style={styles.listViewText1}>Nom dossier</Text>
 							<Text style={styles.listViewText2}>{rowData._key}</Text>
-							<Text style={styles.listViewText1}>Nombre d'image</Text>
+							<Text style={styles.listViewText1}>Nombre d'image </Text>
 							<Text style={styles.listViewText2}>{rowData.nombre_images_dossier}</Text>
 							<Text style={styles.listViewText1}>Date de création</Text>
 							<Text style={styles.listViewText2}>{rowData.date_creation_dossier.substring(0,24)}</Text>
@@ -141,7 +145,7 @@ export default class gestionNaevus extends Component {
 					  </Button>
 					  </ListItem>
 					</List>
-					} style={{backgroundColor: 'white',flex:2}}/>		
+					} style={{backgroundColor: 'white'}}/>		
 		<List style={{backgroundColor: 'white',height:100}}>
 			<ListItem>
 				<Button style={{height:120}} onPress={this.nouveau_dossier.bind(this)}transparent>

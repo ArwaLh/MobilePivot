@@ -122,8 +122,8 @@ export default class uploadForm extends Component {
 			'asymetrie':this.state.selected3,
 			'phototype':this.state.phototype,
 			'sed':this.state.sed,
-			'diametre':this.state.selected4,
-			'epaisseur':this.state.selected5,
+			'diametre':this.state.diametre,
+			'epaisseur':this.state.epaisseur,
 			'suspicion':this.state.mel
 			}));  
 		this.props.navigator.push({

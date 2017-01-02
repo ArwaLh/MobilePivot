@@ -335,7 +335,7 @@ export default class newPatient extends Component {
 			
 			<Button
 				onPress={this.locatePic.bind(this)}
-				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:80,marginBottom:30,marginTop:10,alignItems:'center'}}
+				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:80,marginBottom:10,marginTop:10,alignItems:'center'}}
 				textStyle={{fontSize: 14, color:'#fff',fontFamily: 'Roboto'}}>Localiser le grain de beauté</Button>
 		</View>
 	</ScrollView>   
