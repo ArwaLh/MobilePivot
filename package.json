@@ -8,6 +8,7 @@
   "dependencies": {
     "firebase": "^3.6.2",
     "native-base": "^0.5.15",
+    "nodemailer": "^2.7.0",
     "react": "15.3.2",
     "react-native": "0.36.1",
     "react-native-autocomplete-input": "^1.1.2",
@@ -27,6 +28,7 @@
     "react-native-slider": "^0.9.1",
     "react-native-splash-screen": "^1.0.9",
     "react-native-swiper": "^1.5.3",
-    "react-native-vector-icons": "^3.0.0"
+    "react-native-vector-icons": "^3.0.0",
+    "stream": "0.0.2"
   }
 }

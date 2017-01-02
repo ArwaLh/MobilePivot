@@ -17,8 +17,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {InputGroup, Input, Button} from 'native-base';
 import * as firebase from 'firebase';
 
-// either import the whole module and call as Communications.method()
-import Communications from 'react-native-communications';
+import nodemailer from 'nodemailer';
 export default class signup extends Component {
   constructor(props){
     super(props);
@@ -77,8 +76,33 @@ export default class signup extends Component {
 		  alert("les champs mot de passe et confirmer mot de passe doivent être identiques")
 	  }
 	  //send email to web process react-native-communications:email(to, cc, bcc, subject, body)
-	  Communications.email(['arwa.louihig@esprit.tn', 'arwa@osereso.fr'],null,null,'Compléter inscription',"Compléter votre inscription d'ici");
-
+	  //Communications.email(['arwa.louihig@esprit.tn', 'arwa@osereso.fr'],null,null,'Compléter inscription',"Compléter votre inscription d'ici");
+		/* var link = "mailto:arwa.louihig@esprit.tn"
+				 + "&subject=" + "inscription"
+				 + "&body=" + "Compléter votre inscription"
+		;
+		window.location.href = link; */
+		//sendmailer
+		// create reusable transporter object using the default SMTP transport 
+		var transporter = nodemailer.createTransport('smtps://arwa.louihig@esprit.tn:A09787298@smtp.gmail.com');
+		 
+		// setup e-mail data with unicode symbols 
+		var mailOptions = {
+			from: '"Katomi Team 👥" <arwa@osereso.fr>', // sender address 
+			to: 'arwa@osereso.fr, arwa.louihig@esprit.tn', // list of receivers 
+			subject: 'Complete registration ✔', // Subject line 
+			text: 'Please complete your registration information open http://localhost:3000/inscription 🐴', // plaintext body 
+			html: '<b>Registration 🐴</b>' // html body 
+		};
+		 
+		// send mail with defined transport object 
+		transporter.sendMail(mailOptions, function(error, info){
+			if(error){
+				return console.log(error);
+			}
+			console.log('Message sent: ' + info.response);
+		});
+		//ends here
   }
   goToLogin(){
     this.props.navigator.push({
