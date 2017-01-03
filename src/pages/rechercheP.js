@@ -49,7 +49,7 @@ export default class rechercheP extends Component {
 	}
 	gestionNaevus(){
 		let patient_id='';
-		this.itemsRef.child('medecins/'+this.state.username_med+'/patients').orderByChild('nom_pat').equalTo(this.state.query).once("child_added", function(snapshot) {
+		this.itemsRef.child('medecins/'+this.state.username_med+"categories/grain_de_beaute"+'/patients').orderByChild('nom_pat').equalTo(this.state.query).once("child_added", function(snapshot) {
 			patient_id=snapshot.key;
 		});
 		AsyncStorage.setItem("medecin_patient",JSON.stringify({"patient_id":patient_id,"medecin_id":this.state.username_med}));
@@ -68,7 +68,7 @@ export default class rechercheP extends Component {
 				username_med:medecin_usernamee
 			});
 		//get patients list
-		this.itemsRef.child('medecins/'+medecin_usernamee+"/patients/").on('value', (snap) => {
+		this.itemsRef.child('medecins/'+medecin_usernamee+"categories/grain_de_beaute"+"/patients/").on('value', (snap) => {
 				let items=[];
 
 				// get children as an array
