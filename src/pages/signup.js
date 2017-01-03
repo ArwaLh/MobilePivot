@@ -16,6 +16,8 @@ import styles from '../styles/common-styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {InputGroup, Input, Button} from 'native-base';
 import * as firebase from 'firebase';
+
+import Communications from 'react-native-communications';
 export default class signup extends Component {
   constructor(props){
     super(props);
@@ -57,7 +59,15 @@ export default class signup extends Component {
     firebase.auth().createUserWithEmailAndPassword(this.state.email_medecin,this.state.password).then((userData) =>{
 	//ajouter medecin à firebase database
 	this.itemsRef.child(medecin_id).set({
-		email_medecin: this.state.email_medecin
+		email_medecin: this.state.email_medecin,
+		nom_medecin:"",
+		prenom_medecin:"",
+		date_naissance_medecin:"",
+		specialite_medecin:"",
+		telephone_medecin:"",
+		address_cabinet_medecin:"",
+		photoURL_medecin:"",
+		categories:[]
 		})
 	//succes d'ajout dans auth et database
         alert('Your account was created!');
@@ -72,7 +82,8 @@ export default class signup extends Component {
       });
 	  }else{
 		  alert("les champs mot de passe et confirmer mot de passe doivent être identiques")
-	  }
+	  }   
+	  //Communications.email(['arwa.louihig@esprit.tn', 'arwa@osereso.fr'],null,null,'Compléter inscription',"Veuillez suivre le lien ci-dessous pour compléter votre inscription "+"http://localhost:3000/inscription".link("http://localhost:3000/inscription"));
   }
   goToLogin(){
     this.props.navigator.push({
