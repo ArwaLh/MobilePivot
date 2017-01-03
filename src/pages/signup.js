@@ -65,6 +65,8 @@ export default class signup extends Component {
 		date_naissance_medecin:"",
 		specialite_medecin:"",
 		telephone_medecin:"",
+		address_cabinet_medecin:"",
+		photoURL_medecin:"",
 		categories:[]
 		})
 	//succes d'ajout dans auth et database
