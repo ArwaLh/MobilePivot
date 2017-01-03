@@ -27,7 +27,6 @@
     "react-native-slider": "^0.9.1",
     "react-native-splash-screen": "^1.0.9",
     "react-native-swiper": "^1.5.3",
-    "react-native-vector-icons": "^3.0.0",
-    "sendgrid": "^4.7.1"
+    "react-native-vector-icons": "^3.0.0"
   }
 }
