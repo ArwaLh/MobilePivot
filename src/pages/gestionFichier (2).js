@@ -87,23 +87,15 @@ export default class gestionNaevus extends Component {
 		this.props.navigator.pop();
 		return true;
 	}
-/* 	localiser_photo(id){
+	localiser_photo(id){
 		alert(id);
 		AsyncStorage.removeItem("med_pat_file");
 		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id}));
 		this.props.navigator.push({
           component: LocatePic
         }); 
-	} */
-	gestionF(id){
-		alert(id);
-		AsyncStorage.removeItem("med_pat_file");
-		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id})); 
-		this.props.navigator.push({
-		  component: GestionFichier
-		});
 	}
-	nouveau_dossier(){
+	nouveau_fichier(){
 		let my_date=new Date();
 		let dossier_id=this.state.medecin_id+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
 		this.itemsRef.child('medecins/'+this.state.medecin_id+'/patients/'+this.state.patient_id).child('dossiers_medicaux/'+dossier_id).set({ 
@@ -115,55 +107,4 @@ export default class gestionNaevus extends Component {
 			nombre_images_dossier: 0,
 			categorie: "grain de beauté"
 		})
-	}
-  render() {
-    return ( 
-	<View style={{backgroundColor: 'white'}}>
-	<HeaderUp text="Gestion des dossiers" loaded={true} onpress={this.goBack.bind(this)}/>
-	<ScrollView style={{backgroundColor: '#fff'}}>
-	<View style={{flex:1}}>
-	<ListItem style={{borderColor:'#29235c', width:340}}>
-	   <Grid>
-			<Row><Text style={{color: "#29235c",marginLeft:10,fontSize:20,fontFamily: 'Roboto',fontWeight:"bold"}}>{this.state.patient_name} {this.state.patient_lastname}</Text></Row>
-			<Row><Text style={{color: "#29235c",marginLeft:13,marginBottom:0,fontSize:15,fontFamily: 'Roboto'}}>Téléphone : {this.state.patient_tel}</Text></Row>
-		</Grid>
-	</ListItem>	
-		<ListView dataSource={this.state.dataSource}
-		enableEmptySections={true}
-        renderRow={(rowData) => 
-					<List style={{backgroundColor:'white',height:180, borderColor:'#29235c'}}>
-					  <ListItem style={{height:180, borderColor:'#29235c', width:340, paddingTop:0}}>
-					  <Button style={{height:180}} onPress={this.gestionF.bind(this,rowData._key)} transparent>
-						<Grid>
-						<Col style={{width:70}}>
-						<Image style={{width:65,height:60, marginTop:10}} source={{uri:'http://localhost:8081/img/Icdossier.png'}}/>
-						</Col>
-						<Col style={{width:230, margin:10}}>
-							<Text style={styles.listViewText1}>Naevus {rowData._key}</Text> 
-							<Text style={styles.listViewText1}>Nombre d'image</Text>							
-							<Text style={styles.listViewText2}>{rowData.nombre_images_dossier}</Text>
-							<Text style={styles.listViewText1}>Date de création</Text>
-							<Text style={styles.listViewText2}>{rowData.date_creation_dossier.substring(0,24)}</Text>
-							<Text style={styles.listViewText1}>Derniére mise à jour</Text>
-							<Text style={styles.listViewText2}>{rowData.date_MAJ_dossier.substring(0,24)}</Text>
-						</Col>
-						</Grid>
-					  </Button>
-					  </ListItem>
-					</List>
-					} style={{backgroundColor: 'white'}}/>		
-		<List style={{backgroundColor: 'white',height:100}}>
-			<ListItem>
-				<Button style={{height:120}} onPress={this.nouveau_dossier.bind(this)}transparent>
-				  <Icon name="plus-square-o" style={{color: '#29235c', fontSize: 60, width:70,marginLeft: (window.width/2)-50}}/> 	
-				</Button>
-            </ListItem>
-        </List>
-	</View>
-	</ScrollView>   
-	</View>
-    );
-  }
-}
-
-AppRegistry.registerComponent('gestionNaevus', () => gestionNaevus);
+	}	
