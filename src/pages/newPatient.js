@@ -81,7 +81,7 @@ export default class newPatient extends Component {
   
 	locatePic(){
 		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
-			this.itemsRef.child('medecins/'+medecin_usernamee).child("categories/grain_de_beaute").child('patients/').on('value', (snap) => {
+			this.itemsRef.child('medecins/'+medecin_usernamee+"categories/").child("grain_de_beaute/").child('patients/').on('value', (snap) => {
 				let items=[];
 				// get children as an array
 				snap.forEach((child) => {
@@ -108,7 +108,7 @@ export default class newPatient extends Component {
 				nombre_grain_de_beaute: this.state.nbreGrain, 
 			})
 			//récupérer la liste des dossiers
-			this.itemsRef.child('medecins/'+medecin_usernamee+"categories/grain_de_beaute"+'/patients/'+this.state.patient_id+'/dossiers_medicaux/').on('value', (snap) => {
+			this.itemsRef.child('medecins/'+medecin_usernamee+"categories/grain_de_beaute/"+'/patients/'+this.state.patient_id+'/dossiers_medicaux/').on('value', (snap) => {
 			let items=[];
 			// get children as an array
 			snap.forEach((child) => {
@@ -126,7 +126,7 @@ export default class newPatient extends Component {
 			this.setState({ dossiers_medicaux });
 			});
 			let dossier_id=medecin_usernamee+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
-			this.itemsRef.child('medecins/'+medecin_usernamee+"categories/grain_de_beaute"+'/patients/'+this.state.patient_id).child('dossiers_medicaux/'+dossier_id).set({ 
+			this.itemsRef.child('medecins/'+medecin_usernamee+"categories/grain_de_beaute/"+'/patients/'+this.state.patient_id).child('dossiers_medicaux/'+dossier_id).set({ 
 				date_creation_dossier: new Date(),
 				date_MAJ_dossier: new Date(),
 				nom_patient_dossier: this.state.nom_pat,
@@ -156,7 +156,6 @@ export default class newPatient extends Component {
 					onChangeText={(text) => this.setState({nom_pat: text})}
 					value={this.state.nom_pat}
 					placeholder={"Nom"}
-				    multiline = {true}
 					underlineColorAndroid="#53507c"/>
 				<TextInput
 					style={styles.textinput_new_patinet}
@@ -175,7 +174,7 @@ export default class newPatient extends Component {
 							date={this.state.dateNaissance_pat}
 							mode="date"
 							placeholder={this.state.dateNaissance_pat}
-							format="YYYY-MM-DD"
+							format="YYYY-MM-DD" 
 							minDate="1940-01-01"
 							maxDate="2030-01-01"
 							confirmBtnText="Confirm"
@@ -284,7 +283,6 @@ export default class newPatient extends Component {
 					keyboardType = 'phone-pad'
 					placeholder={"Téléphone"}
 					maxLength = {20}
-					dataDetectorTypes ='+336 phoneNumber'
 					underlineColorAndroid="#53507c"/>	
 				  <Grid style={{marginTop:10}}>
 					  <Col>

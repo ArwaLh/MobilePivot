@@ -135,36 +135,6 @@ export default class login extends Component {
 			alert(snapshot.key);
 		});
         AsyncStorage.setItem('user_data', JSON.stringify(user_data));
-			//send mail
-			//var user = firebase.auth().currentUser;
-			// using SendGrid's v3 Node.js Library
-			// https://github.com/sendgrid/sendgrid-nodejs
-			var helper = require('sendgrid').mail;
-			  
-			from_email = new helper.Email("arwa.louihig@esprit.tn")
-			to_email = new helper.Email("arwa.louihig@esprit.tn")
-			subject = "Sending with SendGrid is Fun"
-			content = new helper.Content("text/plain", "and easy to do anywhere, even with Node.js")
-			mail = new helper.Mail(from_email, subject, to_email, content)
-
-			var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
-			var request = sg.emptyRequest({
-			  method: 'POST',
-			  path: '/v3/mail/send',
-			  body: mail.toJSON()
-			});
-
-			sg.API(request, function(error, response) {
-			  alert(response.statusCode)
-			  alert(response.body)
-			  alert(response.headers)
-			})
-/* 
-			user_data.sendEmailVerification().then(function() {
-			  console.log("email sent");
-			}, function(error) {
-			  console.log("failure");
-			}) */
         this.props.navigator.push({
           component: GestionPatient
         });
