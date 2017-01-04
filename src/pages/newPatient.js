@@ -81,7 +81,7 @@ export default class newPatient extends Component {
   
 	locatePic(){
 		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
-			this.itemsRef.child('medecins/'+medecin_usernamee+"categories/").child("grain_de_beaute/").child('patients/').on('value', (snap) => {
+			this.itemsRef.child('medecins/'+medecin_usernamee).child("/categories/grain_de_beaute").child('patients/').on('value', (snap) => {
 				let items=[];
 				// get children as an array
 				snap.forEach((child) => {
@@ -96,7 +96,8 @@ export default class newPatient extends Component {
 
 			alert(this.state.items_pat.length);
 			this.setState({patient_id:this.state.nom_pat+'_'+this.state.prenom_pat+'_'+this.state.items_pat.length});
-			this.itemsRef.child('medecins/'+medecin_usernamee).child('patients/'+this.state.patient_id).set({ 
+			//ajout patient
+			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child("grain_de_beaute").child('patients').child(this.state.patient_id).set({ 
 				nom_pat: this.state.nom_pat, 
 				prenom_pat: this.state.prenom_pat, 
 				date_de_naissance_pat: this.state.dateNaissance_pat, 
@@ -108,7 +109,7 @@ export default class newPatient extends Component {
 				nombre_grain_de_beaute: this.state.nbreGrain, 
 			})
 			//récupérer la liste des dossiers
-			this.itemsRef.child('medecins/'+medecin_usernamee+"categories/grain_de_beaute/"+'/patients/'+this.state.patient_id+'/dossiers_medicaux/').on('value', (snap) => {
+			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child("grain_de_beaute").child('patients').child(this.state.patient_id).child('dossiers_medicaux').on('value', (snap) => {
 			let items=[];
 			// get children as an array
 			snap.forEach((child) => {
@@ -126,7 +127,7 @@ export default class newPatient extends Component {
 			this.setState({ dossiers_medicaux });
 			});
 			let dossier_id=medecin_usernamee+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
-			this.itemsRef.child('medecins/'+medecin_usernamee+"categories/grain_de_beaute/"+'/patients/'+this.state.patient_id).child('dossiers_medicaux/'+dossier_id).set({ 
+			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child("grain_de_beaute").child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
 				date_creation_dossier: new Date(),
 				date_MAJ_dossier: new Date(),
 				nom_patient_dossier: this.state.nom_pat,
