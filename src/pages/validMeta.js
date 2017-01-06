@@ -132,7 +132,7 @@ export default class validMeta extends Component {
 		this.itemsRef.child('medecins').child(this.state.array.id_medecin).child('categories').child('grain_de_beaute').child('patients').child(this.state.array.id_patient).child('dossiers_medicaux').child(this.state.array.id_dossier).child('images').once('child_added', (snap) => {
 	
 				date_MAJ_dossier:compte_rendu.toString(),
-				nombre_images_dossier:snap.key.val().nombre_images_dossier+1
+				nombre_images_dossier:1
 
 		})
 		
