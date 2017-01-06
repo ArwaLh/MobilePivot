@@ -17,7 +17,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {InputGroup, Input, Button} from 'native-base';
 import * as firebase from 'firebase';
 
-import Communications from 'react-native-communications';
 export default class signup extends Component {
   constructor(props){
     super(props);

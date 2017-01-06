@@ -44,6 +44,7 @@ export default class gestionNaevus extends Component {
 		};
 	}
 	componentDidMount(){
+		//date_compte_rendu_consultation
 		AsyncStorage.getItem('med_pat_file').then((patient_medecin_arrayy_loc) => {
 			const arr=JSON.parse(patient_medecin_arrayy_loc);
 			alert(patient_medecin_arrayy_loc.id_dossier);
@@ -57,26 +58,18 @@ export default class gestionNaevus extends Component {
 		return true;
 	}    
 	          
-	localiser_photo(id){
+/* 	localiser_photo(id){
 		alert(id);
 		AsyncStorage.removeItem("med_pat_file_loc");
 		AsyncStorage.setItem("med_pat_file_loc",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id}));
 		this.props.navigator.push({
           component: LocatePic
         }); 
-	}
+	} */
 	nouveau_fichier(){
-		let my_date=new Date();
-		let dossier_id=this.state.medecin_id+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
-		this.itemsRef.child('medecins/'+this.state.medecin_id+'/patients/'+this.state.patient_id).child('dossiers_medicaux/'+dossier_id).set({ 
-			date_creation_dossier: my_date.toString(),
-			date_MAJ_dossier: my_date.toString(),
-			nom_patient_dossier: this.state.patient.nom_pat,
-			prenom_patient_dossier: this.state.patient.prenom_pat,
-			telephone_patient_dossier: this.state.patient.telephone_patient,
-			nombre_images_dossier: 0,
-			categorie: "grain de beauté"
-		})
+		this.props.navigator.push({
+          component: LocatePic
+        }); 
 	}
   render() {
     return ( 
@@ -86,7 +79,7 @@ export default class gestionNaevus extends Component {
 	<View style={{flex:1}}>
 	<ListItem style={{borderColor:'#29235c', width:340}}>
 	   <Grid>
-			<Row><Text style={{color: "#29235c",marginLeft:10,fontSize:23,fontFamily: 'Roboto',fontWeight:"bold"}}> Naevus:{this.state.id_doc.id_dossier}</Text></Row>
+			<Row><Text style={{color: "#29235c",marginLeft:10,fontSize:18,fontFamily: 'Roboto',fontWeight:"bold"}}> Naevus:{this.state.id_doc.id_dossier}</Text></Row>
 		</Grid>
 	</ListItem>	
 		<ListView dataSource={this.state.dataSource}

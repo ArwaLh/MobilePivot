@@ -127,9 +127,11 @@ export default class newPatient extends Component {
 			this.setState({ dossiers_medicaux });
 			});
 			let dossier_id=medecin_usernamee+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
+			var mydate=new Date();
+			alert(mydate);
 			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child("grain_de_beaute").child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
-				date_creation_dossier: new Date(),
-				date_MAJ_dossier: new Date(),
+				date_creation_dossier: mydate.toString(),
+				date_MAJ_dossier: mydate.toString(),
 				nom_patient_dossier: this.state.nom_pat,
 				prenom_patient_dossier: this.state.prenom_pat,
 				nombre_images_dossier: 0
@@ -153,19 +155,24 @@ export default class newPatient extends Component {
 	<ScrollView>
 		<View> 
 				<TextInput
+					required = {true}
+					keyboardAppearance ='dark'
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
 					onChangeText={(text) => this.setState({nom_pat: text})}
 					value={this.state.nom_pat}
 					placeholder={"Nom"}
-				    multiline = {true}
+					maxLength = {25}
 					underlineColorAndroid="#53507c"/>
 				<TextInput
+				    required = {true}
+				    Key = {true}
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
 					onChangeText={(text) => this.setState({prenom_pat: text})}
 					value={this.state.prenom_pat}
 					placeholder={"Prénom"}
+					maxLength = {25}
 					underlineColorAndroid="#53507c"/>					
 				 <Grid style={{marginTop:10}}>
 					  <Col>
@@ -177,7 +184,7 @@ export default class newPatient extends Component {
 							date={this.state.dateNaissance_pat}
 							mode="date"
 							placeholder={this.state.dateNaissance_pat}
-							format="YYYY-MM-DD"
+							format="YYYY-MM-DD" 
 							minDate="1940-01-01"
 							maxDate="2030-01-01"
 							confirmBtnText="Confirm"
@@ -269,6 +276,7 @@ export default class newPatient extends Component {
 					onChangeText={(text) => this.setState({lieu_pat: text})}
 					value={this.state.lieu_pat}
 					placeholder={"Lieu de résidence"}
+					maxLength = {25}
 					underlineColorAndroid="#29235c"/>		 
 				<TextInput
 					style={styles.textinput_new_patinet}
@@ -276,6 +284,7 @@ export default class newPatient extends Component {
 					onChangeText={(text) => this.setState({profession_pat: text})}
 					value={this.state.profession_pat}
 					placeholder={"Profession"}
+					maxLength = {25}
 					underlineColorAndroid="#29235c"/> 	
 					
 				<TextInput
@@ -285,7 +294,7 @@ export default class newPatient extends Component {
 					value={this.state.telephone_patient}
 					keyboardType = 'phone-pad'
 					placeholder={"Téléphone"}
-					maxLength = {20}
+					maxLength = {25}
 					underlineColorAndroid="#53507c"/>	
 				  <Grid style={{marginTop:10}}>
 					  <Col>

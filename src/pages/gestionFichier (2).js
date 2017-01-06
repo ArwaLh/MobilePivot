@@ -36,7 +36,7 @@ export default class gestionNaevus extends Component {
 			  rowHasChanged: (row1, row2) => row1 !== row2,
 			}),
 			patient: null,
-			dossiers_medicaux: [],
+			fichier_medical: [],
 			patient_id: '',
 			medecin_id: '',
 			nom_pat: '',
@@ -46,7 +46,7 @@ export default class gestionNaevus extends Component {
 	componentDidMount(){
 		AsyncStorage.getItem('medecin_patient').then((patient_medecin_arrayy) => {
 			const arr=JSON.parse(patient_medecin_arrayy);
-			this.itemsRef.child('medecins/'+arr.medecin_id+'/patients/'+arr.patient_id+'/dossiers_medicaux/').on('value', (snap) => {
+			this.itemsRef.child('medecins/'+arr.medecin_id+'/patients/'+arr.patient_id+'/fichier_medical/').on('value', (snap) => {
 			let items=[];
 			// get children as an array
 			snap.forEach((child) => {
