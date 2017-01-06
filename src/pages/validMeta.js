@@ -97,7 +97,8 @@ export default class validMeta extends Component {
 			.then((blob) => {
 			  // upload image using Firebase SDK
 			  var uploadTask= firebase.storage()
-				.ref(this.state.medecin_id+this.state.patient_id+this.state.id_dossier)
+				.ref()
+				.child('medecins').child(this.state.array.id_medecin).child('categories').child('grain_de_beaute').child('patients').child(this.state.array.id_patient).child('dossiers_medicaux').child(this.state.array.id_dossier).child('images')
 				.child(testImageName)
 				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
@@ -113,9 +114,10 @@ export default class validMeta extends Component {
 			})
 		alert("uplaod file done");
 		/*-----Add to firebase databse method ----*/
+		let compte_rendu=new Date();
 		let image_id=testImageName.substring(0,24).replace(/" "/g, "");
-		this.itemsRef.child('medecins/'+this.state.array.id_medecin+'/patients/'+this.state.array.id_patient+'/dossiers_medicaux/'+this.state.array.id_dossier+'/images/'+image_id).set({ 
-			date_creation_image: new Date(),
+		this.itemsRef.child('medecins').child(this.state.array.id_medecin).child('categories').child('grain_de_beaute').child('patients').child(this.state.array.id_patient).child('dossiers_medicaux').child(this.state.array.id_dossier).child('images').child(image_id).set({ 
+			date_compte_rendu_consultation: compte_rendu.toString(),
 			bords:this.state.array.bords,
 			couleur:this.state.array.couleur,
 			epaisseur:this.state.array.epaisseur,
@@ -127,8 +129,11 @@ export default class validMeta extends Component {
 			suspicion:this.state.array.suspicion
 		})
 		//upadet medical folder data
-		this.itemsRef.child('medecins/'+this.state.array.id_medecin+'/patients/'+this.state.array.id_patient+'/dossiers_medicaux/'+this.state.array.id_dossier).update({ 
-		
+		this.itemsRef.child('medecins').child(this.state.array.id_medecin).child('categories').child('grain_de_beaute').child('patients').child(this.state.array.id_patient).child('dossiers_medicaux').child(this.state.array.id_dossier).child('images').once('child_added', (snap) => {
+	
+				date_MAJ_dossier:compte_rendu.toString(),
+				nombre_images_dossier:snap.key.val().nombre_images_dossier+1
+
 		})
 		
 		

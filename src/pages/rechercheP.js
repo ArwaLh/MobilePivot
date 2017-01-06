@@ -49,7 +49,7 @@ export default class rechercheP extends Component {
 	}
 	gestionNaevus(){
 		let patient_id='';
-		this.itemsRef.child('medecins/'+this.state.username_med+"categories/grain_de_beaute"+'/patients').orderByChild('nom_pat').equalTo(this.state.query).once("child_added", function(snapshot) {
+		this.itemsRef.child('medecins').child(this.state.username_med).child("categories").child("grain_de_beaute").child('patients').orderByChild('nom_pat').equalTo(this.state.query.substring(0,this.state.query.indexOf(" "))).once("child_added", function(snapshot) {
 			patient_id=snapshot.key;
 		});
 		AsyncStorage.setItem("medecin_patient",JSON.stringify({"patient_id":patient_id,"medecin_id":this.state.username_med}));
@@ -68,9 +68,8 @@ export default class rechercheP extends Component {
 				username_med:medecin_usernamee
 			});
 		//get patients list
-		this.itemsRef.child('medecins/'+medecin_usernamee+"categories/grain_de_beaute"+"/patients/").on('value', (snap) => {
+		this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child("grain_de_beaute").child("patients").on('value', (snap) => {
 				let items=[];
-
 				// get children as an array
 				snap.forEach((child) => {
 					items.push({
@@ -102,15 +101,16 @@ export default class rechercheP extends Component {
     if (query === '') {
       return [];
     }
-    const { patients_array } = this.state;
-	//alert(JSON.stringify(this.state.patients_array));	
-    const regex = new RegExp(`${query.trim()}`, 'i');
-    return patients_array.filter(patient => patient.nom_pat.search(regex) >= 0);
+    const { patients_array } = this.state;	
+    const regex1 = new RegExp(`${query.trim()}`, 'i');
+    //const regex2 = new RegExp(`${query.trim()}.substr(${query.trim()}.indexOf(' ')+1)`, 'i');
+	//str.substr(0,str.indexOf(' '));
+    return patients_array.filter(patient => patient.nom_pat.search(regex1) >= 0);
   }
   render() {
 	const { query } = this.state;
     const patients_array = this.findPatient(query);
-    const comp = (s, s2) => s.toLowerCase().trim() === s2.toLowerCase().trim();
+    const comp = (s, s2, s3) => s.toLowerCase().trim() === s2.toLowerCase().trim().substr(0,s2.toLowerCase().trim().indexOf(' ')) && s.toLowerCase().trim() === s3.toLowerCase().trim().substr(0,s3.toLowerCase().trim().indexOf(' '));
     return (
 	 <View style={styles.firstContainer}>
 		<HeaderSearch text="Rechercher un patient" onpress={this.goBack.bind(this)}/>
@@ -130,16 +130,16 @@ export default class rechercheP extends Component {
 			autoCorrect={false}
 			containerStyle={styles.autocompleteContainer}
 			inputContainerStyle={styles.autocompleteInput}
-			data={patients_array.length === 1 && comp(query, patients_array[0].nom_pat) ? [] : patients_array}
+			data={patients_array.length === 1 && comp(query, patients_array[0].nom_pat,  patients_array[0].prenom_pat) ? [] : patients_array}
 			defaultValue={query}
 			onChangeText={text => this.setState({ query: text })}
-			placeholder="Nom Prénom"
+			placeholder="Nom & Prénom"
 			renderItem={({ nom_pat,prenom_pat,telephone_patient }) => (
 			  <List>
 			  <ListItem>
-				<Button onPress={() => {this.setState({ query: nom_pat})}} transparent>
+				<Button onPress={() => {this.setState({ query: nom_pat+" "+prenom_pat})}} transparent>
 				  <Text style={styles.itemText}>
-					M. / Mme {nom_pat} {prenom_pat}
+					M./Mme {nom_pat} {prenom_pat}
 				  </Text>
 				  <Text style={styles.itemText_phone}>
 					{"\n"}{telephone_patient}
