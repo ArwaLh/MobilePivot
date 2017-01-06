@@ -68,6 +68,7 @@ export default class validMeta extends Component {
 			alert(JSON.stringify(arr));
 				this.setState({
 					array:arr,
+					dossier_id: arr.dossier_id
 				});
 		});
 		AsyncStorage.getItem('path').then((pathUp) => {                                                   
@@ -98,7 +99,7 @@ export default class validMeta extends Component {
 			  // upload image using Firebase SDK
 			  var uploadTask= firebase.storage()
 				.ref()
-				.child('medecins').child(this.state.array.id_medecin).child('categories').child('grain_de_beaute').child('patients').child(this.state.array.id_patient).child('dossiers_medicaux').child(this.state.array.id_dossier).child('images')
+				.child('medecins'+this.state.array.id_medecin).child('categories'+'grain_de_beaute').child('patients'+this.state.array.id_patient).child('dossiers_medicaux'+this.state.array.id_dossier).child('images')
 				.child(testImageName)
 				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
@@ -116,8 +117,13 @@ export default class validMeta extends Component {
 		/*-----Add to firebase databse method ----*/
 		let compte_rendu=new Date();
 		let image_id=testImageName.substring(0,24).replace(/" "/g, "");
+<<<<<<< HEAD
+		this.itemsRef.child('medecins').child(this.state.array.id_medecin).child('categories').child('grain_de_beaute').child('patients').child(this.state.array.id_patient).child('dossiers_medicaux').child(this.state.array.dossier_id).child('images').child(image_id).set({ 
+			date_creation_image: new Date(),
+=======
 		this.itemsRef.child('medecins').child(this.state.array.id_medecin).child('categories').child('grain_de_beaute').child('patients').child(this.state.array.id_patient).child('dossiers_medicaux').child(this.state.array.id_dossier).child('images').child(image_id).set({ 
 			date_compte_rendu_consultation: compte_rendu.toString(),
+>>>>>>> 7650f865cee66b5c28233108a88f6c26a4af402a
 			bords:this.state.array.bords,
 			couleur:this.state.array.couleur,
 			epaisseur:this.state.array.epaisseur,
@@ -129,11 +135,17 @@ export default class validMeta extends Component {
 			suspicion:this.state.array.suspicion
 		})
 		//upadet medical folder data
+<<<<<<< HEAD
+		this.itemsRef.child('medecins').child(this.state.array.id_medecin).child('categories').child('grain_de_beaute').child('patients').child(this.state.array.id_patient).child('dossiers_medicaux').child(this.state.array.dossier_id).update({ 
+		date_MAJ_dossier: new Date(),
+		nombre_images_dossier: nombre_images_dossier+1
+=======
 		this.itemsRef.child('medecins').child(this.state.array.id_medecin).child('categories').child('grain_de_beaute').child('patients').child(this.state.array.id_patient).child('dossiers_medicaux').child(this.state.array.id_dossier).child('images').once('child_added', (snap) => {
 	
 				date_MAJ_dossier:compte_rendu.toString(),
 				nombre_images_dossier:1
 
+>>>>>>> 7650f865cee66b5c28233108a88f6c26a4af402a
 		})
 		
 		

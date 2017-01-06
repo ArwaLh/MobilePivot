@@ -136,6 +136,7 @@ export default class newPatient extends Component {
 				prenom_patient_dossier: this.state.prenom_pat,
 				nombre_images_dossier: 0
 			})
+		AsyncStorage.removeItem('med_pat_file');
 		AsyncStorage.setItem('med_pat_file',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":this.state.patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": "Grain de beauté"}));
 		});
 		alert("sucesss patient added"); 
