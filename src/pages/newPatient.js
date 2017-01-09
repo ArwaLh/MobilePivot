@@ -337,8 +337,8 @@ export default class newPatient extends Component {
 							mode="dropdown"
 							selectedValue={this.state.nbreGrain}
 							onValueChange={this.onValueChangeNbreGrain.bind(this)}>
-							<Item label="> 50" value="> 50" />
-							<Item label="< 50" value="< 50" />  
+							<Item label="> 50" value="sup" />
+							<Item label="< 50" value="inf" />  
 						</Picker>
 					</Col>
 				</Grid>
