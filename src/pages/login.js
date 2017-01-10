@@ -35,10 +35,22 @@ export default class login extends Component {
       password: '',
       loaded: true,
 	  secureTextEntry: true,
-	  count: 0
+	  count: 0,
+	  medecin_id:""
     }
+	this.login=this.login.bind(this);
 
   }
+/*   componentDidMount(){
+			this.itemsRef.child('medecins').child("chiraz0").child('categories').on('value', (snap) => {
+			let items={};
+			items=snap.val();
+			alert(Object.keys(items));
+			this.setState({
+			  medecin_id:Object.keys(items)
+			});
+			});
+	} */
   show_mdp(){
 	 alert("show password pressed");
 	 this.setState({secureTextEntry: true});
@@ -110,7 +122,7 @@ export default class login extends Component {
                 )
                 alert("Login was successful with permissions: " + result.grantedPermissions);
 				this.props.navigator.push({
-				  component: GestionPatient
+				  component: Categories
 				});
               }
             }
@@ -132,12 +144,12 @@ export default class login extends Component {
 		let medecin_userid='';
 		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(this.state.email_medecin).once("child_added", function(snapshot) {
 			medecin_userid=snapshot.key;
-			AsyncStorage.setItem('medecin_username', snapshot.key);
-			alert(snapshot.key);
+			AsyncStorage.removeItem('medecin_username');
+			AsyncStorage.setItem('medecin_username', JSON.stringify(snapshot.key));
 		});
-        AsyncStorage.setItem('user_data', JSON.stringify(user_data));
+        AsyncStorage.setItem('user_data', user_data.email);
         this.props.navigator.push({
-          component: GestionPatient
+          component: Categories
         });
     }).catch((error)=>{
 		 alert(error.message);
@@ -173,7 +185,7 @@ export default class login extends Component {
 		alert('Login facebook success');
         AsyncStorage.setItem('user_data', JSON.stringify(result.user));
         this.props.navigator.push({
-          component: GestionPatient
+          component: Categories
         });
     }
 	});

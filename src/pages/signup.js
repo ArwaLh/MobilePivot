@@ -34,54 +34,47 @@ export default class signup extends Component {
     };
 	this.signup=this.signup.bind(this);
   }
-   componentDidMount(){
-	   	this.setState({
-			loaded: false
-		});
-		this.itemsRef.on("value", (snap) => {
+  componentDidMount(){
+	this.itemsRef.on("value", (snap) => {
 		let items=[];
-		// get children as an array
-		snap.forEach((child) => {
-			items.push({
-				email_medecin: child.val().email_medecin,
-			  _key: child.key,
-			});
-		});
-		this.setState({
-			items_med: items
-		});
+		items=Object.keys(snap.val());
+		alert(items.length);
+		AsyncStorage.removeItem("medecins");
+		AsyncStorage.setItem("medecins",items.length.toString());
 	});
    }
   signup(){
-	let medecin_id=this.state.email_medecin.slice(0,this.state.email_medecin.indexOf('@')).slice(0,this.state.email_medecin.indexOf('.'))+this.state.items_med.length;
+	AsyncStorage.getItem("medecins").then((medecinss) => {
+	let medecin_id=this.state.email_medecin.slice(0,this.state.email_medecin.indexOf('@')).slice(0,this.state.email_medecin.indexOf('.'))+medecinss;
 	if(this.state.password==this.state.confirm_password){
-    firebase.auth().createUserWithEmailAndPassword(this.state.email_medecin,this.state.password).then((userData) =>{
-	//ajouter medecin à firebase database
-	this.itemsRef.child(medecin_id).set({
-		email_medecin: this.state.email_medecin,
-		nom_medecin:"",
-		prenom_medecin:"",
-		date_naissance_medecin:"",
-		specialite_medecin:"",
-		telephone_medecin:"",
-		address_cabinet_medecin:"",
-		photoURL_medecin:"",
-		categories:[]
-		})
-	//succes d'ajout dans auth et database
-        alert('Your account was created!');
-		this.props.navigator.push({
-          component: Login
-        });
-    }).catch((error)=>{
-		  alert(error.message);
-		});
-      this.setState({
-        loaded: true
-      });
-	  }else{
-		  alert("les champs mot de passe et confirmer mot de passe doivent être identiques")
-	  }   
+		firebase.auth().createUserWithEmailAndPassword(this.state.email_medecin,this.state.password).then((userData) =>{
+		//ajouter medecin à firebase database
+		this.itemsRef.child(medecin_id).set({
+			email_medecin: this.state.email_medecin,
+			nom_medecin:"",
+			prenom_medecin:"",
+			date_naissance_medecin:"",
+			specialite_medecin:"",
+			telephone_medecin:"",
+			address_cabinet_medecin:"",
+			photoURL_medecin:"",
+			categories:[]
+			})
+		//succes d'ajout dans auth et database
+			alert('Your account was created!');
+			this.props.navigator.push({
+			  component: Login
+			});
+		}).catch((error)=>{
+			  alert(error.message);
+			});
+		  this.setState({
+			loaded: true
+		  });
+	}else{
+	  alert("les champs mot de passe et confirmer mot de passe doivent être identiques")
+	}
+	});	
 	  //Communications.email(['arwa.louihig@esprit.tn', 'arwa@osereso.fr'],null,null,'Compléter inscription',"Veuillez suivre le lien ci-dessous pour compléter votre inscription "+"http://localhost:3000/inscription".link("http://localhost:3000/inscription"));
   }
   goToLogin(){

@@ -229,6 +229,10 @@ const styles = StyleSheet.create({
 	marginRight:35, 
 	height:90,
 	paddingTop:10
+  },  
+  list_Categorie:{
+	borderColor:'#29235c',
+	height:50,
   },
   image_Phototype: {
     width:55,
