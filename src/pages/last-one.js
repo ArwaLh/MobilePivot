@@ -36,49 +36,6 @@ export default class categories extends Component {
 		  dataSource: ds.cloneWithRows(['row 1', 'row 2'])
 		}
 	}
-	componentWillMount(){
-		AsyncStorage.getItem('user_data').then((email)=>{
-			alert("email");
-			alert(email);
-		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(email).once("child_added", function(snapshot) {
-			AsyncStorage.setItem('  ', snapshot.key);
-		});
-		});
-		AsyncStorage.getItem('medecin_username').then((medecin_id)=>{
-
-			this.itemsRef.child('medecins').child("chiraz3").child('categories').on('value', (snap) => {
-			let items={};
-			items=snap.val();
-				this.setState({
-				  medecin_id:Object.keys(items)
-				});
-			});
-						
-		});
-	}
-	ajoutPat(){
-		this.props.navigator.push({
-          component: NewPatient
-        });
-	}
-	modPat(){
-		this.props.navigator.push({
-          component: RechercheP
-        });   
-	}
-	upl(){
-		this.props.navigator.push({
-          component: UploadForm
-        }); 
-	}	
-	goBack() {
-		this.props.navigator.pop();
-		return true;
-	}
-   gestionP(){
-		this.props.navigator.push({
-		 component: GestionPatient
-		});
 	}
 	last(){
 		this.props.navigator.push({
