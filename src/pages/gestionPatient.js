@@ -63,10 +63,13 @@ export default class gestionPatient extends Component {
 		 <ListItem style={{height:(window.height/2)-70}}>
 		   <Grid>
 		   <Row>
-		      <Col style={{width:30,height:100, marginTop:5}}><Icon name="plus-circle" style={{color:'#29235c', fontSize:20}}  /></Col>
+		      <Col style={{width:30,height:100, marginTop:5}}><Icon name="plus-circle" style={{color:'#29235c', fontSize:20}} /></Col>
 			    <Col>
-					<Text style={{width:220, fontFamily: 'Roboto', fontSize:18, color:'#29235c'}}>Ajouter un patient</Text>
-				</Col>
+					<Text style={{width:200, fontFamily: 'Roboto', fontSize:18, color:'#29235c'}}>Ajouter un patient{"\n"}</Text>
+				</Col>	
+			</Row>
+			<Row style={{height:50}}>
+				<Text style={{width:320, fontFamily: 'Roboto', fontSize:14, color:'#29235c'}}>Si vous voulez ajouter un patient il suffit de cliquer sur le bouton "AJOUTER UN PATIENT". Il vous suffira d'inserer les informations de votre patient.</Text>
 			</Row>
 			<Row>
 				<Button
@@ -85,13 +88,16 @@ export default class gestionPatient extends Component {
 		   <Row>
 		      <Col style={{width:30,height:100, marginTop:5}}><Icon name="edit" style={{color:'#29235c', fontSize:20}}  /></Col>
 			    <Col>
-					<Text style={{width:250, fontFamily: 'Roboto', fontSize:18, color:'#29235c'}}>Modifier la fiche patient</Text>
+					<Text style={{width:250, fontFamily: 'Roboto', fontSize:18, color:'#29235c'}}>Modifier la fiche patient{"\n"}</Text>
 				</Col>
+			</Row>	
+			<Row style={{height:50}}>
+			<Text style={{width:320, fontFamily: 'Roboto', fontSize:14, color:'#29235c'}}>Si vous voulez modifier la fiche du patient il suffit de cliquer sur le bouton "MODIFIER UN PATIENT". Il vous suffira de modifier les informations concernant votre patient.</Text>
 			</Row>
 			<Row>
 				<Button
 				onPress={this.modPat.bind(this)}
-				style={styles.primary_button_ajout_patient}
+				style={styles.primary_button_modifier_patient}
 				textStyle={styles.primary_button_text_ajout_patient}>MODIFIER LA FICHE PATIENT</Button>
 			</Row>
 			</Grid>

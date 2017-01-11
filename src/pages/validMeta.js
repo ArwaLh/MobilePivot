@@ -129,10 +129,11 @@ export default class validMeta extends Component {
 			emplacement:this.state.array.emplacement,
 			suspicion:this.state.array.suspicion
 		})
-		//upadet medical folder data
-		this.itemsRef.child('medecins').child(this.state.array.id_medecin).child('categories').child('grain_de_beaute').child('patients').child(this.state.array.id_patient).child('dossiers_medicaux').child(this.state.array.dossier_id).update({ 
-		date_MAJ_dossier: new Date(),
-		nombre_images_dossier: 1
+		//update medical folder data
+		this.itemsRef.child('medecins').child(this.state.array.id_medecin).child('categories').child('grain_de_beaute').child('patients').child(this.state.array.id_patient).child('dossiers_medicaux').child(this.state.array.id_dossier).update({
+	
+				date_MAJ_dossier:compte_rendu.toString(),
+				nombre_images_dossier:1
 		})
 		
 		
