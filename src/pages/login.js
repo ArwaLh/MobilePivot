@@ -41,16 +41,6 @@ export default class login extends Component {
 	this.login=this.login.bind(this);
 
   }
-/*   componentDidMount(){
-			this.itemsRef.child('medecins').child("chiraz0").child('categories').on('value', (snap) => {
-			let items={};
-			items=snap.val();
-			alert(Object.keys(items));
-			this.setState({
-			  medecin_id:Object.keys(items)
-			});
-			});
-	} */
   show_mdp(){
 	 alert("show password pressed");
 	 this.setState({secureTextEntry: true});
