@@ -42,10 +42,10 @@ export default class categories extends Component {
 			alert("email");
 			alert(email);
 		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(email).once("child_added", function(snapshot) {
-			AsyncStorage.setItem('  ', snapshot.key);
+			AsyncStorage.setItem('a', snapshot.key);
 		});
 		});
-		AsyncStorage.getItem('medecin_username').then((medecin_id)=>{
+		AsyncStorage.getItem('a').then((medecin_id)=>{
 
 			this.itemsRef.child('medecins').child("chiraz3").child('categories').on('value', (snap) => {
 			let items={};
