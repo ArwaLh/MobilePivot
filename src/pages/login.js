@@ -145,7 +145,7 @@ export default class login extends Component {
 		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(this.state.email_medecin).once("child_added", function(snapshot) {
 			medecin_userid=snapshot.key;
 			AsyncStorage.removeItem('medecin_username');
-			AsyncStorage.setItem('medecin_username', JSON.stringify(snapshot.key));
+			AsyncStorage.setItem('medecin_username', snapshot.key);
 		});
         AsyncStorage.setItem('user_data', user_data.email);
         this.props.navigator.push({
