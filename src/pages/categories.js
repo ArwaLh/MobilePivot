@@ -24,6 +24,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input,Card, CardItem, List, ListItem, Button} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 import GestionPatient from './gestionPatient';
+import LastOne from './lastOne';
 const window = Dimensions.get('window');
 import firebase from 'firebase';
 
@@ -55,21 +56,6 @@ export default class categories extends Component {
 			});
 						
 		});
-	}
-	ajoutPat(){
-		this.props.navigator.push({
-          component: NewPatient
-        });
-	}
-	modPat(){
-		this.props.navigator.push({
-          component: RechercheP
-        });   
-	}
-	upl(){
-		this.props.navigator.push({
-          component: UploadForm
-        }); 
 	}	
 	goBack() {
 		this.props.navigator.pop();
@@ -82,7 +68,7 @@ export default class categories extends Component {
 	}
 	last(){
 		this.props.navigator.push({
-		 component: GestionPatient
+		 component: LastOne
 		});
 	}	
   render() {

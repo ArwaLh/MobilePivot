@@ -30,14 +30,8 @@ import firebase from 'firebase';
 export default class categories extends Component {
 	constructor(props){
     super(props);
-	this.itemsRef = firebase.database().ref();
-	const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-		this.state = {
-		  dataSource: ds.cloneWithRows(['row 1', 'row 2'])
-		}
-	}
-	}
-	last(){
+	}	
+   gestionP(){
 		this.props.navigator.push({
 		 component: GestionPatient
 		});
@@ -45,10 +39,9 @@ export default class categories extends Component {
   render() {
     return (
 	<View>
-	<Header text="Les categories" loaded={true}/>
-		<Text>{this.state.medecin_id}</Text>
+	<Header text="Derniere interface" loaded={true}/> 
 		<Button
-			onPress={this.last.bind(this)}
+			onPress={this.gestionP.bind(this)}
 			style={styles.send_button_valid_meta}
 			textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
      </View>
