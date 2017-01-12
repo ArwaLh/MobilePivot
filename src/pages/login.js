@@ -144,11 +144,12 @@ export default class login extends Component {
     }).catch((error)=>{
 		 alert(error.message);
 	});
-	this.setState({
-		loaded: true
+	AsyncStorage.getItem('medecin_username').then((medecin_usernamee)=>{
+		this.setState({
+			loaded: true,
+			medecin_id:medecin_usernamee
+		});	
 	});
-
-
   }
   login_fb(){
 	this.setState({
@@ -175,6 +176,7 @@ export default class login extends Component {
 		alert('Login facebook success');
         AsyncStorage.setItem('user_data', JSON.stringify(result.user));
         this.props.navigator.push({
+		  state:this.state.medecin_id,
           component: Categories
         });
     }

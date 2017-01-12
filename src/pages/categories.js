@@ -90,6 +90,7 @@ export default class categories extends Component {
 	<View>
 	<Header text="Les categories" loaded={true}/>
 		<Text>{this.state.medecin_id}</Text>
+		<Text> Medecin{this.props.medecin_id}</Text>
 		<Button
 			onPress={this.last.bind(this)}
 			style={styles.send_button_valid_meta}
