@@ -39,7 +39,6 @@ export default class login extends Component {
 	  medecin_id:""
     }
 	this.login=this.login.bind(this);
-
   }
   show_mdp(){
 	 alert("show password pressed");
@@ -126,29 +125,36 @@ export default class login extends Component {
   }
 
   login(){
-
+	const auth=firebase.auth();
+	auth.signOut();
     this.setState({
       loaded: false
     });
-    firebase.auth().signInWithEmailAndPassword(this.state.email_medecin,this.state.password).then((user_data) =>{
+    auth.signInWithEmailAndPassword(this.state.email_medecin,this.state.password).then((user_data) =>{
 		let medecin_userid='';
-		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(this.state.email_medecin).once("child_added", function(snapshot) {
+		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(user_data.email).on("value", function(snapshot) {
 			medecin_userid=snapshot.key;
-			AsyncStorage.removeItem('medecin_username');
-			AsyncStorage.setItem('medecin_username', snapshot.key);
+			AsyncStorage.removeItem('medecin_children');
+			AsyncStorage.setItem('medecin_children', JSON.stringify(snapshot.val()));
 		});
-        AsyncStorage.setItem('user_data', user_data.email);
-        this.props.navigator.push({
-          component: Categories
-        });
+		AsyncStorage.setItem('user_data', user_data.email);
+		AsyncStorage.getItem('medecin_children').then((medecin_childrenn)=>{
+			let id =Object.keys(JSON.parse(medecin_childrenn));
+			const all_array =Object.values(JSON.parse(medecin_childrenn));
+			AsyncStorage.setItem('medecin_username', id[0]);
+			alert( JSON.stringify(all_array[0].categories));
+		if(all_array[0].categories==null){
+		  this.props.navigator.push({
+		  component: GestionPatient
+		});
+		}else{
+			this.props.navigator.push({
+			  component: Categories
+			});
+		}
+		});
     }).catch((error)=>{
 		 alert(error.message);
-	});
-	AsyncStorage.getItem('medecin_username').then((medecin_usernamee)=>{
-		this.setState({
-			loaded: true,
-			medecin_id:medecin_usernamee
-		});	
 	});
   }
   login_fb(){
