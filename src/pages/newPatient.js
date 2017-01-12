@@ -81,6 +81,10 @@ export default class newPatient extends Component {
   
 	locatePic(){
 		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
+			//create category name
+			this.itemsRef.child('medecins/'+medecin_usernamee).child("/categories/naevus").set({
+				nom_categorie: "Naevus"
+			});
 			this.itemsRef.child('medecins/'+medecin_usernamee).child("/categories/naevus").child('patients/').on('value', (snap) => {
 				let items=[];
 				// get children as an array
