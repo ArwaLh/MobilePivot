@@ -65,7 +65,27 @@ module.exports = StyleSheet.create({
 	color: "#29235c",
 	fontFamily: 'Roboto',
 	fontSize: 18,
+  }, 
+ /* last interface */
+  text_last_one: {
+	color: "#29235c",
+	fontFamily: 'Roboto',
+	fontSize: 18,
+	fontWeight: 'normal',
+	textAlign: 'center',
+	marginTop:70,
+	marginBottom:50
   },
+  button_last: {
+	width: 250,
+	height: 40,
+    margin: 10,
+	marginBottom: 35,
+	marginLeft: 50,
+    padding: 15,
+    backgroundColor: '#29235c',
+  },
+  /* end last interface */
   transparent_button: {
     marginTop: 10,
     padding: 15
@@ -74,9 +94,8 @@ module.exports = StyleSheet.create({
     color: '#fff',
     fontSize: 16
   },
-  
+   
   /* Signup interface */
-  
   text_signup_terms: {
     height: 100,
 	width: 300,
@@ -260,6 +279,14 @@ module.exports = StyleSheet.create({
   openingText: {
     textAlign: 'center'
   },
+  /* interface categorie*/
+   listViewCategorie:{
+	color: '#29235c',
+	fontFamily:'Roboto',
+	fontWeight: 'bold',
+	fontSize:18
+  },
+  /*end categorie interface*/
   /*gestion naevus*/
   listViewText1:{
 	color: '#29235c',

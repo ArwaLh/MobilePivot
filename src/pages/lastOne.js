@@ -24,26 +24,36 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input,Card, CardItem, List, ListItem, Button} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 import GestionPatient from './gestionPatient';
+import UploadForm from './uploadForm';
 const window = Dimensions.get('window');
 import firebase from 'firebase';
 
 export default class categories extends Component {
 	constructor(props){
     super(props);
-	}	
-   gestionP(){
+	}	     
+   button_last(){
 		this.props.navigator.push({
 		 component: GestionPatient
 		});
+	}
+	uploadP(){
+		this.props.navigator.push({
+          component: UploadForm
+        }); 
 	}	
   render() {
     return (
 	<View>
 	<Header text="Derniere interface" loaded={true}/> 
-		<Button
-			onPress={this.gestionP.bind(this)}
-			style={styles.send_button_valid_meta}
-			textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
+			<Text style={styles.text_last_one}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis ligula non odio gravida pharetra quis in eros </Text>
+			<Button
+				onPress={this.button_last.bind(this)}
+				style={styles.button_last}
+				textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>	
+			 <Button onPress={this.uploadP.bind(this)} textStyle={styles.back_to_upload_button_valid_meta} transparent>
+										 ACCEDER AU SITE
+								 </Button>	
      </View>
     );
   }
