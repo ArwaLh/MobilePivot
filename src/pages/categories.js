@@ -24,6 +24,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input,Card, CardItem, List, ListItem, Button} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 import GestionPatient from './gestionPatient';
+import LastOne from './lastOne';
 const window = Dimensions.get('window');
 import firebase from 'firebase';
 
@@ -31,10 +32,15 @@ export default class categories extends Component {
 	constructor(props){
     super(props);
 	this.itemsRef = firebase.database().ref();
-	const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-		this.state = {
-		  dataSource: ds.cloneWithRows(['row 1', 'row 2'])
-		}
+	this.state={
+		medecin_id:"",
+		dataSource: new ListView.DataSource({
+			rowHasChanged: (row1, row2) => row1 !== row2,
+		}),
+		dataSource2: new ListView.DataSource({
+			rowHasChanged: (row1, row2) => row1 !== row2,
+		}),
+	}
 	}
 	componentWillMount(){
 		AsyncStorage.getItem('user_data').then((email)=>{
@@ -50,27 +56,14 @@ export default class categories extends Component {
 			let items={};
 			items=snap.val();
 				this.setState({
-				  medecin_id:Object.keys(items)
+				  medecin_id:Object.keys(items),
+				  dataSource: this.state.dataSource.cloneWithRows(items),
+				  dataSource2: this.state.dataSource2.cloneWithRows(Object.keys(items))
 				});
 			});
 						
 		});
 	}
-	ajoutPat(){
-		this.props.navigator.push({
-          component: NewPatient
-        });
-	}
-	modPat(){
-		this.props.navigator.push({
-          component: RechercheP
-        });   
-	}
-	upl(){
-		this.props.navigator.push({
-          component: UploadForm
-        }); 
-	}	
 	goBack() {
 		this.props.navigator.pop();
 		return true;
@@ -82,19 +75,28 @@ export default class categories extends Component {
 	}
 	last(){
 		this.props.navigator.push({
-		 component: GestionPatient
+		 component: LastOne
 		});
 	}	
   render() {
     return (
 	<View>
 	<Header text="Les categories" loaded={true}/>
-		<Text>{this.state.medecin_id}</Text>
-		<Text> Medecin{this.props.medecin_id}</Text>
+		<ListView dataSource={this.state.dataSource}
+		enableEmptySections={true}
+        renderRow={(rowData) => 
+					<List>
+					  <ListItem style={{height:100, borderColor:'#29235c', width:340, paddingTop:0}}>
+					  <Button style={{height:100}}  transparent>
+							<Text style={styles.listViewCategorie}>{rowData.nom_categorie}</Text> 	
+					  </Button>
+					  </ListItem>
+					</List>
+					} style={{backgroundColor: 'white'}}/>		
 		<Button
 			onPress={this.last.bind(this)}
 			style={styles.send_button_valid_meta}
-			textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
+			textStyle={{fontSize: 15, color:'#fff'}}>To Last interface</Button>
      </View>
     );
   }

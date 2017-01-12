@@ -101,7 +101,7 @@ export default class validMeta extends Component {
 			  // upload image using Firebase SDK
 			  var uploadTask= firebase.storage()
 				.ref()
-				.child('medecins'+'_'+this.state.medecin_id).child('categories'+'_'+'grain_de_beaute').child('patients'+'_'+this.state.patient_id).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images')
+				.child('medecins'+'_'+this.state.medecin_id).child('categories'+'_'+'naevus').child('patients'+'_'+this.state.patient_id).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images')
 				.child(testImageName)
 				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
@@ -119,7 +119,7 @@ export default class validMeta extends Component {
 		/*-----Add to firebase databse method ----*/
 		let compte_rendu=new Date();
 		let image_id=testImageName.substring(0,24).replace(/" "/g, "");
-		this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child('grain_de_beaute').child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(this.state.dossier_id).child('images').child(image_id).set({ 
+		this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child('naevus').child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(this.state.dossier_id).child('images').child(image_id).set({ 
 			date_compte_rendu_consultation: compte_rendu.toString(),
 			bords:this.state.array.bords,
 			couleur:this.state.array.couleur,
@@ -132,7 +132,7 @@ export default class validMeta extends Component {
 			suspicion:this.state.array.suspicion
 		})
 		//upadet medical folder data
-		this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child('grain_de_beaute').child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(this.state.dossier_id).update({ 
+		this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child('naevus').child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(this.state.dossier_id).update({ 
 		date_MAJ_dossier: compte_rendu.toString(),
 		nombre_images_dossier: 1
 		});
