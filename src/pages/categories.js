@@ -69,6 +69,7 @@ export default class categories extends Component {
 		return true;
 	}
    gestionP(){
+
 		this.props.navigator.push({
 		 component: GestionPatient
 		});
@@ -87,7 +88,7 @@ export default class categories extends Component {
         renderRow={(rowData) => 
 					<List>
 					  <ListItem style={{height:100, borderColor:'#29235c', width:340, paddingTop:0}}>
-					  <Button style={{height:100}}  transparent>
+					  <Button onPress={this.gestionP.bind(this)} style={{height:100}}  transparent>
 							<Text style={styles.listViewCategorie}>{rowData.nom_categorie}</Text> 	
 					  </Button>
 					  </ListItem>
