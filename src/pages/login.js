@@ -135,13 +135,8 @@ export default class login extends Component {
     this.setState({
       loaded: false
     });
-    auth.signInWithEmailAndPassword(this.state.email_medecin,this.state.password).then((user_data,error) =>{
-		let medecin_userid='';
+    auth.signInWithEmailAndPassword(this.state.email_medecin,this.state.password).then((user_data) =>{
 		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(this.state.email_medecin).on("value", (snapshot)=> {
-			medecin_userid=snapshot.key;
-			AsyncStorage.removeItem('medecin_children');
-			this.state.all_array= JSON.stringify(snapshot.val());
-			AsyncStorage.setItem('medecin_children', JSON.stringify(snapshot.val()));
 			let id=[];
 			let all_arrays=[];
 			id=Object.keys(snapshot.val());
@@ -162,37 +157,6 @@ export default class login extends Component {
 		 alert(error.message);
 	});
 
-  }
-  login_fb(){
-	this.setState({
-      loaded: false
-    });
-	var uid = "some-uid";
-	admin.auth().createCustomToken(uid)
-	  .then(function(customToken) {
-		// Send token back to client
-	  })
-	  .catch(function(error) {
-		console.log("Error creating custom token:", error);
-	  });
-
-	//
-	let access_token="1151728471584254";
-	firebase.auth().signInWithCustomToken(access_token).then(function(result,error){
-		this.setState({
-        loaded: true
-    });
-	if(error){
-        alert('Login facebook Failed. Please try again');
-    }else{
-		alert('Login facebook success');
-        AsyncStorage.setItem('user_data', JSON.stringify(result.user));
-        this.props.navigator.push({
-		  state:this.state.medecin_id,
-          component: Categories
-        });
-    }
-	});
   }
 
   goToSignup(){
