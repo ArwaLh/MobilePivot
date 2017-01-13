@@ -36,10 +36,13 @@ export default class login extends Component {
       loaded: true,
 	  secureTextEntry: true,
 	  count: 0,
-	  medecin_id:""
+	  medecin_id:"",
+	  id: [],
+	  all_arrays:[],
+	  all_array:[]
     }
 	this.login=this.login.bind(this);
-
+	
   }
   show_mdp(){
 	 alert("show password pressed");
@@ -126,61 +129,34 @@ export default class login extends Component {
   }
 
   login(){
+	const auth=firebase.auth();
+	auth.signOut();
 
     this.setState({
       loaded: false
     });
-    firebase.auth().signInWithEmailAndPassword(this.state.email_medecin,this.state.password).then((user_data) =>{
-		let medecin_userid='';
-		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(this.state.email_medecin).once("child_added", function(snapshot) {
-			medecin_userid=snapshot.key;
-			AsyncStorage.removeItem('medecin_username');
-			AsyncStorage.setItem('medecin_username', snapshot.key);
+    auth.signInWithEmailAndPassword(this.state.email_medecin,this.state.password).then((user_data) =>{
+		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(this.state.email_medecin).on("value", (snapshot)=> {
+			let id=[];
+			let all_arrays=[];
+			id=Object.keys(snapshot.val());
+			all_arrays=Object.values(snapshot.val());
+			AsyncStorage.setItem('medecin_username', id[0]);
+			if(all_arrays[0].categories==null){
+				this.props.navigator.push({ 
+				  component: GestionPatient
+				});
+			}else{
+				this.props.navigator.push({
+				  component: Categories
+				});
+			}
 		});
-        AsyncStorage.setItem('user_data', user_data.email);
-        this.props.navigator.push({
-          component: Categories
-        });
+		AsyncStorage.setItem('user_data', user_data.email);
     }).catch((error)=>{
 		 alert(error.message);
 	});
-	AsyncStorage.getItem('medecin_username').then((medecin_usernamee)=>{
-		this.setState({
-			loaded: true,
-			medecin_id:medecin_usernamee
-		});	
-	});
-  }
-  login_fb(){
-	this.setState({
-      loaded: false
-    });
-	var uid = "some-uid";
-	admin.auth().createCustomToken(uid)
-	  .then(function(customToken) {
-		// Send token back to client
-	  })
-	  .catch(function(error) {
-		console.log("Error creating custom token:", error);
-	  });
 
-	//
-	let access_token="1151728471584254";
-	firebase.auth().signInWithCustomToken(access_token).then(function(result,error){
-		this.setState({
-        loaded: true
-    });
-	if(error){
-        alert('Login facebook Failed. Please try again');
-    }else{
-		alert('Login facebook success');
-        AsyncStorage.setItem('user_data', JSON.stringify(result.user));
-        this.props.navigator.push({
-		  state:this.state.medecin_id,
-          component: Categories
-        });
-    }
-	});
   }
 
   goToSignup(){

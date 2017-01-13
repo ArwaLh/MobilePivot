@@ -9,6 +9,7 @@ import {
   StyleSheet,
   Text,
   View,
+  BackAndroid,
   Navigator,
   AsyncStorage
 } from 'react-native';
