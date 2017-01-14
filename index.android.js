@@ -9,6 +9,7 @@ import {
   StyleSheet,
   Text,
   View,
+  BackAndroid,
   Navigator,
   AsyncStorage
 } from 'react-native';
@@ -29,9 +30,6 @@ import styles from './src/styles/common-styles.js';
 export default class FacebookApp extends Component {
 	constructor(props){
 		super(props);
-		AsyncStorage.removeItem('Phototype_value');
-		AsyncStorage.removeItem('patient_medecin');
-		AsyncStorage.removeItem('medecin_username');
 		this.state = {
 		  component: null,
 		  loaded: false
@@ -41,8 +39,11 @@ export default class FacebookApp extends Component {
 		return (
 		  <Navigator
 			  initialRoute={{component: SplashScreen}}
-			  configureScene={() => {
-				return Navigator.SceneConfigs.HorizontalSwipeJump;
+			  configureScene={(route) => {
+				return {
+					...Navigator.SceneConfigs.HorizontalSwipeJump,
+					gestures: {}
+				};
 			  }}
 			  renderScene={(route, navigator) => {
 				if(route.component){

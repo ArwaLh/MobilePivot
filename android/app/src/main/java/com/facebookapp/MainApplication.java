@@ -39,8 +39,8 @@ public class MainApplication extends Application implements ReactApplication {
             @Override
             protected List<ReactPackage> getPackages() {
               return Arrays.<ReactPackage>asList(
-                      new MainReactPackage(),
-            new RNFetchBlobPackage(),
+						new MainReactPackage(),
+						new RNFetchBlobPackage(),
 						new RCTCameraPackage(),
 						new FBSDKPackage(mCallbackManager),
 						new VectorIconsPackage()

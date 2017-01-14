@@ -20,12 +20,13 @@ import {
 } from 'react-native';
 import HeaderUp from '../components/headerUp';
 import styles from '../styles/common-styles.js';
-import { List, ListItem, Button, Grid, Col} from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { List, ListItem, Button, Grid, Col, Row} from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';import Hr from 'react-native-hr';
 const window = Dimensions.get('window');
 import Swiper from 'react-native-swiper';
 import firebase from 'firebase';
 import LocatePic from './locatePic';
+import GestionFichier from './gestionFichier';
 export default class gestionNaevus extends Component {
 	constructor (props) {
 		super(props);
@@ -45,7 +46,7 @@ export default class gestionNaevus extends Component {
 	componentDidMount(){
 		AsyncStorage.getItem('medecin_patient').then((patient_medecin_arrayy) => {
 			const arr=JSON.parse(patient_medecin_arrayy);
-			this.itemsRef.child('medecins/'+arr.medecin_id+'/patients/'+arr.patient_id+'/dossiers_medicaux/').on('value', (snap) => {
+			this.itemsRef.child('medecins').child(arr.medecin_id).child('categories').child('naevus').child('patients').child(arr.patient_id).child('dossiers_medicaux').on('value', (snap) => {
 			let items=[];
 			// get children as an array
 			snap.forEach((child) => {
@@ -56,6 +57,7 @@ export default class gestionNaevus extends Component {
 					telephone_patient_dossier: child.val().telephone_patient_dossier,
 					date_creation_dossier: child.val().date_creation_dossier,
 					date_MAJ_dossier: child.val().date_MAJ_dossier,
+					categorie: child.val().categorie,
 					_key: child.key
 				});
 			});
@@ -68,74 +70,80 @@ export default class gestionNaevus extends Component {
 			const dossiers_medicaux = items; 
 			this.setState({ dossiers_medicaux });
 			});
-			let patient=null;
-			this.itemsRef.child('medecins/'+arr.medecin_id+'/patients').orderByKey().equalTo(arr.patient_id).once("child_added", function(snapshot) {
-				patient = snapshot.val(); 
+			let patient_a=null;
+			this.itemsRef.child('medecins').child(arr.medecin_id).child("categories").child("naevus").child('patients').orderByKey().equalTo(arr.patient_id).once("child_added", function(snapshot) {
+				patient_a = snapshot.val(); 
 			});
-			this.setState({patient:patient});
+			alert(patient_a);
+			this.setState({
+				patient:patient_a,
+				patient_name:patient_a.nom_pat,
+				patient_tel:patient_a.telephone_patient,
+				patient_lastname:patient_a.prenom_pat
+			});
 		});
 	}
 	goBack() { 
 		this.props.navigator.pop();
 		return true;
 	}
-	localiser_photo(id){
+	gestionF(id){
 		alert(id);
 		AsyncStorage.removeItem("med_pat_file");
-		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id}));
+		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id})); 
 		this.props.navigator.push({
-          component: LocatePic
-        }); 
+		  component: GestionFichier
+		});
 	}
 	nouveau_dossier(){
-		let my_date=new Date("YYYY-MM-DDTHH:MM:SS");
+		let my_date=new Date();
 		let dossier_id=this.state.medecin_id+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
-		this.itemsRef.child('medecins/'+this.state.medecin_id+'/patients/'+this.state.patient_id).child('dossiers_medicaux/'+dossier_id).set({ 
+		this.itemsRef.child('medecins').child(this.state.medecin_id).child("categories").child("naevus").child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
 			date_creation_dossier: my_date.toString(),
 			date_MAJ_dossier: my_date.toString(),
 			nom_patient_dossier: this.state.patient.nom_pat,
 			prenom_patient_dossier: this.state.patient.prenom_pat,
 			telephone_patient_dossier: this.state.patient.telephone_patient,
-			nombre_images_dossier: 0
+			nombre_images_dossier: 0,
+			categorie: "grain de beauté"
 		})
 	}
   render() {
     return ( 
 	<View style={{backgroundColor: 'white'}}>
-	<HeaderUp text="Gestion Naevus" loaded={true} onpress={this.goBack.bind(this)}/>
-	<ScrollView style={{backgroundColor: 'black'}}>
+	<HeaderUp text="Gestion des dossiers" loaded={true} onpress={this.goBack.bind(this)}/>
+	<ScrollView style={{backgroundColor: '#fff'}}>
 	<View style={{flex:1}}>
+	<ListItem style={{borderColor:'#29235c', width:340}}>
+	   <Grid>
+			<Row><Text style={{color: "#29235c",marginLeft:10,fontSize:20,fontFamily: 'Roboto',fontWeight:"bold"}}>{this.state.patient_name} {this.state.patient_lastname}</Text></Row>
+			<Row><Text style={{color: "#29235c",marginLeft:13,marginBottom:0,fontSize:15,fontFamily: 'Roboto'}}>Téléphone : {this.state.patient_tel}</Text></Row>
+		</Grid>
+	</ListItem>	
 		<ListView dataSource={this.state.dataSource}
 		enableEmptySections={true}
         renderRow={(rowData) => 
-					<List style={{backgroundColor:'white'}}>
-					  <ListItem>
-					  <Button style={{height:320}} onPress={this.localiser_photo.bind(this,rowData._key)} transparent>
+					<List style={{backgroundColor:'white',height:180, borderColor:'#29235c'}}>
+					  <ListItem style={{height:180, borderColor:'#29235c', width:340, paddingTop:0}}>
+					  <Button style={{height:180}} onPress={this.gestionF.bind(this,rowData._key)} transparent>
 						<Grid>
-						<Col>
-						<Icon name="folder-open" style={styles.icon_folder}/>
+						<Col style={{width:70}}>
+						<Image style={{width:65,height:60, marginTop:10}} source={{uri:'http://localhost:8081/img/Icdossier.png'}}/>
 						</Col>
-						<Col>
-							<Text style={styles.listViewText1}>Nom dossier</Text>
-							<Text style={styles.listViewText2}>{rowData._key}</Text>
-							<Text style={styles.listViewText1}>nom patient</Text>
-							<Text style={styles.listViewText2}>{rowData.nom_patient_dossier}</Text>
-							<Text style={styles.listViewText1}>prenom patient</Text>
-							<Text style={styles.listViewText2}>{rowData.prenom_patient_dossier}</Text>
-							<Text style={styles.listViewText1}>Téléphone patient</Text>
-							<Text style={styles.listViewText2}>{rowData.telephone_patient_dossier}</Text>
-							<Text style={styles.listViewText1}>Nombre d'image</Text>
+						<Col style={{width:230, margin:10}}>
+							<Text style={styles.listViewText1}>Naevus {rowData._key}</Text> 
+							<Text style={styles.listViewText1}>Nombre d'image</Text>							
 							<Text style={styles.listViewText2}>{rowData.nombre_images_dossier}</Text>
 							<Text style={styles.listViewText1}>Date de création</Text>
 							<Text style={styles.listViewText2}>{rowData.date_creation_dossier.substring(0,24)}</Text>
-							<Text style={styles.listViewText1}>Derniére MAJ</Text>
+							<Text style={styles.listViewText1}>Derniére mise à jour</Text>
 							<Text style={styles.listViewText2}>{rowData.date_MAJ_dossier.substring(0,24)}</Text>
 						</Col>
 						</Grid>
 					  </Button>
 					  </ListItem>
 					</List>
-					} style={{backgroundColor: 'white',flex:2}}/>		
+					} style={{backgroundColor: 'white'}}/>		
 		<List style={{backgroundColor: 'white',height:100}}>
 			<ListItem>
 				<Button style={{height:120}} onPress={this.nouveau_dossier.bind(this)}transparent>

@@ -13,7 +13,7 @@ module.exports = StyleSheet.create({
   body_login: {
     flex: 9,
     alignItems: 'center',
-	marginTop: 220
+	marginTop: 190
   }, 
   body: {
     flex: 9,
@@ -65,7 +65,27 @@ module.exports = StyleSheet.create({
 	color: "#29235c",
 	fontFamily: 'Roboto',
 	fontSize: 18,
+  }, 
+ /* last interface */
+  text_last_one: {
+	color: "#29235c",
+	fontFamily: 'Roboto',
+	fontSize: 18,
+	fontWeight: 'normal',
+	textAlign: 'center',
+	marginTop:70,
+	marginBottom:50
   },
+  button_last: {
+	width: 250,
+	height: 40,
+    margin: 10,
+	marginBottom: 35,
+	marginLeft: 50,
+    padding: 15,
+    backgroundColor: '#29235c',
+  },
+  /* end last interface */
   transparent_button: {
     marginTop: 10,
     padding: 15
@@ -74,9 +94,8 @@ module.exports = StyleSheet.create({
     color: '#fff',
     fontSize: 16
   },
-  
+   
   /* Signup interface */
-  
   text_signup_terms: {
     height: 100,
 	width: 300,
@@ -116,7 +135,16 @@ module.exports = StyleSheet.create({
 	width: 250,
 	height: 40,
     margin: 10,
-	marginTop: 25,
+	marginBottom: 35,
+	marginLeft: 43,
+    padding: 15,
+    backgroundColor: '#29235c',
+  }, 
+  primary_button_modifier_patient: {
+	width: 250,
+	height: 40,
+    margin: 10,
+	marginTop: 15,
 	marginBottom: 15,
 	marginLeft: 43,
     padding: 15,
@@ -207,7 +235,7 @@ module.exports = StyleSheet.create({
     marginLeft: 30,
     marginTop: 50,
     marginRight: 0,
-	width:270
+	width:300
   },
   autocompleteInput: {
 	borderColor: 'transparent',
@@ -251,6 +279,14 @@ module.exports = StyleSheet.create({
   openingText: {
     textAlign: 'center'
   },
+  /* interface categorie*/
+   listViewCategorie:{
+	color: '#29235c',
+	fontFamily:'Roboto',
+	fontWeight: 'bold',
+	fontSize:18
+  },
+  /*end categorie interface*/
   /*gestion naevus*/
   listViewText1:{
 	color: '#29235c',
@@ -269,7 +305,7 @@ module.exports = StyleSheet.create({
 	fontSize: 50,
 	width:55,
 	marginLeft: (window.width/2)-140,
-	marginTop:135
+	marginTop:105
   },
   /*valid Meta*/
   component: {
@@ -281,7 +317,7 @@ module.exports = StyleSheet.create({
   },
  list_MetaData:{
 	borderColor:'#29235c',
-	height:57,
+	height:60,
 	width:330,
 	marginBottom:0,
 	marginTop:0
@@ -322,5 +358,105 @@ module.exports = StyleSheet.create({
 	paddingTop:10,
 	height:40,
     fontWeight:'bold'
-  }
+  },
+  send_button_valid_meta:{
+	flex:9,
+	backgroundColor: "#29235c",
+	width:130,
+	height:37,
+	marginTop:8,
+	alignItems:'center'
+  },
+  back_to_upload_button_valid_meta:{
+	fontFamily: 'Roboto',
+	fontSize:13,
+	color: '#29235c',
+	marginTop:10
+  },
+  /*Upload Form*/
+  go_to_valid_meta_button:{
+	flex:9,
+	backgroundColor: "#29235c",
+	width:200,
+	height:40,
+	marginLeft:60,
+	marginBottom:0,
+	alignItems:'center'
+  },
+  go_to_valid_meta_text:{
+	fontSize: 18,
+	color:'#fff',
+	fontWeight:"bold"
+  },
+  pic_cam:{
+	width:330, 
+	height: 230
+  },
+  radioButtonWrap: {
+    marginRight: 30,
+	
+  },
+  suspicion: {
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',  
+	margin:20
+  },
+  melanome: {
+	fontFamily: 'Roboto',
+	fontSize:15,
+	color:'#29235c',
+	marginLeft:50,
+	marginTop:12
+  },
+  slidee: {
+	width:280,
+	marginLeft:30,
+  },
+  diametre: {
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
+	marginTop:10,	
+	marginBottom:10,
+	margin:20
+  },
+  asymetrie: {
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
+	marginTop:10,
+    margin:20	
+  },
+  couleur: {
+  	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
+	marginTop:10,
+	marginBottom:15,
+    margin:20	
+  },
+  phototypee: {
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',  
+	marginTop:10,
+	marginBottom:15,
+	margin:20
+  },
+  title_upload:{
+	color:"#fff",
+	fontSize:18,
+	paddingTop:10,
+	height:40,
+	fontWeight:'bold'
+  },
+  bords: {
+	fontFamily: 'Roboto',
+	fontSize:17,
+	color:'#29235c',
+	marginTop:10,
+	marginBottom:15,
+	margin:20
+	}
 });

@@ -81,7 +81,11 @@ export default class newPatient extends Component {
   
 	locatePic(){
 		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
-			this.itemsRef.child('medecins/'+medecin_usernamee).child('patients/').on('value', (snap) => {
+			//create category name
+			this.itemsRef.child('medecins/'+medecin_usernamee).child("/categories/naevus").set({
+				nom_categorie: "Naevus"
+			});
+			this.itemsRef.child('medecins/'+medecin_usernamee).child("/categories/naevus").child('patients/').on('value', (snap) => {
 				let items=[];
 				// get children as an array
 				snap.forEach((child) => {
@@ -96,7 +100,11 @@ export default class newPatient extends Component {
 
 			alert(this.state.items_pat.length);
 			this.setState({patient_id:this.state.nom_pat+'_'+this.state.prenom_pat+'_'+this.state.items_pat.length});
-			this.itemsRef.child('medecins/'+medecin_usernamee).child('patients/'+this.state.patient_id).set({ 
+			if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
+				alert("Vous n'avez pas remplis tous les champs!!");
+			}else{
+			//ajout patient
+			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child("naevus").child('patients').child(this.state.patient_id).set({ 
 				nom_pat: this.state.nom_pat, 
 				prenom_pat: this.state.prenom_pat, 
 				date_de_naissance_pat: this.state.dateNaissance_pat, 
@@ -108,7 +116,7 @@ export default class newPatient extends Component {
 				nombre_grain_de_beaute: this.state.nbreGrain, 
 			})
 			//récupérer la liste des dossiers
-			this.itemsRef.child('medecins/'+medecin_usernamee+'/patients/'+this.state.patient_id+'/dossiers_medicaux/').on('value', (snap) => {
+			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child("naevus").child('patients').child(this.state.patient_id).child('dossiers_medicaux').on('value', (snap) => {
 			let items=[];
 			// get children as an array
 			snap.forEach((child) => {
@@ -126,19 +134,24 @@ export default class newPatient extends Component {
 			this.setState({ dossiers_medicaux });
 			});
 			let dossier_id=medecin_usernamee+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
-			this.itemsRef.child('medecins/'+medecin_usernamee+'/patients/'+this.state.patient_id).child('dossiers_medicaux/'+dossier_id).set({ 
-				date_creation_dossier: new Date(),
-				date_MAJ_dossier: new Date(),
+			var mydate=new Date();
+			alert(mydate);
+			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child("naevus").child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
+				date_creation_dossier: mydate.toString(),
+				date_MAJ_dossier: mydate.toString(),
 				nom_patient_dossier: this.state.nom_pat,
 				prenom_patient_dossier: this.state.prenom_pat,
 				nombre_images_dossier: 0
 			})
-		AsyncStorage.setItem('patient_medecin',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":this.state.patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat}));
+			AsyncStorage.removeItem('med_pat_file');
+			AsyncStorage.setItem('med_pat_file',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":this.state.patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": "Naevus"}));
+			alert("sucesss patient added"); 
+			this.props.navigator.push({
+			  component: LocatePic
+			});
+			}
 		});
-		alert("sucesss patient added"); 
-		this.props.navigator.push({
-          component: LocatePic
-        });
+
 	}
 	goBack() {
 		this.props.navigator.pop();
@@ -151,18 +164,24 @@ export default class newPatient extends Component {
 	<ScrollView>
 		<View> 
 				<TextInput
+					required = {true}
+					keyboardAppearance ='dark'
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
 					onChangeText={(text) => this.setState({nom_pat: text})}
 					value={this.state.nom_pat}
 					placeholder={"Nom"}
+					maxLength = {25}
 					underlineColorAndroid="#53507c"/>
 				<TextInput
+				    required = {true}
+				    Key = {true}
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
 					onChangeText={(text) => this.setState({prenom_pat: text})}
 					value={this.state.prenom_pat}
 					placeholder={"Prénom"}
+					maxLength = {25}
 					underlineColorAndroid="#53507c"/>					
 				 <Grid style={{marginTop:10}}>
 					  <Col>
@@ -174,8 +193,8 @@ export default class newPatient extends Component {
 							date={this.state.dateNaissance_pat}
 							mode="date"
 							placeholder={this.state.dateNaissance_pat}
-							format="YYYY-MM-DD"
-							minDate="1980-01-01"
+							format="YYYY-MM-DD" 
+							minDate="1940-01-01"
 							maxDate="2030-01-01"
 							confirmBtnText="Confirm"
 							cancelBtnText="Cancel"
@@ -266,6 +285,7 @@ export default class newPatient extends Component {
 					onChangeText={(text) => this.setState({lieu_pat: text})}
 					value={this.state.lieu_pat}
 					placeholder={"Lieu de résidence"}
+					maxLength = {25}
 					underlineColorAndroid="#29235c"/>		 
 				<TextInput
 					style={styles.textinput_new_patinet}
@@ -273,6 +293,7 @@ export default class newPatient extends Component {
 					onChangeText={(text) => this.setState({profession_pat: text})}
 					value={this.state.profession_pat}
 					placeholder={"Profession"}
+					maxLength = {25}
 					underlineColorAndroid="#29235c"/> 	
 					
 				<TextInput
@@ -280,10 +301,9 @@ export default class newPatient extends Component {
 					placeholderTextColor="#29235c"
 					onChangeText={(text) => this.setState({telephone_patient: text})}
 					value={this.state.telephone_patient}
-					keyboardType = 'numeric'
+					keyboardType = 'phone-pad'
 					placeholder={"Téléphone"}
-					maxLength = {20}
-					dataDetectorTypes ='+336 phoneNumber'
+					maxLength = {25}
 					underlineColorAndroid="#53507c"/>	
 				  <Grid style={{marginTop:10}}>
 					  <Col>
@@ -326,15 +346,15 @@ export default class newPatient extends Component {
 							mode="dropdown"
 							selectedValue={this.state.nbreGrain}
 							onValueChange={this.onValueChangeNbreGrain.bind(this)}>
-							<Item label="> 50" value="> 50" />
-							<Item label="< 50" value="< 50" />  
+							<Item label="> 50" value="sup" />
+							<Item label="< 50" value="inf" />  
 						</Picker>
 					</Col>
 				</Grid>
 			
 			<Button
 				onPress={this.locatePic.bind(this)}
-				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:80,marginBottom:30,marginTop:10,alignItems:'center'}}
+				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:80,marginBottom:10,marginTop:10,alignItems:'center'}}
 				textStyle={{fontSize: 14, color:'#fff',fontFamily: 'Roboto'}}>Localiser le grain de beauté</Button>
 		</View>
 	</ScrollView>   

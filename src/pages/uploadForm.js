@@ -15,10 +15,12 @@ import {
   AsyncStorage,
   Platform,
   ProgressBar,
+  TextInput,
   View
 } from 'react-native';
 
 import HeaderUp from '../components/headerUp';
+import styles from '../styles/common-styles.js';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import {Button, List, ListItem, Header, Picker} from 'native-base';
 import Slider from 'react-native-slider';
@@ -28,18 +30,6 @@ import * as Progress from 'react-native-progress';
 const Item = Picker.Item;
 import ValidMeta from './validMeta';
 import Phototype from './phototype';
-const testImageName = `patient-pic-${Platform.OS}-${new Date()}.jpg`
-const EMAIL = 'arwa.louihig@esprit.tn'
-const PASSWORD = 'arwa24961322'
-import firebase from 'firebase';
-import RNFetchBlob from 'react-native-fetch-blob'; 
-const fs = RNFetchBlob.fs
-const Blob = RNFetchBlob.polyfill.Blob
-window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
-window.Blob = Blob
-const dirs = RNFetchBlob.fs.dirs
-const path=null;
-const testFile = null
 var progress=0;
 export default class uploadForm extends Component {
 	constructor (props) {
@@ -51,14 +41,29 @@ export default class uploadForm extends Component {
 		  sed:'',
 		  mel: 0.0,
 		  selectedItem: undefined,
-         selected1: 'Régulier',
-		 selected2: 'Brun foncé',
-		 selected3: 'Oui',
-		 selected4: '0.2',
-		 selected5: '0.2',
+          selected1: 'Régulier',
+		  selected2: 'Brun foncé',
+		  selected3: 'Oui',
+		  selected4: '0.2',
+		  selected5: '0.2',
+		  diametre: '0.0',
+		  epaisseur: '0.0',
+		  dossier_id: '',
+		  medecin_id: '',
+		  patient_id: '',
+		  med_pat_file:{},
 		}
 	}
     componentDidMount(){
+		AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
+		  const array=JSON.parse(med_pat_file_locationn);
+			this.setState({ 
+				med_pat_file:array,
+				dossier_id: array.id_dossier,
+				medecin_id: array.id_medecin,
+				patient_id: array.id_patient
+			});
+	    });
 		AsyncStorage.getItem('Sed_Value').then((phototypeSED) => {
 		  this.setState({
 			sed: phototypeSED
@@ -79,7 +84,7 @@ export default class uploadForm extends Component {
 		  path= this.state.path;
 		  alert(path);
 		});
-	 }
+	}
 	onValueChangeBords (value: string) {
         this.setState({
             selected1 : value
@@ -104,52 +109,47 @@ export default class uploadForm extends Component {
 			this.setState({
 				selected5 : value
 		});}
-  
+		
+	validMetadata(){
+		AsyncStorage.removeItem('med_pat_file_location_image_data');
+		AsyncStorage.setItem('med_pat_file_location_image_data', JSON.stringify({
+			"id_medecin":this.state.medecin_id,
+			"id_patient":this.state.patient_id,
+			"id_dossier":this.state.dossier_id,
+			"emplacement":this.state.med_pat_file.emplacement,
+			"imageURL":this.state.path,
+			'bords':this.state.selected1,
+			'couleur':this.state.selected2,
+			'asymetrie':this.state.selected3,
+			'phototype':this.state.phototype,
+			'sed':this.state.sed,
+			'diametre':this.state.diametre,
+			'epaisseur':this.state.epaisseur,
+			'suspicion':this.state.mel
+			}));  
+		this.props.navigator.push({
+		  component: ValidMeta
+		  
+		});
+	  }      
+    phototypeb(){
+		this.setState({choisir: '', loaded :true});
+		this.props.navigator.push({
+		  component: Phototype
+		});
+	  }
 	goBack() {
 		this.props.navigator.pop();
-		return true; // do not exit app
-	}
-
-	uploadPic(){
-		firebase.auth()
-          .signInWithEmailAndPassword(EMAIL, PASSWORD)
-          .catch((err) => {
-            console.log('firebase sigin failed', err)
-          })
-
-		firebase.auth().onAuthStateChanged((user) => {
-			<Text>{JSON.stringify(user)}</Text>
-		})
-		const rnfbURI= RNFetchBlob.wrap(path);
-		// create Blob from file path
-		Blob
-			.build(rnfbURI, { type : 'image/jpg;'})
-			.then((blob) => {
-			  // upload image using Firebase SDK
-			  var uploadTask= firebase.storage()
-				.ref('images')
-				.child(testImageName)
-				.put(blob, {contentType : 'image/jpg'});
-				uploadTask.on('state_changed', function(snapshot){
-					progress =Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-					alert(progress); 
-				}, function(error) {
-				  alert("error in uploading");
-				}, function() {
-				  blob.close();
-				  var downloadURL = uploadTask.snapshot.downloadURL;
-				  alert("done uploading here is the download URL",downloadURL);
-				});
-			})
+		return true;
 	}
   render() {
     return ( 
 	<View>
 	<HeaderUp text=" 3/4 Upload Photo" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
-		    <ListItem>
+		    <ListItem style={{marginRight:10,marginLeft:15, borderColor:'#29235c'}}>
 
-			 <Image style={{width:330, height: 230}} source={{uri:this.state.path}}/>
+			 <Image style={styles.pic_cam} source={{uri:this.state.path}}/>
 
 			</ListItem>
 			<Grid>
@@ -157,9 +157,9 @@ export default class uploadForm extends Component {
 			<Col>  
 				<Text style={styles.bords}>Bords</Text>
 			</Col>
-			<Col style={{ marginLeft:100}}>	
+			<Col style={{ marginLeft:130}}>	
 					<Picker 
-					    style={{width:130, color:"#29235c" }}
+					    style={{width:100, color:"#29235c" }}
                         iosHeader="Select one"
                         mode="dropdown"
                         selectedValue={this.state.selected1}
@@ -173,9 +173,9 @@ export default class uploadForm extends Component {
 			  <Col>
 				<Text style={styles.couleur}>Couleur</Text>
 			  </Col>
-			  <Col style={{ marginLeft:70}}>	
+			  <Col style={{ marginLeft:110}}>	
 				 <Picker
-						style={{width:145, color:"#29235c" }}
+						style={{width:109, color:"#29235c" }}
                         iosHeader="Select one"
                         mode="dropdown"
                         selectedValue={this.state.selected2}
@@ -186,12 +186,12 @@ export default class uploadForm extends Component {
 					</Col>
 				</Row>	
 			  <Row>
-			  <Col>
+			  <Col style={{width:140}}>
 				<Text style={styles.asymetrie}>Asymétrie</Text>
 			  </Col>
-				<Col style={{ marginLeft:160}}>
+				<Col style={{ marginLeft:135}}>
 					<Picker 
-					    style={{width:100, color:"#29235c" }}
+					    style={{width:65, color:"#29235c" }}
                         iosHeader="Select one"
                         mode="dropdown"
                         selectedValue={this.state.selected3}
@@ -202,51 +202,49 @@ export default class uploadForm extends Component {
 				</Col>	
 				</Row>
 				<Row>
-				<Col style={{width:110}}>
+				<Col style={{width:140}}>
 				<Text style={styles.phototypee}>Phototype</Text>
 				 </Col>
-				 <Col style={{width:200}}>
+				 <Col style={{width:190}}>
 				 	<Button
 				    onPress={this.phototypeb.bind(this)}
-					style={{borderColor: "#53507c",width:165,height:35,marginLeft:79}}
+					style={{borderColor: "#53507c",width:150,height:35,marginLeft:50}}
 					textStyle={{fontSize: 15, color:'#53507c'}}
 					bordered> phototype <Text> {this.state.phototype}</Text></Button>
 				</Col>
                 </Row>
 				<Row>
-				  <Col>
-					<Text style={styles.asymetrie}>Diamètre</Text>
+				  <Col style={{width:140}}>
+					<Text style={styles.diametre}>Diamètre</Text>
 				  </Col>
 					<Col style={{ marginLeft:160}}>
-						<Picker 
-						    style={{width:100, color:"#29235c" }}
-							iosHeader="Select one"
-							mode="dropdown"
-							selectedValue={this.state.selected4}
-							onValueChange={this.onValueChangeEpaisseur.bind(this)}>  
-									<Item label="0,2" value="0.2" />
-									<Item label="1.3" value="1.3" />
-									<Item label="2.3 " value="2.3" />
-									<Item label="4.3" value="4.3" />
-						</Picker>
+						 <TextInput
+							ref="diametre"
+							style={{width:45, textAlign :"center"}}
+							onChangeText={(text) => this.setState({diametre: text})}
+							value={this.state.diametre}
+							keyboardType='numbers-and-punctuation'
+							maxLength = {4}
+							underlineColorAndroid="#29235c"
+						  />
 					</Col>	
 				</Row>
 			  <Row>
-				  <Col>
+				  <Col style={{width:140}}>
 					<Text style={styles.asymetrie}>Epaisseur</Text>
 				  </Col>
 					<Col style={{marginLeft:160}}>
-						<Picker 
-						    style={{width:100, color:"#29235c" }}
-							iosHeader="Select one"
-							mode="dropdown"
-							selectedValue={this.state.selected5}
-							onValueChange={this.onValueChangeEpaisseur.bind(this)}>  
-									<Item label="0.2" value="0.2" />
-									<Item label="1.3" value="1.3" />
-									<Item label="2.3 " value="2.3" />
-									<Item label="4.3" value="4.3" />
-						</Picker>
+					<TextInput
+							ref="epaisseur"
+							style={{width:45, color:"#29235c", textAlign :"center"}}
+							onChangeText={(text) => this.setState({epaisseur: text})}
+							value={this.state.epaisseur}
+							placeholder={""}
+							keyboardType='numeric'
+							maxLength = {4}
+							placeholderTextColor="#fff"
+							underlineColorAndroid="#29235c"
+						  />
 					</Col>	
 				</Row> 
 	       <Row>
@@ -269,127 +267,14 @@ export default class uploadForm extends Component {
 			<ListItem>
 			<Button
 			    onPress={this.validMetadata.bind(this)}
-				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:60,marginBottom:50,alignItems:'center'}}
-				textStyle={{fontSize: 18, color:'#fff',fontWeight:"bold"}}
+				style={styles.go_to_valid_meta_button}
+				textStyle={styles.go_to_valid_meta_text}
 				>Valider</Button>
 			</ListItem>
          </ScrollView> 
 	</View>
     );
   }
-  	 validMetadata(){
-	    AsyncStorage.setItem('update_data',JSON.stringify({
-			'Bords_value':this.state.selected1,
-			'Couleur_value':this.state.selected2,
-			'Asymetrie_value':this.state.selected3,
-			'Phototype_value':this.state.phototype,
-			'Sed_Value':this.state.sed,
-			'Diametre_value':this.state.selected4,
-			'Epaisseur_value':this.state.selected5,
-			'Suspicion_value':this.state.mel}));  
-		this.props.navigator.push({
-		  component: ValidMeta
-		  
-		});
-	  }      
-    phototypeb(){
-		this.setState({choisir: '', loaded :true});
-		this.props.navigator.push({
-		  component: Phototype
-		});
-	  }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  component: {
-   marginBottom: 15,
-   marginLeft: 20,
-  },
-  radioStyle: {
-	/* borderRightWidth: 1,
-    borderColor: '#2196f3',
-    marginLeft: 50, */
-  },
-  radioButtonWrap: {
-    marginRight: 30,
-	
-  },
-  suspicion: {
-	fontFamily: 'Roboto',
-	fontSize:17,
-	color:'#29235c',  
-	margin:10
-  },
-  melanome: {
-	fontFamily: 'Roboto',
-	fontSize:15,
-	color:'#29235c',
-	marginLeft:50,
-	marginTop:12
-  },
-  slidee: {
-	width:280,
-	marginLeft:30,
-  },
-  diametre: {
-	fontFamily: 'Roboto',
-	fontSize:17,
-	color:'#29235c',
-	marginTop:10,	
-	marginBottom:15,
-	margin:10
-  },
-  asymetrie: {
-	fontFamily: 'Roboto',
-	fontSize:17,
-	color:'#29235c',
-	marginTop:10,
-    margin:10	
-  },
-  couleur: {
-  	fontFamily: 'Roboto',
-	fontSize:17,
-	color:'#29235c',
-	marginTop:10,
-	marginBottom:15,
-    margin:10	
-  },
-  phototypee: {
-	fontFamily: 'Roboto',
-	fontSize:17,
-	color:'#29235c',  
-	marginTop:10,
-	marginBottom:15,
-	margin:10
-  },
-  title_upload:{
-	  color:"#fff",
-	  fontSize:18,
-	  paddingTop:10,
-	  height:40,
-	  fontWeight:'bold'
-  },
-  bords: {
-	fontFamily: 'Roboto',
-	fontSize:17,
-	color:'#29235c',
-	marginTop:10,
-	marginBottom:15,
-	margin:10}
-});
 
 AppRegistry.registerComponent('uploadForm', () => uploadForm);

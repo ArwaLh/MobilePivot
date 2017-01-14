@@ -9,6 +9,7 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  Platform,
   Picker,
   AsyncStorage,
   ScrollView,
@@ -25,18 +26,32 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
 import UploadForm from './uploadForm';
 
+const testImageName = `patient-pic-${Platform.OS}-${new Date()}.jpg`
+const EMAIL = 'arwa.louihig@esprit.tn'
+const PASSWORD = 'arwa24961322'
+import firebase from 'firebase';
+import RNFetchBlob from 'react-native-fetch-blob'; 
+const fs = RNFetchBlob.fs
+const Blob = RNFetchBlob.polyfill.Blob
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
+const dirs = RNFetchBlob.fs.dirs
+const path=null;
+const testFile = null
 export default class validMeta extends Component {
 	constructor (props) {
     super(props);
-		this.state = {
-			bords: '',
-			couleur: '',
-			loaded: true,
-			textColor2: '#29235c',
-			dossier_id: '',
-			medecin_id: '',
-			patient_id: ''
-		}
+	this.itemsRef = firebase.database().ref();
+	this.state = {
+		array: [],
+		bords: '',
+		couleur: '',
+		loaded: true,
+		dossier_id: '',
+		medecin_id: '',
+		patient_id: ''
+	}
+		this.itemsRef = firebase.database().ref();
 	}
 	goBack() {
 		this.props.navigator.pop();
@@ -47,23 +62,80 @@ export default class validMeta extends Component {
           component: UploadForm
         }); 
 	}
-
-
-	componentWillMount(){
-		AsyncStorage.getItem('update_data').then((update_dataa) => {
-		  const arr =JSON.parse(update_dataa);
+	componentDidMount(){
+		AsyncStorage.getItem('med_pat_file_location_image_data').then((med_pat_file_location_image_dataa) => {
+			const arr =JSON.parse(med_pat_file_location_image_dataa);
+			alert(JSON.stringify(arr));
+				this.setState({
+					array:arr,
+					dossier_id: arr.id_dossier,
+					medecin_id: arr.id_medecin,
+					patient_id: arr.id_patient
+				});
+		});
+		AsyncStorage.getItem('path').then((pathUp) => {                                                   
 		  this.setState({
-			bords: arr.Bords_value,
-			couleur: arr.Couleur_value,
-			asymetrie: arr.Asymetrie_value,
-			phototype: arr.Phototype_value,
-			sed: arr.Sed_Value,
-			diametre: arr.Diametre_value,
-			epaisseur: arr.Epaisseur_value,
-			suspicion: arr.Suspicion_value
-			
+			path:pathUp
 		  });
-		});	
+		  path= this.state.path;
+		});		
+	}
+	
+	validate(){
+		alert("Patientez SVP");
+		/*-----upload to firebase storage method ----*/
+		firebase.auth()
+          .signInWithEmailAndPassword(EMAIL, PASSWORD)
+          .catch((err) => {
+            console.log('firebase sigin failed', err)
+          })
+
+		firebase.auth().onAuthStateChanged((user) => {
+			<Text>{JSON.stringify(user)}</Text>
+		})
+		const rnfbURI= RNFetchBlob.wrap(path);
+		// create Blob from file path
+		Blob
+			.build(rnfbURI, { type : 'image/jpg;'})
+			.then((blob) => {
+			  // upload image using Firebase SDK
+			  var uploadTask= firebase.storage()
+				.ref()
+				.child('medecins'+'_'+this.state.medecin_id).child('categories'+'_'+'naevus').child('patients'+'_'+this.state.patient_id).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images')
+				.child(testImageName)
+				.put(blob, {contentType : 'image/jpg'});
+				uploadTask.on('state_changed', function(snapshot){
+					progress =Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+					alert(progress); 
+				}, function(error) {
+				  alert("error in uploading");
+				}, function() {
+				  blob.close();
+				  var downloadURL = uploadTask.snapshot.downloadURL;
+				  alert("done uploading here is the download URL",downloadURL);
+				});
+			})
+		alert("uplaod file done");
+		/*-----Add to firebase databse method ----*/
+		let compte_rendu=new Date();
+		let image_id=testImageName.substring(0,24).replace(/" "/g, "");
+		this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child('naevus').child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(this.state.dossier_id).child('images').child(image_id).set({ 
+			date_compte_rendu_consultation: compte_rendu.toString(),
+			bords:this.state.array.bords,
+			couleur:this.state.array.couleur,
+			epaisseur:this.state.array.epaisseur,
+			diametre:this.state.array.diametre,
+			asymetrie:this.state.array.asymetrie,
+			phototype:this.state.array.phototype,
+			SED:this.state.array.sed,
+			emplacement:this.state.array.emplacement,
+			suspicion:this.state.array.suspicion
+		})
+		//upadet medical folder data
+		this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child('naevus').child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(this.state.dossier_id).update({ 
+		date_MAJ_dossier: compte_rendu.toString(),
+		nombre_images_dossier: 1
+		});
 	}
   render() {
     return ( 
@@ -76,7 +148,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Bords</Text>
 							  </Col>
 							  <Col>
-								 <Text  style={styles.metaDataForm2} >{this.state.bords}</Text>
+								 <Text  style={styles.metaDataForm2} >{this.state.array.bords}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem>	
@@ -86,7 +158,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Couleur</Text>
 							  </Col>
 							  <Col>
-									 <Text  style={styles.metaDataForm2} >{this.state.couleur}</Text>
+									 <Text  style={styles.metaDataForm2} >{this.state.array.couleur}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem> 
@@ -96,7 +168,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Asymétrie</Text>
 							  </Col>
 							  <Col>
-									<Text style={styles.metaDataForm3}>{this.state.asymetrie}</Text>
+									<Text style={styles.metaDataForm3}>{this.state.array.asymetrie}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem>
@@ -106,7 +178,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Phototype </Text>
 							  </Col>
 							  <Col>
-									 <Text style={styles.phototypeF}> Phototype {this.state.phototype}</Text>
+									 <Text style={styles.phototypeF}> Phototype {this.state.array.phototype}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem> 
@@ -116,7 +188,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>SED </Text>
 							  </Col>
 							  <Col>
-									 <Text style={styles.metaDataForm3} > {this.state.sed}</Text>
+									 <Text style={styles.metaDataForm3} > {this.state.array.sed}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem> 	  
@@ -126,7 +198,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Diamètre</Text> 
 							  </Col>
 							  <Col>
-									<Text style={styles.metaDataForm3}>{this.state.diametre}</Text>
+									<Text style={styles.metaDataForm3}>{this.state.array.diametre}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem> 
@@ -136,7 +208,7 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Epaisseur</Text> 
 							  </Col>
 							  <Col>
-								<Text style={styles.metaDataForm3}> {this.state.epaisseur}</Text>
+								<Text style={styles.metaDataForm3}> {this.state.array.epaisseur}</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem>	 
@@ -146,23 +218,25 @@ export default class validMeta extends Component {
 									<Text style={styles.metaDataForm}>Suspicion</Text> 
 							  </Col>
 							  <Col>
-									<Text style={styles.mélanomeF}> Mélanome: {this.state.suspicion}%</Text>
+									<Text style={styles.mélanomeF}> Mélanome: {this.state.array.suspicion}%</Text>
 							 </Col> 
 						   </Grid>			 
 			</ListItem>	 
 					
 					  <Grid>
+					    <Row style={{marginTop:20, marginLeft:10}}>
 							  <Col style={{width:200}}>
-								 <Button onPress={this.uploadP.bind(this)} textStyle={{fontFamily: 'Roboto',fontSize:13,color: this.state.textColor2, marginTop:10}} transparent>
-								   
+								 <Button onPress={this.uploadP.bind(this)} textStyle={styles.back_to_upload_button_valid_meta} transparent>
 										 MODIFIER LES INORMATIONS
 								 </Button> 
 							  </Col>
 							 <Col>	
 								<Button
-									style={{flex:9,backgroundColor: "#29235c",width:130,height:37,marginTop:8,alignItems:'center'}}
+									onPress={this.validate.bind(this)}
+									style={styles.send_button_valid_meta}
 									textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
-							</Col>	
+							</Col>
+						</Row>	
 					 </Grid>			
 		</ScrollView>   
 	</View>
