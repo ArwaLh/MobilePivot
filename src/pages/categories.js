@@ -50,9 +50,9 @@ export default class categories extends Component {
 			AsyncStorage.setItem('a', snapshot.key);
 		});
 		});
-		AsyncStorage.getItem('a').then((medecin_id)=>{
+		AsyncStorage.getItem('medecin_username').then((medecin_id)=>{
 
-			this.itemsRef.child('medecins').child("chiraz3").child('categories').on('value', (snap) => {
+			this.itemsRef.child('medecins').child(medecin_id).child('categories').on('value', (snap) => {
 			let items={};
 			items=snap.val();
 				this.setState({

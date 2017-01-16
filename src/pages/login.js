@@ -142,7 +142,7 @@ export default class login extends Component {
 			id=Object.keys(snapshot.val());
 			all_arrays=Object.values(snapshot.val());
 			AsyncStorage.setItem('medecin_username', id[0]);
-			if(all_arrays[0].categories==null){
+			if(all_arrays[0].categories==null || all_arrays[0].categories.length==1){
 				this.props.navigator.push({ 
 				  component: GestionPatient
 				});
