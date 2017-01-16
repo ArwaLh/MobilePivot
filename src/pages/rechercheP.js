@@ -85,19 +85,8 @@ export default class rechercheP extends Component {
 			});
 		});	
    }
-   static renderPatient(patient) {
-    const { nom_pat,prenom_pat,telephone_patient } = patient;
-
-    return (
-      <View>
-        <Text style={styles.titleText}>{nom_pat}</Text>
-        <Text style={styles.directorText}>{prenom_pat}</Text>
-        <Text style={styles.openingText}>{telephone_patient}</Text>
-      </View>
-    );
-  }
 	findPatient(query) {
-	//this method is calleed whenever the user is typing
+	//this method is called whenever the user is typing
     if (query === '') {
       return [];
     }
