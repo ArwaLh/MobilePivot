@@ -129,7 +129,7 @@ export default class validMeta extends Component {
 					emplacement:this.state.array.emplacement,
 					suspicion:this.state.array.suspicion
 				})
-				//upadet medical folder data
+				//upadate medical folder data
 				this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child('naevus').child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(this.state.dossier_id).update({ 
 				date_MAJ_dossier: compte_rendu.toString(),
 				nombre_images_dossier: 1
