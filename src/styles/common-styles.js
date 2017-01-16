@@ -73,17 +73,23 @@ module.exports = StyleSheet.create({
 	fontSize: 18,
 	fontWeight: 'normal',
 	textAlign: 'center',
-	marginTop:70,
+	marginTop:50,
 	marginBottom:50
   },
   button_last: {
-	width: 250,
+	width: 200,
 	height: 40,
     margin: 10,
 	marginBottom: 35,
 	marginLeft: 50,
     padding: 15,
     backgroundColor: '#29235c',
+  }, 
+  image_last_one: {
+	width:150,
+	height:150,
+	marginTop:20,
+	marginLeft:90
   },
   /* end last interface */
   transparent_button: {

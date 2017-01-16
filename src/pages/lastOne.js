@@ -12,13 +12,14 @@ import {
   Dimensions,
   StyleSheet,
   Text,
+  Image,
   ListView,
   BackAndroid,
   TouchableOpacity,
   View
 } from 'react-native';
 import HeaderOther from '../components/headerOther';
-import Header from '../components/header';
+import HeaderUp from '../components/headerUp';
 import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input,Card, CardItem, List, ListItem, Button} from 'native-base';
@@ -41,18 +42,23 @@ export default class categories extends Component {
 		this.props.navigator.push({
           component: UploadForm
         }); 
+	}
+  goBack() {
+		this.props.navigator.pop();
+		return true; 
 	}	
   render() {
     return (
 	<View>
-	<Header text="Derniere interface" loaded={true}/> 
+	 <HeaderUp text="Last Interface" onpress={this.goBack.bind(this)}/>
+			<Image style={styles.image_last_one} source={{uri:'http://localhost:8081/img/last.png'}}/>
 			<Text style={styles.text_last_one}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis ligula non odio gravida pharetra quis in eros </Text>
 			<Button
 				onPress={this.button_last.bind(this)}
 				style={styles.button_last}
-				textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>	
+				textStyle={{fontSize: 15, color:'#fff'}}>Revenir</Button>	
 			 <Button onPress={this.uploadP.bind(this)} textStyle={styles.back_to_upload_button_valid_meta} transparent>
-										 ACCEDER AU SITE
+										 ACCEDER AU SITE KATOMI 
 								 </Button>	
      </View>
     );
