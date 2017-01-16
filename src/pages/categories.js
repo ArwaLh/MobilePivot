@@ -59,9 +59,6 @@ export default class categories extends Component {
 					
 				}
 			}
-			 alert(array_cat[1].key);
-			keys=[];
-			keys=Object.keys(items);
 				this.setState({
 				  dataSource: this.state.dataSource.cloneWithRows(array_cat),
 				});
@@ -93,9 +90,8 @@ export default class categories extends Component {
         renderRow={(rowData) => 
 					<List>
 					  <ListItem style={{height:100, borderColor:'#29235c', width:340, paddingTop:0}}>
-					  <Button onPress={this.gestionP.bind(this,rowData.key)} style={{height:100}}  transparent>
-							<Text style={styles.listViewCategorie}>{rowData.key}</Text> 	
-							<Text style={styles.listViewCategorie}>{rowData.value.nom_categorie}</Text> 	
+					  <Button onPress={this.gestionP.bind(this,rowData.key)} style={{height:100}}  transparent>	
+							<Text style={styles.listViewCategorie}>{rowData.value}</Text> 	
 					  </Button>
 					  </ListItem>
 					</List>

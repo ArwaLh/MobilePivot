@@ -127,7 +127,6 @@ export default class login extends Component {
       </View>
     );
   }
-
   login(){
 	const auth=firebase.auth();
 	auth.signOut();
@@ -142,7 +141,7 @@ export default class login extends Component {
 			id=Object.keys(snapshot.val());
 			all_arrays=Object.values(snapshot.val());
 			AsyncStorage.setItem('medecin_username', id[0]);
-			if(all_arrays[0].categories==null || all_arrays[0].categories.length==1){
+			if(Object.values(all_arrays[0].categories)==null || (Object.values(all_arrays[0].categories)).length==1){
 				this.props.navigator.push({ 
 				  component: GestionPatient
 				});
@@ -156,9 +155,7 @@ export default class login extends Component {
     }).catch((error)=>{
 		 alert(error.message);
 	});
-
   }
-
   goToSignup(){
     this.props.navigator.push({
       component: Signup
