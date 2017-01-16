@@ -64,10 +64,10 @@ export default class categories extends Component {
 		return true;
 	}
    gestionP(id){
-	   AsyncStorage.setItem('id',id);
-		this.props.navigator.push({
+	 AsyncStorage.setItem('id',id);  
+		this.props.navigator.push({ 
 		 component: GestionPatient
-		});
+				});
 	}
 	last(){
 		this.props.navigator.push({
@@ -82,7 +82,7 @@ export default class categories extends Component {
 		enableEmptySections={true}
         renderRow={(rowData) => 
 					<List>
-					  <ListItem style={{height:100, borderColor:'#29235c', width:340, paddingTop:0}}>
+					  <ListItem style={{height:60, borderColor:'#29235c', width:340, paddingTop:0}}>
 					  <Button onPress={this.gestionP.bind(this,rowData.key)} style={{height:100}}  transparent>	
 							<Text style={styles.listViewCategorie}>{rowData.value}</Text> 	
 					  </Button>

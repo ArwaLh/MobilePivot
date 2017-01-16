@@ -11,6 +11,7 @@ import {
   Dimensions,
   StyleSheet,
   Text,
+  AsyncStorage,
   BackAndroid,
   TouchableHighlight,
   View
@@ -20,7 +21,7 @@ import Header from '../components/header';
 import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input, Button, Card, CardItem, List, ListItem} from 'native-base';
-
+import HeaderUp from '../components/headerUp';
 import UploadForm from './uploadForm';
 import NewPatient from './newPatient';
 import LocatePic from './locatePic';
@@ -57,7 +58,7 @@ export default class gestionPatient extends Component {
   render() {
     return (
 	<View>
-	<Header text="Gestion des patients" loaded={this.state.loaded}/>
+	<HeaderUp text="   Gestion des patients" loaded={true} onpress={this.goBack.bind(this)}/>
 		 <View style={{margin:7, marginTop:30}}>
 		 <List>
 		 <ListItem style={{height:(window.height/2)-70}}>

@@ -53,7 +53,11 @@ export default class newPatient extends Component {
 		patient_id: '',
 		dateNaissance_pat: ''
 	}}
-	 componentWillMount(){
+	 componentWillMount(){ 
+	AsyncStorage.getItem('id').then((idd) => {
+		
+	});
+	 
 		this.setState({
 			loaded: false
 		});
@@ -82,10 +86,10 @@ export default class newPatient extends Component {
 	locatePic(){
 		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 			//create category name
-			this.itemsRef.child('medecins/'+medecin_usernamee).child("/categories/naevus").set({
+			this.itemsRef.child('medecins/'+medecin_usernamee).child("categories").child("naevus").set({
 				nom_categorie: "Naevus"
 			});
-			this.itemsRef.child('medecins/'+medecin_usernamee).child("/categories/naevus").child('patients/').on('value', (snap) => {
+			this.itemsRef.child('medecins/'+medecin_usernamee).child("categories").child("naevus").child('patients').on('value', (snap) => {
 				let items=[];
 				// get children as an array
 				snap.forEach((child) => {
@@ -160,7 +164,7 @@ export default class newPatient extends Component {
   render() {
     return ( 
 	<View>
-	<HeaderUp text="1/4 Ajouter un patient" loaded={true} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text="  1/4   Ajouter un patient" loaded={true} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
 		<View> 
 				<TextInput
