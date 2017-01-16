@@ -36,9 +36,6 @@ export default class categories extends Component {
 	this.state={
 		medecin_id:"",
 		dataSource: ds.cloneWithRows(['row 1', 'row 2']),
-		dataSource2: new ListView.DataSource({
-			rowHasChanged: (row1, row2) => row1 !== row2,
-		}),
 	}
 	}
 	componentWillMount(){
@@ -52,8 +49,7 @@ export default class categories extends Component {
 		AsyncStorage.getItem('medecin_username').then((medecin_id)=>{
 			this.itemsRef.child('medecins').child(medecin_id).child('categories').on('value', (snap) => {
 			//mapping
-			let array_cat=[];	
-			let array_cat2={};	
+			let array_cat=[];		
 			let items=[];
 			items=snap.val();
 			for (var k in items){
@@ -67,13 +63,8 @@ export default class categories extends Component {
 			keys=[];
 			keys=Object.keys(items);
 				this.setState({
-				  medecin_id:Object.keys(items),
 				  dataSource: this.state.dataSource.cloneWithRows(array_cat),
-				  dataSource2: this.state.dataSource2.cloneWithRows(Object.keys(items))
 				});
-				
-			//alert(typeof items);
-			//alert(Object.keys(items));
 			});
 			
 		});
@@ -104,7 +95,7 @@ export default class categories extends Component {
 					  <ListItem style={{height:100, borderColor:'#29235c', width:340, paddingTop:0}}>
 					  <Button onPress={this.gestionP.bind(this,rowData.key)} style={{height:100}}  transparent>
 							<Text style={styles.listViewCategorie}>{rowData.key}</Text> 	
-							<Text style={styles.listViewCategorie}>{rowData.value}</Text> 	
+							<Text style={styles.listViewCategorie}>{rowData.value.nom_categorie}</Text> 	
 					  </Button>
 					  </ListItem>
 					</List>
