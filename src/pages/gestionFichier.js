@@ -57,15 +57,6 @@ export default class gestionNaevus extends Component {
 		this.props.navigator.pop();
 		return true;
 	}    
-	          
-/* 	localiser_photo(id){
-		alert(id);
-		AsyncStorage.removeItem("med_pat_file_loc");
-		AsyncStorage.setItem("med_pat_file_loc",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id}));
-		this.props.navigator.push({
-          component: LocatePic
-        }); 
-	} */
 	nouveau_fichier(){
 		this.props.navigator.push({
           component: LocatePic

@@ -138,7 +138,7 @@ export default class validMeta extends Component {
 				//upadet medical folder data
 				dbRef.child('medecins').child(id_medecin).child('categories').child('naevus').child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
 				date_MAJ_dossier: compte_rendu.toString(),
-				nombre_images_dossier: 1
+				nombre_images_dossier: my_array.nombre_images_dossier+1
 				});
 				  alert("done uploading here is the download URL",downloadURL);
 				});

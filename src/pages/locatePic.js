@@ -79,7 +79,7 @@ export default class locatePic extends Component {
 		  'Tête',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () =>{
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"emplacement":'Tête'}));
+			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"emplacement":'Tête'}));
 			this.props.navigator.push({
 				component: TakePicture
 			})
@@ -94,7 +94,7 @@ export default class locatePic extends Component {
 		  'Cou',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"emplacement":'Cou'})),
+			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"emplacement":'Cou'})),
 			this.props.navigator.push({
 				component: TakePicture
 			});
@@ -109,7 +109,7 @@ export default class locatePic extends Component {
 		  'Nuque',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"emplacement":'Nuque'}));
+			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"emplacement":'Nuque'}));
 			this.props.navigator.push({
 				component: TakePicture
 			});
@@ -124,7 +124,7 @@ export default class locatePic extends Component {
 		  'Épaule gauche',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"emplacement":'Épaule gauche'}));
+			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"emplacement":'Épaule gauche'}));
 			this.props.navigator.push({
 				component: TakePicture
 			});
@@ -138,7 +138,7 @@ export default class locatePic extends Component {
 		  'Épaule droite',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"emplacement":'Épaule droite'}));
+			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"emplacement":'Épaule droite'}));
 			this.props.navigator.push({
 				component: TakePicture
 			});
@@ -152,7 +152,7 @@ export default class locatePic extends Component {
 		  'Thorax',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"emplacement":'Thorax'}));
+			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"emplacement":'Thorax'}));
 			this.props.navigator.push({
 				component: TakePicture
 			});
@@ -166,7 +166,7 @@ export default class locatePic extends Component {
 		  'Abdomen',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"emplacement":'Abdomen'}));
+			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"emplacement":'Abdomen'}));
 			this.props.navigator.push({
 				component: TakePicture
 			});
@@ -180,7 +180,7 @@ export default class locatePic extends Component {
 		  'Dos',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"emplacement":'Dos'}));
+			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"emplacement":'Dos'}));
 			this.props.navigator.push({
 				component: TakePicture
 			});
@@ -194,7 +194,7 @@ export default class locatePic extends Component {
 		  'Main gauche',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"emplacement":'Main gauche'}));
+			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"emplacement":'Main gauche'}));
 			this.props.navigator.push({
 				component: TakePicture
 			});
@@ -209,7 +209,7 @@ export default class locatePic extends Component {
 		  'Main droite',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"emplacement":'Main droite'}));
+			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"emplacement":'Main droite'}));
 			this.props.navigator.push({
 				component: TakePicture
 			});
@@ -224,7 +224,7 @@ export default class locatePic extends Component {
 		  'Jambe gauche',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"emplacement":'Jambe gauche'}));
+			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"emplacement":'Jambe gauche'}));
 			this.props.navigator.push({
 				component: TakePicture
 			});
@@ -239,7 +239,7 @@ export default class locatePic extends Component {
 		  'Jambe droite',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"emplacement":'Jambe droite'}));
+			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"emplacement":'Jambe droite'}));
 			this.props.navigator.push({
 				component: TakePicture
 			});

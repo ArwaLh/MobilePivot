@@ -47,7 +47,6 @@ export default class categories extends Component {
 			items=snap.val();
 			for (var k in items){
 				if (items.hasOwnProperty(k)) {
-					 //alert("Key is " + k + ", value is" + items[k]);
 					 array_cat.push({"key":k,"value":Object.values(items[k])[0]});	
 				}
 			}

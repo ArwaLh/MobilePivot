@@ -111,11 +111,13 @@ export default class uploadForm extends Component {
 		});}
 		
 	validMetadata(){
+		alert(this.state.med_pat_file.nombre_images_dossier);
 		AsyncStorage.removeItem('med_pat_file_location_image_data');
 		AsyncStorage.setItem('med_pat_file_location_image_data', JSON.stringify({
 			"id_medecin":this.state.medecin_id,
 			"id_patient":this.state.patient_id,
 			"id_dossier":this.state.dossier_id,
+			"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,
 			"emplacement":this.state.med_pat_file.emplacement,
 			"imageURL":this.state.path,
 			'bords':this.state.selected1,
