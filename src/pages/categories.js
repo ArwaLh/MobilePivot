@@ -67,11 +67,6 @@ export default class categories extends Component {
 		this.props.navigator.push({
 		 component: GestionPatient
 		});
-	}
-	last(){
-		this.props.navigator.push({
-		 component: LastOne
-		});
 	}	
   render() {
     return (
