@@ -49,9 +49,10 @@ export default class validMeta extends Component {
 		loaded: true,
 		dossier_id: '',
 		medecin_id: '',
-		patient_id: ''
+		patient_id: '',
+		downloadURL:""
 	}
-		this.itemsRef = firebase.database().ref();
+	this.validate=this.validate.bind(this);
 	}
 	goBack() {
 		this.props.navigator.pop();
@@ -82,6 +83,11 @@ export default class validMeta extends Component {
 	}
 	
 	validate(){
+		const dbRef = firebase.database().ref();
+		let id_medecin=this.state.medecin_id;
+		let id_patient=this.state.patient_id;
+		let id_dossier=this.state.dossier_id;
+		let my_array=this.state.array;
 		alert("Patientez SVP");
 		/*-----upload to firebase storage method ----*/
 		firebase.auth()
@@ -111,31 +117,32 @@ export default class validMeta extends Component {
 				  alert("error in uploading");
 				}, function() {
 				  blob.close();
-				  var downloadURL = uploadTask.snapshot.downloadURL;
-				  alert("uplaod file done");
-				/*-----Add to firebase databse method ----*/
+				  let downloadURL = uploadTask.snapshot.downloadURL;
+				  /*-----Add to firebase databse method ----*/
 				//and store image name
 				let compte_rendu=new Date();
 				let image_id=testImageName.substring(0,24).replace(/" "/g, "");
-				this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child('naevus').child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(this.state.dossier_id).child('images').child(image_id).set({ 
+				dbRef.child('medecins').child(id_medecin).child('categories').child('naevus').child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set({ 
 					date_compte_rendu_consultation: compte_rendu.toString(),
-					bords:this.state.array.bords,
-					couleur:this.state.array.couleur,
-					epaisseur:this.state.array.epaisseur,
-					diametre:this.state.array.diametre,
-					asymetrie:this.state.array.asymetrie,
-					phototype:this.state.array.phototype,
-					SED:this.state.array.sed,
-					emplacement:this.state.array.emplacement,
-					suspicion:this.state.array.suspicion
+					bords:my_array.bords,
+					couleur:my_array.couleur,
+					epaisseur:my_array.epaisseur,
+					diametre:my_array.diametre,
+					asymetrie:my_array.asymetrie,
+					phototype:my_array.phototype,
+					SED:my_array.sed,
+					emplacement:my_array.emplacement,
+					suspicion:my_array.suspicion,
+					downloadURL:downloadURL
 				})
-				//upadate medical folder data
-				this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child('naevus').child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(this.state.dossier_id).update({ 
+				//upadet medical folder data
+				dbRef.child('medecins').child(id_medecin).child('categories').child('naevus').child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
 				date_MAJ_dossier: compte_rendu.toString(),
 				nombre_images_dossier: 1
 				});
 				  alert("done uploading here is the download URL",downloadURL);
 				});
+
 			})
 	}
   render() {
@@ -144,24 +151,24 @@ export default class validMeta extends Component {
 	<HeaderUp text="4/4 Données patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 		<ScrollView>	
 			<ListItem style={styles.list_MetaData}>   
-						  <Grid>
-							  <Col>
-									<Text style={styles.metaDataForm}>Bords</Text>
-							  </Col>
-							  <Col>
-								 <Text  style={styles.metaDataForm2} >{this.state.array.bords}</Text>
-							 </Col> 
-						   </Grid>			 
+				<Grid>
+					<Col>
+						<Text style={styles.metaDataForm}>Bords</Text>
+					</Col>
+					 <Col>
+						 <Text  style={styles.metaDataForm2} >{this.state.array.bords}</Text>
+					</Col> 
+				 </Grid>			 
 			</ListItem>	
 			<ListItem style={styles.list_MetaData}>   
-						  <Grid>
-							  <Col>
-									<Text style={styles.metaDataForm}>Couleur</Text>
-							  </Col>
-							  <Col>
-									 <Text  style={styles.metaDataForm2} >{this.state.array.couleur}</Text>
-							 </Col> 
-						   </Grid>			 
+				 <Grid>
+					 <Col>
+						<Text style={styles.metaDataForm}>Couleur</Text>
+					  </Col>
+					 <Col>
+						 <Text  style={styles.metaDataForm2} >{this.state.array.couleur}</Text>
+					 </Col> 
+				 </Grid>			 
 			</ListItem> 
 			<ListItem style={styles.list_MetaData}>   
 						  <Grid>
