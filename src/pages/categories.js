@@ -39,13 +39,6 @@ export default class categories extends Component {
 	}
 	}
 	componentWillMount(){
-		AsyncStorage.getItem('user_data').then((email)=>{
-/* 			alert("email");
-			alert(email); */
-		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(email).once("child_added", function(snapshot) {
-			AsyncStorage.setItem('a', snapshot.key);
-		});
-		});
 		AsyncStorage.getItem('medecin_username').then((medecin_id)=>{
 			this.itemsRef.child('medecins').child(medecin_id).child('categories').on('value', (snap) => {
 			//mapping
