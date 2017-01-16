@@ -25,7 +25,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';import Hr from 'react-n
 const window = Dimensions.get('window');
 import Swiper from 'react-native-swiper';
 import firebase from 'firebase';
-import LocatePic from './locatePic';
+import TakePic from './takePic';
 export default class gestionNaevus extends Component {
 	constructor (props) {
 		super(props);
@@ -56,19 +56,13 @@ export default class gestionNaevus extends Component {
 	goBack() { 
 		this.props.navigator.pop();
 		return true;
-	}    
-	          
-/* 	localiser_photo(id){
-		alert(id);
-		AsyncStorage.removeItem("med_pat_file_loc");
-		AsyncStorage.setItem("med_pat_file_loc",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id}));
-		this.props.navigator.push({
-          component: LocatePic
-        }); 
-	} */
+	} 
+	old_fichier(){
+		
+	}
 	nouveau_fichier(){
 		this.props.navigator.push({
-          component: LocatePic
+          component: TakePic
         }); 
 	}
   render() {

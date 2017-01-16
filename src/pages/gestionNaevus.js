@@ -87,10 +87,10 @@ export default class gestionNaevus extends Component {
 		this.props.navigator.pop();
 		return true;
 	}
-	gestionF(id){
+	gestionF(id,nbre){
 		alert(id);
 		AsyncStorage.removeItem("med_pat_file");
-		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id})); 
+		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id,"nombre_images_dossier":nbre})); 
 		this.props.navigator.push({
 		  component: GestionFichier
 		});
@@ -125,7 +125,7 @@ export default class gestionNaevus extends Component {
         renderRow={(rowData) => 
 					<List style={{backgroundColor:'white',height:180, borderColor:'#29235c'}}>
 					  <ListItem style={{height:180, borderColor:'#29235c', width:340, paddingTop:0}}>
-					  <Button style={{height:180}} onPress={this.gestionF.bind(this,rowData._key)} transparent>
+					  <Button style={{height:180}} onPress={this.gestionF.bind(this,rowData._key,rowData.nombre_images_dossier)} transparent>
 						<Grid>
 						<Col style={{width:70}}>
 						<Image style={{width:65,height:60, marginTop:10}} source={{uri:'http://localhost:8081/img/Icdossier.png'}}/>

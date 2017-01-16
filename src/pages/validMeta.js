@@ -88,7 +88,6 @@ export default class validMeta extends Component {
 		let id_patient=this.state.patient_id;
 		let id_dossier=this.state.dossier_id;
 		let my_array=this.state.array;
-		alert("Patientez SVP");
 		/*-----upload to firebase storage method ----*/
 		firebase.auth()
           .signInWithEmailAndPassword(EMAIL, PASSWORD)
@@ -108,7 +107,7 @@ export default class validMeta extends Component {
 			  var uploadTask= firebase.storage()
 				.ref()
 				.child('medecins'+'_'+this.state.medecin_id).child('categories'+'_'+'naevus').child('patients'+'_'+this.state.patient_id).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images')
-				.child(testImageName)
+				.child(testImageName.substring(0,43).replace(/" "/g, "_"))
 				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
 					progress =Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
@@ -121,7 +120,8 @@ export default class validMeta extends Component {
 				  /*-----Add to firebase databse method ----*/
 				//and store image name
 				let compte_rendu=new Date();
-				let image_id=testImageName.substring(0,24).replace(/" "/g, "");
+				let image_id=testImageName.substring(0,43).replace(/" "/g, "");
+				alert(image_id);
 				dbRef.child('medecins').child(id_medecin).child('categories').child('naevus').child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set({ 
 					date_compte_rendu_consultation: compte_rendu.toString(),
 					bords:my_array.bords,
@@ -138,7 +138,7 @@ export default class validMeta extends Component {
 				//upadet medical folder data
 				dbRef.child('medecins').child(id_medecin).child('categories').child('naevus').child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
 				date_MAJ_dossier: compte_rendu.toString(),
-				nombre_images_dossier: 1
+				nombre_images_dossier: my_array.nombre_images_dossier+1
 				});
 				  alert("done uploading here is the download URL",downloadURL);
 				});
