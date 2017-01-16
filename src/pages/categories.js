@@ -32,11 +32,10 @@ export default class categories extends Component {
 	constructor(props){
     super(props);
 	this.itemsRef = firebase.database().ref();
+	const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 	this.state={
 		medecin_id:"",
-		dataSource: new ListView.DataSource({
-			rowHasChanged: (row1, row2) => row1 !== row2,
-		}),
+		dataSource: ds.cloneWithRows(['row 1', 'row 2']),
 		dataSource2: new ListView.DataSource({
 			rowHasChanged: (row1, row2) => row1 !== row2,
 		}),
@@ -53,23 +52,44 @@ export default class categories extends Component {
 		AsyncStorage.getItem('a').then((medecin_id)=>{
 
 			this.itemsRef.child('medecins').child("chiraz3").child('categories').on('value', (snap) => {
-			let items={};
+			//mapping
+			let array_cat=[];	
+			let array_cat2={};	
+			let items=[];
 			items=snap.val();
+			//
+			//array_cat2="{";
+			for (var k in items){
+				if (items.hasOwnProperty(k)) {
+					 //alert("Key is " + k + ", value is" + items[k]);
+					 array_cat.push({"key":k,"value":Object.values(items[k])});
+					
+				}
+			}
+			//array_cat2="}";
+			 alert(array_cat[1].key);
+			 //alert(JSON.stringify(array_cat2));
+			 //alert(JSON.stringify(items));
+			keys=[];
+			keys=Object.keys(items);
 				this.setState({
 				  medecin_id:Object.keys(items),
-				  dataSource: this.state.dataSource.cloneWithRows(items),
+				  dataSource: this.state.dataSource.cloneWithRows(array_cat),
 				  dataSource2: this.state.dataSource2.cloneWithRows(Object.keys(items))
 				});
+				
+			//alert(typeof items);
+			//alert(Object.keys(items));
 			});
-						
+			
 		});
 	}
 	goBack() {
 		this.props.navigator.pop();
 		return true;
 	}
-   gestionP(){
-
+   gestionP(id){
+	   AsyncStorage.setItem('id',id);
 		this.props.navigator.push({
 		 component: GestionPatient
 		});
@@ -88,8 +108,9 @@ export default class categories extends Component {
         renderRow={(rowData) => 
 					<List>
 					  <ListItem style={{height:100, borderColor:'#29235c', width:340, paddingTop:0}}>
-					  <Button onPress={this.gestionP.bind(this)} style={{height:100}}  transparent>
-							<Text style={styles.listViewCategorie}>{rowData.nom_categorie}</Text> 	
+					  <Button onPress={this.gestionP.bind(this,rowData.key)} style={{height:100}}  transparent>
+							<Text style={styles.listViewCategorie}>{rowData.key}</Text> 	
+							<Text style={styles.listViewCategorie}>{rowData.value}</Text> 	
 					  </Button>
 					  </ListItem>
 					</List>
