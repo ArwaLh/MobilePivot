@@ -21,16 +21,12 @@ import {
 
 import HeaderUp from '../components/headerUp';
 import styles from '../styles/common-styles.js';
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import {Button, List, ListItem, Header, Picker} from 'native-base';
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
-import Icon from 'react-native-vector-icons/FontAwesome';
-import * as Progress from 'react-native-progress';
 const Item = Picker.Item;
 import ValidMeta from './validMeta';
 import Phototype from './phototype';
-var progress=0;
 export default class uploadForm extends Component {
 	constructor (props) {
 		super(props);
@@ -40,7 +36,6 @@ export default class uploadForm extends Component {
 		  phototype: '',
 		  sed:'',
 		  mel: 0.0,
-		  selectedItem: undefined,
           selected1: 'Régulier',
 		  selected2: 'Brun foncé',
 		  selected3: 'Oui',

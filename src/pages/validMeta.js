@@ -171,81 +171,79 @@ export default class validMeta extends Component {
 				 </Grid>			 
 			</ListItem> 
 			<ListItem style={styles.list_MetaData}>   
-						  <Grid>
-							  <Col>
-									<Text style={styles.metaDataForm}>Asymétrie</Text>
-							  </Col>
-							  <Col>
-									<Text style={styles.metaDataForm3}>{this.state.array.asymetrie}</Text>
-							 </Col> 
-						   </Grid>			 
+				<Grid>
+					<Col>
+						<Text style={styles.metaDataForm}>Asymétrie</Text>
+					</Col>
+					<Col>
+						<Text style={styles.metaDataForm3}>{this.state.array.asymetrie}</Text>
+					</Col> 
+				</Grid>			 
 			</ListItem>
 			<ListItem style={styles.list_MetaData}>   
-						  <Grid>
-							  <Col>
-									<Text style={styles.metaDataForm}>Phototype </Text>
-							  </Col>
-							  <Col>
-									 <Text style={styles.phototypeF}> Phototype {this.state.array.phototype}</Text>
-							 </Col> 
-						   </Grid>			 
+				<Grid>
+					<Col>
+						<Text style={styles.metaDataForm}>Phototype </Text>
+					</Col>
+					<Col>
+						<Text style={styles.phototypeF}> Phototype {this.state.array.phototype}</Text>
+					</Col> 
+				</Grid>			 
 			</ListItem> 
 			<ListItem style={styles.list_MetaData}>   
-						  <Grid>
-							  <Col>
-									<Text style={styles.metaDataForm}>SED </Text>
-							  </Col>
-							  <Col>
-									 <Text style={styles.metaDataForm3} > {this.state.array.sed}</Text>
-							 </Col> 
-						   </Grid>			 
+				<Grid>
+					<Col>
+						<Text style={styles.metaDataForm}>SED </Text>
+					</Col>
+					<Col>
+						<Text style={styles.metaDataForm3} > {this.state.array.sed}</Text>
+					</Col> 
+				</Grid>			 
 			</ListItem> 	  
 			<ListItem style={styles.list_MetaData}>   
-						  <Grid>
-							  <Col>
-									<Text style={styles.metaDataForm}>Diamètre</Text> 
-							  </Col>
-							  <Col>
-									<Text style={styles.metaDataForm3}>{this.state.array.diametre}</Text>
-							 </Col> 
-						   </Grid>			 
+				 <Grid>
+					<Col>
+						<Text style={styles.metaDataForm}>Diamètre</Text> 
+					</Col>
+					<Col>
+						<Text style={styles.metaDataForm3}>{this.state.array.diametre}</Text>
+					</Col> 
+				</Grid>			 
 			</ListItem> 
 			<ListItem style={styles.list_MetaData}>   
-						  <Grid>
-							  <Col>
-									<Text style={styles.metaDataForm}>Epaisseur</Text> 
-							  </Col>
-							  <Col>
-								<Text style={styles.metaDataForm3}> {this.state.array.epaisseur}</Text>
-							 </Col> 
-						   </Grid>			 
+				<Grid>
+					<Col>
+						<Text style={styles.metaDataForm}>Epaisseur</Text> 
+					</Col>
+					<Col>
+						<Text style={styles.metaDataForm3}> {this.state.array.epaisseur}</Text>
+					 </Col> 
+				</Grid>			 
 			</ListItem>	 
 			<ListItem style={styles.list_MetaData}>   
-						  <Grid>
-							  <Col>
-									<Text style={styles.metaDataForm}>Suspicion</Text> 
-							  </Col>
-							  <Col>
-									<Text style={styles.mélanomeF}> Mélanome: {this.state.array.suspicion}%</Text>
-							 </Col> 
-						   </Grid>			 
+				<Grid>
+					<Col>
+						<Text style={styles.metaDataForm}>Suspicion</Text> 
+					</Col>
+					<Col>
+						<Text style={styles.mélanomeF}> Mélanome: {this.state.array.suspicion}%</Text>
+					</Col> 
+				</Grid>			 
 			</ListItem>	 
 					
-					  <Grid>
-					    <Row style={{marginTop:20, marginLeft:10}}>
-							  <Col style={{width:200}}>
-								 <Button onPress={this.uploadP.bind(this)} textStyle={styles.back_to_upload_button_valid_meta} transparent>
-										 MODIFIER LES INORMATIONS
-								 </Button> 
-							  </Col>
-							 <Col>	
-								<Button
-									onPress={this.validate.bind(this)}
-									style={styles.send_button_valid_meta}
-									textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
-							</Col>
-						</Row>	
-					 </Grid>			
+			<Grid>
+				<Row style={{marginTop:20, marginLeft:10}}>
+					<Col style={{width:200}}>
+						<Button onPress={this.uploadP.bind(this)} textStyle={styles.back_to_upload_button_valid_meta} transparent> MODIFIER LES INORMATIONS</Button> 
+					</Col>
+					<Col>	
+						<Button
+							onPress={this.validate.bind(this)}
+							style={styles.send_button_valid_meta}
+							textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
+					</Col>
+				</Row>	
+			</Grid>			
 		</ScrollView>   
 	</View>
     );
