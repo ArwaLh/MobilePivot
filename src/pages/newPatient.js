@@ -32,32 +32,22 @@ export default class newPatient extends Component {
 	this.itemsRef = firebase.database().ref();
     this.state = {
 		loaded:true,
-		types1: [{label: 'Régulier', value: 0}, {label: 'Irrégulier', value: 1}],
-		value1: 0,
-		value1Index: 0,
-		types2: [{label: 'Brun foncé', value: 0}, {label: 'Brun clair', value: 1}],
-		value2: 0,
-		value2Index: 0,
-		types3: [{label: 'Oui', value: 0}, {label: 'Non', value: 1}],
-		value3: 0,
-		value3Index: 0,
-		chickenWings: 1.5,
-		value: 1.0,
-		selectedItem: undefined,
 		antec_perso: 'oui',
 		antec_fam: 'oui',
 		nbreGrain: 'sup',
 		items_pat:[],
-		date:"",
+		datedate:"",
 		username_med: '',
 		patient_id: '',
-		dateNaissance_pat: ''
+		dateNaissance_pat: '',
+		id: ''
 	}}
 	 componentWillMount(){ 
 	AsyncStorage.getItem('id').then((idd) => {
-		
+		this.setState({
+			id: idd
+		  });
 	});
-	 
 		this.setState({
 			loaded: false
 		});
@@ -86,10 +76,10 @@ export default class newPatient extends Component {
 	locatePic(){
 		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 			//create category name
-			this.itemsRef.child('medecins/'+medecin_usernamee).child("categories").child("naevus").set({
+			this.itemsRef.child('medecins/'+medecin_usernamee).child("categories").child(this.state.id).set({
 				nom_categorie: "Naevus"
 			});
-			this.itemsRef.child('medecins/'+medecin_usernamee).child("categories").child("naevus").child('patients').on('value', (snap) => {
+			this.itemsRef.child('medecins/'+medecin_usernamee).child("categories").child(this.state.id).child('patients').on('value', (snap) => {
 				let items=[];
 				// get children as an array
 				snap.forEach((child) => {
@@ -104,11 +94,14 @@ export default class newPatient extends Component {
 
 			alert(this.state.items_pat.length);
 			this.setState({patient_id:this.state.nom_pat+'_'+this.state.prenom_pat+'_'+this.state.items_pat.length});
-			if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
+			if(this.state.nom_pat==''&& this.state.prenom_pat==''&&this.state.dateNaissance_pat=='' && this.state.lieu_pat=='' && this.state.profession_pat=='' && this.state.telephone_patient=='' && this.state.antec_perso=='' && this.state.antec_fam==''  &&this.state.nbreGrain==''){
 				alert("Vous n'avez pas remplis tous les champs!!");
 			}else{
+				if(this.state.nom_pat==''){
+					alert("you haven't typed name");
+				}else{
 			//ajout patient
-			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child("naevus").child('patients').child(this.state.patient_id).set({ 
+			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(this.state.id).child('patients').child(this.state.patient_id).set({ 
 				nom_pat: this.state.nom_pat, 
 				prenom_pat: this.state.prenom_pat, 
 				date_de_naissance_pat: this.state.dateNaissance_pat, 
@@ -120,7 +113,7 @@ export default class newPatient extends Component {
 				nombre_grain_de_beaute: this.state.nbreGrain, 
 			})
 			//récupérer la liste des dossiers
-			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child("naevus").child('patients').child(this.state.patient_id).child('dossiers_medicaux').on('value', (snap) => {
+			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(this.state.id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').on('value', (snap) => {
 			let items=[];
 			// get children as an array
 			snap.forEach((child) => {
@@ -139,8 +132,7 @@ export default class newPatient extends Component {
 			});
 			let dossier_id=medecin_usernamee+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
 			var mydate=new Date();
-			alert(mydate);
-			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child("naevus").child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
+			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(this.state.id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
 				date_creation_dossier: mydate.toString(),
 				date_MAJ_dossier: mydate.toString(),
 				nom_patient_dossier: this.state.nom_pat,
@@ -148,18 +140,19 @@ export default class newPatient extends Component {
 				nombre_images_dossier: 0
 			})
 			AsyncStorage.removeItem('med_pat_file');
-			AsyncStorage.setItem('med_pat_file',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":this.state.patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": "Naevus"}));
+			AsyncStorage.setItem('med_pat_file',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":this.state.patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": this.state.id}));
 			alert("sucesss patient added"); 
 			this.props.navigator.push({
 			  component: LocatePic
 			});
+			}
 			}
 		});
 
 	}
 	goBack() {
 		this.props.navigator.pop();
-		return true; // do not exit app
+		return true; 
 	}
   render() {
     return ( 
@@ -385,11 +378,6 @@ const styles = StyleSheet.create({
   component: {
    marginBottom: 15,
    marginLeft: 20,
-  },
-  radioStyle: {
-	/* borderRightWidth: 1,
-    borderColor: '#2196f3',
-    marginLeft: 50, */
   },
   radioButtonWrap: {
     marginRight: 30,

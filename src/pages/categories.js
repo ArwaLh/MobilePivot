@@ -50,7 +50,6 @@ export default class categories extends Component {
 					 array_cat.push({"key":k,"value":Object.values(items[k])[0]});	
 				}
 			}
-			alert(JSON.stringify(array_cat));
 				this.setState({
 				  dataSource: this.state.dataSource.cloneWithRows(array_cat),
 				});
@@ -68,12 +67,12 @@ export default class categories extends Component {
 		 component: GestionPatient
 				});
 	}
-/* 	last(){
+ 	last(){
 		this.props.navigator.push({
 		 component: LastOne
 
 		});
-	}	 */
+	}	 
   render() {
     return (
 	<View>
@@ -89,10 +88,6 @@ export default class categories extends Component {
 					  </ListItem>
 					</List>
 					} style={{backgroundColor: 'white'}}/>		
-		<Button
-			onPress={this.last.bind(this)}
-			style={styles.send_button_valid_meta}
-			textStyle={{fontSize: 15, color:'#fff'}}>To Last interface</Button>
      </View>
     );
   }
