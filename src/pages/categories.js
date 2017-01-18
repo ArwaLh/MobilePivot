@@ -38,7 +38,7 @@ export default class categories extends Component {
 		dataSource: ds.cloneWithRows(['row 1', 'row 2']),
 	}
 	}
-	componentWillMount(){
+	componentDidMount(){
 		AsyncStorage.getItem('medecin_username').then((medecin_id)=>{
 			this.itemsRef.child('medecins').child(medecin_id).child('categories').on('value', (snap) => {
 			//mapping
@@ -47,7 +47,7 @@ export default class categories extends Component {
 			items=snap.val();
 			for (var k in items){
 				if (items.hasOwnProperty(k)) {
-					 array_cat.push({"key":k,"value":Object.values(items[k])[0]});	
+					 array_cat.push({"key":k,"value":items[k].nom_categorie});	
 				}
 			}
 				this.setState({

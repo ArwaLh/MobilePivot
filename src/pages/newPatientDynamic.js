@@ -26,7 +26,7 @@ import GestionNaevus from './gestionNaevus';
 import LocatePic from './locatePic';
 import firebase from 'firebase';
 import DatePicker from 'react-native-datepicker';
-export default class newPatient extends Component {
+export default class newPatientDynamic extends Component {
 	constructor (props) {
     super(props);
 	this.itemsRef = firebase.database().ref();
@@ -154,7 +154,7 @@ export default class newPatient extends Component {
   render() {
     return ( 
 	<View>
-	<HeaderUp text="  1/4   Ajouter un patient" loaded={true} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text=" 1/4  Ajouter un patient Dynamic" loaded={true} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
 		<View> 
 				<TextInput
@@ -299,53 +299,7 @@ export default class newPatient extends Component {
 					placeholder={"Téléphone"}
 					maxLength = {25}
 					underlineColorAndroid="#53507c"/>	
-				  <Grid style={{marginTop:10}}>
-					  <Col>
-							<Text style={styles.a_a_n}>Antécédents personnel</Text>
-					  </Col>
-					  <Col style={{marginLeft:150}}>
-							<Picker
-								iosHeader="Select one"
-								mode="dropdown"
-								selectedValue={this.state.antec_perso}
-								onValueChange={this.onValueChangePerso}>
-								<Item label="oui" value="oui" />
-								<Item label="non" value="non" />  
-						   </Picker>
-					 </Col> 
-				   </Grid>			 
-				  <Grid>
-					  <Col>
-							<Text style={styles.a_a_n}>Antécédents familiaux </Text>
-					  </Col>
-					  <Col style={{marginLeft:150}}>
-							 <Picker
-								iosHeader="Select one"
-								mode="dropdown"
-								selectedValue={this.state.antec_fam}
-								onValueChange={this.onValueChangeFam}>
-								<Item label="oui" value="oui" />
-								<Item label="non" value="non" />  
-						   </Picker>
-					 </Col> 
-				   </Grid>			 
-				<Grid>
-					<Col>
-						<Text style={styles.a_a_n}>Nombre de grain de beauté</Text>
-					</Col>
-					<Col style={{marginLeft:140}}>
-						<Picker
-							style={{width:110}}
-							iosHeader="Select one"
-							mode="dropdown"
-							selectedValue={this.state.nbreGrain}
-							onValueChange={this.onValueChangeNbreGrain}>
-							<Item label="> 50" value="sup" />
-							<Item label="< 50" value="inf" />  
-						</Picker>
-					</Col>
-				</Grid>
-			
+
 			<Button
 				onPress={this.locatePic.bind(this)}
 				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:80,marginBottom:10,marginTop:10,alignItems:'center'}}
@@ -387,6 +341,7 @@ const styles = StyleSheet.create({
 	fontFamily: 'Roboto',
 	fontSize: 17,
 	margin: 10,
+	marginTop:20,
 	marginBottom:0
   },
   date_de_naissance: {
@@ -396,15 +351,6 @@ const styles = StyleSheet.create({
 	marginTop:10,
 	margin:12  
   },
-  a_a_n: {
-	width:250,
-	fontFamily: 'Roboto',
-	fontSize:17,
-	color:'#29235c',
-	marginTop:10,
-	margin:12,
-	marginBottom:0
-  },
   title_upload:{
 	  color:"#fff",
 	  fontSize:18,
@@ -413,4 +359,4 @@ const styles = StyleSheet.create({
       fontWeight:'bold'}
   });
 
-AppRegistry.registerComponent('newPatient', () => newPatient);
+AppRegistry.registerComponent('newPatientDynamic', () => newPatientDynamic);

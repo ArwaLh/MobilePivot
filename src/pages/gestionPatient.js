@@ -24,6 +24,7 @@ import {InputGroup, Input, Button, Card, CardItem, List, ListItem} from 'native-
 import HeaderUp from '../components/headerUp';
 import UploadForm from './uploadForm';
 import NewPatient from './newPatient';
+import NewPatientDynamic from './newPatientDynamic';
 import LocatePic from './locatePic';
 import RecherchePatient from './recherchePatient';
 import RechercheP from './rechercheP';
@@ -33,13 +34,30 @@ export default class gestionPatient extends Component {
 	constructor(props){
     super(props);
 		this.state = {
-		  loaded: true
+		  loaded: true,
+          id: ''
 		}
 	}
+	componentDidMount(){ 
+		AsyncStorage.getItem('id').then((idd) => {
+			this.setState({
+				id: idd
+			  });
+		});
+	}
 	ajoutPat(){
-		this.props.navigator.push({
-          component: NewPatient
-        });
+			AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
+			//create category name
+			if(this.state.id=="naevus"){
+				this.props.navigator.push({
+				component: NewPatient
+										  });
+			}else{
+				this.props.navigator.push({
+				component: NewPatientDynamic
+										 }); 
+			}
+	});
 	}
 	modPat(){
 		this.props.navigator.push({
