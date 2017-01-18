@@ -37,6 +37,7 @@ export default class gestionNaevus extends Component {
 			patient: null,
 			id_doc:"",
 			dossiers_medicaux: [],
+			med_pat_file: [],
 			patient_id: '',
 			medecin_id: '',
 			nom_pat: '',
@@ -49,6 +50,7 @@ export default class gestionNaevus extends Component {
 			const arr=JSON.parse(patient_medecin_arrayy_loc);
 			alert(patient_medecin_arrayy_loc.id_dossier);
 			this.setState({
+				med_pat_file:arr,
 				id_doc:arr
 			});
 		});
@@ -61,6 +63,7 @@ export default class gestionNaevus extends Component {
 		
 	}
 	nouveau_fichier(){
+		AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.med_pat_file.id_medecin,"id_patient":this.state.med_pat_file.id_patient,"id_dossier":this.state.med_pat_file.id_dossier,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.med_pat_file_loc.category}));
 		this.props.navigator.push({
           component: TakePic
         }); 

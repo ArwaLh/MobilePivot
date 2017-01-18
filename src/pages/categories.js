@@ -88,6 +88,7 @@ export default class categories extends Component {
 					  </ListItem>
 					</List>
 					} style={{backgroundColor: 'white'}}/>		
+
      </View>
     );
   }
