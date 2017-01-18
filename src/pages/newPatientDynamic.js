@@ -25,6 +25,7 @@ const Item = Picker.Item;
 import GestionNaevus from './gestionNaevus';
 import LocatePic from './locatePic';
 import firebase from 'firebase';
+import Icon from 'react-native-vector-icons/FontAwesome'; 
 import DatePicker from 'react-native-datepicker';
 export default class newPatientDynamic extends Component {
 	constructor (props) {
@@ -157,6 +158,8 @@ export default class newPatientDynamic extends Component {
 	<HeaderUp text=" 1/4  Ajouter un patient Dynamic" loaded={true} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
 		<View> 
+		    <Grid>
+			 <Row style={{marginTop:8}}>
 				<TextInput
 					required = {true}
 					keyboardAppearance ='dark'
@@ -167,6 +170,8 @@ export default class newPatientDynamic extends Component {
 					placeholder={"Nom"}
 					maxLength = {25}
 					underlineColorAndroid="#53507c"/>
+				</Row>
+				<Row style={{marginTop:8}}>
 				<TextInput
 				    required = {true}
 				    Key = {true}
@@ -176,7 +181,8 @@ export default class newPatientDynamic extends Component {
 					value={this.state.prenom_pat}
 					placeholder={"Prénom"}
 					maxLength = {25}
-					underlineColorAndroid="#53507c"/>					
+					underlineColorAndroid="#53507c"/>
+				</Row>	
 				 <Grid style={{marginTop:10}}>
 					  <Col>
 						<Text style={styles.date_de_naissance}>Date de naissance</Text>
@@ -272,7 +278,8 @@ export default class newPatientDynamic extends Component {
 							onDateChange={(date) => {this.setState({dateNaissance_pat: date})}}
 						  />
 					  </Col>
-				 </Grid>  
+				 </Grid>
+				<Row style={{marginTop:8}}>
 				<TextInput
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
@@ -280,7 +287,9 @@ export default class newPatientDynamic extends Component {
 					value={this.state.lieu_pat}
 					placeholder={"Lieu de résidence"}
 					maxLength = {25}
-					underlineColorAndroid="#29235c"/>		 
+					underlineColorAndroid="#29235c"/>
+				</Row>
+				<Row style={{marginTop:8}}>
 				<TextInput
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
@@ -289,7 +298,8 @@ export default class newPatientDynamic extends Component {
 					placeholder={"Profession"}
 					maxLength = {25}
 					underlineColorAndroid="#29235c"/> 	
-					
+				</Row>
+				<Row style={{marginTop:8}}>
 				<TextInput
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
@@ -299,11 +309,12 @@ export default class newPatientDynamic extends Component {
 					placeholder={"Téléphone"}
 					maxLength = {25}
 					underlineColorAndroid="#53507c"/>	
-
+				</Row>	
+			 </Grid>
 			<Button
 				onPress={this.locatePic.bind(this)}
-				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:80,marginBottom:10,marginTop:10,alignItems:'center'}}
-				textStyle={{fontSize: 14, color:'#fff',fontFamily: 'Roboto'}}>Localiser le grain de beauté</Button>
+				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:80,marginBottom:10,marginTop:40,alignItems:'center'}}
+				textStyle={{fontSize: 18, color:'#fff',fontFamily: 'Roboto',fontWeight: 'bold'}}>Valider</Button>
 		</View>
 	</ScrollView>   
 	</View>

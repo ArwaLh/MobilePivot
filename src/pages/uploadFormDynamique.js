@@ -122,7 +122,7 @@ export default class uploadFormDynamique extends Component {
 								ref="diametre"
 								style={{width:45, textAlign :"center"}}
 								underlineColorAndroid="#29235c"
-							  />
+							  /> 
 					  </ListItem>
 					</List>
 					} style={{backgroundColor: 'white'}}/>		

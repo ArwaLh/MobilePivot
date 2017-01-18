@@ -87,7 +87,7 @@ export default class gestionPatient extends Component {
 					<Text style={{width:200, fontFamily: 'Roboto', fontSize:18, color:'#29235c'}}>Ajouter un patient{"\n"}</Text>
 				</Col>	
 			</Row>
-			<Row style={{height:50}}>
+			<Row style={{height:30}}>
 				<Text style={{width:320, fontFamily: 'Roboto', fontSize:14, color:'#29235c'}}>Si vous voulez ajouter un patient il suffit de cliquer sur le bouton "AJOUTER UN PATIENT". Il vous suffira d'inserer les informations de votre patient.</Text>
 			</Row>
 			<Row>
@@ -110,7 +110,7 @@ export default class gestionPatient extends Component {
 					<Text style={{width:250, fontFamily: 'Roboto', fontSize:18, color:'#29235c'}}>Modifier la fiche patient{"\n"}</Text>
 				</Col>
 			</Row>	
-			<Row style={{height:50}}>
+			<Row style={{height:40}}>
 			<Text style={{width:320, fontFamily: 'Roboto', fontSize:14, color:'#29235c'}}>Si vous voulez modifier la fiche du patient il suffit de cliquer sur le bouton "MODIFIER UN PATIENT". Il vous suffira de modifier les informations concernant votre patient.</Text>
 			</Row>
 			<Row>
