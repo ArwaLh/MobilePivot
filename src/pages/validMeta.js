@@ -109,7 +109,7 @@ export default class validMeta extends Component {
 			  var uploadTask= firebase.storage()
 				.ref()
 				.child('medecins'+'_'+this.state.medecin_id).child('categories'+'_'+id_category).child('patients'+'_'+this.state.patient_id).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images')
-				.child(testImageName.substring(0,43).replace(/" "/, "_"))
+				.child(testImageName.substring(0,44).replace(/\s/g, "_"))
 				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
 					progress =Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
@@ -122,7 +122,7 @@ export default class validMeta extends Component {
 				  /*-----Add to firebase databse method ----*/
 				//and store image name
 				let compte_rendu=new Date();
-				let image_id=testImageName.substring(0,44).replace(/" "/g, "_");
+				let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
 				alert(image_id);
 				dbRef.child('medecins').child(id_medecin).child('categories').child(id_category).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set({ 
 					date_compte_rendu_consultation: compte_rendu.toString(),
