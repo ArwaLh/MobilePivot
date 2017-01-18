@@ -63,7 +63,7 @@ export default class gestionNaevus extends Component {
 		
 	}
 	nouveau_fichier(){
-		AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.med_pat_file.id_medecin,"id_patient":this.state.med_pat_file.id_patient,"id_dossier":this.state.med_pat_file.id_dossier,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.med_pat_file_loc.category}));
+		AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.med_pat_file.id_medecin,"id_patient":this.state.med_pat_file.id_patient,"id_dossier":this.state.med_pat_file.id_dossier,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"categorie":this.state.med_pat_file.categorie}));
 		this.props.navigator.push({
           component: TakePic
         }); 
