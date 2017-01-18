@@ -38,7 +38,7 @@ export default class categories extends Component {
 		dataSource: ds.cloneWithRows(['row 1', 'row 2']),
 	}
 	}
-	componentWillMount(){
+	componentDidMount(){
 		AsyncStorage.getItem('medecin_username').then((medecin_id)=>{
 			this.itemsRef.child('medecins').child(medecin_id).child('categories').on('value', (snap) => {
 			//mapping
@@ -47,10 +47,9 @@ export default class categories extends Component {
 			items=snap.val();
 			for (var k in items){
 				if (items.hasOwnProperty(k)) {
-					 array_cat.push({"key":k,"value":Object.values(items[k])[0]});	
+					 array_cat.push({"key":k,"value":items[k].nom_categorie});	
 				}
 			}
-			alert(JSON.stringify(array_cat));
 				this.setState({
 				  dataSource: this.state.dataSource.cloneWithRows(array_cat),
 				});
@@ -63,11 +62,17 @@ export default class categories extends Component {
 		return true;
 	}
    gestionP(id){
-	   AsyncStorage.setItem('id',id);
-		this.props.navigator.push({
+	 AsyncStorage.setItem('id',id);  
+		this.props.navigator.push({ 
 		 component: GestionPatient
+				});
+	}
+ 	last(){
+		this.props.navigator.push({
+		 component: LastOne
+
 		});
-	}	
+	}	 
   render() {
     return (
 	<View>
@@ -76,16 +81,14 @@ export default class categories extends Component {
 		enableEmptySections={true}
         renderRow={(rowData) => 
 					<List>
-					  <ListItem style={{height:100, borderColor:'#29235c', width:340, paddingTop:0}}>
+					  <ListItem style={{height:60, borderColor:'#29235c', width:340, paddingTop:0}}>
 					  <Button onPress={this.gestionP.bind(this,rowData.key)} style={{height:100}}  transparent>	
 							<Text style={styles.listViewCategorie}>{rowData.value}</Text> 	
 					  </Button>
 					  </ListItem>
 					</List>
 					} style={{backgroundColor: 'white'}}/>		
-		<Button
-			style={styles.send_button_valid_meta}
-			textStyle={{fontSize: 15, color:'#fff'}}>To Last interface</Button>
+
      </View>
     );
   }

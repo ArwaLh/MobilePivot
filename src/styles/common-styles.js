@@ -155,28 +155,12 @@ module.exports = StyleSheet.create({
 	marginLeft: 43,
     padding: 15,
     backgroundColor: '#29235c',
+	marginBottom:50
   },
    primary_button_text_ajout_patient: {
     color: '#ffffff',
     fontSize: 13,
 	textAlign: "center",
-  },
-  primary_button_oui: {
-	width: 80,
-	height: 40,
-    margin: 10,
-	marginTop: 15,
-    padding: 15,
-    backgroundColor: '#29235c',
-  },
-  primary_button_non: {
-	width: 80,
-	height: 40,
-    margin: 10,
-	marginTop: 15,
-	marginLeft: 55,
-    padding: 15,
-    backgroundColor: '#29235c',
   },
   primary_button_text: {
     color: '#ffffff',
@@ -290,7 +274,8 @@ module.exports = StyleSheet.create({
 	color: '#29235c',
 	fontFamily:'Roboto',
 	fontWeight: 'bold',
-	fontSize:18
+	fontSize:18,
+	
   },
   /*end categorie interface*/
   /*gestion naevus*/
@@ -298,7 +283,8 @@ module.exports = StyleSheet.create({
 	color: '#29235c',
 	fontFamily:'Roboto',
 	fontWeight: 'bold',
-	fontSize:14
+	fontSize:14,
+	
   },
   listViewText2:{
 	color: '#a8a8a8',

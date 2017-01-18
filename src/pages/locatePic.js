@@ -56,6 +56,18 @@ export default class locatePic extends Component {
 		  text_main_droite: 'Main droite',
 		  text_main_gauche: 'Main gauche',
 		}
+		this.localiser_tete=this.localiser_tete.bind(this);
+		this.localiser_cou=this.localiser_cou.bind(this);
+		this.localiser_nuque=this.localiser_nuque.bind(this);
+		this.localiser_epaule_gauche=this.localiser_epaule_gauche.bind(this);
+		this.localiser_epaule_droite=this.localiser_epaule_droite.bind(this);
+		this.localiser_thorax=this.localiser_thorax.bind(this);
+		this.localiser_abdomen=this.localiser_abdomen.bind(this);
+		this.localiser_dos=this.localiser_dos.bind(this);
+		this.localiser_main_gauche=this.localiser_main_gauche.bind(this);
+		this.localiser_main_droite=this.localiser_main_droite.bind(this);
+		this.localiser_jambe_gauche=this.localiser_jambe_gauche.bind(this);
+		this.localiser_jambe_droite=this.localiser_jambe_droite.bind(this);
 	}
 	validate_location(){
 		alert("next is cam page");
@@ -266,15 +278,15 @@ export default class locatePic extends Component {
 				<Button onPress={(img) =>{
 						this.setState({
 							uri_img: 'http://localhost:8081/img/Katomi-face-1.png',
-							cou: this.localiser_cou.bind(this),
-							epaule_gauche: this.localiser_epaule_gauche.bind(this),
-							epaule_droite: this.localiser_epaule_droite.bind(this),
-							thorax: this.localiser_thorax.bind(this),
-							abdomen: this.localiser_abdomen.bind(this),
-							main_droite: this.localiser_main_droite.bind(this),
-							main_gauche: this.localiser_main_gauche.bind(this),
-							jambe_droite: this.localiser_jambe_droite.bind(this),
-							jambe_gauche: this.localiser_jambe_gauche.bind(this),
+							cou: this.localiser_cou,
+							epaule_gauche: this.localiser_epaule_gauche,
+							epaule_droite: this.localiser_epaule_droite,
+							thorax: this.localiser_thorax,
+							abdomen: this.localiser_abdomen,
+							main_droite: this.localiser_main_droite,
+							main_gauche: this.localiser_main_gauche,
+							jambe_droite: this.localiser_jambe_droite,
+							jambe_gauche: this.localiser_jambe_gauche,
 							text_tete: 'Tête',
 							text_cou: 'Cou',
 							text_thorax: 'Thorax',
@@ -292,15 +304,15 @@ export default class locatePic extends Component {
 				<Button onPress={(img) =>{
 						this.setState({
 							uri_img: 'http://localhost:8081/img/Katomi-Face-2.png',
-							cou: this.localiser_nuque.bind(this),
-							epaule_gauche: this.localiser_epaule_droite.bind(this),
-							epaule_droite: this.localiser_epaule_gauche.bind(this),
+							cou: this.localiser_nuque,
+							epaule_gauche: this.localiser_epaule_droite,
+							epaule_droite: this.localiser_epaule_gauche,
 							thorax: null,
-							abdomen: this.localiser_dos.bind(this),
-							main_droite: this.localiser_main_gauche.bind(this),
-							main_gauche: this.localiser_main_droite.bind(this),
-							jambe_droite: this.localiser_jambe_gauche.bind(this),
-							jambe_gauche: this.localiser_jambe_droite.bind(this),
+							abdomen: this.localiser_dos,
+							main_droite: this.localiser_main_gauche,
+							main_gauche: this.localiser_main_droite,
+							jambe_droite: this.localiser_jambe_gauche,
+							jambe_gauche: this.localiser_jambe_droite,
 							text_tete: 'Tête',
 							text_cou: 'Nuque',
 							text_thorax: '',
@@ -318,7 +330,7 @@ export default class locatePic extends Component {
 			</View>
 			<View style={{flexDirection: 'column',backgroundColor: 'transparent'}}>
 			<TouchableOpacity
-				onPress={this.localiser_tete.bind(this)}
+				onPress={this.localiser_tete}
 				style={{width:100,height:22,marginLeft:55,marginTop:25,marginBottom:30,backgroundColor: "transparent"}}>
 				<Text style={{color:'#29235c',textAlign: "center"}}>{this.state.text_tete}</Text>
 				</TouchableOpacity>

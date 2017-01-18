@@ -50,7 +50,7 @@ export default class categories extends Component {
   render() {
     return (
 	<View>
-	 <HeaderUp text="Last Interface" onpress={this.goBack.bind(this)}/>
+<HeaderUp text="Last One" loaded={true} onpress={this.goBack.bind(this)}/>
 			<Image style={styles.image_last_one} source={{uri:'http://localhost:8081/img/last.png'}}/>
 			<Text style={styles.text_last_one}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis ligula non odio gravida pharetra quis in eros </Text>
 			<Button

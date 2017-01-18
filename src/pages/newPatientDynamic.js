@@ -25,8 +25,9 @@ const Item = Picker.Item;
 import GestionNaevus from './gestionNaevus';
 import LocatePic from './locatePic';
 import firebase from 'firebase';
+import Icon from 'react-native-vector-icons/FontAwesome'; 
 import DatePicker from 'react-native-datepicker';
-export default class newPatient extends Component {
+export default class newPatientDynamic extends Component {
 	constructor (props) {
     super(props);
 	this.itemsRef = firebase.database().ref();
@@ -134,7 +135,6 @@ export default class newPatient extends Component {
 				date_MAJ_dossier: mydate.toString(),
 				nom_patient_dossier: this.state.nom_pat,
 				prenom_patient_dossier: this.state.prenom_pat,
-				emplacement:"",
 				nombre_images_dossier: 0
 			})
 			AsyncStorage.removeItem('med_pat_file');
@@ -155,9 +155,11 @@ export default class newPatient extends Component {
   render() {
     return ( 
 	<View>
-	<HeaderUp text="  1/4   Ajouter un patient" loaded={true} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text=" 1/4  Ajouter un patient Dynamic" loaded={true} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
 		<View> 
+		    <Grid>
+			 <Row style={{marginTop:8}}>
 				<TextInput
 					required = {true}
 					keyboardAppearance ='dark'
@@ -168,6 +170,8 @@ export default class newPatient extends Component {
 					placeholder={"Nom"}
 					maxLength = {25}
 					underlineColorAndroid="#53507c"/>
+				</Row>
+				<Row style={{marginTop:8}}>
 				<TextInput
 				    required = {true}
 				    Key = {true}
@@ -177,7 +181,8 @@ export default class newPatient extends Component {
 					value={this.state.prenom_pat}
 					placeholder={"Prénom"}
 					maxLength = {25}
-					underlineColorAndroid="#53507c"/>					
+					underlineColorAndroid="#53507c"/>
+				</Row>	
 				 <Grid style={{marginTop:10}}>
 					  <Col>
 						<Text style={styles.date_de_naissance}>Date de naissance</Text>
@@ -273,7 +278,8 @@ export default class newPatient extends Component {
 							onDateChange={(date) => {this.setState({dateNaissance_pat: date})}}
 						  />
 					  </Col>
-				 </Grid>  
+				 </Grid>
+				<Row style={{marginTop:8}}>
 				<TextInput
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
@@ -281,7 +287,9 @@ export default class newPatient extends Component {
 					value={this.state.lieu_pat}
 					placeholder={"Lieu de résidence"}
 					maxLength = {25}
-					underlineColorAndroid="#29235c"/>		 
+					underlineColorAndroid="#29235c"/>
+				</Row>
+				<Row style={{marginTop:8}}>
 				<TextInput
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
@@ -290,7 +298,8 @@ export default class newPatient extends Component {
 					placeholder={"Profession"}
 					maxLength = {25}
 					underlineColorAndroid="#29235c"/> 	
-					
+				</Row>
+				<Row style={{marginTop:8}}>
 				<TextInput
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
@@ -300,57 +309,12 @@ export default class newPatient extends Component {
 					placeholder={"Téléphone"}
 					maxLength = {25}
 					underlineColorAndroid="#53507c"/>	
-				  <Grid style={{marginTop:10}}>
-					  <Col>
-							<Text style={styles.a_a_n}>Antécédents personnel</Text>
-					  </Col>
-					  <Col style={{marginLeft:150}}>
-							<Picker
-								iosHeader="Select one"
-								mode="dropdown"
-								selectedValue={this.state.antec_perso}
-								onValueChange={this.onValueChangePerso}>
-								<Item label="oui" value="oui" />
-								<Item label="non" value="non" />  
-						   </Picker>
-					 </Col> 
-				   </Grid>			 
-				  <Grid>
-					  <Col>
-							<Text style={styles.a_a_n}>Antécédents familiaux </Text>
-					  </Col>
-					  <Col style={{marginLeft:150}}>
-							 <Picker
-								iosHeader="Select one"
-								mode="dropdown"
-								selectedValue={this.state.antec_fam}
-								onValueChange={this.onValueChangeFam}>
-								<Item label="oui" value="oui" />
-								<Item label="non" value="non" />  
-						   </Picker>
-					 </Col> 
-				   </Grid>			 
-				<Grid>
-					<Col>
-						<Text style={styles.a_a_n}>Nombre de grain de beauté</Text>
-					</Col>
-					<Col style={{marginLeft:140}}>
-						<Picker
-							style={{width:110}}
-							iosHeader="Select one"
-							mode="dropdown"
-							selectedValue={this.state.nbreGrain}
-							onValueChange={this.onValueChangeNbreGrain}>
-							<Item label="> 50" value="sup" />
-							<Item label="< 50" value="inf" />  
-						</Picker>
-					</Col>
-				</Grid>
-			
+				</Row>	
+			 </Grid>
 			<Button
 				onPress={this.locatePic.bind(this)}
-				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:80,marginBottom:10,marginTop:10,alignItems:'center'}}
-				textStyle={{fontSize: 14, color:'#fff',fontFamily: 'Roboto'}}>Localiser le grain de beauté</Button>
+				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:80,marginBottom:10,marginTop:40,alignItems:'center'}}
+				textStyle={{fontSize: 18, color:'#fff',fontFamily: 'Roboto',fontWeight: 'bold'}}>Valider</Button>
 		</View>
 	</ScrollView>   
 	</View>
@@ -388,6 +352,7 @@ const styles = StyleSheet.create({
 	fontFamily: 'Roboto',
 	fontSize: 17,
 	margin: 10,
+	marginTop:20,
 	marginBottom:0
   },
   date_de_naissance: {
@@ -397,15 +362,6 @@ const styles = StyleSheet.create({
 	marginTop:10,
 	margin:12  
   },
-  a_a_n: {
-	width:250,
-	fontFamily: 'Roboto',
-	fontSize:17,
-	color:'#29235c',
-	marginTop:10,
-	margin:12,
-	marginBottom:0
-  },
   title_upload:{
 	  color:"#fff",
 	  fontSize:18,
@@ -414,4 +370,4 @@ const styles = StyleSheet.create({
       fontWeight:'bold'}
   });
 
-AppRegistry.registerComponent('newPatient', () => newPatient);
+AppRegistry.registerComponent('newPatientDynamic', () => newPatientDynamic);

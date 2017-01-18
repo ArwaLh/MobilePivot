@@ -71,7 +71,8 @@ export default class validMeta extends Component {
 					array:arr,
 					dossier_id: arr.id_dossier,
 					medecin_id: arr.id_medecin,
-					patient_id: arr.id_patient
+					patient_id: arr.id_patient,
+					category_id: arr.category
 				});
 		});
 		AsyncStorage.getItem('path').then((pathUp) => {                                                   
@@ -87,6 +88,7 @@ export default class validMeta extends Component {
 		let id_medecin=this.state.medecin_id;
 		let id_patient=this.state.patient_id;
 		let id_dossier=this.state.dossier_id;
+		let id_category=this.state.category_id;
 		let my_array=this.state.array;
 		/*-----upload to firebase storage method ----*/
 		firebase.auth()
@@ -106,7 +108,7 @@ export default class validMeta extends Component {
 			  // upload image using Firebase SDK
 			  var uploadTask= firebase.storage()
 				.ref()
-				.child('medecins'+'_'+this.state.medecin_id).child('categories'+'_'+'naevus').child('patients'+'_'+this.state.patient_id).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images')
+				.child('medecins'+'_'+this.state.medecin_id).child('categories'+'_'+id_category).child('patients'+'_'+this.state.patient_id).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images')
 				.child(testImageName.substring(0,43).replace(/" "/, "_"))
 				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
@@ -122,7 +124,7 @@ export default class validMeta extends Component {
 				let compte_rendu=new Date();
 				let image_id=testImageName.substring(0,44).replace(/" "/g, "_");
 				alert(image_id);
-				dbRef.child('medecins').child(id_medecin).child('categories').child('naevus').child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set({ 
+				dbRef.child('medecins').child(id_medecin).child('categories').child(id_category).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set({ 
 					date_compte_rendu_consultation: compte_rendu.toString(),
 					bords:my_array.bords,
 					couleur:my_array.couleur,
@@ -130,13 +132,13 @@ export default class validMeta extends Component {
 					diametre:my_array.diametre,
 					asymetrie:my_array.asymetrie,
 					phototype:my_array.phototype,
-					SED:my_array.sed,,
+					SED:my_array.sed,
 					suspicion:my_array.suspicion,
 					downloadURL:downloadURL.toString(),
 					imageName:image_id
 				})
 				//upadet medical folder data
-				dbRef.child('medecins').child(id_medecin).child('categories').child('naevus').child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
+				dbRef.child('medecins').child(id_medecin).child('categories').child(id_category).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
 				date_MAJ_dossier: compte_rendu.toString(),
 				nombre_images_dossier: my_array.nombre_images_dossier+1
 				});
@@ -171,81 +173,79 @@ export default class validMeta extends Component {
 				 </Grid>			 
 			</ListItem> 
 			<ListItem style={styles.list_MetaData}>   
-						  <Grid>
-							  <Col>
-									<Text style={styles.metaDataForm}>Asymétrie</Text>
-							  </Col>
-							  <Col>
-									<Text style={styles.metaDataForm3}>{this.state.array.asymetrie}</Text>
-							 </Col> 
-						   </Grid>			 
+				<Grid>
+					<Col>
+						<Text style={styles.metaDataForm}>Asymétrie</Text>
+					</Col>
+					<Col>
+						<Text style={styles.metaDataForm3}>{this.state.array.asymetrie}</Text>
+					</Col> 
+				</Grid>			 
 			</ListItem>
 			<ListItem style={styles.list_MetaData}>   
-						  <Grid>
-							  <Col>
-									<Text style={styles.metaDataForm}>Phototype </Text>
-							  </Col>
-							  <Col>
-									 <Text style={styles.phototypeF}> Phototype {this.state.array.phototype}</Text>
-							 </Col> 
-						   </Grid>			 
+				<Grid>
+					<Col>
+						<Text style={styles.metaDataForm}>Phototype </Text>
+					</Col>
+					<Col>
+						<Text style={styles.phototypeF}> Phototype {this.state.array.phototype}</Text>
+					</Col> 
+				</Grid>			 
 			</ListItem> 
 			<ListItem style={styles.list_MetaData}>   
-						  <Grid>
-							  <Col>
-									<Text style={styles.metaDataForm}>SED </Text>
-							  </Col>
-							  <Col>
-									 <Text style={styles.metaDataForm3} > {this.state.array.sed}</Text>
-							 </Col> 
-						   </Grid>			 
+				<Grid>
+					<Col>
+						<Text style={styles.metaDataForm}>SED </Text>
+					</Col>
+					<Col>
+						<Text style={styles.metaDataForm3} > {this.state.array.sed}</Text>
+					</Col> 
+				</Grid>			 
 			</ListItem> 	  
 			<ListItem style={styles.list_MetaData}>   
-						  <Grid>
-							  <Col>
-									<Text style={styles.metaDataForm}>Diamètre</Text> 
-							  </Col>
-							  <Col>
-									<Text style={styles.metaDataForm3}>{this.state.array.diametre}</Text>
-							 </Col> 
-						   </Grid>			 
+				 <Grid>
+					<Col>
+						<Text style={styles.metaDataForm}>Diamètre</Text> 
+					</Col>
+					<Col>
+						<Text style={styles.metaDataForm3}>{this.state.array.diametre}</Text>
+					</Col> 
+				</Grid>			 
 			</ListItem> 
 			<ListItem style={styles.list_MetaData}>   
-						  <Grid>
-							  <Col>
-									<Text style={styles.metaDataForm}>Epaisseur</Text> 
-							  </Col>
-							  <Col>
-								<Text style={styles.metaDataForm3}> {this.state.array.epaisseur}</Text>
-							 </Col> 
-						   </Grid>			 
+				<Grid>
+					<Col>
+						<Text style={styles.metaDataForm}>Epaisseur</Text> 
+					</Col>
+					<Col>
+						<Text style={styles.metaDataForm3}> {this.state.array.epaisseur}</Text>
+					 </Col> 
+				</Grid>			 
 			</ListItem>	 
 			<ListItem style={styles.list_MetaData}>   
-						  <Grid>
-							  <Col>
-									<Text style={styles.metaDataForm}>Suspicion</Text> 
-							  </Col>
-							  <Col>
-									<Text style={styles.mélanomeF}> Mélanome: {this.state.array.suspicion}%</Text>
-							 </Col> 
-						   </Grid>			 
+				<Grid>
+					<Col>
+						<Text style={styles.metaDataForm}>Suspicion</Text> 
+					</Col>
+					<Col>
+						<Text style={styles.mélanomeF}> Mélanome: {this.state.array.suspicion}%</Text>
+					</Col> 
+				</Grid>			 
 			</ListItem>	 
 					
-					  <Grid>
-					    <Row style={{marginTop:20, marginLeft:10}}>
-							  <Col style={{width:200}}>
-								 <Button onPress={this.uploadP.bind(this)} textStyle={styles.back_to_upload_button_valid_meta} transparent>
-										 MODIFIER LES INORMATIONS
-								 </Button> 
-							  </Col>
-							 <Col>	
-								<Button
-									onPress={this.validate.bind(this)}
-									style={styles.send_button_valid_meta}
-									textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
-							</Col>
-						</Row>	
-					 </Grid>			
+			<Grid>
+				<Row style={{marginTop:20, marginLeft:10}}>
+					<Col style={{width:200}}>
+						<Button onPress={this.uploadP.bind(this)} textStyle={styles.back_to_upload_button_valid_meta} transparent> MODIFIER LES INORMATIONS</Button> 
+					</Col>
+					<Col>	
+						<Button
+							onPress={this.validate.bind(this)}
+							style={styles.send_button_valid_meta}
+							textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
+					</Col>
+				</Row>	
+			</Grid>			
 		</ScrollView>   
 	</View>
     );

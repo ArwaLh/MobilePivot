@@ -64,6 +64,7 @@ export default class gestionNaevus extends Component {
 			this.setState({
 			  dataSource: this.state.dataSource.cloneWithRows(items),
 			  patient_id: arr.patient_id,
+			  categorie_id:arr.categorie,
 			  medecin_id: arr.medecin_id,
 			});
 			//const patients_array = items;
@@ -90,7 +91,7 @@ export default class gestionNaevus extends Component {
 	gestionF(id,nbre){
 		alert(id);
 		AsyncStorage.removeItem("med_pat_file");
-		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id,"nombre_images_dossier":nbre})); 
+		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id,"category":this.state.categorie_id,"nombre_images_dossier":nbre})); 
 		this.props.navigator.push({
 		  component: GestionFichier
 		});

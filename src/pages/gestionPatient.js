@@ -11,6 +11,7 @@ import {
   Dimensions,
   StyleSheet,
   Text,
+  AsyncStorage,
   BackAndroid,
   TouchableHighlight,
   View
@@ -20,9 +21,10 @@ import Header from '../components/header';
 import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input, Button, Card, CardItem, List, ListItem} from 'native-base';
-
+import HeaderUp from '../components/headerUp';
 import UploadForm from './uploadForm';
 import NewPatient from './newPatient';
+import NewPatientDynamic from './newPatientDynamic';
 import LocatePic from './locatePic';
 import RecherchePatient from './recherchePatient';
 import RechercheP from './rechercheP';
@@ -32,13 +34,30 @@ export default class gestionPatient extends Component {
 	constructor(props){
     super(props);
 		this.state = {
-		  loaded: true
+		  loaded: true,
+          id: ''
 		}
 	}
+	componentDidMount(){ 
+		AsyncStorage.getItem('id').then((idd) => {
+			this.setState({
+				id: idd
+			  });
+		});
+	}
 	ajoutPat(){
-		this.props.navigator.push({
-          component: NewPatient
-        });
+			AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
+			//create category name
+			if(this.state.id=="naevus"){
+				this.props.navigator.push({
+				component: NewPatient
+										  });
+			}else{
+				this.props.navigator.push({
+				component: NewPatientDynamic
+										 }); 
+			}
+	});
 	}
 	modPat(){
 		this.props.navigator.push({
@@ -57,7 +76,7 @@ export default class gestionPatient extends Component {
   render() {
     return (
 	<View>
-	<Header text="Gestion des patients" loaded={this.state.loaded}/>
+	<HeaderUp text="   Gestion des patients" loaded={true} onpress={this.goBack.bind(this)}/>
 		 <View style={{margin:7, marginTop:30}}>
 		 <List>
 		 <ListItem style={{height:(window.height/2)-70}}>
@@ -68,7 +87,7 @@ export default class gestionPatient extends Component {
 					<Text style={{width:200, fontFamily: 'Roboto', fontSize:18, color:'#29235c'}}>Ajouter un patient{"\n"}</Text>
 				</Col>	
 			</Row>
-			<Row style={{height:50}}>
+			<Row style={{height:30}}>
 				<Text style={{width:320, fontFamily: 'Roboto', fontSize:14, color:'#29235c'}}>Si vous voulez ajouter un patient il suffit de cliquer sur le bouton "AJOUTER UN PATIENT". Il vous suffira d'inserer les informations de votre patient.</Text>
 			</Row>
 			<Row>
@@ -91,7 +110,7 @@ export default class gestionPatient extends Component {
 					<Text style={{width:250, fontFamily: 'Roboto', fontSize:18, color:'#29235c'}}>Modifier la fiche patient{"\n"}</Text>
 				</Col>
 			</Row>	
-			<Row style={{height:50}}>
+			<Row style={{height:40}}>
 			<Text style={{width:320, fontFamily: 'Roboto', fontSize:14, color:'#29235c'}}>Si vous voulez modifier la fiche du patient il suffit de cliquer sur le bouton "MODIFIER UN PATIENT". Il vous suffira de modifier les informations concernant votre patient.</Text>
 			</Row>
 			<Row>
