@@ -64,20 +64,19 @@ export default class uploadForm extends Component {
 			sed: phototypeSED
 		  });
 	    });
-	}
-	componentWillMount(){
 		AsyncStorage.getItem('Phototype_value').then((phototypee) => {
 		  this.setState({
 			phototype: phototypee
 		  });
 		});
+	}
+	componentWillMount(){
 		AsyncStorage.getItem('path').then((pathUp) => {                                                   
 		  this.setState({
 			path:pathUp,
 			loaded: true
 		  });
 		  path= this.state.path;
-		  alert(path);
 		});
 	}
 	onValueChangeBords (value: string) {
@@ -106,7 +105,6 @@ export default class uploadForm extends Component {
 		});}
 		
 	validMetadata(){
-		alert(this.state.med_pat_file.nombre_images_dossier);
 		AsyncStorage.removeItem('med_pat_file_location_image_data');
 		AsyncStorage.setItem('med_pat_file_location_image_data', JSON.stringify({
 			"id_medecin":this.state.medecin_id,

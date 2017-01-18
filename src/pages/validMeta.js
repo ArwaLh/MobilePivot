@@ -25,6 +25,7 @@ import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
 import UploadForm from './uploadForm';
+import GestionPatient from './gestionPatient';
 
 const testImageName = `patient_pic_${Platform.OS}_${new Date()}.jpg`
 const EMAIL = 'arwa.louihig@esprit.tn'
@@ -37,11 +38,13 @@ window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
 window.Blob = Blob
 const dirs = RNFetchBlob.fs.dirs
 const path=null;
-const testFile = null
+const testFile = null;
+
 export default class validMeta extends Component {
 	constructor (props) {
     super(props);
 	this.itemsRef = firebase.database().ref();
+	this.storageRef = firebase.storage().ref();
 	this.state = {
 		array: [],
 		bords: '',
@@ -74,42 +77,25 @@ export default class validMeta extends Component {
 					patient_id: arr.id_patient,
 					category_id: arr.categorie
 				});
-		});
-		AsyncStorage.getItem('path').then((pathUp) => {                                                   
-		  this.setState({
-			path:pathUp
-		  });
-		  path= this.state.path;
 		});		
 	}
 	
 	validate(){
-		const dbRef = firebase.database().ref();
 		let id_medecin=this.state.medecin_id;
 		let id_patient=this.state.patient_id;
 		let id_dossier=this.state.dossier_id;
 		let id_category=this.state.category_id;
 		let my_array=this.state.array;
 		/*-----upload to firebase storage method ----*/
-		firebase.auth()
-          .signInWithEmailAndPassword(EMAIL, PASSWORD)
-          .catch((err) => {
-            console.log('firebase sigin failed', err)
-          })
-
-		firebase.auth().onAuthStateChanged((user) => {
-			<Text>{JSON.stringify(user)}</Text>
-		})
 		const rnfbURI= RNFetchBlob.wrap(path);
 		// create Blob from file path
 		Blob
 			.build(rnfbURI, { type : 'image/jpg;'})
 			.then((blob) => {
 			  // upload image using Firebase SDK
-			  var uploadTask= firebase.storage()
-				.ref()
+			  var uploadTask= this.storageRef
 				.child('medecins'+'_'+this.state.medecin_id).child('categories'+'_'+id_category).child('patients'+'_'+this.state.patient_id).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images')
-				.child(testImageName.substring(0,43).replace(/" "/, "_"))
+				.child(testImageName.substring(0,44).replace(/\s/g, "_"))
 				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
 					progress =Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
@@ -122,9 +108,9 @@ export default class validMeta extends Component {
 				  /*-----Add to firebase databse method ----*/
 				//and store image name
 				let compte_rendu=new Date();
-				let image_id=testImageName.substring(0,44).replace(/" "/g, "_");
+				let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
 				alert(image_id);
-				dbRef.child('medecins').child(id_medecin).child('categories').child(id_category).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set({ 
+				this.itemsRef.child('medecins').child(id_medecin).child('categories').child(id_category).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set({ 
 					date_compte_rendu_consultation: compte_rendu.toString(),
 					bords:my_array.bords,
 					couleur:my_array.couleur,
@@ -138,7 +124,7 @@ export default class validMeta extends Component {
 					imageName:image_id
 				})
 				//upadet medical folder data
-				dbRef.child('medecins').child(id_medecin).child('categories').child(id_category).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
+				this.itemsRef.child('medecins').child(id_medecin).child('categories').child(id_category).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
 				date_MAJ_dossier: compte_rendu.toString(),
 				nombre_images_dossier: my_array.nombre_images_dossier+1
 				});
@@ -146,6 +132,9 @@ export default class validMeta extends Component {
 				});
 
 			})
+		this.props.navigator.push({
+		  component: GestionPatient
+		});
 	}
   render() {
     return ( 
