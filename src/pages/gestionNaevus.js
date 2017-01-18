@@ -39,6 +39,7 @@ export default class gestionNaevus extends Component {
 			dossiers_medicaux: [],
 			patient_id: '',
 			medecin_id: '',
+			categorie_id: '',
 			nom_pat: '',
 			prenom_pat: '',
 		};
@@ -46,7 +47,7 @@ export default class gestionNaevus extends Component {
 	componentDidMount(){
 		AsyncStorage.getItem('medecin_patient').then((patient_medecin_arrayy) => {
 			const arr=JSON.parse(patient_medecin_arrayy);
-			this.itemsRef.child('medecins').child(arr.medecin_id).child('categories').child(this.state.id).child('patients').child(arr.patient_id).child('dossiers_medicaux').on('value', (snap) => {
+			this.itemsRef.child('medecins').child(arr.medecin_id).child('categories').child(arr.categorie).child('patients').child(arr.patient_id).child('dossiers_medicaux').on('value', (snap) => {
 			let items=[];
 			// get children as an array
 			snap.forEach((child) => {
@@ -57,6 +58,7 @@ export default class gestionNaevus extends Component {
 					telephone_patient_dossier: child.val().telephone_patient_dossier,
 					date_creation_dossier: child.val().date_creation_dossier,
 					date_MAJ_dossier: child.val().date_MAJ_dossier,
+					emplacement: child.val().emplacement,
 					categorie: child.val().categorie,
 					_key: child.key
 				});
@@ -72,7 +74,7 @@ export default class gestionNaevus extends Component {
 			this.setState({ dossiers_medicaux });
 			});
 			let patient_a=null;
-			this.itemsRef.child('medecins').child(arr.medecin_id).child("categories").child(this.state.id).child('patients').orderByKey().equalTo(arr.patient_id).once("child_added", function(snapshot) {
+			this.itemsRef.child('medecins').child(arr.medecin_id).child("categories").child(arr.categorie).child('patients').orderByKey().equalTo(arr.patient_id).once("child_added", function(snapshot) {
 				patient_a = snapshot.val(); 
 			});
 			alert(patient_a);
@@ -91,7 +93,7 @@ export default class gestionNaevus extends Component {
 	gestionF(id,nbre){
 		alert(id);
 		AsyncStorage.removeItem("med_pat_file");
-		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id,"category":this.state.categorie_id,"nombre_images_dossier":nbre})); 
+		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id,"categorie":this.state.categorie_id,"nombre_images_dossier":nbre})); 
 		this.props.navigator.push({
 		  component: GestionFichier
 		});

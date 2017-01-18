@@ -29,6 +29,7 @@ import TakePicture from './takePic';
 export default class locatePic extends Component {
 	constructor(props){
     super(props);
+	this.itemsRef=firebase.database().ref();
 		this.state = {
 		  loaded: true,
 		  dossier_id: '',
@@ -93,10 +94,10 @@ export default class locatePic extends Component {
 		  [
 			{text: 'Valider pour étape suivante', onPress: () =>{
 			//update dossier médical
-			dbRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
 				emplacement:"Tête"
 				});
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,emplacement":'Tête'}));
+			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Tête'}));
 			this.props.navigator.push({
 				component: TakePicture
 			})
@@ -112,7 +113,7 @@ export default class locatePic extends Component {
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 				//update dossier médical
-			dbRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
 				emplacement:"Cou"
 				});
 			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Cou'})),
@@ -131,7 +132,7 @@ export default class locatePic extends Component {
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 				//update dossier médical
-			dbRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
 				emplacement:"Nuque"
 				});
 			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Nuque'}));
@@ -150,7 +151,7 @@ export default class locatePic extends Component {
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 				//update dossier médical
-			dbRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
 				emplacement:"Épaule gauche"
 				});
 			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Épaule gauche'}));
@@ -168,7 +169,7 @@ export default class locatePic extends Component {
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 				//update dossier médical
-			dbRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
 				emplacement:"Épaule droite"
 				});
 			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Épaule droite'}));
@@ -186,7 +187,7 @@ export default class locatePic extends Component {
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 				//update dossier médical
-			dbRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
 				emplacement:"Thorax"
 				});
 			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Thorax'}));
@@ -204,7 +205,7 @@ export default class locatePic extends Component {
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 				//update dossier médical
-			dbRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
 				emplacement:"Abdomen"
 				});
 			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Abdomen'}));
@@ -222,7 +223,7 @@ export default class locatePic extends Component {
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 				//update dossier médical
-			dbRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
 				emplacement:"Dos"
 				});
 			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Dos'}));
@@ -240,7 +241,7 @@ export default class locatePic extends Component {
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 				//update dossier médical
-			dbRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
 				emplacement:"Main Gauche"
 				});
 			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Main Gauche'}));
@@ -259,7 +260,7 @@ export default class locatePic extends Component {
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 				//update dossier médical
-			dbRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
 				emplacement:"Main Droite"
 				});
 			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Main Droite'}));
@@ -278,7 +279,7 @@ export default class locatePic extends Component {
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 			//update dossier médical
-			dbRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
 				emplacement:"Jambe Gauche"
 			});
 			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Jambe Gauche'}));
@@ -297,7 +298,7 @@ export default class locatePic extends Component {
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 			//update dossier médical
-			dbRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
 				emplacement:"Jambe Droite"
 			});
 			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Jambe Droite'}));

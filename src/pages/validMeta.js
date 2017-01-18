@@ -72,7 +72,7 @@ export default class validMeta extends Component {
 					dossier_id: arr.id_dossier,
 					medecin_id: arr.id_medecin,
 					patient_id: arr.id_patient,
-					category_id: arr.category
+					category_id: arr.categorie
 				});
 		});
 		AsyncStorage.getItem('path').then((pathUp) => {                                                   
