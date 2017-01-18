@@ -79,6 +79,11 @@ export default class locatePic extends Component {
 		  'Tête',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () =>{
+			//update dossier médical
+			dbRef.child('medecins').child(this.state.medecin_id).child('categories').child('naevus').child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
+				date_MAJ_dossier: compte_rendu.toString(),
+				nombre_images_dossier: my_array.nombre_images_dossier+1
+				});
 			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"emplacement":'Tête'}));
 			this.props.navigator.push({
 				component: TakePicture

@@ -84,7 +84,6 @@ export default class categories extends Component {
 					</List>
 					} style={{backgroundColor: 'white'}}/>		
 		<Button
-			onPress={this.last.bind(this)}
 			style={styles.send_button_valid_meta}
 			textStyle={{fontSize: 15, color:'#fff'}}>To Last interface</Button>
      </View>

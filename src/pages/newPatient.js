@@ -141,6 +141,7 @@ export default class newPatient extends Component {
 				date_MAJ_dossier: mydate.toString(),
 				nom_patient_dossier: this.state.nom_pat,
 				prenom_patient_dossier: this.state.prenom_pat,
+				emplacement:"",
 				nombre_images_dossier: 0
 			})
 			AsyncStorage.removeItem('med_pat_file');

@@ -26,7 +26,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
 import UploadForm from './uploadForm';
 
-const testImageName = `patient-pic-${Platform.OS}-${new Date()}.jpg`
+const testImageName = `patient_pic_${Platform.OS}_${new Date()}.jpg`
 const EMAIL = 'arwa.louihig@esprit.tn'
 const PASSWORD = 'arwa24961322'
 import firebase from 'firebase';
@@ -107,7 +107,7 @@ export default class validMeta extends Component {
 			  var uploadTask= firebase.storage()
 				.ref()
 				.child('medecins'+'_'+this.state.medecin_id).child('categories'+'_'+'naevus').child('patients'+'_'+this.state.patient_id).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images')
-				.child(testImageName.substring(0,43).replace(/" "/g, "_"))
+				.child(testImageName.substring(0,43).replace(/" "/, "_"))
 				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
 					progress =Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
@@ -120,7 +120,7 @@ export default class validMeta extends Component {
 				  /*-----Add to firebase databse method ----*/
 				//and store image name
 				let compte_rendu=new Date();
-				let image_id=testImageName.substring(0,43).replace(/" "/g, "");
+				let image_id=testImageName.substring(0,44).replace(/" "/g, "_");
 				alert(image_id);
 				dbRef.child('medecins').child(id_medecin).child('categories').child('naevus').child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set({ 
 					date_compte_rendu_consultation: compte_rendu.toString(),
@@ -130,10 +130,10 @@ export default class validMeta extends Component {
 					diametre:my_array.diametre,
 					asymetrie:my_array.asymetrie,
 					phototype:my_array.phototype,
-					SED:my_array.sed,
-					emplacement:my_array.emplacement,
+					SED:my_array.sed,,
 					suspicion:my_array.suspicion,
-					downloadURL:downloadURL
+					downloadURL:downloadURL.toString(),
+					imageName:image_id
 				})
 				//upadet medical folder data
 				dbRef.child('medecins').child(id_medecin).child('categories').child('naevus').child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
