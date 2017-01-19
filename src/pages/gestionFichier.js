@@ -71,42 +71,42 @@ export default class gestionNaevus extends Component {
   render() {
     return ( 
 	<View style={{backgroundColor: 'white'}}>
-	<HeaderUp text="Gestion des fichiers" loaded={true} onpress={this.goBack.bind(this)}/>
-	<ScrollView style={{backgroundColor: '#fff'}}>
-	<View style={{flex:1}}>
-	<ListItem style={{borderColor:'#29235c', width:340}}>
-	   <Grid>
-			<Row><Text style={{color: "#29235c",marginLeft:10,fontSize:18,fontFamily: 'Roboto',fontWeight:"bold"}}> Naevus:{this.state.id_doc.id_dossier}</Text></Row>
-		</Grid>
-	</ListItem>	
-		<ListView dataSource={this.state.dataSource}
-		enableEmptySections={true}
-        renderRow={(rowData) => 
-					<List style={{backgroundColor:'white',height:180, borderColor:'#29235c'}}>
-					  <ListItem style={{height:180, borderColor:'#29235c', width:340, paddingTop:0}}>
-					  <Button style={{height:180}} onPress={this.localiser_photo.bind(this,rowData._key)} transparent>
-						<Grid>
-						<Col style={{width:70, height:120}}>
-						<Image style={{width:75,height:95, marginTop:10}} source={{uri:'http://localhost:8081/img/Icfichier.png'}}/>
-						</Col>
-						<Col style={{width:230, margin:20}}>				
-							<Text style={styles.listViewText1}>Date de consultation</Text>
-							<Text style={styles.listViewText2}>{rowData.date_creation_dossier.substring(0,24)}</Text>
-						</Col>
-						</Grid>
-					  </Button>
-					  </ListItem>
-					</List>
-					} style={{backgroundColor: 'white'}}/>		
-		<List style={{backgroundColor: 'white',height:100}}>
-			<ListItem>
-				<Button style={{height:120}} onPress={this.nouveau_fichier.bind(this)}transparent>
-				  <Icon name="plus-square-o" style={{color: '#29235c', fontSize: 60, width:70,marginLeft: (window.width/2)-50}}/> 	
-				</Button>
-            </ListItem>
-        </List>
-	</View>
-	</ScrollView>   
+		<HeaderUp text="Gestion des fichiers" loaded={true} onpress={this.goBack.bind(this)}/>
+		<ScrollView style={{backgroundColor: '#fff'}}>
+			<View style={{flex:1}}>
+				<ListItem style={{borderColor:'#29235c', width:340}}>
+				   <Grid>
+						<Row><Text style={{color: "#29235c",marginLeft:10,fontSize:18,fontFamily: 'Roboto',fontWeight:"bold"}}> Naevus:{this.state.id_doc.id_dossier}</Text></Row>
+					</Grid>
+				</ListItem>	
+				<ListView dataSource={this.state.dataSource}
+					enableEmptySections={true}
+					renderRow={(rowData) => 
+						<List style={{backgroundColor:'white',height:180, borderColor:'#29235c'}}>
+							<ListItem style={{height:180, borderColor:'#29235c', width:340, paddingTop:0}}>
+								<Button style={{height:180}} onPress={this.localiser_photo.bind(this,rowData._key)} transparent>
+									<Grid>
+									<Col style={{width:70, height:120}}>
+									<Image style={{width:75,height:95, marginTop:10}} source={{uri:'http://localhost:8081/img/Icfichier.png'}}/>
+									</Col>
+									<Col style={{width:230, margin:20}}>				
+										<Text style={styles.listViewText1}>Date de consultation</Text>
+										<Text style={styles.listViewText2}>{rowData.date_creation_dossier.substring(0,24)}</Text>
+									</Col>
+									</Grid>
+								</Button>
+							</ListItem>
+						</List>
+				} style={{backgroundColor: 'white'}}/>		
+				<List style={{backgroundColor: 'white',height:100}}>
+					<ListItem>
+						<Button style={{height:120}} onPress={this.nouveau_fichier.bind(this)}transparent>
+						  <Icon name="plus-square-o" style={{color: '#29235c', fontSize: 60, width:70,marginLeft: (window.width/2)-50}}/> 	
+						</Button>
+					</ListItem>
+				</List>
+			</View>
+		</ScrollView>   
 	</View>
     );
   }

@@ -52,7 +52,7 @@ export default class uploadFormDynamique extends Component {
 		  med_pat_file:{},
 		}
 	}
-/*     componentWillMount(){
+/*     componentDidMount(){
 	//cette methode recupere les critéres et les convertit en textinput
 		AsyncStorage.getItem('medecin_username').then((medecin_id)=>{
 			this.itemsRef.child('medecins').child(medecin_id).child('categories').on('value', (snap) => {

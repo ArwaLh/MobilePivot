@@ -36,6 +36,7 @@ export default class uploadForm extends Component {
 		  phototype: '',
 		  sed:'',
 		  mel: 0.0,
+		  path:'',
           selected1: 'Régulier',
 		  selected2: 'Brun foncé',
 		  selected3: 'Oui',
@@ -50,6 +51,13 @@ export default class uploadForm extends Component {
 		}
 	}
     componentDidMount(){
+		AsyncStorage.getItem('path').then((pathUp) => {                                                   
+		  this.setState({
+			path:pathUp,
+			loaded: true
+		  });
+		  path= this.state.path;
+		});
 		AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
 		  const array=JSON.parse(med_pat_file_locationn);
 			this.setState({ 
@@ -68,15 +76,6 @@ export default class uploadForm extends Component {
 		  this.setState({
 			phototype: phototypee
 		  });
-		});
-	}
-	componentWillMount(){
-		AsyncStorage.getItem('path').then((pathUp) => {                                                   
-		  this.setState({
-			path:pathUp,
-			loaded: true
-		  });
-		  path= this.state.path;
 		});
 	}
 	onValueChangeBords (value: string) {
