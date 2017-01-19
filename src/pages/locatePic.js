@@ -71,9 +71,6 @@ export default class locatePic extends Component {
 		this.localiser_jambe_gauche=this.localiser_jambe_gauche.bind(this);
 		this.localiser_jambe_droite=this.localiser_jambe_droite.bind(this);
 	}
-	validate_location(){
-		alert("next is cam page");
-	}
 	 componentDidMount(){
 		AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 			const array=JSON.parse(med_pat_filee);
@@ -99,7 +96,7 @@ export default class locatePic extends Component {
 				emplacement:"Tête"
 				});
 			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Tête'}));
-			this.props.navigator.push({
+			this.props.navigator.replace({
 				component: TakePicture
 			})
 			} 

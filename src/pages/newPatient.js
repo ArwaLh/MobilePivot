@@ -85,22 +85,6 @@ export default class newPatient extends Component {
 			loaded: true
 		});
 	}
-    onValueChangePerso (value: string) {
-        this.setState({
-            antec_perso : value
-        });
-    }
-	onValueChangeFam (value: string) {
-        this.setState({
-            antec_fam : value
-        });
-    }
-	onValueChangeNbreGrain (value: string) {
-        this.setState({
-			nbreGrain: value
-        });
-    }
-  
 	locatePic(){
 			//create category name
 
@@ -157,11 +141,10 @@ export default class newPatient extends Component {
 			alert("sucesss patient added"); 
 			});
 			}//end if nom pat et prenom pat not null
-			this.props.navigator.push({
-			  component: LocatePic
-			});
 			}
-
+	this.props.navigator.replace({
+		component: LocatePic
+	});
 	}
 	goBack() {
 		this.props.navigator.pop();
@@ -324,7 +307,7 @@ export default class newPatient extends Component {
 								iosHeader="Select one"
 								mode="dropdown"
 								selectedValue={this.state.antec_perso}
-								onValueChange={this.onValueChangePerso}>
+								onValueChange={(value) =>this.setState({antec_perso : value})}>
 								<Item label="oui" value="oui" />
 								<Item label="non" value="non" />  
 						   </Picker>
@@ -339,7 +322,7 @@ export default class newPatient extends Component {
 								iosHeader="Select one"
 								mode="dropdown"
 								selectedValue={this.state.antec_fam}
-								onValueChange={this.onValueChangeFam}>
+								onValueChange={(value)=>this.setState({antec_fam : value})}>
 								<Item label="oui" value="oui" />
 								<Item label="non" value="non" />  
 						   </Picker>
@@ -355,7 +338,7 @@ export default class newPatient extends Component {
 							iosHeader="Select one"
 							mode="dropdown"
 							selectedValue={this.state.nbreGrain}
-							onValueChange={this.onValueChangeNbreGrain}>
+							onValueChange={(value)=>this.setState({nbreGrain: value})}>
 							<Item label="> 50" value="sup" />
 							<Item label="< 50" value="inf" />  
 						</Picker>

@@ -44,10 +44,6 @@ export default class login extends Component {
 	this.login=this.login.bind(this);
 	
   }
-  show_mdp(){
-	 alert("show password pressed");
-	 this.setState({secureTextEntry: true});
-  }
 
   render(){
     return (
@@ -115,7 +111,7 @@ export default class login extends Component {
                 )
                 alert("Login was successful with permissions: " + result.grantedPermissions);
 				this.props.navigator.push({
-				  component: Categories
+				  component: GestionPatient
 				});
               }
             }
@@ -129,11 +125,6 @@ export default class login extends Component {
   }
   login(){
 	const auth=firebase.auth();
-	auth.signOut();
-
-    this.setState({
-      loaded: false
-    });
     auth.signInWithEmailAndPassword(this.state.email_medecin,this.state.password).then((user_data) =>{
 		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(this.state.email_medecin).on("value", (snapshot)=> {
 			let id=[];
@@ -142,11 +133,11 @@ export default class login extends Component {
 			all_arrays=Object.values(snapshot.val());
 			AsyncStorage.setItem('medecin_username', id[0]);
 			if(Object.values(all_arrays[0].categories)==null || (Object.values(all_arrays[0].categories)).length==1){
-				this.props.navigator.push({ 
+				this.props.navigator.replace({ 
 				  component: GestionPatient
 				});
 			}else{
-				this.props.navigator.push({
+				this.props.navigator.replace({
 				  component: Categories
 				});
 			}
@@ -157,7 +148,7 @@ export default class login extends Component {
 	});
   }
   goToSignup(){
-    this.props.navigator.push({
+    this.props.navigator.replace({
       component: Signup
     });
   }

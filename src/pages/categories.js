@@ -65,12 +65,6 @@ export default class categories extends Component {
 	 AsyncStorage.setItem('id',id);  
 		this.props.navigator.push({ 
 		 component: GestionPatient
-				});
-	}
- 	last(){
-		this.props.navigator.push({
-		 component: LastOne
-
 		});
 	}	 
   render() {
@@ -88,7 +82,6 @@ export default class categories extends Component {
 					  </ListItem>
 					</List>
 					} style={{backgroundColor: 'white'}}/>		
-
      </View>
     );
   }
