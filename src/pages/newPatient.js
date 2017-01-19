@@ -36,9 +36,11 @@ export default class newPatient extends Component {
 		antec_fam: 'oui',
 		nbreGrain: 'sup',
 		items_pat:[],
+		items_pat:[],
 		datedate:"",
 		username_med: '',
 		patient_id: '',
+		medecin_id: '',
 		dateNaissance_pat: '',
 		id: ''
 	}
@@ -52,6 +54,26 @@ export default class newPatient extends Component {
 				id: idd
 			  });
 		});
+		//
+		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
+			this.setState({
+				medecin_id: medecin_usernamee
+			  });
+			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(this.state.id).child('patients').on('value', (snap) => {
+			let items_pat=[];
+			// get children as an array
+			snap.forEach((child) => {
+				items_pat.push({
+					antecedents_familiaux :child.val().antecedents_familiaux,
+				  _key: child.key,
+				});
+			});
+			this.setState({
+				items_pat: items_pat
+			  });
+			});
+		});
+		//
 		this.setState({
 			loaded: true
 		});
@@ -73,32 +95,18 @@ export default class newPatient extends Component {
     }
   
 	locatePic(){
-		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 			//create category name
 			if(this.state.id=="naevus"){
-			this.itemsRef.child('medecins/'+medecin_usernamee).child("categories").child(this.state.id).set({
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child("categories").child(this.state.id).set({
 				nom_categorie: "Naevus"
 			});
 			}
-			this.itemsRef.child('medecins/'+medecin_usernamee).child("categories").child(this.state.id).child('patients').on('value', (snap) => {
-				let items=[];
-				// get children as an array
-				snap.forEach((child) => {
-					items.push({
-						antecedents_familiaux :child.val().antecedents_familiaux,
-					  _key: child.key,
-					});
-				});
-				const items_pat = items;
-				this.setState({ items_pat });
-			});
-
-			this.setState({patient_id:this.state.nom_pat+'_'+this.state.prenom_pat+'_'+this.state.items_pat.length});
+			let patient_id=this.state.nom_pat.toLowerCase()+'_'+this.state.prenom_pat.toLowerCase()+'_'+this.state.items_pat.length;
 			if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
 				alert("Vous n'avez pas remplis tous les champs!!");
 			}else{
 			//ajout patient
-			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(this.state.id).child('patients').child(this.state.patient_id).set({ 
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child("categories").child(this.state.id).child('patients').child(patient_id).set({ 
 				nom_pat: this.state.nom_pat, 
 				prenom_pat: this.state.prenom_pat, 
 				date_de_naissance_pat: this.state.dateNaissance_pat, 
@@ -110,26 +118,24 @@ export default class newPatient extends Component {
 				nombre_grain_de_beaute: this.state.nbreGrain, 
 			})
 			//récupérer la liste des dossiers
-			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(this.state.id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').on('value', (snap) => {
-			let items=[];
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child("categories").child(this.state.id).child('patients').child(patient_id).child('dossiers_medicaux').on('value', (snap2) => {
+			let items_dossiers=[];
 			// get children as an array
-			snap.forEach((child) => {
-				items.push({
+			snap2.forEach((child) => {
+				items_dossiers.push({
 					date_creation_dossier: child.val().date_creation_dossier,
 					date_MAJ_dossier: child.val().date_MAJ_dossier,
 					nom_patient_dossier: child.val().nom_patient_dossier,
 					prenom_patient_dossier: child.val().prenom_patient_dossier,
+					emplacement: child.val().emplacement,
 					nombre_images_dossier: child.val().nombre_images_dossier,
 					_key: child.key
 				});
 			});
-			//const patients_array = items;
-			const dossiers_medicaux = items; 
-			this.setState({ dossiers_medicaux });
 			});
-			let dossier_id=medecin_usernamee+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
+			let dossier_id=this.state.medecin_id+'_'+this.state.patient_id+'_'+items_dossiers.length;
 			var mydate=new Date();
-			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(this.state.id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child("categories").child(this.state.id).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
 				date_creation_dossier: mydate.toString(),
 				date_MAJ_dossier: mydate.toString(),
 				nom_patient_dossier: this.state.nom_pat,
@@ -138,14 +144,13 @@ export default class newPatient extends Component {
 				nombre_images_dossier: 0
 			})
 			AsyncStorage.removeItem('med_pat_file');
-			AsyncStorage.setItem('med_pat_file',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":this.state.patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": this.state.id}));
+			AsyncStorage.setItem('med_pat_file',JSON.stringify({"medecin_id":this.state.medecin_id,"patient_id":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": this.state.id}));
 			alert("sucesss patient added"); 
+
+			}
 			this.props.navigator.push({
 			  component: LocatePic
 			});
-			}
-			
-		});
 
 	}
 	goBack() {
