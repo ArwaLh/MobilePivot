@@ -133,11 +133,11 @@ export default class login extends Component {
 			all_arrays=Object.values(snapshot.val());
 			AsyncStorage.setItem('medecin_username', id[0]);
 			if(Object.values(all_arrays[0].categories)==null || (Object.values(all_arrays[0].categories)).length==1){
-				this.props.navigator.replace({ 
+				this.props.navigator.push({ 
 				  component: GestionPatient
 				});
 			}else{
-				this.props.navigator.replace({
+				this.props.navigator.push({
 				  component: Categories
 				});
 			}
@@ -148,7 +148,7 @@ export default class login extends Component {
 	});
   }
   goToSignup(){
-    this.props.navigator.replace({
+    this.props.navigator.push({
       component: Signup
     });
   }

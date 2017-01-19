@@ -28,14 +28,15 @@ import LastOne from './lastOne';
 const window = Dimensions.get('window');
 import firebase from 'firebase';
 
-export default class categories extends Component {
+export default class Categories extends Component {
 	constructor(props){
     super(props);
 	this.itemsRef = firebase.database().ref();
-	const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 	this.state={
 		medecin_id:"",
-		dataSource: ds.cloneWithRows(['row 1', 'row 2']),
+		dataSource: new ListView.DataSource({
+			  rowHasChanged: (row1, row2) => row1 !== row2,
+		}),
 	}
 	}
 	componentDidMount(){
@@ -62,6 +63,7 @@ export default class categories extends Component {
 		return true;
 	}
    gestionP(id){
+	 AsyncStorage.removeItem('id');  
 	 AsyncStorage.setItem('id',id);  
 		this.props.navigator.push({ 
 		 component: GestionPatient
@@ -87,4 +89,4 @@ export default class categories extends Component {
   }
 }
 
-AppRegistry.registerComponent('categories', () => categories);
+AppRegistry.registerComponent('Categories', () => Categories);
