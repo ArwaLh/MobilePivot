@@ -49,9 +49,6 @@ export default class newPatient extends Component {
 		medecin_id: '',
 		id: ''
 	}
-	this.onValueChangePerso=this.onValueChangePerso.bind(this);
-	this.onValueChangeFam=this.onValueChangeFam.bind(this);
-	this.onValueChangeNbreGrain=this.onValueChangeNbreGrain.bind(this);
 	}
 	componentDidMount(){ 
 		AsyncStorage.getItem('id').then((idd) => {
