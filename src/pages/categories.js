@@ -26,7 +26,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import GestionPatient from './gestionPatient';
 import LastOne from './lastOne';
 const window = Dimensions.get('window');
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 
 export default class Categories extends Component {
 	constructor(props){
@@ -39,8 +39,19 @@ export default class Categories extends Component {
 		}),
 	}
 	}
+	goBack() {
+		this.props.navigator.pop();
+		return true;
+	}
+   gestionP(id){
+	 AsyncStorage.removeItem('id');  
+	 AsyncStorage.setItem('id',id);  
+		this.props.navigator.push({ 
+		 component: GestionPatient
+		});
+	}	
 	componentDidMount(){
-		AsyncStorage.getItem('medecin_username').then((medecin_id)=>{
+		 AsyncStorage.getItem('medecin_username').then((medecin_id)=>{
 			this.itemsRef.child('medecins').child(medecin_id).child('categories').on('value', (snap) => {
 			//mapping
 			let array_cat=[];		
@@ -52,23 +63,12 @@ export default class Categories extends Component {
 				}
 			}
 				this.setState({
-				  dataSource: this.state.dataSource.cloneWithRows(array_cat),
+				  dataSource: this.state.dataSource.cloneWithRows(array_cat)
 				});
 			});
 			
 		});
 	}
-	goBack() {
-		this.props.navigator.pop();
-		return true;
-	}
-   gestionP(id){
-	 AsyncStorage.removeItem('id');  
-	 AsyncStorage.setItem('id',id);  
-		this.props.navigator.push({ 
-		 component: GestionPatient
-		});
-	}	 
   render() {
     return (
 	<View>

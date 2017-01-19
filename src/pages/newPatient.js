@@ -49,6 +49,9 @@ export default class newPatient extends Component {
 		medecin_id: '',
 		id: ''
 	}
+	this.onValueChangePerso=this.onValueChangePerso.bind(this);
+	this.onValueChangeFam=this.onValueChangeFam.bind(this);
+	this.onValueChangeNbreGrain=this.onValueChangeNbreGrain.bind(this);
 	}
 /*  	componentDidMount(){
 		AsyncStorage.getItem('id').then((idd) => {
@@ -130,6 +133,21 @@ export default class newPatient extends Component {
 			});
 			});
 	}  */
+	onValueChangePerso (value: string) {
+        this.setState({
+            antec_perso : value
+        });
+    }
+	onValueChangeFam (value: string) {
+        this.setState({
+            antec_fam : value
+        });
+    }
+	onValueChangeNbreGrain (value: string) {
+        this.setState({
+			nbreGrain: value
+        });
+    }
 	locatePic(){
 			//create category name
 
@@ -372,7 +390,7 @@ export default class newPatient extends Component {
 								iosHeader="Select one"
 								mode="dropdown"
 								selectedValue={this.state.antec_perso}
-								onValueChange={(value) =>this.setState({antec_perso : value})}>
+								onValueChange={this.onValueChangePerso.bind(this)}>
 								<Item label="oui" value="oui" />
 								<Item label="non" value="non" />  
 						   </Picker>
@@ -387,7 +405,7 @@ export default class newPatient extends Component {
 								iosHeader="Select one"
 								mode="dropdown"
 								selectedValue={this.state.antec_fam}
-								onValueChange={(value)=>this.setState({antec_fam : value})}>
+								onValueChange={this.onValueChangeFam.bind(this)}>
 								<Item label="oui" value="oui" />
 								<Item label="non" value="non" />  
 						   </Picker>
@@ -403,7 +421,7 @@ export default class newPatient extends Component {
 							iosHeader="Select one"
 							mode="dropdown"
 							selectedValue={this.state.nbreGrain}
-							onValueChange={(value)=>this.setState({nbreGrain: value})}>
+							onValueChange={this.onValueChangeNbreGrain.bind(this)}>
 							<Item label="> 50" value="sup" />
 							<Item label="< 50" value="inf" />  
 						</Picker>

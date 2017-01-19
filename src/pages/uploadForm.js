@@ -49,6 +49,11 @@ export default class uploadForm extends Component {
 		  patient_id: '',
 		  med_pat_file:{},
 		}
+		this.onValueChangeBords=this.onValueChangeBords.bind(this);
+		this.onValueChangeCouleur=this.onValueChangeCouleur.bind(this);
+		this.onValueChangeAsymetrie=this.onValueChangeAsymetrie.bind(this);
+		this.onValueChangeDiametre=this.onValueChangeDiametre.bind(this);
+		this.onValueChangeEpaisseur=this.onValueChangeEpaisseur.bind(this);
 	}
     componentDidMount(){
 		AsyncStorage.getItem('path').then((pathUp) => {                                                   

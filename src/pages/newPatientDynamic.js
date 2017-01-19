@@ -44,29 +44,36 @@ export default class newPatientDynamic extends Component {
 		id: ''
 	}
 	}
-	componentDidMount(){ 
-		AsyncStorage.getItem('id').then((idd) => {
-			this.setState({
-				id: idd
-			  });
-		});
-		this.setState({
-			loaded: true
-		});
-	}
   
 	locatePic(){
-		//create category name
+		if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
+			alert("Vous n'avez pas remplis tous les champs!!");
+		}else{ 
+			AsyncStorage.getItem('id').then((idd) => {
+			AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
+			alert(idd);
+			alert(medecin_usernamee);
+				//
+			//heeeeeeeeeeeeeeeeeere
 
-			if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
-				alert("Vous n'avez pas remplis tous les champs!!");
-			}else{
-			if(this.state.nom_pat!='' && this.state.prenom_pat!=''){
-			let patient_id=this.state.nom_pat.toLowerCase()+'_'+this.state.prenom_pat.toLowerCase()+'_'+this.state.items_pat.length;
-
+ 			if(this.state.nom_pat!='' && this.state.prenom_pat!=''){ 
+				this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(idd).child('patients').on('value', (snap) => {
+				let items_pat=[];
+				// get children as an array
+				snap.forEach((child) => {
+					items_pat.push({
+						antecedents_familiaux :child.val().antecedents_familiaux,
+					  _key: child.key,
+					});
+				});
+				this.setState({items_pat:items_pat});
+				});
+			let patient_id="";
+			patient_id=this.state.nom_pat.toLowerCase()+'_'+this.state.prenom_pat.toLowerCase()+'_'+this.state.items_pat.length;
+			alert(patient_id);
 			//here
 			//récupérer la liste des dossiers
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child("categories").child(this.state.id).child('patients').child(patient_id).child('dossiers_medicaux').on('value', (snap2) => {
+			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(idd).child('patients').child(patient_id).child('dossiers_medicaux').on('value', (snap2) => {
 			let items_dossiers=[];
 			// get children as an array
 			snap2.forEach((child) => {
@@ -80,11 +87,11 @@ export default class newPatientDynamic extends Component {
 					_key: child.key
 				});
 			});
-			AsyncStorage.setItem("doc_length",items_dossiers.length.toString());
+			this.setState({items_dossiers:items_dossiers});
 			});
 
 			//ajout patient
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child("categories").child(this.state.id).child('patients').child(patient_id).set({ 
+			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(idd).child('patients').child(patient_id).set({ 
 				nom_pat: this.state.nom_pat, 
 				prenom_pat: this.state.prenom_pat, 
 				date_de_naissance_pat: this.state.dateNaissance_pat, 
@@ -95,10 +102,9 @@ export default class newPatientDynamic extends Component {
 				antecedents_familiaux: this.state.antec_fam, 
 				nombre_grain_de_beaute: this.state.nbreGrain, 
 			})
-			AsyncStorage.getItem("doc_length").then((doc_length)=>{
-			let dossier_id=this.state.medecin_id+'_'+patient_id+'_'+doc_length;
+			let dossier_id=medecin_usernamee+'_'+patient_id+'_'+this.state.items_dossiers;
 			var mydate=new Date();
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child("categories").child(this.state.id).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
+			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(idd).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
 				date_creation_dossier: mydate.toString(),
 				date_MAJ_dossier: mydate.toString(),
 				nom_patient_dossier: this.state.nom_pat,
@@ -107,15 +113,15 @@ export default class newPatientDynamic extends Component {
 				nombre_images_dossier: 0
 			})
 			AsyncStorage.removeItem('med_pat_file');
-			AsyncStorage.setItem('med_pat_file',JSON.stringify({"medecin_id":this.state.medecin_id,"patient_id":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": this.state.id}));
+			AsyncStorage.setItem('med_pat_file',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": idd,"dossier_id":dossier_id}));
 			alert("sucesss patient added"); 
+			this.props.navigator.push({
+			component: LocatePic
 			});
-			}//end if nom pat et prenom pat not null
 			}
-	this.props.navigator.replace({
-		component: LocatePic
-	});
-
+			});
+			});
+		}//else ends here
 	}
 	goBack() {
 		this.props.navigator.pop();

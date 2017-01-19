@@ -93,7 +93,8 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
-					emplacement:"Tête"
+					emplacement:"Tête",
+					nombre_images_dossier:0
 					});
 				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
 					this.props.navigator.replace({
@@ -115,7 +116,8 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
-					emplacement:"Cou"
+					emplacement:"Cou",
+					nombre_images_dossier:0
 					});
 				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Cou'}));
 					this.props.navigator.replace({
@@ -137,7 +139,8 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
-					emplacement:"Nuque"
+					emplacement:"Nuque",
+					nombre_images_dossier:0
 					});
 				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Nuque'}));
 					this.props.navigator.replace({
@@ -159,7 +162,8 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
-					emplacement:"Épaule gauche"
+					emplacement:"Épaule gauche",
+					nombre_images_dossier:0
 					});
 				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Épaule gauche'}));
 					this.props.navigator.replace({
@@ -181,7 +185,8 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
-					emplacement:"Épaule droite"
+					emplacement:"Épaule droite",
+					nombre_images_dossier:0
 					});
 				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Épaule droite'}));
 					this.props.navigator.replace({
@@ -202,7 +207,8 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
-					emplacement:"Thorax"
+					emplacement:"Thorax",
+					nombre_images_dossier:0
 					});
 				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Thorax'}));
 					this.props.navigator.replace({
@@ -223,7 +229,8 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
-					emplacement:"Abdomen"
+					emplacement:"Abdomen",
+					nombre_images_dossier:0
 					});
 				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Abdomen'}));
 					this.props.navigator.replace({
@@ -244,7 +251,8 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
-					emplacement:"Dos"
+					emplacement:"Dos",
+					nombre_images_dossier:0
 					});
 				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Dos'}));
 					this.props.navigator.replace({
@@ -265,7 +273,8 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
-					emplacement:"Main gauche"
+					emplacement:"Main gauche",
+					nombre_images_dossier:0
 					});
 				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Main gauche'}));
 					this.props.navigator.replace({
@@ -287,7 +296,8 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
-					emplacement:"Main droite"
+					emplacement:"Main droite",
+					nombre_images_dossier:0
 					});
 				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Main droite'}));
 					this.props.navigator.replace({
@@ -309,7 +319,8 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
-					emplacement:"Jambe gauche"
+					emplacement:"Jambe gauche",
+					nombre_images_dossier:0
 					});
 				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Jambe gauche'}));
 					this.props.navigator.replace({
@@ -331,7 +342,8 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
-					emplacement:"Jambe droite"
+					emplacement:"Jambe droite",
+					nombre_images_dossier:0
 					});
 				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Jambe droite'}));
 					this.props.navigator.replace({

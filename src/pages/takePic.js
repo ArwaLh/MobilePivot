@@ -57,12 +57,18 @@ export default class takePic extends Component {
       this.camera.capture({mode: Camera.constants.CaptureMode.video})
           .then((data) => console.log(data))
           .catch(err => console.error(err));
+      this.setState({
+        isRecording: true
+      });
     }
   }
 
   stopRecording() {
     if (this.camera) {
       this.camera.stopCapture();
+      this.setState({
+        isRecording: false
+      });
     }
   }
 
@@ -75,6 +81,13 @@ export default class takePic extends Component {
     } else if (this.state.camera.type === front) {
       newType = back;
     }
+
+    this.setState({
+      camera: {
+        ...this.state.camera,
+        type: newType,
+      },
+    });
   }
 
   get typeIcon() {
@@ -101,6 +114,13 @@ export default class takePic extends Component {
     } else if (this.state.camera.flashMode === off) {
       newFlashMode = auto;
     }
+
+    this.setState({
+      camera: {
+        ...this.state.camera,
+        flashMode: newFlashMode,
+      },
+    });
   }
 
   get flashIcon() {
