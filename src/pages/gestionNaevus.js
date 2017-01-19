@@ -73,10 +73,11 @@ export default class gestionNaevus extends Component {
 			const dossiers_medicaux = items; 
 			this.setState({ dossiers_medicaux });
 			});
-			let patient_a=null;
-			this.itemsRef.child('medecins').child(arr.medecin_id).child("categories").child(arr.categorie).child('patients').orderByKey().equalTo(arr.patient_id).once("child_added", function(snapshot) {
-				patient_a = snapshot.val(); 
+/* 			this.itemsRef.child('medecins').child(arr.medecin_id).child("categories").child(arr.categorie).child('patients').orderByKey().equalTo(arr.patient_id).once("child_added", function(snapshot) {
+				let patient_a = snapshot.val(); 
+				AsyncStorage.setItem("patient_a",patient_a)
 			});
+			AsyncStorage.getItem("patient_a").then((patient_a=>{
 			alert(patient_a);
 			this.setState({
 				patient:patient_a,
@@ -84,6 +85,7 @@ export default class gestionNaevus extends Component {
 				patient_tel:patient_a.telephone_patient,
 				patient_lastname:patient_a.prenom_pat
 			});
+			})); */
 		});
 	}
 	goBack() { 
@@ -105,6 +107,7 @@ export default class gestionNaevus extends Component {
 			date_creation_dossier: my_date.toString(),
 			date_MAJ_dossier: my_date.toString(),
 			nom_patient_dossier: this.state.patient.nom_pat,
+			emplacement: "",
 			prenom_patient_dossier: this.state.patient.prenom_pat,
 			telephone_patient_dossier: this.state.patient.telephone_patient,
 			nombre_images_dossier: 0,
@@ -117,12 +120,6 @@ export default class gestionNaevus extends Component {
 	<HeaderUp text="Gestion des dossiers" loaded={true} onpress={this.goBack.bind(this)}/>
 	<ScrollView style={{backgroundColor: '#fff'}}>
 	<View style={{flex:1}}>
-	<ListItem style={{borderColor:'#29235c', width:340}}>
-	   <Grid>
-			<Row><Text style={{color: "#29235c",marginLeft:10,fontSize:20,fontFamily: 'Roboto',fontWeight:"bold"}}>{this.state.patient_name} {this.state.patient_lastname}</Text></Row>
-			<Row><Text style={{color: "#29235c",marginLeft:13,marginBottom:0,fontSize:15,fontFamily: 'Roboto'}}>Téléphone : {this.state.patient_tel}</Text></Row>
-		</Grid>
-	</ListItem>	
 		<ListView dataSource={this.state.dataSource}
 		enableEmptySections={true}
         renderRow={(rowData) => 

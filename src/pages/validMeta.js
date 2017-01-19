@@ -77,7 +77,13 @@ export default class validMeta extends Component {
 					patient_id: arr.id_patient,
 					category_id: arr.categorie
 				});
-		});		
+		});	
+		AsyncStorage.getItem('path').then((pathUp) => {                                                   
+		  this.setState({
+			path:pathUp
+		  });
+		  path= this.state.path;
+		});			
 	}
 	
 	validate(){
@@ -87,13 +93,23 @@ export default class validMeta extends Component {
 		let id_category=this.state.category_id;
 		let my_array=this.state.array;
 		/*-----upload to firebase storage method ----*/
+		firebase.auth()
+          .signInWithEmailAndPassword(EMAIL, PASSWORD)
+          .catch((err) => {
+            console.log('firebase sigin failed', err)
+          })
+
+		firebase.auth().onAuthStateChanged((user) => {
+			<Text>{JSON.stringify(user)}</Text>
+		})
 		const rnfbURI= RNFetchBlob.wrap(path);
 		// create Blob from file path
 		Blob
 			.build(rnfbURI, { type : 'image/jpg;'})
 			.then((blob) => {
 			  // upload image using Firebase SDK
-			  var uploadTask= this.storageRef
+			  var uploadTask= firebase.storage()
+				.ref()
 				.child('medecins'+'_'+this.state.medecin_id).child('categories'+'_'+id_category).child('patients'+'_'+this.state.patient_id).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images')
 				.child(testImageName.substring(0,44).replace(/\s/g, "_"))
 				.put(blob, {contentType : 'image/jpg'});
@@ -105,7 +121,11 @@ export default class validMeta extends Component {
 				}, function() {
 				  blob.close();
 				  let downloadURL = uploadTask.snapshot.downloadURL;
-				  /*-----Add to firebase databse method ----*/
+				  alert("done uploading here is the download URL",downloadURL);
+				});
+				
+			})
+			 /*-----Add to firebase databse method ----*/
 				//and store image name
 				let compte_rendu=new Date();
 				let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
@@ -120,7 +140,6 @@ export default class validMeta extends Component {
 					phototype:my_array.phototype,
 					SED:my_array.sed,
 					suspicion:my_array.suspicion,
-					downloadURL:downloadURL.toString(),
 					imageName:image_id
 				})
 				//upadet medical folder data
@@ -128,13 +147,10 @@ export default class validMeta extends Component {
 				date_MAJ_dossier: compte_rendu.toString(),
 				nombre_images_dossier: my_array.nombre_images_dossier+1
 				});
-				  alert("done uploading here is the download URL",downloadURL);
+				this.props.navigator.push({
+				  component: GestionPatient
 				});
 
-			})
-		this.props.navigator.push({
-		  component: GestionPatient
-		});
 	}
   render() {
     return ( 
