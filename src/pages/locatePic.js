@@ -71,7 +71,7 @@ export default class locatePic extends Component {
 		this.localiser_jambe_gauche=this.localiser_jambe_gauche.bind(this);
 		this.localiser_jambe_droite=this.localiser_jambe_droite.bind(this);
 	}
-	 componentDidMount(){
+/* 	 componentDidMount(){
 		AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 			const array=JSON.parse(med_pat_filee);
 			this.setState({ 
@@ -79,26 +79,27 @@ export default class locatePic extends Component {
 				dossier_id: array.id_dossier,
 				medecin_id: array.id_medecin,
 				patient_id: array.id_patient,
-				category_id: array.category
+				category_id: array.categorie
 			});
 		});
-	} 
+	}  */
 	localiser_tete(){
-		//alert(this.state.dossier_id);
-		alert(JSON.stringify(this.state.med_pat_file));
 		Alert.alert(
 		  'Vous avez sélectionné',
 		  'Tête',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () =>{
 			//update dossier médical
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
-				emplacement:"Tête"
-				});
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Tête'}));
-			this.props.navigator.replace({
-				component: TakePicture
-			})
+			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
+				const array=JSON.parse(med_pat_filee);
+				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
+					emplacement:"Tête"
+					});
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
+					this.props.navigator.replace({
+						component: TakePicture
+					});
+			});
 			} 
 			}
 		  ]
@@ -110,13 +111,16 @@ export default class locatePic extends Component {
 		  'Cou',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-				//update dossier médical
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
-				emplacement:"Cou"
-				});
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Cou'})),
-			this.props.navigator.push({
-				component: TakePicture
+							//update dossier médical
+			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
+				const array=JSON.parse(med_pat_filee);
+				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
+					emplacement:"Cou"
+					});
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Cou'}));
+					this.props.navigator.replace({
+						component: TakePicture
+					});
 			});
 			}
 			}
@@ -129,13 +133,16 @@ export default class locatePic extends Component {
 		  'Nuque',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-				//update dossier médical
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
-				emplacement:"Nuque"
-				});
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Nuque'}));
-			this.props.navigator.push({
-				component: TakePicture
+							//update dossier médical
+			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
+				const array=JSON.parse(med_pat_filee);
+				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
+					emplacement:"Nuque"
+					});
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Nuque'}));
+					this.props.navigator.replace({
+						component: TakePicture
+					});
 			});
 			}
 			}
@@ -148,15 +155,19 @@ export default class locatePic extends Component {
 		  'Épaule gauche',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-				//update dossier médical
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
-				emplacement:"Épaule gauche"
-				});
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Épaule gauche'}));
-			this.props.navigator.push({
-				component: TakePicture
+													//update dossier médical
+			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
+				const array=JSON.parse(med_pat_filee);
+				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
+					emplacement:"Épaule gauche"
+					});
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Épaule gauche'}));
+					this.props.navigator.replace({
+						component: TakePicture
+					});
 			});
-			}}
+			}
+			}
 		  ]
 		)
 	}
@@ -166,13 +177,16 @@ export default class locatePic extends Component {
 		  'Épaule droite',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-				//update dossier médical
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
-				emplacement:"Épaule droite"
-				});
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Épaule droite'}));
-			this.props.navigator.push({
-				component: TakePicture
+											//update dossier médical
+			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
+				const array=JSON.parse(med_pat_filee);
+				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
+					emplacement:"Épaule droite"
+					});
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Épaule droite'}));
+					this.props.navigator.replace({
+						component: TakePicture
+					});
 			});
 			}}		
 		  ]
@@ -184,13 +198,16 @@ export default class locatePic extends Component {
 		  'Thorax',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-				//update dossier médical
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
-				emplacement:"Thorax"
-				});
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Thorax'}));
-			this.props.navigator.push({
-				component: TakePicture
+											//update dossier médical
+			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
+				const array=JSON.parse(med_pat_filee);
+				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
+					emplacement:"Thorax"
+					});
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Thorax'}));
+					this.props.navigator.replace({
+						component: TakePicture
+					});
 			});
 			}}
 		  ]
@@ -202,13 +219,16 @@ export default class locatePic extends Component {
 		  'Abdomen',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-				//update dossier médical
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
-				emplacement:"Abdomen"
-				});
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Abdomen'}));
-			this.props.navigator.push({
-				component: TakePicture
+											//update dossier médical
+			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
+				const array=JSON.parse(med_pat_filee);
+				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
+					emplacement:"Abdomen"
+					});
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Abdomen'}));
+					this.props.navigator.replace({
+						component: TakePicture
+					});
 			});
 			}}
 		  ]
@@ -220,13 +240,16 @@ export default class locatePic extends Component {
 		  'Dos',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-				//update dossier médical
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
-				emplacement:"Dos"
-				});
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Dos'}));
-			this.props.navigator.push({
-				component: TakePicture
+											//update dossier médical
+			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
+				const array=JSON.parse(med_pat_filee);
+				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
+					emplacement:"Dos"
+					});
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Dos'}));
+					this.props.navigator.replace({
+						component: TakePicture
+					});
 			});
 			}}
 		  ]
@@ -238,13 +261,16 @@ export default class locatePic extends Component {
 		  'Main gauche',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-				//update dossier médical
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
-				emplacement:"Main Gauche"
-				});
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Main Gauche'}));
-			this.props.navigator.push({
-				component: TakePicture
+											//update dossier médical
+			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
+				const array=JSON.parse(med_pat_filee);
+				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
+					emplacement:"Main gauche"
+					});
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Main gauche'}));
+					this.props.navigator.replace({
+						component: TakePicture
+					});
 			});
 			}}
 		  ]
@@ -257,13 +283,16 @@ export default class locatePic extends Component {
 		  'Main droite',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-				//update dossier médical
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
-				emplacement:"Main Droite"
-				});
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Main Droite'}));
-			this.props.navigator.push({
-				component: TakePicture
+											//update dossier médical
+			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
+				const array=JSON.parse(med_pat_filee);
+				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
+					emplacement:"Main droite"
+					});
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Main droite'}));
+					this.props.navigator.replace({
+						component: TakePicture
+					});
 			});
 			}}
 		  ]
@@ -276,13 +305,16 @@ export default class locatePic extends Component {
 		  'Jambe gauche',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-			//update dossier médical
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
-				emplacement:"Jambe Gauche"
-			});
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Jambe Gauche'}));
-			this.props.navigator.push({
-				component: TakePicture
+										//update dossier médical
+			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
+				const array=JSON.parse(med_pat_filee);
+				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
+					emplacement:"Jambe gauche"
+					});
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Jambe gauche'}));
+					this.props.navigator.replace({
+						component: TakePicture
+					});
 			});
 			}}
 		  ]
@@ -296,30 +328,23 @@ export default class locatePic extends Component {
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 			//update dossier médical
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child('categories').child(this.state.category_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(id_dossier).update({ 
-				emplacement:"Jambe Droite"
-			});
-			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":this.state.dossier_id,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"category":this.state.category_id,"emplacement":'Jambe Droite'}));
-			this.props.navigator.push({
-				component: TakePicture
+			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
+				const array=JSON.parse(med_pat_filee);
+				this.itemsRef.child('medecins').child(array.medecin_id).child('categories').child(array.categorie).child('patients').child(array.patient_id).child('dossiers_medicaux').child(array.dossier_id).update({ 
+					emplacement:"Jambe droite"
+					});
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Jambe droite'}));
+					this.props.navigator.replace({
+						component: TakePicture
+					});
 			});
 			},style: styles.primary_button_oui}
 		  ]
 		)
 
 	}
-	goBack() {
-		this.props.navigator.pop();
-		return true; // do not exit app
-	}	
-  render() {
-    return (
-	<View>
-	<HeaderUp text="Séléction zone" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
-		<Image style={styles.image} ref="img" source={{uri:this.state.uri_img}}>
-			<View style={{flexDirection: 'row', flexWrap:'wrap',backgroundColor: 'transparent'}}>
-				<Button onPress={(img) =>{
-						this.setState({
+	face_avant(){
+		this.setState({
 							uri_img: 'http://localhost:8081/img/Katomi-face-1.png',
 							cou: this.localiser_cou,
 							epaule_gauche: this.localiser_epaule_gauche,
@@ -340,12 +365,10 @@ export default class locatePic extends Component {
 							text_jambe_gauche: 'Jambe gauche',
 							text_main_droite: 'Main droite',
 							text_main_gauche: 'Main gauche',
-							});
-					}} style={{backgroundColor:'transparent',marginLeft: 0,marginTop:0,width:180,height:60,alignItems: 'flex-start',borderColor:'transparent'}} bordered>
-				<Text style={{color:'transparent',textAlign: "center",padding:10,fontSize:20}}>Avant</Text>
-				</Button>
-				<Button onPress={(img) =>{
-						this.setState({
+	});
+	}
+	face_arriere(){
+		this.setState({
 							uri_img: 'http://localhost:8081/img/Katomi-Face-2.png',
 							cou: this.localiser_nuque,
 							epaule_gauche: this.localiser_epaule_droite,
@@ -367,7 +390,21 @@ export default class locatePic extends Component {
 							text_main_droite: 'Main gauche',
 							text_main_gauche: 'Main droite',
 						});
-					}} style={{backgroundColor:'transparent',marginTop:0,width:180,height:60,alignItems: 'flex-start',borderColor:'transparent'}} bordered>
+	}
+	goBack() {
+		this.props.navigator.pop();
+		return true; // do not exit app
+	}	
+  render() {
+    return (
+	<View>
+	<HeaderUp text="Séléction zone" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+		<Image style={styles.image} ref="img" source={{uri:this.state.uri_img}}>
+			<View style={{flexDirection: 'row', flexWrap:'wrap',backgroundColor: 'transparent'}}>
+				<Button onPress={this.face_avant.bind(this)} style={{backgroundColor:'transparent',marginLeft: 0,marginTop:0,width:180,height:60,alignItems: 'flex-start',borderColor:'transparent'}} bordered>
+				<Text style={{color:'transparent',textAlign: "center",padding:10,fontSize:20}}>Avant</Text>
+				</Button>
+				<Button onPress={this.face_arriere.bind(this)} style={{backgroundColor:'transparent',marginTop:0,width:180,height:60,alignItems: 'flex-start',borderColor:'transparent'}} bordered>
 				<Text style={{color:'transparent',textAlign: "center",padding:10,fontSize:20}}>Arriére</Text>
 				</Button>
 			</View>
