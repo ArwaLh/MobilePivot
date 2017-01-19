@@ -125,15 +125,17 @@ export default class newPatient extends Component {
 				items_dossiers.push({
 					date_creation_dossier: child.val().date_creation_dossier,
 					date_MAJ_dossier: child.val().date_MAJ_dossier,
+					emplacement: child.val().emplacement,
 					nom_patient_dossier: child.val().nom_patient_dossier,
 					prenom_patient_dossier: child.val().prenom_patient_dossier,
-					emplacement: child.val().emplacement,
 					nombre_images_dossier: child.val().nombre_images_dossier,
 					_key: child.key
 				});
 			});
+			AsyncStorage.setItem("doc_length",items_dossiers);
 			});
-			let dossier_id=this.state.medecin_id+'_'+this.state.patient_id+'_'+items_dossiers.length;
+			AsyncStorage.getItem("doc_length").then((doc_length)=>{
+			let dossier_id=this.state.medecin_id+'_'+patient_id+'_'+doc_length.length;
 			var mydate=new Date();
 			this.itemsRef.child('medecins').child(this.state.medecin_id).child("categories").child(this.state.id).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
 				date_creation_dossier: mydate.toString(),
@@ -146,7 +148,7 @@ export default class newPatient extends Component {
 			AsyncStorage.removeItem('med_pat_file');
 			AsyncStorage.setItem('med_pat_file',JSON.stringify({"medecin_id":this.state.medecin_id,"patient_id":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": this.state.id}));
 			alert("sucesss patient added"); 
-
+			});
 			}
 			this.props.navigator.push({
 			  component: LocatePic

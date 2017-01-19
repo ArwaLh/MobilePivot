@@ -26,6 +26,7 @@ import {InputGroup, Input, Button, Card, CardItem, Header, Icon} from 'native-ba
 import Modal from 'react-native-modalbox';
 const window = Dimensions.get('window');
 import TakePicture from './takePic';
+import * as firebase from 'firebase';
 export default class locatePic extends Component {
 	constructor(props){
     super(props);
