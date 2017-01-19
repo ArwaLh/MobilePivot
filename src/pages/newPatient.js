@@ -32,6 +32,12 @@ export default class newPatient extends Component {
 	this.itemsRef = firebase.database().ref();
     this.state = {
 		loaded:true,
+		nom_pat:'',
+		prenom_pat:'',
+		dateNaissance_pat: '',
+		lieu_pat:'',
+		profession_pat:'',
+		telephone_patient:'',
 		antec_perso: 'oui',
 		antec_fam: 'oui',
 		nbreGrain: 'sup',
@@ -41,7 +47,6 @@ export default class newPatient extends Component {
 		username_med: '',
 		patient_id: '',
 		medecin_id: '',
-		dateNaissance_pat: '',
 		id: ''
 	}
 	this.onValueChangePerso=this.onValueChangePerso.bind(this);
@@ -55,6 +60,7 @@ export default class newPatient extends Component {
 			  });
 		});
 		//
+
 		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 			this.setState({
 				medecin_id: medecin_usernamee
@@ -72,6 +78,7 @@ export default class newPatient extends Component {
 				items_pat: items_pat
 			  });
 			});
+			//
 		});
 		//
 		this.setState({
@@ -96,27 +103,14 @@ export default class newPatient extends Component {
   
 	locatePic(){
 			//create category name
-			if(this.state.id=="naevus"){
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child("categories").child(this.state.id).set({
-				nom_categorie: "Naevus"
-			});
-			}
-			let patient_id=this.state.nom_pat.toLowerCase()+'_'+this.state.prenom_pat.toLowerCase()+'_'+this.state.items_pat.length;
+
 			if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
 				alert("Vous n'avez pas remplis tous les champs!!");
 			}else{
-			//ajout patient
-			this.itemsRef.child('medecins').child(this.state.medecin_id).child("categories").child(this.state.id).child('patients').child(patient_id).set({ 
-				nom_pat: this.state.nom_pat, 
-				prenom_pat: this.state.prenom_pat, 
-				date_de_naissance_pat: this.state.dateNaissance_pat, 
-				lieu_pat: this.state.lieu_pat, 
-				profession_pat: this.state.profession_pat, 
-				telephone_patient: "+336 "+this.state.telephone_patient, 
-				antecedents_personnels: this.state.antec_perso, 
-				antecedents_familiaux: this.state.antec_fam, 
-				nombre_grain_de_beaute: this.state.nbreGrain, 
-			})
+			if(this.state.nom_pat!='' && this.state.prenom_pat!=''){
+			let patient_id=this.state.nom_pat.toLowerCase()+'_'+this.state.prenom_pat.toLowerCase()+'_'+this.state.items_pat.length;
+
+			//here
 			//récupérer la liste des dossiers
 			this.itemsRef.child('medecins').child(this.state.medecin_id).child("categories").child(this.state.id).child('patients').child(patient_id).child('dossiers_medicaux').on('value', (snap2) => {
 			let items_dossiers=[];
@@ -132,10 +126,23 @@ export default class newPatient extends Component {
 					_key: child.key
 				});
 			});
-			AsyncStorage.setItem("doc_length",items_dossiers);
+			AsyncStorage.setItem("doc_length",items_dossiers.length.toString());
 			});
+
+			//ajout patient
+			this.itemsRef.child('medecins').child(this.state.medecin_id).child("categories").child(this.state.id).child('patients').child(patient_id).set({ 
+				nom_pat: this.state.nom_pat, 
+				prenom_pat: this.state.prenom_pat, 
+				date_de_naissance_pat: this.state.dateNaissance_pat, 
+				lieu_pat: this.state.lieu_pat, 
+				profession_pat: this.state.profession_pat, 
+				telephone_patient: "+336 "+this.state.telephone_patient, 
+				antecedents_personnels: this.state.antec_perso, 
+				antecedents_familiaux: this.state.antec_fam, 
+				nombre_grain_de_beaute: this.state.nbreGrain, 
+			})
 			AsyncStorage.getItem("doc_length").then((doc_length)=>{
-			let dossier_id=this.state.medecin_id+'_'+patient_id+'_'+doc_length.length;
+			let dossier_id=this.state.medecin_id+'_'+patient_id+'_'+doc_length;
 			var mydate=new Date();
 			this.itemsRef.child('medecins').child(this.state.medecin_id).child("categories").child(this.state.id).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
 				date_creation_dossier: mydate.toString(),
@@ -149,10 +156,11 @@ export default class newPatient extends Component {
 			AsyncStorage.setItem('med_pat_file',JSON.stringify({"medecin_id":this.state.medecin_id,"patient_id":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": this.state.id}));
 			alert("sucesss patient added"); 
 			});
-			}
+			}//end if nom pat et prenom pat not null
 			this.props.navigator.push({
 			  component: LocatePic
 			});
+			}
 
 	}
 	goBack() {
