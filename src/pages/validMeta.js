@@ -24,7 +24,7 @@ import {Button, List, ListItem, Header, InputGroup, Input, Card, CardItem} from 
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
-import UploadForm from './uploadForm';
+import UploadFormDynamiquze from './uploadFormDynamique';
 import GestionPatient from './gestionPatient';
 
 const testImageName = `patient_pic_${Platform.OS}_${new Date()}.jpg`
@@ -56,6 +56,8 @@ export default class validMeta extends Component {
 		downloadURL:""
 	}
 	this.validate=this.validate.bind(this);
+	this.uploadP=this.uploadP.bind(this);
+	this.goBack=this.goBack.bind(this);
 	}
 	goBack() {
 		this.props.navigator.pop();
@@ -63,7 +65,7 @@ export default class validMeta extends Component {
 	}
 	uploadP(){
 		this.props.navigator.push({
-          component: UploadForm
+          component: UploadFormDynamiquze
         }); 
 	}
 	componentDidMount(){
@@ -156,7 +158,7 @@ export default class validMeta extends Component {
   render() {
     return ( 
 	<View>
-	<HeaderUp text="4/4 Données patient" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text="4/4 Données patient" loaded={this.state.loaded} onpress={this.goBack}/>
 		<ScrollView>	
 			<ListItem style={styles.list_MetaData}>   
 				<Grid>
@@ -242,11 +244,11 @@ export default class validMeta extends Component {
 			<Grid>
 				<Row style={{marginTop:20, marginLeft:10}}>
 					<Col style={{width:200}}>
-						<Button onPress={this.uploadP.bind(this)} textStyle={styles.back_to_upload_button_valid_meta} transparent> MODIFIER LES INORMATIONS</Button> 
+						<Button onPress={this.uploadP} textStyle={styles.back_to_upload_button_valid_meta} transparent> MODIFIER LES INORMATIONS</Button> 
 					</Col>
 					<Col>	
 						<Button
-							onPress={this.validate.bind(this)}
+							onPress={this.validate}
 							style={styles.send_button_valid_meta}
 							textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
 					</Col>

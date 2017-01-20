@@ -44,8 +44,109 @@ export default class newPatientDynamic extends Component {
 		id: ''
 	}
 	}
-  
+  componentDidMount(){
+		AsyncStorage.getItem('id').then((idd) => {
+			alert(idd);
+			AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
+			alert(medecin_usernamee);
+				//
+			//heeeeeeeeeeeeeeeeeere
+
+				this.itemsRef.child('medecins').child(medecin_usernamee).child("patients").on('value', (snap) => {
+				let items_pat=[];
+				// get children as an array
+				snap.forEach((child) => {
+					items_pat.push({
+						antecedents_familiaux :child.val().antecedents_familiaux,
+					  _key: child.key,
+					});
+				});
+				AsyncStorage.setItem('items_pat',JSON.stringify(items_pat));
+				});
+				if(this.state.nom_pat!="" && this.state.prenom_pat!=""){
+				let patient_id="";
+				patient_id=this.state.nom_pat.toLowerCase()+'_'+this.state.prenom_pat.toLowerCase()+'_'+items_pat.length;
+				//récupérer la liste des dossiers
+				this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child("categories").child(idd).child('dossiers_medicaux').on('value', (snap2) => {
+				let items_dossiers=[];
+				// get children as an array
+				snap2.forEach((child) => {
+					items_dossiers.push({
+						date_creation_dossier: child.val().date_creation_dossier,
+						date_MAJ_dossier: child.val().date_MAJ_dossier,
+						emplacement: child.val().emplacement,
+						nom_patient_dossier: child.val().nom_patient_dossier,
+						prenom_patient_dossier: child.val().prenom_patient_dossier,
+						nombre_images_dossier: child.val().nombre_images_dossier,
+						_key: child.key
+					});
+				});
+				AsyncStorage.setItem('items_dossiers', JSON.stringify(items_dossiers));
+				});
+				}
+			});
+		});
+	}
 	locatePic(){
+		
+			//create category name
+		if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
+			alert("Vous n'avez pas remplis tous les champs!!");
+		}else{ 
+			//heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeee
+		AsyncStorage.getItem('id').then((idd) => {
+			AsyncStorage.getItem('items_pat').then((items_patt) => {
+				let items_pat=JSON.parse(items_patt);
+				AsyncStorage.getItem('items_dossiers').then((items_dossierss) => {
+				let items_dossiers1=JSON.parse(items_dossierss);
+					AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
+					alert(medecin_usernamee);
+						//
+					//heeeeeeeeeeeeeeeeeere
+					
+					if(this.state.nom_pat!="" && this.state.prenom_pat!=""){
+					let patient_id="";
+					patient_id=this.state.nom_pat.toLowerCase()+'_'+this.state.prenom_pat.toLowerCase()+'_'+items_pat.length;
+					alert(patient_id);
+					//here
+
+					//ajout patient
+					this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).set({ 
+						nom_pat: this.state.nom_pat, 
+						prenom_pat: this.state.prenom_pat, 
+						date_de_naissance_pat: this.state.dateNaissance_pat, 
+						lieu_pat: this.state.lieu_pat, 
+						profession_pat: this.state.profession_pat, 
+						telephone_patient: "+336 "+this.state.telephone_patient, 
+						antecedents_personnels: this.state.antec_perso, 
+						antecedents_familiaux: this.state.antec_fam, 
+						nombre_grain_de_beaute: this.state.nbreGrain, 
+					})
+					let dossier_id=medecin_usernamee+'_'+patient_id+'_'+items_dossiers1.length;
+					var mydate=new Date();
+					//ajouter un nouveau dossier pour le nouveau patient
+					this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child("categories").child(idd).child('dossiers_medicaux').child(dossier_id).set({ 
+						date_creation_dossier: mydate.toString(),
+						date_MAJ_dossier: mydate.toString(),
+						nom_patient_dossier: this.state.nom_pat,
+						prenom_patient_dossier: this.state.prenom_pat,
+						emplacement:"",
+						nombre_images_dossier: 0
+					})
+					AsyncStorage.removeItem('med_pat_file');
+					AsyncStorage.setItem('med_pat_file',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": idd,"dossier_id":dossier_id}));
+					alert("sucesss patient added"); 
+					this.props.navigator.push({
+					component: LocatePic
+					});
+					}
+					});
+				});
+			});
+		});
+		}//else ends here
+	}
+	/* locatePic(){
 		if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
 			alert("Vous n'avez pas remplis tous les champs!!");
 		}else{ 
@@ -122,7 +223,7 @@ export default class newPatientDynamic extends Component {
 			});
 			});
 		}//else ends here
-	}
+	} */
 	goBack() {
 		this.props.navigator.pop();
 		return true; 

@@ -22,11 +22,8 @@ import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input, Button, Card, CardItem, List, ListItem} from 'native-base';
 import HeaderUp from '../components/headerUp';
-import UploadForm from './uploadForm';
-import NewPatient from './newPatient';
 import NewPatientDynamic from './newPatientDynamic';
 import LocatePic from './locatePic';
-import RecherchePatient from './recherchePatient';
 import RechercheP from './rechercheP';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 const window = Dimensions.get('window');
@@ -37,21 +34,19 @@ export default class gestionPatient extends Component {
 		  loaded: true,
           id: ''
 		}
+		this.ajoutPat = this.ajoutPat.bind(this);
+		this.modPat = this.modPat.bind(this);
+		this.goBack = this.goBack.bind(this);
 	}
 
 	ajoutPat(){
 		this.props.navigator.push({
-			component: NewPatient
+			component: NewPatientDynamic
 		});
 	}
 	modPat(){
 		this.props.navigator.push({
           component: RechercheP
-        }); 
-	}
-	upl(){
-		this.props.navigator.push({
-          component: UploadForm
         }); 
 	}	
 	goBack() {
@@ -61,7 +56,7 @@ export default class gestionPatient extends Component {
   render() {
     return (
 	<View>
-	<HeaderUp text="   Gestion des patients" loaded={true} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text="   Gestion des patients" loaded={true} onpress={this.goBack}/>
 		 <View style={{margin:7, marginTop:30}}>
 		 <List>
 		 <ListItem style={{height:(window.height/2)-70}}>
@@ -77,7 +72,7 @@ export default class gestionPatient extends Component {
 			</Row>
 			<Row>
 				<Button
-				onPress={this.ajoutPat.bind(this)}
+				onPress={this.ajoutPat}
 				style={styles.primary_button_ajout_patient}
 				textStyle={styles.primary_button_text_ajout_patient}>AJOUTER UN NOUVEAU PATIENT</Button>
 			</Row>
@@ -100,7 +95,7 @@ export default class gestionPatient extends Component {
 			</Row>
 			<Row>
 				<Button
-				onPress={this.modPat.bind(this)}
+				onPress={this.modPat}
 				style={styles.primary_button_modifier_patient}
 				textStyle={styles.primary_button_text_ajout_patient}>MODIFIER LA FICHE PATIENT</Button>
 			</Row>

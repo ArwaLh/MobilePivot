@@ -23,12 +23,8 @@ import HeaderSearch from '../components/headerSearch';
 import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input, Button, Card, CardItem, Header, List,ListItem} from 'native-base';
-import UploadForm from './uploadForm';
-import ValidMeta from './validMeta';
 import TakePic from './takePic';
-import NewPatient from './newPatient';
 import GestionNaevus from './gestionNaevus';
-import LocatePic from './locatePic';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import firebase from 'firebase';
 import Autocomplete from 'react-native-autocomplete-input';
@@ -42,12 +38,8 @@ export default class rechercheP extends Component {
 		  query: '',
 		  id: ''
 		};
-	}
-
-	uploadP(){
-		this.props.navigator.push({
-          component: UploadForm
-        }); 
+		this.goBack = this.goBack.bind(this);
+		this.gestionNaevus = this.gestionNaevus.bind(this);
 	}
 	gestionNaevus(){
 		let patient_id='';
@@ -109,7 +101,7 @@ export default class rechercheP extends Component {
     const comp = (s, s2, s3) => s.toLowerCase().trim() === s2.toLowerCase().trim().substr(0,s2.toLowerCase().trim().indexOf(' ')) && s.toLowerCase().trim() === s3.toLowerCase().trim().substr(0,s3.toLowerCase().trim().indexOf(' '));
     return (
 	 <View style={styles.firstContainer}>
-		<HeaderSearch text="Rechercher un patient" onpress={this.goBack.bind(this)}/>
+		<HeaderSearch text="Rechercher un patient" onpress={this.goBack}/>
 		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:55,marginLeft:25,marginRight:25}}>
 		Ajouter et modifier des nouvelles données dans le dossier medical du patient
 		</Text>
@@ -146,7 +138,7 @@ export default class rechercheP extends Component {
 				)}
 		/>	
 		<Button
-			onPress={this.gestionNaevus.bind(this)}
+			onPress={this.gestionNaevus}
 			style={styles.primary_button_naevus}
 			textStyle={styles.primary_button_text}>Gérer dossier</Button>
       </View>

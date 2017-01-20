@@ -13,7 +13,7 @@ import {
   AsyncStorage,
   Platform
 } from 'react-native';
-import UploadForm from './uploadForm';
+import UploadFormDynamique from './uploadFormDynamique';
 import Camera from 'react-native-camera';
 
 const window = Dimensions.get('window');
@@ -48,7 +48,7 @@ export default class takePic extends Component {
 		// create Blob from file path
 		AsyncStorage.setItem('path', path);
 		this.props.navigator.push({
-		component: UploadForm
+		component: UploadFormDynamique
 		}); 
     })
   } 

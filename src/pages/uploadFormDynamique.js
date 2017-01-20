@@ -51,6 +51,9 @@ export default class uploadFormDynamique extends Component {
 		  patient_id: '',
 		  med_pat_file:{},
 		}
+		this.validMetadata = this.validMetadata.bind(this);
+		this.phototypeb = this.phototypeb.bind(this);
+		this.goBack = this.goBack.bind(this);
 	}
 /*     componentDidMount(){
 	//cette methode recupere les critéres et les convertit en textinput
@@ -111,7 +114,7 @@ export default class uploadFormDynamique extends Component {
   render() {
     return ( 
 	<View>
-	<HeaderUp text=" 3/4 Upload Photo" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text=" 3/4 Upload Photo" loaded={this.state.loaded} onpress={this.goBack}/>
 	<ScrollView>
 		    <ListView dataSource={this.state.dataSource}
 		enableEmptySections={true}
