@@ -40,17 +40,8 @@ export default class gestionPatient extends Component {
 	}
 
 	ajoutPat(){
-			//create category name
-		AsyncStorage.getItem('id').then((idd) => {
-			if(idd=="naevus"){
-				this.props.navigator.push({
-				component: NewPatient
-				});
-			}else{
-				this.props.navigator.push({
-				component: NewPatientDynamic
-										 }); 
-			}
+		this.props.navigator.push({
+			component: NewPatient
 		});
 	}
 	modPat(){

@@ -132,11 +132,9 @@ export default class login extends Component {
 			id=Object.keys(snapshot.val());
 			all_arrays=Object.values(snapshot.val());
 			AsyncStorage.setItem('medecin_username', id[0]);
-			if(Object.values(all_arrays[0].categories)==null || (Object.values(all_arrays[0].categories)).length==1){
 				this.props.navigator.push({ 
 				  component: GestionPatient
 				});
-			}else{
 				this.itemsRef.child('medecins').child(id[0]).child('categories').on('value', (snap) => {
 				//mapping
 				let array_cat=[];		
@@ -150,10 +148,6 @@ export default class login extends Component {
 				AsyncStorage.setItem("categories",JSON.stringify(array_cat));
 				});
 				
-				this.props.navigator.push({
-				  component: Categories
-				});
-			}
 		});
     }).catch((error)=>{
 		 alert(error.message);
