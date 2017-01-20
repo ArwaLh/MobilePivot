@@ -52,87 +52,14 @@ export default class newPatient extends Component {
 	this.onValueChangePerso=this.onValueChangePerso.bind(this);
 	this.onValueChangeFam=this.onValueChangeFam.bind(this);
 	this.onValueChangeNbreGrain=this.onValueChangeNbreGrain.bind(this);
+	this.locatePic=this.locatePic.bind(this);
 	}
-/*  	componentDidMount(){
+  	componentDidMount(){
 		AsyncStorage.getItem('id').then((idd) => {
-			AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
+			this.setState({id:idd});
 			alert(idd);
-			alert(medecin_usernamee);
-
- 			if(this.state.nom_pat!='' && this.state.prenom_pat!=''){ 
-				this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(idd).child('patients').on('value', (snap) => {
-				let items_pat=[];
-				// get children as an array
-				snap.forEach((child) => {
-					items_pat.push({
-						antecedents_familiaux :child.val().antecedents_familiaux,
-					  _key: child.key,
-					});
-				});
-				AsyncStorage.setItem("items_pat",JSON.stringify(items_pat.length.toString()));
-				});
-				AsyncStorage.setItem("items_pat").then((itemsPatt)=>{
-				let items_patt=JSON.parse(itemsPatt);
-				alert(items_patt);
-			let patient_id="";
-			patient_id=this.state.nom_pat.toLowerCase()+'_'+this.state.prenom_pat.toLowerCase()+'_'+items_patt;
-			alert(patient_id);
-			//here
-			//récupérer la liste des dossiers
-			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(idd).child('patients').child(patient_id).child('dossiers_medicaux').on('value', (snap2) => {
-			let items_dossiers=[];
-			// get children as an array
-			snap2.forEach((child) => {
-				items_dossiers.push({
-					date_creation_dossier: child.val().date_creation_dossier,
-					date_MAJ_dossier: child.val().date_MAJ_dossier,
-					emplacement: child.val().emplacement,
-					nom_patient_dossier: child.val().nom_patient_dossier,
-					prenom_patient_dossier: child.val().prenom_patient_dossier,
-					nombre_images_dossier: child.val().nombre_images_dossier,
-					_key: child.key
-				});
 			});
-			AsyncStorage.setItem("doc_length",JSON.stringify(items_dossiers.length.toString()));
-			});
-
-			//ajout patient
-			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(idd).child('patients').child(patient_id).set({ 
-				nom_pat: this.state.nom_pat, 
-				prenom_pat: this.state.prenom_pat, 
-				date_de_naissance_pat: this.state.dateNaissance_pat, 
-				lieu_pat: this.state.lieu_pat, 
-				profession_pat: this.state.profession_pat, 
-				telephone_patient: "+336 "+this.state.telephone_patient, 
-				antecedents_personnels: this.state.antec_perso, 
-				antecedents_familiaux: this.state.antec_fam, 
-				nombre_grain_de_beaute: this.state.nbreGrain, 
-			})
-			AsyncStorage.getItem("doc_length").then((doc_length)=>{
-			let doc_lengthh=JSON.parse(doc_length);
-			alert(doc_lengthh)
-			let dossier_id=medecin_usernamee+'_'+patient_id+'_'+doc_lengthh;
-			var mydate=new Date();
-			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(idd).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
-				date_creation_dossier: mydate.toString(),
-				date_MAJ_dossier: mydate.toString(),
-				nom_patient_dossier: this.state.nom_pat,
-				prenom_patient_dossier: this.state.prenom_pat,
-				emplacement:"",
-				nombre_images_dossier: 0
-			})
-			AsyncStorage.removeItem('med_pat_file');
-			AsyncStorage.setItem('med_pat_file',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": idd,"dossier_id":dossier_id}));
-			alert("sucesss patient added"); 
-			});
-			});
-			this.props.navigator.push({
-			component: LocatePic
-			});
-			}
-			});
-			});
-	}  */
+	}  
 	onValueChangePerso (value: string) {
         this.setState({
             antec_perso : value
@@ -152,18 +79,12 @@ export default class newPatient extends Component {
 			//create category name
 
 			//heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeee
- 		if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
-			alert("Vous n'avez pas remplis tous les champs!!");
-		}else{ 
-			AsyncStorage.getItem('id').then((idd) => {
 			AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
-			alert(idd);
 			alert(medecin_usernamee);
 				//
 			//heeeeeeeeeeeeeeeeeere
 
- 			if(this.state.nom_pat!='' && this.state.prenom_pat!=''){ 
-				this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(idd).child('patients').on('value', (snap) => {
+				this.itemsRef.child('medecins').child(medecin_usernamee).child("patients").on('value', (snap) => {
 				let items_pat=[];
 				// get children as an array
 				snap.forEach((child) => {
@@ -179,7 +100,7 @@ export default class newPatient extends Component {
 			alert(patient_id);
 			//here
 			//récupérer la liste des dossiers
-			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(idd).child('patients').child(patient_id).child('dossiers_medicaux').on('value', (snap2) => {
+			this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child('dossiers_medicaux').on('value', (snap2) => {
 			let items_dossiers=[];
 			// get children as an array
 			snap2.forEach((child) => {
@@ -197,7 +118,7 @@ export default class newPatient extends Component {
 			});
 
 			//ajout patient
-			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(idd).child('patients').child(patient_id).set({ 
+			this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).set({ 
 				nom_pat: this.state.nom_pat, 
 				prenom_pat: this.state.prenom_pat, 
 				date_de_naissance_pat: this.state.dateNaissance_pat, 
@@ -210,7 +131,8 @@ export default class newPatient extends Component {
 			})
 			let dossier_id=medecin_usernamee+'_'+patient_id+'_'+this.state.items_dossiers;
 			var mydate=new Date();
-			this.itemsRef.child('medecins').child(medecin_usernamee).child("categories").child(idd).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
+			//ajouter un nouveau dossier pour le nouveau patient
+			this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child("categories").child(this.state.id).child('dossiers_medicaux').child(dossier_id).set({ 
 				date_creation_dossier: mydate.toString(),
 				date_MAJ_dossier: mydate.toString(),
 				nom_patient_dossier: this.state.nom_pat,
@@ -219,15 +141,12 @@ export default class newPatient extends Component {
 				nombre_images_dossier: 0
 			})
 			AsyncStorage.removeItem('med_pat_file');
-			AsyncStorage.setItem('med_pat_file',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": idd,"dossier_id":dossier_id}));
+			AsyncStorage.setItem('med_pat_file',JSON.stringify({"medecin_id":medecin_usernamee,"patient_id":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": this.state.id,"dossier_id":dossier_id}));
 			alert("sucesss patient added"); 
 			this.props.navigator.push({
 			component: LocatePic
 			});
-			}
 			});
-			});
-		}//else ends here
 	}
 	goBack() {
 		this.props.navigator.pop();
@@ -390,7 +309,7 @@ export default class newPatient extends Component {
 								iosHeader="Select one"
 								mode="dropdown"
 								selectedValue={this.state.antec_perso}
-								onValueChange={this.onValueChangePerso.bind(this)}>
+								onValueChange={this.onValueChangePerso}>
 								<Item label="oui" value="oui" />
 								<Item label="non" value="non" />  
 						   </Picker>
@@ -405,7 +324,7 @@ export default class newPatient extends Component {
 								iosHeader="Select one"
 								mode="dropdown"
 								selectedValue={this.state.antec_fam}
-								onValueChange={this.onValueChangeFam.bind(this)}>
+								onValueChange={this.onValueChangeFam}>
 								<Item label="oui" value="oui" />
 								<Item label="non" value="non" />  
 						   </Picker>
@@ -421,7 +340,7 @@ export default class newPatient extends Component {
 							iosHeader="Select one"
 							mode="dropdown"
 							selectedValue={this.state.nbreGrain}
-							onValueChange={this.onValueChangeNbreGrain.bind(this)}>
+							onValueChange={this.onValueChangeNbreGrain}>
 							<Item label="> 50" value="sup" />
 							<Item label="< 50" value="inf" />  
 						</Picker>
@@ -429,7 +348,7 @@ export default class newPatient extends Component {
 				</Grid>
 			
 			<Button
-				onPress={this.locatePic.bind(this)}
+				onPress={this.locatePic}
 				style={{flex:9,backgroundColor: "#29235c",width:200,height:40,marginLeft:80,marginBottom:10,marginTop:10,alignItems:'center'}}
 				textStyle={{fontSize: 14, color:'#fff',fontFamily: 'Roboto'}}>Localiser le grain de beauté</Button>
 		</View>

@@ -28,65 +28,41 @@ import LastOne from './lastOne';
 const window = Dimensions.get('window');
 import * as firebase from 'firebase';
 
-export default class Categories extends Component {
+export default class categories extends Component {
 	constructor(props){
-    super(props);
-	this.itemsRef = firebase.database().ref();
-	this.state={
-		medecin_id:"",
-		dataSource: new ListView.DataSource({
-			  rowHasChanged: (row1, row2) => row1 !== row2,
-		}),
-	}
+		super(props);
+		this.itemsRef = firebase.database().ref();
 	}
 	goBack() {
 		this.props.navigator.pop();
 		return true;
 	}
-   gestionP(id){
+   gestionP(){
 	 AsyncStorage.removeItem('id');  
-	 AsyncStorage.setItem('id',id);  
+	 AsyncStorage.setItem('id',"naevus");  
 		this.props.navigator.push({ 
 		 component: GestionPatient
 		});
 	}	
-	componentDidMount(){
-		 AsyncStorage.getItem('medecin_username').then((medecin_id)=>{
-			this.itemsRef.child('medecins').child(medecin_id).child('categories').on('value', (snap) => {
-			//mapping
-			let array_cat=[];		
-			let items=[];
-			items=snap.val();
-			for (var k in items){
-				if (items.hasOwnProperty(k)) {
-					 array_cat.push({"key":k,"value":items[k].nom_categorie});	
-				}
-			}
-				this.setState({
-				  dataSource: this.state.dataSource.cloneWithRows(array_cat)
-				});
+/* 	componentDidMount(){
+		AsyncStorage.getItem('categories').then((categories)=>{
+			let array_cat=JSON.parse(categories);
+			this.setState({
+				dataSource: this.state.dataSource.cloneWithRows(array_cat)
 			});
 			
 		});
-	}
+	} */
   render() {
     return (
 	<View>
 	<Header text="Les categories" loaded={true}/>
-		<ListView dataSource={this.state.dataSource}
-		enableEmptySections={true}
-        renderRow={(rowData) => 
-					<List>
-					  <ListItem style={{height:60, borderColor:'#29235c', width:340, paddingTop:0}}>
-					  <Button onPress={this.gestionP.bind(this,rowData.key)} style={{height:100}}  transparent>	
-							<Text style={styles.listViewCategorie}>{rowData.value}</Text> 	
-					  </Button>
-					  </ListItem>
-					</List>
-					} style={{backgroundColor: 'white'}}/>		
+	<Button onPress={this.gestionP.bind(this)}>	click me
+	</Button>
+		
      </View>
     );
   }
 }
 
-AppRegistry.registerComponent('Categories', () => Categories);
+AppRegistry.registerComponent('categories', () => categories);

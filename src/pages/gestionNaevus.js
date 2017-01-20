@@ -47,7 +47,7 @@ export default class gestionNaevus extends Component {
 	componentDidMount(){
 		AsyncStorage.getItem('medecin_patient').then((patient_medecin_arrayy) => {
 			const arr=JSON.parse(patient_medecin_arrayy);
-			this.itemsRef.child('medecins').child(arr.medecin_id).child('categories').child(arr.categorie).child('patients').child(arr.patient_id).child('dossiers_medicaux').on('value', (snap) => {
+			this.itemsRef.child('medecins').child(arr.medecin_id).child('patients').child(arr.patient_id).child('categories').child(arr.categorie).child('dossiers_medicaux').on('value', (snap) => {
 			let items=[];
 			// get children as an array
 			snap.forEach((child) => {
@@ -103,16 +103,18 @@ export default class gestionNaevus extends Component {
 	nouveau_dossier(){
 		let my_date=new Date();
 		let dossier_id=this.state.medecin_id+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
-		this.itemsRef.child('medecins').child(this.state.medecin_id).child("categories").child(this.state.id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
+		this.itemsRef.child('medecins').child(this.state.medecin_id).child('patients').child(this.state.patient_id).child("categories").child(this.state.categorie_id).child('dossiers_medicaux').child(dossier_id).set({ 
 			date_creation_dossier: my_date.toString(),
 			date_MAJ_dossier: my_date.toString(),
 			nom_patient_dossier: this.state.patient.nom_pat,
 			emplacement: "",
 			prenom_patient_dossier: this.state.patient.prenom_pat,
 			telephone_patient_dossier: this.state.patient.telephone_patient,
-			nombre_images_dossier: 0,
-			categorie: "grain de beauté"
+			nombre_images_dossier: 0
 		})
+		this.props.navigator.push({
+		  component: locatePic
+		});
 	}
   render() {
     return ( 

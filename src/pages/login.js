@@ -137,12 +137,24 @@ export default class login extends Component {
 				  component: GestionPatient
 				});
 			}else{
+				this.itemsRef.child('medecins').child(id[0]).child('categories').on('value', (snap) => {
+				//mapping
+				let array_cat=[];		
+				let items=[];
+				items=snap.val();
+				for (var k in items){
+					if (items.hasOwnProperty(k)) {
+						 array_cat.push({"key":k,"value":items[k].nom_categorie});	
+					}
+				}
+				AsyncStorage.setItem("categories",JSON.stringify(array_cat));
+				});
+				
 				this.props.navigator.push({
 				  component: Categories
 				});
 			}
 		});
-		AsyncStorage.setItem('user_data', user_data.email);
     }).catch((error)=>{
 		 alert(error.message);
 	});

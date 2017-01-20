@@ -38,26 +38,20 @@ export default class gestionPatient extends Component {
           id: ''
 		}
 	}
-	componentDidMount(){ 
-		AsyncStorage.getItem('id').then((idd) => {
-			this.setState({
-				id: idd
-			  });
-		});
-	}
+
 	ajoutPat(){
-			AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 			//create category name
-			if(this.state.id=="naevus"){
+		AsyncStorage.getItem('id').then((idd) => {
+			if(idd=="naevus"){
 				this.props.navigator.push({
 				component: NewPatient
-										  });
+				});
 			}else{
 				this.props.navigator.push({
 				component: NewPatientDynamic
 										 }); 
 			}
-	});
+		});
 	}
 	modPat(){
 		this.props.navigator.push({
