@@ -145,7 +145,8 @@ export default class validMeta extends Component {
 				//upadet medical folder data
 				this.itemsRef.child('medecins').child(id_medecin).child('categories').child(id_category).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
 				date_MAJ_dossier: compte_rendu.toString(),
-				nombre_images_dossier: my_array.nombre_images_dossier+1
+				nombre_images_dossier: my_array.nombre_images_dossier+1,
+				emplacement: my_array.emplacement
 				});
 				this.props.navigator.push({
 				  component: GestionPatient
