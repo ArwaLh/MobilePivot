@@ -45,8 +45,6 @@ export default class newPatientDynamic extends Component {
 	}
 	}
   componentDidMount(){
-		AsyncStorage.getItem('id').then((idd) => {
-			alert(idd);
 			AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 			alert(medecin_usernamee);
 				//
@@ -64,7 +62,6 @@ export default class newPatientDynamic extends Component {
 				AsyncStorage.setItem('items_pat',JSON.stringify(items_pat));
 				});
 			});
-		});
 	}
 	locatePic(){
 		
@@ -105,12 +102,13 @@ export default class newPatientDynamic extends Component {
 					let dossier_id=medecin_usernamee+'_'+patient_id+'_'+"0";
 					var mydate=new Date();
 					//ajouter un nouveau dossier pour le nouveau patient
-					this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child("categories").child(idd).child('dossiers_medicaux').child(dossier_id).set({ 
+					this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
 						date_creation_dossier: mydate.toString(),
 						date_MAJ_dossier: mydate.toString(),
 						nom_patient_dossier: this.state.nom_pat,
 						prenom_patient_dossier: this.state.prenom_pat,
 						emplacement:"",
+						categorie_id:idd,
 						nombre_images_dossier: 0
 					})
 					AsyncStorage.removeItem('med_pat_file');

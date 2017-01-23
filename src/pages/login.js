@@ -126,20 +126,18 @@ export default class login extends Component {
 	const auth=firebase.auth();
     auth.signInWithEmailAndPassword(this.state.email_medecin,this.state.password).then((user_data) =>{
 		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(this.state.email_medecin).on("value", (snapshot)=> {
-			let id=[];
-			let all_arrays=[];
-			id=Object.keys(snapshot.val());
-			all_arrays=Object.values(snapshot.val());
-			AsyncStorage.setItem('medecin_username', id[0]);
-			if(Object.values(all_arrays[0].categories)==null || (Object.values(all_arrays[0].categories)).length==1){
-				this.props.navigator.replace({ 
-				  component: GestionPatient
-				});
-			}else{
-				this.props.navigator.replace({
-				  component: Categories2
-				});
-			}
+			this.itemsRef.child('categories').child(Object.keys(snapshot.val())[0]).on("value", (snap)=> {
+				AsyncStorage.setItem('medecin_username', Object.keys(snapshot.val())[0]);
+				if(snap.val()==null || Object.keys(snap.val()).length==1){
+					this.props.navigator.push({ 
+					  component: GestionPatient
+					});
+				}else{
+					this.props.navigator.push({
+					  component: Categories2
+					});
+				}
+			});
 		});
     }).catch((error)=>{
 		 alert(error.message);

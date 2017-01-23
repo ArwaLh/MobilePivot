@@ -91,8 +91,6 @@ export default class rechercheP extends Component {
     }
     const { patients_array } = this.state;	
     const regex1 = new RegExp(`${query.trim()}`, 'i');
-    //const regex2 = new RegExp(`${query.trim()}.substr(${query.trim()}.indexOf(' ')+1)`, 'i');
-	//str.substr(0,str.indexOf(' '));
     return patients_array.filter(patient => patient.nom_pat.search(regex1) >= 0);
   }
   render() {

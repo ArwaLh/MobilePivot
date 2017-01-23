@@ -32,7 +32,7 @@ import Autocomplete from 'react-native-autocomplete-input';
 export default class Categories2 extends Component {
 	constructor(props){
 		super(props);
-		this.itemsRef = firebase.database().ref();
+		this.itemsRef = firebase.database().ref("categories");
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state={
 			categories_array: [],
@@ -77,7 +77,7 @@ export default class Categories2 extends Component {
 			});
 		}); */	
 		AsyncStorage.getItem('medecin_username').then((medecin_id)=>{
-			this.itemsRef.child('medecins').child(medecin_id).child('categories').on('value', (snap) => {
+			this.itemsRef.child(medecin_id).on('value', (snap) => {
 			//mapping
 			let array_cat=[];		
 			let items=[];
@@ -108,10 +108,10 @@ export default class Categories2 extends Component {
   	gestionPatient(){
 		let categorie_id='';
 		AsyncStorage.getItem('medecin_username').then((medecin_id)=>{
-		this.itemsRef.child('medecins').child(medecin_id).child('categories').orderByChild('nom_categorie').equalTo(this.state.query).once("child_added", function(snapshot) {
+		this.itemsRef.orderByChild('nom_categorie').equalTo(this.state.query).once("child_added", function(snapshot) {
 			categorie_id=snapshot.key;
 		});
-		AsyncStorage.setItem("medecin_patient",JSON.stringify({"patient_id":patient_id,"medecin_id":this.state.username_med,"categorie":categorie_id}));
+		AsyncStorage.setItem("medecin_patient",JSON.stringify({"medecin_id":this.state.username_med,"categorie":categorie_id}));
 		this.props.navigator.push({
         component: GestionPatient
         }); 

@@ -31,7 +31,7 @@ import firebase from 'firebase';
 export default class categories extends Component {
 	constructor(props){
 		super(props);
-		this.itemsRef = firebase.database().ref();
+		this.itemsRef = firebase.database().ref("categories");
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state={
 			medecin_id:"",
@@ -50,7 +50,7 @@ export default class categories extends Component {
 	}	 
  	componentDidMount(){
 		AsyncStorage.getItem('medecin_username').then((medecin_id)=>{
-			this.itemsRef.child('medecins').child(medecin_id).child('categories').on('value', (snap) => {
+			this.itemsRef.child(medecin_id).on('value', (snap) => {
 			//mapping
 			let array_cat=[];		
 			let items=[];
