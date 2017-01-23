@@ -88,11 +88,11 @@ export default class newPatientDynamic extends Component {
 
 					//ajout patient
 					this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).set({ 
-						nom_pat: this.state.nom_pat, 
-						prenom_pat: this.state.prenom_pat, 
+						nom_pat: this.state.nom_pat.charAt(0).toUpperCase()+this.state.nom_pat.slice(1), 
+						prenom_pat: this.state.prenom_pat.charAt(0).toUpperCase()+this.state.prenom_pat.slice(1), 
 						date_de_naissance_pat: this.state.dateNaissance_pat, 
-						lieu_pat: this.state.lieu_pat, 
-						profession_pat: this.state.profession_pat, 
+						lieu_pat: this.state.lieu_pat.charAt(0).toUpperCase()+this.state.lieu_pat.slice(1), 
+						profession_pat: this.state.profession_pat.charAt(0).toUpperCase()+this.state.profession_pat.slice(1), 
 						telephone_patient: "+336 "+this.state.telephone_patient, 
 						antecedents_personnels: this.state.antec_perso, 
 						antecedents_familiaux: this.state.antec_fam, 
@@ -105,8 +105,8 @@ export default class newPatientDynamic extends Component {
 					this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
 						date_creation_dossier: mydate.toString(),
 						date_MAJ_dossier: mydate.toString(),
-						nom_patient_dossier: this.state.nom_pat,
-						prenom_patient_dossier: this.state.prenom_pat,
+						nom_patient_dossier: this.state.nom_pat.charAt(0).toUpperCase()+this.state.nom_pat.slice(1),
+						prenom_patient_dossier: this.state.prenom_pat.charAt(0).toUpperCase()+this.state.prenom_pat.slice(1),
 						emplacement:"",
 						categorie_id:idd,
 						nombre_images_dossier: 0

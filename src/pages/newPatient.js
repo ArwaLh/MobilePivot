@@ -139,8 +139,8 @@ export default class newPatient extends Component {
 			this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
 				date_creation_dossier: mydate.toString(),
 				date_MAJ_dossier: mydate.toString(),
-				nom_patient_dossier: this.state.nom_pat,
-				prenom_patient_dossier: this.state.prenom_pat,
+				nom_patient_dossier: this.state.nom_pat.charAt(0).toUpperCase()+this.state.nom_pat.slice(1),
+				prenom_patient_dossier: this.state.prenom_pat.charAt(0).toUpperCase()+this.state.prenom_pat.slice(1),
 				emplacement:"",
 				categorie_id:idd,
 				nombre_images_dossier: 0
