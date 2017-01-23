@@ -14,6 +14,7 @@ import {
   Platform
 } from 'react-native';
 import UploadFormDynamique from './uploadFormDynamique';
+import UploadForm from './uploadForm';
 import Camera from 'react-native-camera';
 
 const window = Dimensions.get('window');
@@ -47,9 +48,17 @@ export default class takePic extends Component {
     .then(({path}) => {
 		// create Blob from file path
 		AsyncStorage.setItem('path', path);
-		this.props.navigator.push({
-		component: UploadFormDynamique
-		}); 
+		AsyncStorage.getItem('id').then((id_cat)=>{
+		  if(id_cat=="naevus"){
+			this.props.navigator.push({
+			  component: UploadForm
+			}); 
+		  }else{
+			this.props.navigator.push({
+			  component: UploadFormDynamique
+			}); 
+		  }
+		});
     })
   } 
   startRecording() {

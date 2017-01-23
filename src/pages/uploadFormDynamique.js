@@ -55,26 +55,27 @@ export default class uploadFormDynamique extends Component {
 		this.phototypeb = this.phototypeb.bind(this);
 		this.goBack = this.goBack.bind(this);
 	}
-/*     componentDidMount(){
-	//cette methode recupere les critéres et les convertit en textinput
-		AsyncStorage.getItem('medecin_username').then((medecin_id)=>{
-			this.itemsRef.child('medecins').child(medecin_id).child('categories').on('value', (snap) => {
-			//mapping
-			let array_cat=[];		
-			let items=[];
-			items=snap.val();
-			for (var k in items){
-				if (items.hasOwnProperty(k)) {
-					 array_cat.push({"key":k,"value":Object.values(items[k])[0]});	
-				}
-			}
-				this.setState({
-				  dataSource: this.state.dataSource.cloneWithRows(array_cat),
-				});
+ componentDidMount(){
+		AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
+		  const array=JSON.parse(med_pat_file_locationn);
+			this.setState({ 
+				med_pat_file:array,
+				dossier_id: array.id_dossier,
+				medecin_id: array.id_medecin,
+				patient_id: array.id_patient
 			});
-			
+	    });
+		AsyncStorage.getItem('Sed_Value').then((phototypeSED) => {
+		  this.setState({
+			sed: phototypeSED
+		  });
+	    });
+		AsyncStorage.getItem('Phototype_value').then((phototypee) => {
+		  this.setState({
+			phototype: phototypee
+		  });
 		});
-	} */
+	}
 		
 	validMetadata(){
 		
@@ -84,6 +85,7 @@ export default class uploadFormDynamique extends Component {
 			"id_medecin":this.state.medecin_id,
 			"id_patient":this.state.patient_id,
 			"id_dossier":this.state.dossier_id,
+			"categorie":this.state.categorie,
 			"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,
 			"emplacement":this.state.med_pat_file.emplacement,
 			"imageURL":this.state.path,
