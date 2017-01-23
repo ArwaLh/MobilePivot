@@ -87,7 +87,6 @@ export default class Categories2 extends Component {
 					 array_cat.push({"key":k,"value":items[k].nom_categorie});	
 				}
 			}
-			alert(JSON.stringify(array_cat.value));
 				const categories_array =array_cat; 
 				this.setState({ categories_array });
 			});

@@ -41,7 +41,7 @@ export default class login extends Component {
 	  all_arrays:[],
 	  all_array:[]
     }
-	
+	this.login=this.login.bind(this);
   }
 
   render(){
@@ -125,16 +125,17 @@ export default class login extends Component {
   login(){
 	const auth=firebase.auth();
     auth.signInWithEmailAndPassword(this.state.email_medecin,this.state.password).then((user_data) =>{
-		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(this.state.email_medecin).on("value", (snapshot)=> {
-			this.itemsRef.child('categories').child(Object.keys(snapshot.val())[0]).on("value", (snap)=> {
-				AsyncStorage.setItem('medecin_username', Object.keys(snapshot.val())[0]);
+		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(this.state.email_medecin).on("child_added", (snapshot)=> {
+			alert(JSON.stringify(snapshot.key));
+			AsyncStorage.setItem('medecin_username', snapshot.key);
+			this.itemsRef.child('categories').child(snapshot.key).on("value", (snap)=> {
 				if(snap.val()==null || Object.keys(snap.val()).length==1){
 					this.props.navigator.push({ 
 					  component: GestionPatient
 					});
 				}else{
 					this.props.navigator.push({
-					  component: Categories2
+					  component: Categories
 					});
 				}
 			});

@@ -23,6 +23,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input, Button, Card, CardItem, List, ListItem} from 'native-base';
 import HeaderUp from '../components/headerUp';
 import NewPatientDynamic from './newPatientDynamic';
+import NewPatient from './newPatient';
 import LocatePic from './locatePic';
 import RechercheP from './rechercheP';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
@@ -40,8 +41,16 @@ export default class gestionPatient extends Component {
 	}
 
 	ajoutPat(){
+		AsyncStorage.getItem('id').then((id_categorie) => {
+		if(id_categorie=="naevus"){
 		this.props.navigator.push({
+			component: NewPatient
+		});
+		}else{
+			this.props.navigator.push({
 			component: NewPatientDynamic
+		});
+		}
 		});
 	}
 	modPat(){
