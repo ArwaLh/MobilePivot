@@ -63,27 +63,6 @@ export default class newPatientDynamic extends Component {
 				});
 				AsyncStorage.setItem('items_pat',JSON.stringify(items_pat));
 				});
-				if(this.state.nom_pat!="" && this.state.prenom_pat!=""){
-				let patient_id="";
-				patient_id=this.state.nom_pat.toLowerCase()+'_'+this.state.prenom_pat.toLowerCase()+'_'+items_pat.length;
-				//récupérer la liste des dossiers
-				this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child("categories").child(idd).child('dossiers_medicaux').on('value', (snap2) => {
-				let items_dossiers=[];
-				// get children as an array
-				snap2.forEach((child) => {
-					items_dossiers.push({
-						date_creation_dossier: child.val().date_creation_dossier,
-						date_MAJ_dossier: child.val().date_MAJ_dossier,
-						emplacement: child.val().emplacement,
-						nom_patient_dossier: child.val().nom_patient_dossier,
-						prenom_patient_dossier: child.val().prenom_patient_dossier,
-						nombre_images_dossier: child.val().nombre_images_dossier,
-						_key: child.key
-					});
-				});
-				AsyncStorage.setItem('items_dossiers', JSON.stringify(items_dossiers));
-				});
-				}
 			});
 		});
 	}
@@ -122,7 +101,8 @@ export default class newPatientDynamic extends Component {
 						antecedents_familiaux: this.state.antec_fam, 
 						nombre_grain_de_beaute: this.state.nbreGrain, 
 					})
-					let dossier_id=medecin_usernamee+'_'+patient_id+'_'+items_dossiers1.length;
+					//new patient first folder so the length is 0
+					let dossier_id=medecin_usernamee+'_'+patient_id+'_'+"0";
 					var mydate=new Date();
 					//ajouter un nouveau dossier pour le nouveau patient
 					this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child("categories").child(idd).child('dossiers_medicaux').child(dossier_id).set({ 

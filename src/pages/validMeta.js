@@ -71,7 +71,6 @@ export default class validMeta extends Component {
 	componentDidMount(){
 		AsyncStorage.getItem('med_pat_file_location_image_data').then((med_pat_file_location_image_dataa) => {
 			const arr =JSON.parse(med_pat_file_location_image_dataa);
-			alert(JSON.stringify(arr));
 				this.setState({
 					array:arr,
 					dossier_id: arr.id_dossier,

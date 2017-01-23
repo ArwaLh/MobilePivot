@@ -19,6 +19,7 @@ import Header from '../components/header';
 import Signup from './signup';
 import GestionPatient from './gestionPatient';
 import Categories from './categories';
+import Categories2 from './Categories2';
 
 import styles from '../styles/common-styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -35,7 +36,6 @@ export default class login extends Component {
       password: '',
       loaded: true,
 	  secureTextEntry: true,
-	  count: 0,
 	  medecin_id:"",
 	  id: [],
 	  all_arrays:[],
@@ -137,7 +137,7 @@ export default class login extends Component {
 				});
 			}else{
 				this.props.navigator.replace({
-				  component: Categories
+				  component: Categories2
 				});
 			}
 		});
