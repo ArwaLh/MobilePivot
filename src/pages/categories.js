@@ -17,7 +17,6 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import HeaderOther from '../components/headerOther';
 import Header from '../components/header';
 import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
