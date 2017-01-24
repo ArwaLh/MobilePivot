@@ -20,7 +20,7 @@ import {
 import HeaderUp from '../components/headerUp';
 import {Button, List, ListItem, Thumbnail, Header, InputGroup, Input, Card, CardItem} from 'native-base';
 import Slider from 'react-native-slider';
-import UploadFormDynamique from './uploadFormDynamique';
+import UploadForm from './uploadForm';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 export default class phototype extends Component {
@@ -60,7 +60,7 @@ export default class phototype extends Component {
 	    AsyncStorage.setItem('Sed_Value','2.5');
 		this.setState({back_color: '#322a7d', textColor: 'white',text2: 'white'});
 		this.props.navigator.push({
-          component: UploadFormDynamique
+          component: UploadForm
         }); 
 	}
 	phototype_2(){
@@ -68,7 +68,7 @@ export default class phototype extends Component {
 		AsyncStorage.setItem('Sed_Value','3.0');
 		this.setState({back_color1: '#322a7d', textColor1: 'white',text3: 'white'});
 		this.props.navigator.push({
-          component: UploadFormDynamique
+          component: UploadForm
         }); 
 	}
 	phototype_3(){
@@ -76,7 +76,7 @@ export default class phototype extends Component {
 		AsyncStorage.setItem('Sed_Value','4.5');
 		this.setState({back_color2: '#322a7d', textColor2: 'white',text4: 'white'});
 		this.props.navigator.push({
-          component: UploadFormDynamique
+          component: UploadForm
         }); 
 	}
 	phototype_4(){
@@ -84,7 +84,7 @@ export default class phototype extends Component {
 		AsyncStorage.setItem('Sed_Value','6.0');
 		this.setState({back_color3: '#322a7d', textColor3: 'white',text5: 'white'});
 		this.props.navigator.push({
-          component: UploadFormDynamique
+          component: UploadForm
         }); 
 	}
 	phototype_5(){
@@ -92,7 +92,7 @@ export default class phototype extends Component {
 		AsyncStorage.setItem('Sed_Value','7.5');
 		this.setState({back_color4: '#322a7d', textColor4: 'white',text6: 'white'});
 		this.props.navigator.push({
-          component: UploadFormDynamique
+          component: UploadForm
         }); 
 	}
 	phototype_6(){
@@ -100,7 +100,7 @@ export default class phototype extends Component {
 		AsyncStorage.setItem('Sed_Value','12.0');
 		this.setState({back_color5: '#322a7d', textColor5: 'white',text7: 'white'});
 		this.props.navigator.push({
-          component: UploadFormDynamique
+          component: UploadForm
         }); 
 	}
   goBack() {
