@@ -20,12 +20,9 @@ import {
 } from 'react-native';
 import Header from '../components/header';
 import styles from '../styles/common-styles.js';
-import { Col, Row, Grid } from "react-native-easy-grid";
-import {InputGroup, Input,Card, CardItem, List, ListItem, Button} from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome'; 
+import {List, ListItem, Button} from 'native-base';
 import GestionPatient from './gestionPatient';
 import uploadFormDynamique from './uploadFormDynamique';
-const window = Dimensions.get('window');
 import firebase from 'firebase';
 
 export default class lastPageDynamic extends Component {
