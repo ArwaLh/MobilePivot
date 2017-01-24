@@ -71,13 +71,13 @@ export default class validMetaDynamic extends Component {
 	componentDidMount(){
 		AsyncStorage.getItem('med_pat_file_location_image_data').then((med_pat_file_location_image_dataa) => {
 			const arr =JSON.parse(med_pat_file_location_image_dataa);
-				this.setState({
-					array:arr,
-					dossier_id: arr.id_dossier,
-					medecin_id: arr.id_medecin,
-					patient_id: arr.id_patient,
-					category_id: arr.categorie
-				});
+			this.setState({
+				array:arr,
+				dossier_id: arr.id_dossier,
+				medecin_id: arr.id_medecin,
+				patient_id: arr.id_patient,
+				category_id: arr.categorie
+			});
 		});	
 		AsyncStorage.getItem('path').then((pathUp) => {                                                   
 		  this.setState({
@@ -124,34 +124,34 @@ export default class validMetaDynamic extends Component {
 				  let downloadURL = uploadTask.snapshot.downloadURL;
 				  alert("done uploading",downloadURL);
 				   /*-----Add to firebase databse method ----*/
-				//and store image name
-				let compte_rendu=new Date();
-				let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
-				alert(image_id);
-				this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('categories').child(id_category).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set({ 
-					date_compte_rendu_consultation: compte_rendu.toString(),
-					bords:my_array.bords,
-					couleur:my_array.couleur,
-					epaisseur:my_array.epaisseur,
-					diametre:my_array.diametre,
-					asymetrie:my_array.asymetrie,
-					phototype:my_array.phototype,
-					SED:my_array.sed,
-					suspicion:my_array.suspicion,
-					imageName:image_id
-				})
-				//upadet medical folder data
-				this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('categories').child(id_category).child('dossiers_medicaux').child(id_dossier).update({ 
-				date_MAJ_dossier: compte_rendu.toString(),
-				nombre_images_dossier: my_array.nombre_images_dossier+1,
-				emplacement: my_array.emplacement
+					//and store image name
+					let compte_rendu=new Date();
+					let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
+					AsyncStorage.getItem('id').then((idd)=>{
+						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set({ 
+							date_compte_rendu_consultation: compte_rendu.toString(),
+							bords:my_array.bords,
+							couleur:my_array.couleur,
+							epaisseur:my_array.epaisseur,
+							diametre:my_array.diametre,
+							asymetrie:my_array.asymetrie,
+							phototype:my_array.phototype,
+							SED:my_array.sed,
+							suspicion:my_array.suspicion,
+							imageName:image_id,
+							category_id:idd
+						})
+						//upadet medical folder data
+						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
+						date_MAJ_dossier: compte_rendu.toString(),
+						nombre_images_dossier: my_array.nombre_images_dossier+1,
+						emplacement: my_array.emplacement
+						});
+						this.props.navigator.push({
+						  component: LastPageDynamic
+						});
+					});//end get category ID
 				});
-				this.props.navigator.push({
-				  component: LastPageDynamic
-				});
-
-				});
-				
 			})
 	}
   render() {
