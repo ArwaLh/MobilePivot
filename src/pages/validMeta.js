@@ -122,11 +122,8 @@ export default class validMeta extends Component {
 				}, function() {
 				  blob.close();
 				  let downloadURL = uploadTask.snapshot.downloadURL;
-				  alert("done uploading here is the download URL",downloadURL);
-				});
-				
-			})
-			 /*-----Add to firebase databse method ----*/
+				  alert("done uploading",downloadURL);
+				   /*-----Add to firebase databse method ----*/
 				//and store image name
 				let compte_rendu=new Date();
 				let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
@@ -153,6 +150,9 @@ export default class validMeta extends Component {
 				  component: LastOne
 				});
 
+				});
+				
+			})
 	}
   render() {
     return ( 

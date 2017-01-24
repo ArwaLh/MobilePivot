@@ -18,8 +18,7 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import HeaderOther from '../components/headerOther';
-import HeaderUp from '../components/headerUp';
+import Header from '../components/header';
 import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input,Card, CardItem, List, ListItem, Button} from 'native-base';
@@ -33,7 +32,7 @@ export default class lastPageDynamic extends Component {
 	constructor(props){
     super(props);
 	this.button_last=this.button_last.bind(this);
-	this.uploadP=this.uploadP.bind(this);
+	this.retour_categorie=this.retour_categorie.bind(this);
 	this.goBack=this.goBack.bind(this);
 	}	     
    button_last(){
@@ -41,7 +40,7 @@ export default class lastPageDynamic extends Component {
 		 component: GestionPatient
 		});
 	}
-	uploadP(){
+	retour_categorie(){
 		this.props.navigator.push({
           component: uploadFormDynamique
         }); 
@@ -53,14 +52,19 @@ export default class lastPageDynamic extends Component {
   render() {
     return (
 	<View>
-		<HeaderUp text="Katomi SKIN" loaded={true} onpress={this.goBack}/>
+		<Header text="Katomi SKIN" loaded={true}/>
 		<Image style={styles.image_last_one} source={{uri:'http://localhost:8081/img/last.png'}}/>
-		<Text style={styles.text_last_one}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis ligula non odio gravida pharetra quis in eros </Text>
+		<Text style={styles.text_last_one}> Vous pouvez retourner sur l'interface {"\n"}gestion des patients</Text>	
 		<Button
-			onPress={this.button_last}
+			onPress={this.retour_categorie}
 			style={styles.button_last}
-			textStyle={{fontSize: 15, color:'#fff'}}>Revenir</Button>	
-		<Button onPress={this.uploadP} textStyle={styles.back_to_upload_button_valid_meta} transparent>ACCEDER AU SITE KATOMI </Button>	
+			textStyle={styles.text_return_btn_last_one}>Gestion des patients</Button>
+			<Hr lineColor='#29235c' line={{width:10}}/>
+		<Text style={styles.text_last_one}> Rendez-vous sur notre site {"\n"}web Katomi </Text>			
+		<Text style={styles.text_last_one_link}
+			onPress={() => Linking.openURL('https://osereso.tn/')}>
+		  ACCEDER AU SITE KATOMI 
+		</Text>
      </View>
     );
   }
