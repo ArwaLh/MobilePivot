@@ -40,7 +40,7 @@ export default class lastOne extends Component {
 	}
 	retour_categorie(){
 		this.props.navigator.push({
-          component: uploadFormDynamique
+          component: Categories
         }); 
 	}
   render() {

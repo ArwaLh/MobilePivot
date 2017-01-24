@@ -47,7 +47,7 @@ export default class gestionNaevus extends Component {
 	componentDidMount(){
 		AsyncStorage.getItem('medecin_patient').then((patient_medecin_arrayy) => {
 			const arr=JSON.parse(patient_medecin_arrayy);
-			this.itemsRef.child('medecins').child(arr.medecin_id).child('patients').child(arr.patient_id).child('categories').child(arr.categorie).child('dossiers_medicaux').on('value', (snap) => {
+			this.itemsRef.child('medecins').child(arr.medecin_id).child('patients').child(arr.patient_id).child('dossiers_medicaux').on('value', (snap) => {
 			let items=[];
 			// get children as an array
 			snap.forEach((child) => {
@@ -73,19 +73,15 @@ export default class gestionNaevus extends Component {
 			const dossiers_medicaux = items; 
 			this.setState({ dossiers_medicaux });
 			});
-/* 			this.itemsRef.child('medecins').child(arr.medecin_id).child("categories").child(arr.categorie).child('patients').orderByKey().equalTo(arr.patient_id).once("child_added", function(snapshot) {
+ 			this.itemsRef.child('medecins').child(arr.medecin_id).child('patients').orderByKey().equalTo(arr.patient_id).once("child_added", function(snapshot) {
 				let patient_a = snapshot.val(); 
-				AsyncStorage.setItem("patient_a",patient_a)
-			});
-			AsyncStorage.getItem("patient_a").then((patient_a=>{
-			alert(patient_a);
-			this.setState({
-				patient:patient_a,
-				patient_name:patient_a.nom_pat,
-				patient_tel:patient_a.telephone_patient,
-				patient_lastname:patient_a.prenom_pat
-			});
-			})); */
+				this.setState({
+				  patient:snapshot.val(),
+				  patient_name:snapshot.val().nom_pat,
+				  patient_tel:snapshot.val().telephone_patient,
+				  patient_lastname:snapshot.val().prenom_pat
+				});
+			}); 
 		});
 	}
 	goBack() { 
@@ -103,14 +99,15 @@ export default class gestionNaevus extends Component {
 	nouveau_dossier(){
 		let my_date=new Date();
 		let dossier_id=this.state.medecin_id+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
-		this.itemsRef.child('medecins').child(this.state.medecin_id).child('patients').child(this.state.patient_id).child("categories").child(this.state.categorie_id).child('dossiers_medicaux').child(dossier_id).set({ 
+		this.itemsRef.child('medecins').child(this.state.medecin_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
 			date_creation_dossier: my_date.toString(),
 			date_MAJ_dossier: my_date.toString(),
-			nom_patient_dossier: this.state.patient.nom_pat,
+			nom_patient_dossier: this.state.patient_name,
 			emplacement: "",
-			prenom_patient_dossier: this.state.patient.prenom_pat,
-			telephone_patient_dossier: this.state.patient.telephone_patient,
-			nombre_images_dossier: 0
+			prenom_patient_dossier: this.state.patient_lastname,
+			telephone_patient_dossier: this.state.patient_tel,
+			nombre_images_dossier: 0,
+			categorie_id:this.state.categorie_id
 		})
 		this.props.navigator.push({
 		  component: locatePic
