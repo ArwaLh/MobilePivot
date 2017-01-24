@@ -123,7 +123,8 @@ export default class validMetaDynamic extends Component {
 				  blob.close();
 				  let downloadURL = uploadTask.snapshot.downloadURL;
 				  alert("done uploading",downloadURL);
-				   /*-----Add to firebase databse method ----*/
+				});
+				/*-----Add to firebase databse method ----*/
 					//and store image name
 					let compte_rendu=new Date();
 					let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
@@ -151,7 +152,6 @@ export default class validMetaDynamic extends Component {
 						  component: LastPageDynamic
 						});
 					});//end get category ID
-				});
 			})
 	}
   render() {
