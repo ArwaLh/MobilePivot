@@ -24,8 +24,8 @@ import {Button, List, ListItem, Header, InputGroup, Input, Card, CardItem} from 
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
-import UploadForm from './uploadForm';
-import LastOne from './lastOne';
+import UploadFormDynamique from './uploadFormDynamique';
+import LastPageDynamic from './lastPageDynamic';
 
 const testImageName = `patient_pic_${Platform.OS}_${new Date()}.jpg`
 const EMAIL = 'arwa.louihig@esprit.tn'
@@ -40,7 +40,7 @@ const dirs = RNFetchBlob.fs.dirs
 const path=null;
 const testFile = null;
 
-export default class validMeta extends Component {
+export default class validMetaDynamic extends Component {
 	constructor (props) {
     super(props);
 	this.itemsRef = firebase.database().ref();
@@ -65,7 +65,7 @@ export default class validMeta extends Component {
 	}
 	uploadP(){
 		this.props.navigator.push({
-          component: UploadForm
+          component: UploadFormDynamique
         }); 
 	}
 	componentDidMount(){
@@ -150,7 +150,7 @@ export default class validMeta extends Component {
 				emplacement: my_array.emplacement
 				});
 				this.props.navigator.push({
-				  component: LastOne
+				  component: LastPageDynamic
 				});
 
 	}
@@ -258,4 +258,4 @@ export default class validMeta extends Component {
     );
   }
 }
-AppRegistry.registerComponent('validMeta', () => validMeta);
+AppRegistry.registerComponent('validMetaDynamic', () => validMetaDynamic);

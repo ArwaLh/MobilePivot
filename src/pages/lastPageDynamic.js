@@ -13,7 +13,6 @@ import {
   StyleSheet,
   Text,
   Image,
-  Linking,
   ListView,
   BackAndroid,
   TouchableOpacity,
@@ -28,14 +27,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import GestionPatient from './gestionPatient';
 import uploadFormDynamique from './uploadFormDynamique';
 const window = Dimensions.get('window');
-import Hr from 'react-native-hr';
 import firebase from 'firebase';
 
-export default class lastOne extends Component {
+export default class lastPageDynamic extends Component {
 	constructor(props){
     super(props);
 	this.button_last=this.button_last.bind(this);
-	this.retour_categorie=this.retour_categorie.bind(this);
+	this.uploadP=this.uploadP.bind(this);
 	this.goBack=this.goBack.bind(this);
 	}	     
    button_last(){
@@ -43,7 +41,7 @@ export default class lastOne extends Component {
 		 component: GestionPatient
 		});
 	}
-	retour_categorie(){
+	uploadP(){
 		this.props.navigator.push({
           component: uploadFormDynamique
         }); 
@@ -57,20 +55,15 @@ export default class lastOne extends Component {
 	<View>
 		<HeaderUp text="Katomi SKIN" loaded={true} onpress={this.goBack}/>
 		<Image style={styles.image_last_one} source={{uri:'http://localhost:8081/img/last.png'}}/>
-		<Text style={styles.text_last_one}> Vous pouvez retourner sur la liste {"\n"}des catégories</Text>	
+		<Text style={styles.text_last_one}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis ligula non odio gravida pharetra quis in eros </Text>
 		<Button
-			onPress={this.retour_categorie}
+			onPress={this.button_last}
 			style={styles.button_last}
-			textStyle={styles.text_return_btn_last_one}>liste des catégories</Button>
-			<Hr lineColor='#29235c' line={{width:10}}/>
-		<Text style={styles.text_last_one}> Rendez-vous sur notre site {"\n"}web Katomi </Text>			
-		<Text style={styles.text_last_one_link}
-			onPress={() => Linking.openURL('https://osereso.tn/')}>
-		  ACCEDER AU SITE KATOMI 
-		</Text>
+			textStyle={{fontSize: 15, color:'#fff'}}>Revenir</Button>	
+		<Button onPress={this.uploadP} textStyle={styles.back_to_upload_button_valid_meta} transparent>ACCEDER AU SITE KATOMI </Button>	
      </View>
     );
   }
 }
 
-AppRegistry.registerComponent('lastOne', () => lastOne);
+AppRegistry.registerComponent('lastPageDynamic', () => lastPageDynamic);

@@ -67,21 +67,37 @@ module.exports = StyleSheet.create({
 	fontSize: 18,
   }, 
  /* last interface */
+  text_return_btn_last_one: {
+	fontFamily: 'Roboto',
+	fontSize: 15,
+	textAlign: 'center',
+	color:'#fff'
+  },
   text_last_one: {
 	color: "#29235c",
 	fontFamily: 'Roboto',
 	fontSize: 18,
 	fontWeight: 'normal',
 	textAlign: 'center',
-	marginTop:50,
-	marginBottom:50
+	marginTop:30,
+	marginBottom:10
+  },
+  text_last_one_link: {
+	color: "#29235c",
+	fontFamily: 'Roboto',
+	fontSize: 18,
+	fontWeight: 'normal',
+	textAlign: 'center',
+	marginTop:20,
+	marginBottom:30,
+	textDecorationLine: 'underline'
   },
   button_last: {
-	width: 200,
+	width: 250,
 	height: 40,
-    margin: 10,
-	marginBottom: 35,
-	marginLeft: 50,
+	marginLeft:60,
+	marginTop:20,
+	marginBottom:20,
     padding: 15,
     backgroundColor: '#29235c',
   }, 
