@@ -241,7 +241,7 @@ export default class uploadForm extends Component {
 							onChangeText={(text) => this.setState({epaisseur: text})}
 							value={this.state.epaisseur}
 							placeholder={""}
-							keyboardType='numeric'
+							keyboardType = 'numbers-and-punctuation'
 							maxLength = {4}
 							placeholderTextColor="#fff"
 							underlineColorAndroid="#29235c"

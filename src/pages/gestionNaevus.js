@@ -66,22 +66,23 @@ export default class gestionNaevus extends Component {
 			this.setState({
 			  dataSource: this.state.dataSource.cloneWithRows(items),
 			  patient_id: arr.patient_id,
-			  categorie_id:arr.categorie,
 			  medecin_id: arr.medecin_id,
 			});
 			//const patients_array = items;
 			const dossiers_medicaux = items; 
 			this.setState({ dossiers_medicaux });
 			});
- 			this.itemsRef.child('medecins').child(arr.medecin_id).child('patients').orderByKey().equalTo(arr.patient_id).once("child_added", function(snapshot) {
-				let patient_a = snapshot.val(); 
-				this.setState({
-				  patient:snapshot.val(),
-				  patient_name:snapshot.val().nom_pat,
-				  patient_tel:snapshot.val().telephone_patient,
-				  patient_lastname:snapshot.val().prenom_pat
-				});
-			}); 
+			let patient_a=null;
+			this.itemsRef.child('medecins').child(arr.medecin_id).child('patients').orderByKey().equalTo(arr.patient_id).once("child_added", function(snapshot) {
+				patient_a = snapshot.val(); 
+			});
+			alert(patient_a);
+			this.setState({
+				patient:patient_a,
+				patient_name:patient_a.nom_pat,
+				patient_tel:patient_a.telephone_patient,
+				patient_lastname:patient_a.prenom_pat
+			});
 		});
 	}
 	goBack() { 
@@ -91,7 +92,9 @@ export default class gestionNaevus extends Component {
 	gestionF(id,nbre){
 		alert(id);
 		AsyncStorage.removeItem("med_pat_file");
-		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id,"categorie":this.state.categorie_id,"nombre_images_dossier":nbre})); 
+		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id,"categorie":this.state.categorie_id,"nombre_images_dossier":nbre,"emplacement":this.state.dossiers_medicaux.emplacement})); 
+		//if emplacement =="" redirection vers l'interface localiser photo
+		//else redirection vers l'interface gestion fichier
 		this.props.navigator.push({
 		  component: GestionFichier
 		});
@@ -109,9 +112,6 @@ export default class gestionNaevus extends Component {
 			nombre_images_dossier: 0,
 			categorie_id:this.state.categorie_id
 		})
-		this.props.navigator.push({
-		  component: locatePic
-		});
 	}
   render() {
     return ( 
@@ -119,8 +119,14 @@ export default class gestionNaevus extends Component {
 	<HeaderUp text="Gestion des dossiers" loaded={true} onpress={this.goBack.bind(this)}/>
 	<ScrollView style={{backgroundColor: '#fff'}}>
 	<View style={{flex:1}}>
+		<ListItem style={{borderColor:'#29235c', width:340}}>
+		   <Grid>
+				<Row><Text style={{color: "#29235c",marginLeft:10,fontSize:20,fontFamily: 'Roboto',fontWeight:"bold"}}>{this.state.patient_name} {this.state.patient_lastname}</Text></Row>
+				<Row><Text style={{color: "#29235c",marginLeft:13,marginBottom:0,fontSize:15,fontFamily: 'Roboto'}}>Téléphone : {this.state.patient_tel}</Text></Row>
+			</Grid>
+		</ListItem>	
 		<ListView dataSource={this.state.dataSource}
-		enableEmptySections={true}
+		enableEmptySections={true}             
         renderRow={(rowData) => 
 					<List style={{backgroundColor:'white',height:180, borderColor:'#29235c'}}>
 					  <ListItem style={{height:180, borderColor:'#29235c', width:340, paddingTop:0}}>

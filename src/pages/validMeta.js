@@ -149,7 +149,7 @@ export default class validMeta extends Component {
 					emplacement: my_array.emplacement
 					});
 					this.props.navigator.push({
-					  component: LastOne
+					 component: LastOne
 					});
 					});//end getItem id category
 			})
@@ -157,7 +157,7 @@ export default class validMeta extends Component {
   render() {
     return ( 
 	<View>
-	<HeaderUp text="4/4 Données patient" loaded={this.state.loaded} onpress={this.goBack}/>
+	<HeaderUp text="4/4 Données patientttt" loaded={this.state.loaded} onpress={this.goBack}/>
 		<ScrollView>	
 			<ListItem style={styles.list_MetaData}>   
 				<Grid>
