@@ -26,8 +26,10 @@ import {Button, List, ListItem, Header, Picker} from 'native-base';
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
-import ValidMeta from './validMeta';
-import Phototype from './phototype';
+import ValidMetaDynamic from './validMetaDynamic';
+import NewPatientDynamic from './newPatientDynamic';
+import firebase from 'firebase';
+
 export default class uploadFormDynamique extends Component {
 	constructor (props) {
 		super(props);
@@ -42,8 +44,6 @@ export default class uploadFormDynamique extends Component {
 		  patient_id: '',
 		  med_pat_file:{},
 		}
-		this.validMetadata = this.validMetadata.bind(this);
-		this.phototypeb = this.phototypeb.bind(this);
 		this.goBack = this.goBack.bind(this);
 	}
  componentDidMount(){
@@ -57,7 +57,8 @@ export default class uploadFormDynamique extends Component {
 			});
 
 		//get the criterias list
-		this.itemsRef.child(array.id_medecin).child(array.categorie).child("criteres").on('child_added', (snap) => {
+		alert(array.id_medecin);
+		this.itemsRef.child(array.id_medecin).child(array.categorie).child("criteres").on('value', (snap) => {
 			let array_cat=[];		
 			let items=[];
 			items=snap.val();
@@ -66,9 +67,10 @@ export default class uploadFormDynamique extends Component {
 					 array_cat.push({"key":k,"placeholder":items[k].nom_critere,"type":items[k].type_critere});	
 				}
 			}
-				this.setState({
-				  dataSource: this.state.dataSource.cloneWithRows(array_cat),
-				});
+			alert(array_cat.placeholder);
+			this.setState({
+			  dataSource: this.state.dataSource.cloneWithRows(array_cat),
+			});
 		});
 		});
 	}
@@ -115,16 +117,15 @@ export default class uploadFormDynamique extends Component {
 	<HeaderUp text=" 3/4 Upload Photo" loaded={this.state.loaded} onpress={this.goBack}/>
 	<ScrollView>
 		    <ListView dataSource={this.state.dataSource}
-		enableEmptySections={true}
-        renderRow={(rowData) => 
+				renderRow={(rowData) => 
 					<List>
-					  <ListItem style={{height:60, borderColor:'#29235c', width:340, paddingTop:0}}>
+					  <ListItem style={{height:100, borderColor:'#29235c',width:740, paddingTop:0}}>
 							<TextInput
 								placeholder={rowData.placeholder}
 								value={this.state.value}
 								keyboardType="default"
 								onChangeText={(text) => this.setState({text})}
-								style={{width:45, textAlign :"center"}}
+								style={{width:320, textAlign :"left"}}
 								underlineColorAndroid="#29235c"
 							  /> 
 					  </ListItem>
