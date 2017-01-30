@@ -31,22 +31,12 @@ import Phototype from './phototype';
 export default class uploadFormDynamique extends Component {
 	constructor (props) {
 		super(props);
+		this.itemsRef = firebase.database().ref("categories");
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
 		  medecin_id:"",
 		  dataSource: ds.cloneWithRows(['row 1', 'row 2']),
 		  loaded:true,
-	      choisir:'choisir',
-		  phototype: '',
-		  sed:'',
-		  mel: 0.0,
-          selected1: 'Régulier',
-		  selected2: 'Brun foncé',
-		  selected3: 'Oui',
-		  selected4: '0.2',
-		  selected5: '0.2',
-		  diametre: '0.0',
-		  epaisseur: '0.0',
 		  dossier_id: '',
 		  medecin_id: '',
 		  patient_id: '',
@@ -65,20 +55,25 @@ export default class uploadFormDynamique extends Component {
 				medecin_id: array.id_medecin,
 				patient_id: array.id_patient
 			});
-	    });
-		AsyncStorage.getItem('Sed_Value').then((phototypeSED) => {
-		  this.setState({
-			sed: phototypeSED
-		  });
-	    });
-		AsyncStorage.getItem('Phototype_value').then((phototypee) => {
-		  this.setState({
-			phototype: phototypee
-		  });
+
+		//get the criterias list
+		this.itemsRef.child(array.id_medecin).child(array.categorie).child("criteres").on('child_added', (snap) => {
+			let array_cat=[];		
+			let items=[];
+			items=snap.val();
+			for (var k in items){
+				if (items.hasOwnProperty(k)) {
+					 array_cat.push({"key":k,"placeholder":items[k].nom_critere,"type":items[k].type_critere});	
+				}
+			}
+				this.setState({
+				  dataSource: this.state.dataSource.cloneWithRows(array_cat),
+				});
+		});
 		});
 	}
 		
-	validMetadata(){
+/* 	validMetadata(){
 		
 		alert(this.state.med_pat_file.nombre_images_dossier);
 		AsyncStorage.removeItem('med_pat_file_location_image_data');
@@ -86,7 +81,7 @@ export default class uploadFormDynamique extends Component {
 			"id_medecin":this.state.medecin_id,
 			"id_patient":this.state.patient_id,
 			"id_dossier":this.state.dossier_id,
-			"categorie":this.state.categorie,
+			"categorie":this.state.med_pat_file.categorie,
 			"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,
 			"emplacement":this.state.med_pat_file.emplacement,
 			"imageURL":this.state.path,
@@ -103,13 +98,13 @@ export default class uploadFormDynamique extends Component {
 		  component: ValidMeta
 		  
 		});
-	  }      
-    phototypeb(){
+	  }  */     
+/*     phototypeb(){
 		this.setState({choisir: '', loaded :true});
 		this.props.navigator.push({
 		  component: Phototype
 		});
-	  }
+	  } */
 	goBack() {
 		this.props.navigator.pop();
 		return true;
@@ -125,7 +120,10 @@ export default class uploadFormDynamique extends Component {
 					<List>
 					  <ListItem style={{height:60, borderColor:'#29235c', width:340, paddingTop:0}}>
 							<TextInput
-								ref="diametre"
+								placeholder={rowData.placeholder}
+								value={this.state.value}
+								keyboardType="default"
+								onChangeText={(text) => this.setState({text})}
 								style={{width:45, textAlign :"center"}}
 								underlineColorAndroid="#29235c"
 							  /> 

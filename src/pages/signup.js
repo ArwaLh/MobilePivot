@@ -60,6 +60,10 @@ export default class signup extends Component {
 			photoURL_medecin:"",
 			categories:[]
 			})
+		//add category naevus to the doctor which is the default category
+		this.itemsRef.child("categories").child(medecin_id).child("naevus").set({ 
+			nom_categorie:"Naevus"
+		})
 		//succes d'ajout dans auth et database
 			alert('Your account was created!');
 			this.props.navigator.push({
@@ -75,7 +79,6 @@ export default class signup extends Component {
 	  alert("les champs mot de passe et confirmer mot de passe doivent être identiques")
 	}
 	});	
-	  //Communications.email(['arwa.louihig@esprit.tn', 'arwa@osereso.fr'],null,null,'Compléter inscription',"Veuillez suivre le lien ci-dessous pour compléter votre inscription "+"http://localhost:3000/inscription".link("http://localhost:3000/inscription"));
   }
   goToLogin(){
     this.props.navigator.push({

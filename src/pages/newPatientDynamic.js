@@ -45,31 +45,26 @@ export default class newPatientDynamic extends Component {
 	}
 	}
   componentDidMount(){
-			AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
-			alert(medecin_usernamee);
-				//
-			//heeeeeeeeeeeeeeeeeere
-
-				this.itemsRef.child('medecins').child(medecin_usernamee).child("patients").on('value', (snap) => {
-				let items_pat=[];
-				// get children as an array
-				snap.forEach((child) => {
-					items_pat.push({
-						antecedents_familiaux :child.val().antecedents_familiaux,
-					  _key: child.key,
-					});
-				});
-				AsyncStorage.setItem('items_pat',JSON.stringify(items_pat));
-				});
+	AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
+	alert(medecin_usernamee);
+	this.itemsRef.child('medecins').child(medecin_usernamee).child("patients").on('value', (snap) => {
+		let items_pat=[];
+		// get children as an array
+		snap.forEach((child) => {
+			items_pat.push({
+				antecedents_familiaux :child.val().antecedents_familiaux,
+			  _key: child.key,
 			});
-	}
-	locatePic(){
-		
-			//create category name
-		if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
-			alert("Vous n'avez pas remplis tous les champs!!");
-		}else{ 
-			//heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeee
+		});
+		AsyncStorage.setItem('items_pat',JSON.stringify(items_pat));
+		});
+	});
+  }
+  locatePic(){
+
+	if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
+		alert("Vous n'avez pas remplis tous les champs!!");
+	}else{ 
 		AsyncStorage.getItem('id').then((idd) => {
 			AsyncStorage.getItem('items_pat').then((items_patt) => {
 				let items_pat=JSON.parse(items_patt);
@@ -77,9 +72,7 @@ export default class newPatientDynamic extends Component {
 				let items_dossiers1=JSON.parse(items_dossierss);
 					AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 					alert(medecin_usernamee);
-						//
-					//heeeeeeeeeeeeeeeeeere
-					
+
 					if(this.state.nom_pat!="" && this.state.prenom_pat!=""){
 					let patient_id="";
 					patient_id=this.state.nom_pat.toLowerCase()+'_'+this.state.prenom_pat.toLowerCase()+'_'+items_pat.length;
@@ -122,8 +115,8 @@ export default class newPatientDynamic extends Component {
 				});
 			});
 		});
-		}//else ends here
-	}
+	}//else ends here
+  }
 	/* locatePic(){
 		if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
 			alert("Vous n'avez pas remplis tous les champs!!");
