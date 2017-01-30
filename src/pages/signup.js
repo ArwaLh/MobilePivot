@@ -20,7 +20,7 @@ import * as firebase from 'firebase';
 export default class signup extends Component {
   constructor(props){
     super(props);
-	this.itemsRef = firebase.database().ref('medecins');
+	this.itemsRef = firebase.database().ref();
     this.state = {
       loaded: true,
       email_medecin: '',
@@ -49,7 +49,7 @@ export default class signup extends Component {
 	if(this.state.password==this.state.confirm_password){
 		firebase.auth().createUserWithEmailAndPassword(this.state.email_medecin,this.state.password).then((userData) =>{
 		//ajouter medecin à firebase database
-		this.itemsRef.child(medecin_id).set({
+		this.itemsRef.child("medecins").child(medecin_id).set({
 			email_medecin: this.state.email_medecin,
 			nom_medecin:"",
 			prenom_medecin:"",

@@ -75,9 +75,10 @@ export default class uploadFormDynamique extends Component {
 		});
 	}
 		
-/* 	validMetadata(){
-		
-		alert(this.state.med_pat_file.nombre_images_dossier);
+ 	validMetadataDynamic(){
+		//send the data to valid meta dynamic	
+/* 		alert(this.state.med_pat_file.nombre_images_dossier);
+
 		AsyncStorage.removeItem('med_pat_file_location_image_data');
 		AsyncStorage.setItem('med_pat_file_location_image_data', JSON.stringify({
 			"id_medecin":this.state.medecin_id,
@@ -95,18 +96,12 @@ export default class uploadFormDynamique extends Component {
 			'diametre':this.state.diametre,
 			'epaisseur':this.state.epaisseur,
 			'suspicion':this.state.mel
-			}));  
+			}));   */
 		this.props.navigator.push({
-		  component: ValidMeta
+		  component: ValidMetaDynamic
 		  
 		});
-	  }  */     
-/*     phototypeb(){
-		this.setState({choisir: '', loaded :true});
-		this.props.navigator.push({
-		  component: Phototype
-		});
-	  } */
+	  }     
 	goBack() {
 		this.props.navigator.pop();
 		return true;
@@ -121,16 +116,26 @@ export default class uploadFormDynamique extends Component {
 					<List>
 					  <ListItem style={{height:100, borderColor:'#29235c',width:740, paddingTop:0}}>
 							<TextInput
+								ref={rowData.placeholder}
 								placeholder={rowData.placeholder}
-								value={this.state.value}
+								value={this.state.ref}
 								keyboardType="default"
-								onChangeText={(text) => this.setState({text})}
+								onChangeText={(text) => this.setState({ref: text})}
 								style={{width:320, textAlign :"left"}}
 								underlineColorAndroid="#29235c"
 							  /> 
 					  </ListItem>
 					</List>
-					} style={{backgroundColor: 'white'}}/>		
+					} style={{backgroundColor: 'white'}}/>	
+			<List>
+			<ListItem>
+			<Button
+			    onPress={this.validMetadataDynamic.bind(this)}
+				style={styles.go_to_valid_meta_button}
+				textStyle={styles.go_to_valid_meta_text}
+				>Valider</Button>
+			</ListItem>
+			</List>
          </ScrollView> 
 	</View>
     );
