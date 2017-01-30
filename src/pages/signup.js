@@ -35,7 +35,7 @@ export default class signup extends Component {
 	this.signup=this.signup.bind(this);
   }
   componentDidMount(){
-	this.itemsRef.on("value", (snap) => {
+	this.itemsRef.child("medecins").on("value", (snap) => {
 		let items=[];
 		items=Object.keys(snap.val());
 		alert(items.length);

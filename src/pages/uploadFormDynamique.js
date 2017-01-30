@@ -57,7 +57,6 @@ export default class uploadFormDynamique extends Component {
 			});
 
 		//get the criterias list
-		alert(array.id_medecin);
 		this.itemsRef.child(array.id_medecin).child(array.categorie).child("criteres").on('value', (snap) => {
 			let array_cat=[];		
 			let items=[];
@@ -71,6 +70,7 @@ export default class uploadFormDynamique extends Component {
 			this.setState({
 			  dataSource: this.state.dataSource.cloneWithRows(array_cat),
 			});
+			alert(this.state.dataSource);
 		});
 		});
 	}
@@ -97,10 +97,12 @@ export default class uploadFormDynamique extends Component {
 			'epaisseur':this.state.epaisseur,
 			'suspicion':this.state.mel
 			}));   */
-		this.props.navigator.push({
+		//getting data from textinput
+		alert(this.state.ref);
+		/* this.props.navigator.push({
 		  component: ValidMetaDynamic
 		  
-		});
+		}); */
 	  }     
 	goBack() {
 		this.props.navigator.pop();
