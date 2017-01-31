@@ -27,6 +27,8 @@ import LocatePic from './locatePic';
 import firebase from 'firebase';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 import DatePicker from 'react-native-datepicker';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import { Hideo   } from 'react-native-textinput-effects';
 export default class newPatientDynamic extends Component {
 	constructor (props) {
     super(props);
@@ -206,15 +208,15 @@ export default class newPatientDynamic extends Component {
 	<ScrollView>
 		<View> 
 		    <Grid>
-			 <Row style={{marginTop:8}}>
+				<Row style={{marginTop:8}}>
 				<TextInput
-					required = {true}
-					keyboardAppearance ='dark'
+				    required = {true}
+				    Key = {true}
 					style={styles.textinput_new_patinet}
 					placeholderTextColor="#29235c"
 					onChangeText={(text) => this.setState({nom_pat: text})}
 					value={this.state.nom_pat}
-					placeholder={"Nom"}
+					placeholder={"Prénom"}
 					maxLength = {25}
 					underlineColorAndroid="#53507c"/>
 				</Row>
