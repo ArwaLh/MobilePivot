@@ -48,7 +48,7 @@ export default class gestionPatient extends Component {
 	ajoutPat(){
 		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 			//create category name
-			if(this.state.id=="Naevus"){
+			if(this.state.id=="naevus"){
 				this.props.navigator.push({
 				component: NewPatient
 				});

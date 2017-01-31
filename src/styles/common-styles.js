@@ -93,7 +93,7 @@ module.exports = StyleSheet.create({
 	textDecorationLine: 'underline'
   },
   button_last: {
-	width: 250,
+	width: 210,
 	height: 40,
 	marginLeft:60,
 	marginTop:20,

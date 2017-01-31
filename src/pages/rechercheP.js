@@ -43,7 +43,7 @@ export default class rechercheP extends Component {
 	}
 	gestionNaevus(){
 		let patient_id='';
-		if (query === '') {
+		if (this.statequery === '') {
 		  return [];//do nothing whenever the query is empty
 		}
 		this.itemsRef.child('medecins').child(this.state.username_med).child('patients').orderByChild('nom_pat').equalTo(this.state.query.substring(0,this.state.query.indexOf(" "))).on("child_added", function(snapshot) {
