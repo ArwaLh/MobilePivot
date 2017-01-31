@@ -204,7 +204,7 @@ export default class newPatientDynamic extends Component {
   render() {
     return ( 
 	<View>
-	<HeaderUp text=" 1/4  Ajouter un patient Dynamic" loaded={true} onpress={this.goBack.bind(this)}/>
+	<HeaderUp text=" 1/4  Ajouter un patient" loaded={true} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
 		<View> 
 		    <Grid>
@@ -216,7 +216,7 @@ export default class newPatientDynamic extends Component {
 					placeholderTextColor="#29235c"
 					onChangeText={(text) => this.setState({nom_pat: text})}
 					value={this.state.nom_pat}
-					placeholder={"Prénom"}
+					placeholder={"Nom"}
 					maxLength = {25}
 					underlineColorAndroid="#53507c"/>
 				</Row>

@@ -41,10 +41,14 @@ export default class uploadFormDynamique extends Component {
 		  loaded:true,
 		  dossier_id: '',
 		  medecin_id: '',
+		  text: [],
+		  target_value: '',
+		  target_id: '',
 		  patient_id: '',
 		  med_pat_file:{},
 		}
 		this.goBack = this.goBack.bind(this);
+		this.validMetadataDynamic = this.validMetadataDynamic.bind(this);
 	}
  componentDidMount(){
 		AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
@@ -76,6 +80,7 @@ export default class uploadFormDynamique extends Component {
 	}
 		
  	validMetadataDynamic(){
+	alert(JSON.stringify(this.state.target_id));
 		//send the data to valid meta dynamic	
 /* 		alert(this.state.med_pat_file.nombre_images_dossier);
 
@@ -97,14 +102,19 @@ export default class uploadFormDynamique extends Component {
 			'epaisseur':this.state.epaisseur,
 			'suspicion':this.state.mel
 			}));   */
-		this.props.navigator.push({
+/* 		this.props.navigator.push({
 		  component: ValidMetaDynamic
 		  
-		});
+		}); */
 	  }     
 	goBack() {
 		this.props.navigator.pop();
 		return true;
+	}
+	onValueChangeCriteria (value: string) {
+        this.setState({
+            target_id: value
+		});
 	}
   render() {
     return ( 
@@ -120,7 +130,7 @@ export default class uploadFormDynamique extends Component {
 								placeholder={rowData.placeholder}
 								value={this.state.ref}
 								keyboardType="default"
-								onChangeText={(text) => this.setState({ref: text})}
+								onChangeText={this.onValueChangeCriteria.bind(this)}
 								style={{width:320, textAlign :"left"}}
 								underlineColorAndroid="#29235c"
 							  /> 
@@ -130,7 +140,7 @@ export default class uploadFormDynamique extends Component {
 			<List>
 			<ListItem>
 			<Button
-			    onPress={this.validMetadataDynamic.bind(this)}
+			    onPress={this.validMetadataDynamic}
 				style={styles.go_to_valid_meta_button}
 				textStyle={styles.go_to_valid_meta_text}
 				>Valider</Button>
