@@ -43,11 +43,13 @@ export default class uploadFormDynamique extends Component {
 		  medecin_id: '',
 		  text: [],
 		  target_value: '',
+		  criteres_values:[],
 		  target_id: '',
 		  patient_id: '',
 		  med_pat_file:{},
 		}
 		this.goBack = this.goBack.bind(this);
+		this.onValueChangeCriteria = this.onValueChangeCriteria.bind(this);
 		this.validMetadataDynamic = this.validMetadataDynamic.bind(this);
 	}
  componentDidMount(){
@@ -80,7 +82,7 @@ export default class uploadFormDynamique extends Component {
 	}
 		
  	validMetadataDynamic(){
-	alert(JSON.stringify(this.state.target_id));
+	alert(JSON.stringify(this.state.criteres_values));
 		//send the data to valid meta dynamic	
 /* 		alert(this.state.med_pat_file.nombre_images_dossier);
 
@@ -112,7 +114,12 @@ export default class uploadFormDynamique extends Component {
 		return true;
 	}
 	onValueChangeCriteria (value: string) {
+		let items=[];
+		items=this.state.criteres_values;
+		items.push({"critere":value});
+		/* alert(JSON.stringify(this.state.criteres_values)); */
         this.setState({
+			criteres_values:items,
             target_id: value
 		});
 	}
@@ -130,7 +137,7 @@ export default class uploadFormDynamique extends Component {
 								placeholder={rowData.placeholder}
 								value={this.state.ref}
 								keyboardType="default"
-								onChangeText={this.onValueChangeCriteria.bind(this)}
+								onChangeText={this.onValueChangeCriteria}
 								style={{width:320, textAlign :"left"}}
 								underlineColorAndroid="#29235c"
 							  /> 
