@@ -137,7 +137,7 @@ export default class uploadFormDynamique extends Component {
 								placeholder={rowData.placeholder}
 								value={this.state.ref}
 								keyboardType="default"
-								onChangeText={this.onValueChangeCriteria}
+								onChange={this.onValueChangeCriteria}
 								style={{width:320, textAlign :"left"}}
 								underlineColorAndroid="#29235c"
 							  /> 
