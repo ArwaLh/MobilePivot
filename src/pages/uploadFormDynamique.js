@@ -117,10 +117,10 @@ export default class uploadFormDynamique extends Component {
 		let items=[];
 		items=this.state.criteres_values;
 		items.push({"critere":value});
-		/* alert(JSON.stringify(this.state.criteres_values)); */
+		/*alert(JSON.stringify(this.state.target_id)); */
         this.setState({
 			criteres_values:items,
-            target_id: value
+
 		});
 	}
   render() {
@@ -137,7 +137,7 @@ export default class uploadFormDynamique extends Component {
 								placeholder={rowData.placeholder}
 								value={this.state.ref}
 								keyboardType="default"
-								onChange={this.onValueChangeCriteria}
+								onChangeText={this.onValueChangeCriteria}
 								style={{width:320, textAlign :"left"}}
 								underlineColorAndroid="#29235c"
 							  /> 
