@@ -114,6 +114,7 @@ export default class uploadFormDynamique extends Component {
 		return true;
 	}
 	onValueChangeCriteria (value: string) {
+		if(value!=""){
 		let items=[];
 		items=this.state.criteres_values;
 		items.push({"critere":value});
@@ -122,6 +123,7 @@ export default class uploadFormDynamique extends Component {
 			criteres_values:items,
 
 		});
+		}
 	}
   render() {
     return ( 
