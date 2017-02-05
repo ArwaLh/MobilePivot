@@ -13,6 +13,7 @@ import {
   ScrollView,
   BackAndroid,
   AsyncStorage,
+  TouchableHighlight,
   ListView,
   Platform,
   ProgressBar,
@@ -125,9 +126,11 @@ export default class uploadFormDynamique extends Component {
 		});
 		}
 	}
-  renderRow(rowData){
-	if(rowData.type_critere=="Boolean"){
+ /*  renderRow(rowData,sectionID:number,rowID:number){
+	
 		return (
+		<View>
+		rowData.type_critere=="Boolean" ?(
 		<View>
 		<TextInput
 			ref="oui"
@@ -138,11 +141,8 @@ export default class uploadFormDynamique extends Component {
 			maxLength = {5}
 			underlineColorAndroid="#29235c"
 		/>
-		</View>
-		);
-	}
-	else if(rowData.type_critere=="Numérique"){
-		return (
+		</View>)
+		:rowData.type_critere=="Numérique" ?(
 		<View>
 		<TextInput
 			ref="diametre"
@@ -153,11 +153,8 @@ export default class uploadFormDynamique extends Component {
 			maxLength = {5}
 			underlineColorAndroid="#29235c"
 		/>
-		</View>
-		);
-	}
-	else if(rowData.type_critere=="Text"){
-		return (
+		</View>)
+		:rowData.type_critere=="Text" ?(
 		<View>
 		<TextInput
 			ref={rowData.placeholder}
@@ -169,10 +166,52 @@ export default class uploadFormDynamique extends Component {
 			underlineColorAndroid="#29235c"
 		/>
 		</View>
-		);
-	}
+		</View>)
+	);
 //i may have retuned undefined ,an array or some other invalid object	
-  }
+  } */
+  renderRow(rowData,sectionID:number,rowID:number){
+	  alert(rowData.type)
+            return (
+              <View style={styles.subBody}>
+                <TouchableHighlight>
+                  <View  style={{height:44,flexDirection:'row'}}>
+                    <View>
+                        {rowData.type=="Boolean" ? (
+						<Grid>
+						  <Row>
+						<Col>  
+							<Text>rowData.placeholder</Text>
+						</Col>
+						<Col style={{ marginLeft:130}}>	
+                        <Picker 
+							style={{width:65, color:"#29235c" }}
+							iosHeader="Select one"
+							mode="dropdown"
+							selectedValue="Oui"
+							onValueChange={this.onValueChangeCriteria}>  
+								<Item label="Oui" value="Oui" />
+								<Item label="Non" value="Non" />
+						</Picker>
+						</Col>
+						</Row>
+						</Grid>
+                        ):<View>
+						<TextInput
+							ref={rowData.placeholder}
+							placeholder={rowData.placeholder}
+							value={this.state.ref}
+							keyboardType="default"
+							onChangeText={this.onValueChangeCriteria}
+							style={{width:320, textAlign :"left"}}
+							underlineColorAndroid="#29235c"
+						/></View>}
+                   </View>
+                  </View>
+                </TouchableHighlight>
+              </View>
+        );
+       }
   render() {
     return ( 
 	<View>
