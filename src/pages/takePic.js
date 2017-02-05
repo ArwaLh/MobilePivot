@@ -19,9 +19,8 @@ import Camera from 'react-native-camera';
 
 const window = Dimensions.get('window');
 export default class takePic extends Component {
-	 constructor(props) {
+  constructor(props) {
     super(props);
-
     this.camera = null;
 
     this.state = {

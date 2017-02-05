@@ -42,6 +42,9 @@ export default class uploadFormDynamique extends Component {
 		  loaded:true,
 		  dossier_id: '',
 		  medecin_id: '',
+		  selected_boolean: 'Non',
+		  selected_text: '',
+		  selected_numerique: '',
 		  text: [],
 		  target_value: '',
 		  criteres_values:[],
@@ -53,6 +56,14 @@ export default class uploadFormDynamique extends Component {
 		this.onValueChangeCriteria = this.onValueChangeCriteria.bind(this);
 		this.validMetadataDynamic = this.validMetadataDynamic.bind(this);
 	}
+ componentWillMount(){
+		AsyncStorage.getItem('path').then((pathUp) => {                                                   
+		  this.setState({
+			path:pathUp
+		  });	
+		  path= this.state.path;
+		});
+  }
  componentDidMount(){
 		AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
 		  const array=JSON.parse(med_pat_file_locationn);
@@ -64,7 +75,6 @@ export default class uploadFormDynamique extends Component {
 			});
 
 		//get the criterias list
-		alert(array.id_medecin);
 		this.itemsRef.child(array.id_medecin).child(array.categorie).child("criteres").on('value', (snap) => {
 			let array_cat=[];		
 			let items=[];
@@ -74,7 +84,6 @@ export default class uploadFormDynamique extends Component {
 					 array_cat.push({"key":k,"placeholder":items[k].nom_critere,"type":items[k].type_critere});	
 				}
 			}
-			alert(array_cat.placeholder);
 			this.setState({
 			  dataSource: this.state.dataSource.cloneWithRows(array_cat),
 			});
@@ -83,7 +92,10 @@ export default class uploadFormDynamique extends Component {
 	}
 		
  	validMetadataDynamic(){
-	alert(JSON.stringify(this.state.criteres_values));
+	alert(this.state.criteres_values);
+	this.state.criteres_values.forEach((element)=>{
+		alert(element.critere)
+	});
 		//send the data to valid meta dynamic	
 /* 		alert(this.state.med_pat_file.nombre_images_dossier);
 
@@ -115,25 +127,21 @@ export default class uploadFormDynamique extends Component {
 		return true;
 	}
 	onValueChangeCriteria (value: string) {
-		if(value!=""){
 		let items=[];
 		items=this.state.criteres_values;
-		items.push({"critere":value});
+		items.push(value);
 		/*alert(JSON.stringify(this.state.target_id)); */
         this.setState({
+			selected_boolean:value,
 			criteres_values:items,
 
 		});
-		}
 	}
- componentWillMount(){
-		AsyncStorage.getItem('path').then((pathUp) => {                                                   
-		  this.setState({
-			path:pathUp
-		  });	
-		  path= this.state.path;
-		});
-	}
+  onValueChangeBoolean (value: string) {
+	this.setState({
+		selected5 : value
+	});
+  }
   renderRow(rowData,sectionID:number,rowID:number){
             return (
               <View style={styles.subBody}>
@@ -150,8 +158,8 @@ export default class uploadFormDynamique extends Component {
 							style={{width:100, color:"#29235c",marginTop:10}}
 							iosHeader="Select one"
 							mode="dropdown"
-							selectedValue="Oui"
-							>  
+							selectedValue={this.state.selected_boolean}
+							onValueChange={this.onValueChangeCriteria}>   
 								<Item label="Oui" value="Oui" />
 								<Item label="Non" value="Non" />
 						</Picker>
@@ -169,8 +177,9 @@ export default class uploadFormDynamique extends Component {
 							ref="diametre"
 							placeholder={rowData.placeholder}
 							style={{width:100, textAlign :"left"}}
-							value={this.state.diametre}
 							keyboardType='numbers-and-punctuation'
+							onEndEditing={this.onValueChangeCriteria}
+							value={this.state.selected_numerique}
 							maxLength ={5}
 							underlineColorAndroid="#29235c"
 						  />
@@ -183,16 +192,17 @@ export default class uploadFormDynamique extends Component {
 						  <Col>
 							<Text style={styles.upload_dynamic}>{rowData.placeholder}</Text>
 						  </Col>
-							<Col style={{ marginLeft:80}}>
-								 <TextInput
-									ref={rowData.placeholder}
-									placeholder={rowData.placeholder}
-									value={this.state.ref}
-									keyboardType="default"
-									style={{width:100, textAlign :"left"}}
-									underlineColorAndroid="#29235c"
-								  />
-							</Col>	
+						  <Col style={{ marginLeft:80}}>
+							<TextInput
+								ref={rowData.placeholder}
+								placeholder={rowData.placeholder}
+								keyboardType="default"
+								value={this.state.selected_text}
+								onEndEditing={this.onValueChangeCriteria}
+								style={{width:100, textAlign :"left"}}
+								underlineColorAndroid="#29235c"
+						  />
+						  </Col>	
 						</Row>
 						</Grid>
 						</View>}
