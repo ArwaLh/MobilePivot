@@ -126,88 +126,77 @@ export default class uploadFormDynamique extends Component {
 		});
 		}
 	}
- /*  renderRow(rowData,sectionID:number,rowID:number){
-	
-		return (
-		<View>
-		rowData.type_critere=="Boolean" ?(
-		<View>
-		<TextInput
-			ref="oui"
-			style={{width:45, textAlign :"center"}}
-			onChangeText={this.onValueChangeCriteria}
-			value={this.state.ref}
-			keyboardType='numbers-and-punctuation'
-			maxLength = {5}
-			underlineColorAndroid="#29235c"
-		/>
-		</View>)
-		:rowData.type_critere=="Numérique" ?(
-		<View>
-		<TextInput
-			ref="diametre"
-			style={{width:45, textAlign :"center"}}
-			onChangeText={this.onValueChangeCriteria}
-			value={this.state.ref}
-			keyboardType='numbers-and-punctuation'
-			maxLength = {5}
-			underlineColorAndroid="#29235c"
-		/>
-		</View>)
-		:rowData.type_critere=="Text" ?(
-		<View>
-		<TextInput
-			ref={rowData.placeholder}
-			placeholder={rowData.placeholder}
-			value={this.state.ref}
-			keyboardType="default"
-			onChangeText={this.onValueChangeCriteria}
-			style={{width:320, textAlign :"left"}}
-			underlineColorAndroid="#29235c"
-		/>
-		</View>
-		</View>)
-	);
-//i may have retuned undefined ,an array or some other invalid object	
-  } */
+ componentWillMount(){
+		AsyncStorage.getItem('path').then((pathUp) => {                                                   
+		  this.setState({
+			path:pathUp
+		  });	
+		  path= this.state.path;
+		});
+	}
   renderRow(rowData,sectionID:number,rowID:number){
-	  alert(rowData.type)
             return (
               <View style={styles.subBody}>
                 <TouchableHighlight>
-                  <View  style={{height:44,flexDirection:'row'}}>
                     <View>
                         {rowData.type=="Boolean" ? (
 						<Grid>
 						  <Row>
 						<Col>  
-							<Text>rowData.placeholder</Text>
+							<Text style={styles.upload_dynamic}> {rowData.placeholder}</Text>
 						</Col>
-						<Col style={{ marginLeft:130}}>	
+						<Col style={{ marginLeft:80}}>	
                         <Picker 
-							style={{width:65, color:"#29235c" }}
+							style={{width:100, color:"#29235c",marginTop:10}}
 							iosHeader="Select one"
 							mode="dropdown"
 							selectedValue="Oui"
-							onValueChange={this.onValueChangeCriteria}>  
+							>  
 								<Item label="Oui" value="Oui" />
 								<Item label="Non" value="Non" />
 						</Picker>
 						</Col>
 						</Row>
 						</Grid>
-                        ):<View>
-						<TextInput
-							ref={rowData.placeholder}
+                        ):rowData.type=="Numérique" ? (
+						<Grid>
+						  <Row>
+						<Col>  
+							<Text style={styles.upload_dynamic}> {rowData.placeholder}</Text>
+						</Col>
+						<Col style={{ marginLeft:80}}>	
+                        <TextInput
+							ref="diametre"
 							placeholder={rowData.placeholder}
-							value={this.state.ref}
-							keyboardType="default"
-							onChangeText={this.onValueChangeCriteria}
-							style={{width:320, textAlign :"left"}}
+							style={{width:100, textAlign :"left"}}
+							value={this.state.diametre}
+							keyboardType='numbers-and-punctuation'
+							maxLength ={5}
 							underlineColorAndroid="#29235c"
-						/></View>}
+						  />
+						</Col>
+						</Row>
+						</Grid>
+                        ):<View>
+						<Grid>
+						<Row>
+						  <Col>
+							<Text style={styles.upload_dynamic}>{rowData.placeholder}</Text>
+						  </Col>
+							<Col style={{ marginLeft:80}}>
+								 <TextInput
+									ref={rowData.placeholder}
+									placeholder={rowData.placeholder}
+									value={this.state.ref}
+									keyboardType="default"
+									style={{width:100, textAlign :"left"}}
+									underlineColorAndroid="#29235c"
+								  />
+							</Col>	
+						</Row>
+						</Grid>
+						</View>}
                    </View>
-                  </View>
                 </TouchableHighlight>
               </View>
         );
@@ -217,6 +206,9 @@ export default class uploadFormDynamique extends Component {
 	<View>
 	<HeaderUp text=" 3/4 Upload Photo" loaded={this.state.loaded} onpress={this.goBack}/>
 	<ScrollView>
+		<ListItem style={{marginRight:10,marginLeft:15, borderColor:'#29235c'}}>
+			<Image style={styles.pic_cam} source={{uri:this.state.path}}/>
+		</ListItem>
 		    <ListView dataSource={this.state.dataSource}
 				showsVerticalScrollIndicator={true}
 				renderRow={this.renderRow.bind(this)} style={{backgroundColor: 'white'}}/>	
