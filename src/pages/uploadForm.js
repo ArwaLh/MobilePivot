@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Text,
   Image,
+  Dimensions,
   ScrollView,
   BackAndroid,
   AsyncStorage,
@@ -26,6 +27,7 @@ import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
 import ValidMeta from './validMeta';
+const window = Dimensions.get('window');
 import Phototype from './phototype';
 export default class uploadForm extends Component {
 	constructor (props) {
@@ -47,7 +49,13 @@ export default class uploadForm extends Component {
 		  medecin_id: '',
 		  patient_id: '',
 		  med_pat_file:{},
+		  x: '',
+          y: '',
+          width: '',
+          height: '',
+          viewHeight: 100
 		}
+		
 		this.validMetadata=this.validMetadata.bind(this);
 		this.onValueChangeBords=this.onValueChangeBords.bind(this);
 		this.onValueChangeCouleur=this.onValueChangeCouleur.bind(this);
@@ -143,6 +151,22 @@ export default class uploadForm extends Component {
 		this.props.navigator.pop();
 		return true;
 	}
+	measureView(event) {
+    console.log('event peroperties: ', event);
+    this.setState({
+            x: event.nativeEvent.layout.x,
+            y: event.nativeEvent.layout.y,
+            width: event.nativeEvent.layout.width,
+            height: event.nativeEvent.layout.height
+        })
+    }
+
+    changeHeight() {
+        this.setState({
+        viewHeight: 200
+      })
+    }
+	
   render() {
     return ( 
 	<View>

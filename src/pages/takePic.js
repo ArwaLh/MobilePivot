@@ -26,7 +26,7 @@ export default class takePic extends Component {
 
     this.state = {
       camera: {
-        aspect: Camera.constants.Aspect.fill,
+        aspect: Camera.constants.Aspect.stretch,
         captureTarget: Camera.constants.CaptureTarget.CameraRoll,
         type: Camera.constants.Type.back,
         orientation: Camera.constants.Orientation.auto,
