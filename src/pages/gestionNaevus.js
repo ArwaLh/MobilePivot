@@ -67,6 +67,7 @@ export default class gestionNaevus extends Component {
 			  dataSource: this.state.dataSource.cloneWithRows(items),
 			  patient_id: arr.patient_id,
 			  medecin_id: arr.medecin_id,
+			  category_id: arr.categorie,
 			});
 			//const patients_array = items;
 			const dossiers_medicaux = items; 
@@ -92,7 +93,7 @@ export default class gestionNaevus extends Component {
 	gestionF(id,nbre){
 		alert(id);
 		AsyncStorage.removeItem("med_pat_file");
-		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id,"categorie":this.state.categorie_id,"nombre_images_dossier":nbre,"emplacement":this.state.dossiers_medicaux.emplacement})); 
+		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id,"categorie":this.state.category_id,"nombre_images_dossier":nbre,"emplacement":this.state.dossiers_medicaux.emplacement})); 
 		//if emplacement =="" redirection vers l'interface localiser photo
 		//else redirection vers l'interface gestion fichier
 		this.props.navigator.push({

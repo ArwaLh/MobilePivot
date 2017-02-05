@@ -48,6 +48,7 @@ export default class gestionNaevus extends Component {
 		//date_compte_rendu_consultation
 		AsyncStorage.getItem('med_pat_file').then((patient_medecin_arrayy_loc) => {
 			const arr=JSON.parse(patient_medecin_arrayy_loc);
+			alert(arr.categorie);
 			alert(patient_medecin_arrayy_loc.id_dossier);
 			this.setState({
 				med_pat_file:arr,

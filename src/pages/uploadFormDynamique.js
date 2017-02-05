@@ -31,30 +31,29 @@ import NewPatientDynamic from './newPatientDynamic';
 import firebase from 'firebase';
 
 export default class uploadFormDynamique extends Component {
-  constructor (props) {
-	super(props);
-	this.itemsRef = firebase.database().ref("categories");
-	const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-	this.state = {
-		medecin_id:"",
-		dataSource: ds.cloneWithRows(['row 1', 'row 2']),
-		loaded:true,
-		dossier_id: '',
-		medecin_id: '',
-		text: [],
-		target_value: '',
-		criteres_values:[],
-		target_id: '',
-		patient_id: '',
-		array_upload:[],
-		med_pat_file:{},
+	constructor (props) {
+		super(props);
+		this.itemsRef = firebase.database().ref("categories");
+		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+		this.state = {
+		  medecin_id:"",
+		  dataSource: ds.cloneWithRows(['row 1', 'row 2']),
+		  loaded:true,
+		  dossier_id: '',
+		  medecin_id: '',
+		  text: [],
+		  target_value: '',
+		  criteres_values:[],
+		  target_id: '',
+		  patient_id: '',
+		  med_pat_file:{},
+		}
+		this.goBack = this.goBack.bind(this);
+		this.onValueChangeCriteria = this.onValueChangeCriteria.bind(this);
+		this.validMetadataDynamic = this.validMetadataDynamic.bind(this);
 	}
-	this.goBack = this.goBack.bind(this);
-	this.onValueChangeCriteria = this.onValueChangeCriteria.bind(this);
-	this.validMetadataDynamic = this.validMetadataDynamic.bind(this);
-  }
-  componentDidMount(){
-	  AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
+ componentDidMount(){
+		AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
 		  const array=JSON.parse(med_pat_file_locationn);
 			this.setState({ 
 				med_pat_file:array,
@@ -75,18 +74,12 @@ export default class uploadFormDynamique extends Component {
 				}
 			}
 			alert(array_cat.placeholder);
-			//create react native element from array_cat
-			/*var textElem = React.createElement(TextInput, [], ['Hello world']);
-			 createElement: function (type, props, children) 
-			*/
 			this.setState({
 			  dataSource: this.state.dataSource.cloneWithRows(array_cat),
-			  array_upload: array_cat
 			});
 		});
 		});
-  }
-
+	}
 		
  	validMetadataDynamic(){
 	alert(JSON.stringify(this.state.criteres_values));
@@ -132,12 +125,62 @@ export default class uploadFormDynamique extends Component {
 		});
 		}
 	}
+  renderRow(rowData){
+	if(rowData.type_critere=="Boolean"){
+		return (
+		<View>
+		<TextInput
+			ref="oui"
+			style={{width:45, textAlign :"center"}}
+			onChangeText={this.onValueChangeCriteria}
+			value={this.state.ref}
+			keyboardType='numbers-and-punctuation'
+			maxLength = {5}
+			underlineColorAndroid="#29235c"
+		/>
+		</View>
+		);
+	}
+	else if(rowData.type_critere=="Numérique"){
+		return (
+		<View>
+		<TextInput
+			ref="diametre"
+			style={{width:45, textAlign :"center"}}
+			onChangeText={this.onValueChangeCriteria}
+			value={this.state.ref}
+			keyboardType='numbers-and-punctuation'
+			maxLength = {5}
+			underlineColorAndroid="#29235c"
+		/>
+		</View>
+		);
+	}
+	else if(rowData.type_critere=="Text"){
+		return (
+		<View>
+		<TextInput
+			ref={rowData.placeholder}
+			placeholder={rowData.placeholder}
+			value={this.state.ref}
+			keyboardType="default"
+			onChangeText={this.onValueChangeCriteria}
+			style={{width:320, textAlign :"left"}}
+			underlineColorAndroid="#29235c"
+		/>
+		</View>
+		);
+	}
+//i may have retuned undefined ,an array or some other invalid object	
+  }
   render() {
     return ( 
 	<View>
 	<HeaderUp text=" 3/4 Upload Photo" loaded={this.state.loaded} onpress={this.goBack}/>
 	<ScrollView>
-		    {this.state.array_upload.map((item)=>{return <TextInput>{itemText}</TextInput>;})}
+		    <ListView dataSource={this.state.dataSource}
+				showsVerticalScrollIndicator={true}
+				renderRow={this.renderRow.bind(this)} style={{backgroundColor: 'white'}}/>	
 			<List>
 			<ListItem>
 			<Button

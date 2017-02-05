@@ -46,7 +46,6 @@ export default class gestionPatient extends Component {
 		});
 	}
 	ajoutPat(){
-		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 			//create category name
 			if(this.state.id=="naevus"){
 				this.props.navigator.push({
@@ -57,7 +56,6 @@ export default class gestionPatient extends Component {
 				component: NewPatientDynamic
 				}); 
 			}
-		});
 	}
 	modPat(){
 		this.props.navigator.push({

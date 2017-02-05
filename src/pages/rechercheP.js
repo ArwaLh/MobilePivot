@@ -42,6 +42,7 @@ export default class rechercheP extends Component {
 		this.gestionNaevus = this.gestionNaevus.bind(this);
 	}
 	gestionNaevus(){
+		alert(this.state.username_med);
 		let patient_id='';
 		if (this.statequery === '') {
 		  return [];//do nothing whenever the query is empty
@@ -59,6 +60,7 @@ export default class rechercheP extends Component {
 		return true; // do not exit app
 	}
 	componentDidMount(){
+		//recherche par l'id du categorie!!!
 		AsyncStorage.getItem('id').then((idd) => {
 		this.setState({
 			id: idd
@@ -66,6 +68,7 @@ export default class rechercheP extends Component {
 		});
 		//asynchronous storage for medecin id
 		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
+			alert(medecin_usernamee);
 			this.setState({
 				username_med:medecin_usernamee
 			});
