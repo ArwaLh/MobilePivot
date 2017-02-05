@@ -31,29 +31,30 @@ import NewPatientDynamic from './newPatientDynamic';
 import firebase from 'firebase';
 
 export default class uploadFormDynamique extends Component {
-	constructor (props) {
-		super(props);
-		this.itemsRef = firebase.database().ref("categories");
-		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-		this.state = {
-		  medecin_id:"",
-		  dataSource: ds.cloneWithRows(['row 1', 'row 2']),
-		  loaded:true,
-		  dossier_id: '',
-		  medecin_id: '',
-		  text: [],
-		  target_value: '',
-		  criteres_values:[],
-		  target_id: '',
-		  patient_id: '',
-		  med_pat_file:{},
-		}
-		this.goBack = this.goBack.bind(this);
-		this.onValueChangeCriteria = this.onValueChangeCriteria.bind(this);
-		this.validMetadataDynamic = this.validMetadataDynamic.bind(this);
+  constructor (props) {
+	super(props);
+	this.itemsRef = firebase.database().ref("categories");
+	const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+	this.state = {
+		medecin_id:"",
+		dataSource: ds.cloneWithRows(['row 1', 'row 2']),
+		loaded:true,
+		dossier_id: '',
+		medecin_id: '',
+		text: [],
+		target_value: '',
+		criteres_values:[],
+		target_id: '',
+		patient_id: '',
+		array_upload:[],
+		med_pat_file:{},
 	}
- componentDidMount(){
-		AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
+	this.goBack = this.goBack.bind(this);
+	this.onValueChangeCriteria = this.onValueChangeCriteria.bind(this);
+	this.validMetadataDynamic = this.validMetadataDynamic.bind(this);
+  }
+  componentDidMount(){
+	  AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
 		  const array=JSON.parse(med_pat_file_locationn);
 			this.setState({ 
 				med_pat_file:array,
@@ -74,12 +75,18 @@ export default class uploadFormDynamique extends Component {
 				}
 			}
 			alert(array_cat.placeholder);
+			//create react native element from array_cat
+			/*var textElem = React.createElement(TextInput, [], ['Hello world']);
+			 createElement: function (type, props, children) 
+			*/
 			this.setState({
 			  dataSource: this.state.dataSource.cloneWithRows(array_cat),
+			  array_upload: array_cat
 			});
 		});
 		});
-	}
+  }
+
 		
  	validMetadataDynamic(){
 	alert(JSON.stringify(this.state.criteres_values));
@@ -130,22 +137,7 @@ export default class uploadFormDynamique extends Component {
 	<View>
 	<HeaderUp text=" 3/4 Upload Photo" loaded={this.state.loaded} onpress={this.goBack}/>
 	<ScrollView>
-		    <ListView dataSource={this.state.dataSource}
-				renderRow={(rowData) => 
-					<List>
-					  <ListItem style={{height:100, borderColor:'#29235c',width:740, paddingTop:0}}>
-							<TextInput
-								ref={rowData.placeholder}
-								placeholder={rowData.placeholder}
-								value={this.state.ref}
-								keyboardType="default"
-								onChangeText={this.onValueChangeCriteria}
-								style={{width:320, textAlign :"left"}}
-								underlineColorAndroid="#29235c"
-							  /> 
-					  </ListItem>
-					</List>
-					} style={{backgroundColor: 'white'}}/>	
+		    {this.state.array_upload.map((item)=>{return <TextInput>{itemText}</TextInput>;})}
 			<List>
 			<ListItem>
 			<Button
