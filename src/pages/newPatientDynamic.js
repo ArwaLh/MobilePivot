@@ -28,7 +28,6 @@ import firebase from 'firebase';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 import DatePicker from 'react-native-datepicker';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { Hideo   } from 'react-native-textinput-effects';
 export default class newPatientDynamic extends Component {
 	constructor (props) {
     super(props);
