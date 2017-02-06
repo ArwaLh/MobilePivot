@@ -80,6 +80,7 @@ export default class rechercheP extends Component {
 					items.push({
 						nom_pat: child.val().nom_pat,
 						prenom_pat: child.val().prenom_pat,
+						id: child.val().id,
 						telephone_patient: child.val().telephone_patient,
 						_key: child.key,
 					});
@@ -128,10 +129,10 @@ export default class rechercheP extends Component {
 			placeholder="Nom & Prénom"
 			renderItem={({ nom_pat,prenom_pat,telephone_patient }) => (
 			  <List>
-			  <ListItem>
+			  <ListItem style={{height:60}}>
 				<Button onPress={() => {this.setState({ query: nom_pat+" "+prenom_pat})}} transparent>
 				  <Text style={styles.itemText}>
-					M./Mme {nom_pat} {prenom_pat}
+					M./Mme {nom_pat} {prenom_pat} {this.state.id}
 				  </Text>
 				  <Text style={styles.itemText_phone}>
 					{"\n"}{telephone_patient}

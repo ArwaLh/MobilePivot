@@ -133,7 +133,7 @@ export default class gestionNaevus extends Component {
 				<Row><Text style={{color: "#29235c",marginLeft:13,marginBottom:0,fontSize:15,fontFamily: 'Roboto'}}>Téléphone : {this.state.patient_tel}</Text></Row>
 			</Grid>
 		</ListItem>	
-		<Text style={{color:'black',margin:10,marginLeft:22,fontSize:18,fontFamily:'Roboto'}}>Les dossiers médicaux</Text>
+		<Text style={{color:'#29235c',margin:10,marginLeft:22,fontSize:18,fontFamily:'Roboto'}}>Les dossiers médicaux </Text>
 		<ListView dataSource={this.state.dataSource}
 		enableEmptySections={true}             
         renderRow={(rowData) => 
@@ -145,7 +145,7 @@ export default class gestionNaevus extends Component {
 						<Image style={{width:65,height:60, marginTop:10}} source={{uri:'http://localhost:8081/img/Icdossier.png'}}/>
 						</Col>
 						<Col style={{width:250, margin:10}}>
-							<Text style={styles.listViewTitle}>Naevus {rowData.emplacement}</Text> 
+							<Text style={styles.listViewTitle}> Dossier  {rowData.emplacement}</Text> 
 							<Text style={styles.listViewText1}>Nombre d'image: <Text style={styles.listViewText2}>{rowData.nombre_images_dossier}</Text></Text>							
 							<Text style={styles.listViewText1}>Date de création: <Text style={styles.listViewText2}>{rowData.date_creation_dossier.substring(0,24)}</Text></Text>
 							<Text style={styles.listViewText1}>Date de derniére image: <Text style={styles.listViewText2}>{rowData.date_MAJ_dossier.substring(0,24)}</Text></Text>
