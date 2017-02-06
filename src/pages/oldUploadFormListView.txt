@@ -55,9 +55,9 @@ export default class uploadFormDynamique extends Component {
 		  list_length:"",
 		  items:[],
 		  med_pat_file:{},
-		  my_textinput_array:[],
 		}
 		this.goBack = this.goBack.bind(this);
+		this.onValueChangeCriteria = this.onValueChangeCriteria.bind(this);
 		this.validMetadataDynamic = this.validMetadataDynamic.bind(this);
 	}
  componentWillMount(){
@@ -85,13 +85,12 @@ export default class uploadFormDynamique extends Component {
 			items=snap.val();
 			for (var k in items){
 				if (items.hasOwnProperty(k)) {
-					 array_cat.push({"key":k,"type":items[k].type_critere});	
+					 array_cat.push({"key":k,"placeholder":items[k].nom_critere,"type":items[k].type_critere});	
 				}
 			}
 			alert(array_cat.length);
 			this.setState({
 			  dataSource: this.state.dataSource.cloneWithRows(array_cat),
-			  my_textinput_array:array_cat,
 			  list_length:array_cat.length
 			});
 		});
@@ -100,8 +99,10 @@ export default class uploadFormDynamique extends Component {
 		
  	validMetadataDynamic(){
 	
-	alert(this.state.criteres_values[0]);
-	
+	alert(this.state.criteres_values);
+	/* this.state.criteres_values.forEach((element)=>{
+		alert(element.critere)
+	}); */
 		//send the data to valid meta dynamic	
 /* 		alert(this.state.med_pat_file.nombre_images_dossier);
 
@@ -132,64 +133,86 @@ export default class uploadFormDynamique extends Component {
 		this.props.navigator.pop();
 		return true;
 	}
-  render() {
-	 let cr=[];
-	 cr=this.state.criteres_values;
-	 alert("cr",cr);
-	 let items_names=[];
+	onValueChangeCriteria (value: string) {
+		let items=[];
+		items=this.state.criteres_values;
+		items.push(value);
+		/*alert(JSON.stringify(this.state.target_id)); */
+        this.setState({
+			criteres_values:items,
+
+		});
+	}
+	onValueChangeCriteriaText (value: string) {
+		/* let items=[];
+		items=this.state.criteres_values;
+		items.push(this.state.rowID);
+        this.setState({
+			criteres_values:items,
+
+		}); */
+	}
+  onValueChangeBoolean (value: string) {
+/* 	  let items=[];
+		items=this.state.criteres_values;
+		items.push(this.state.rowID);
+        this.setState({
+			criteres_values:items,
+
+		}); */
+	alert(this.state.rowID);
+	this.setState({
+		selected5 : value
+	});
+  }
+  renderRow(rowData,sectionID:number,rowID:number){
+	  /*for statement*/
+	let items_names=[];
 	for (var i = 0; i< this.state.list_length; i++){
-		items_names[i]="state"+i;
+		items_names[i]="state"+rowID;
 	}
 	alert(items_names[i])
-	let Arr = this.state.my_textinput_array.map((data) => {
-      return (
-	  <View style={styles.subBody}>
+	return (
+      <View style={styles.subBody}>
+       <TouchableHighlight>
          <View>
-          {data.type=="Boolean" ? (
+          {rowData.type=="Boolean" ? (
 			<Grid>
 			  <Row>
 				<Col>  
-					<Text key={items_names[i]} style={styles.upload_dynamic}> {data.key}</Text>
+					<Text style={styles.upload_dynamic}> {rowData.placeholder}</Text>
 				</Col>
 				<Col style={{ marginLeft:80}}>	
                    <Picker 
 						style={{width:100, color:"#29235c",marginTop:10}}
-						key={items_names[i]}
+						ref={items_names[rowID]}
 						mode="dropdown"
-						selectedValue={items_names[i]}
-						onValueChange={(value) => {
-							items_names[i]=value;
-							Item.value=items_names[i];
-							this.setState({criteres_values:cr.push(items_names[i])});
-							alert(items_names[i]);
-							}}>   
+						selectedValue={items_names[rowID]}
+						onValueChange={this.onValueChangeBoolean.bind(this)}>   
 							<Item label="Oui" value="Oui" />
 							<Item label="Non" value="Non" />
 					</Picker>
 				</Col>
 			  </Row>
 			</Grid>
-          ):data.type=="Numérique" ? (
+          ):rowData.type=="Numérique" ? (
 			<Grid>
 			  <Row>
 				<Col>  
-					<Text key={items_names[i]} style={styles.upload_dynamic}> {data.key}</Text>
+					<Text style={styles.upload_dynamic}> {rowData.placeholder}</Text>
 				</Col>
 				<Col style={{ marginLeft:80}}>	
 				  <TextInput
-					key={items_names[i]}
-					placeholder={data.key}
+					ref={items_names[rowID]}
+					placeholder=""
 					style={{width:100, textAlign :"left"}}
 					keyboardType='numbers-and-punctuation'
-					value={items_names[i]}
-					onSubmitEditing={(text2) => {
-							this.setState({criteres_values:cr.push(text2)});
-							alert(items_names[i]);
-						}}
+					value={items_names[rowID]}
+					onSubmitEditing={this.onValueChangeCriteriaText}
 					onChangeText={(text2) => {
-						items_names[i]=text2;
-						this.setState({criteres_values:this.state.criteres_values.push(text2)});
-						alert(items_names[i]);
+						items_names[rowID]=text2;
+						this.value=text2;
+						alert(items_names[rowID]);
 					}}
 					maxLength ={5}
 					underlineColorAndroid="#29235c"
@@ -201,22 +224,18 @@ export default class uploadFormDynamique extends Component {
 			<Grid>
 			  <Row>
 				<Col>
-					<Text key={items_names[i]} style={styles.upload_dynamic}>{data.key}</Text>
+					<Text style={styles.upload_dynamic}>{rowData.placeholder}</Text>
 				</Col>
 				<Col style={{ marginLeft:80}}>
 					<TextInput
-						key={items_names[i]}
-						placeholder={data.key}
+						ref={items_names[rowID]}
+						placeholder=""
 						keyboardType="default"
-						value={items_names[i]}
-						onSubmitEditing={(text) => {
-							alert(cr);
-							this.setState({criteres_values:cr.push(text)});
-							alert(items_names[i]);
-						}}
+						value={items_names[rowID]}
+						onSubmitEditing={this.onValueChangeCriteriaText}
 						onChangeText={(text) => {
-							items_names[i]=text;
-							alert(items_names[i]);
+							items_names[rowID]=text;
+							alert(items_names[rowID]);
 						}}
 						style={{width:100, textAlign :"left"}}
 						underlineColorAndroid="#29235c"
@@ -226,9 +245,11 @@ export default class uploadFormDynamique extends Component {
 			</Grid>
 		  </View>}
      </View>
+   </TouchableHighlight>
   </View>
-	  );                         
-    })    
+   );
+  }
+  render() {
     return ( 
 	<View>
 	<HeaderUp text=" 3/4 Upload Photo" loaded={this.state.loaded} onpress={this.goBack}/>
@@ -236,9 +257,10 @@ export default class uploadFormDynamique extends Component {
 		<ListItem style={{marginRight:10,marginLeft:15, borderColor:'#29235c'}}>
 			<Image style={styles.pic_cam} source={{uri:this.state.path}}/>
 		</ListItem>
-		<View>
-		 { Arr }
-		</View>
+		    <ListView dataSource={this.state.dataSource}
+				showsVerticalScrollIndicator={true}
+				renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
+				renderRow={this.renderRow.bind(this)} style={{backgroundColor: 'white'}}/>	
 			<List>
 			<ListItem>
 			<Button

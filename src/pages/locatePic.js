@@ -112,7 +112,7 @@ export default class locatePic extends Component {
 		  'Cou',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-							//update dossier médical
+			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({  
@@ -135,7 +135,7 @@ export default class locatePic extends Component {
 		  'Nuque',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-							//update dossier médical
+			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({ 
@@ -158,7 +158,7 @@ export default class locatePic extends Component {
 		  'Épaule gauche',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-													//update dossier médical
+			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({ 
@@ -181,7 +181,7 @@ export default class locatePic extends Component {
 		  'Épaule droite',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-											//update dossier médical
+			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({ 
@@ -203,7 +203,7 @@ export default class locatePic extends Component {
 		  'Thorax',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-											//update dossier médical
+			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({ 
@@ -225,7 +225,7 @@ export default class locatePic extends Component {
 		  'Abdomen',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-											//update dossier médical
+			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({ 
@@ -247,7 +247,7 @@ export default class locatePic extends Component {
 		  'Dos',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-											//update dossier médical
+			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({ 
@@ -269,7 +269,7 @@ export default class locatePic extends Component {
 		  'Main gauche',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-											//update dossier médical
+			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({ 
@@ -292,7 +292,7 @@ export default class locatePic extends Component {
 		  'Main droite',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-											//update dossier médical
+			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.dossier_id).update({ 
@@ -315,7 +315,7 @@ export default class locatePic extends Component {
 		  'Jambe gauche',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
-										//update dossier médical
+			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.dossier_id).update({ 
