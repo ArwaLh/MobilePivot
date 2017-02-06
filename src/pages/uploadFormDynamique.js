@@ -143,7 +143,7 @@ export default class uploadFormDynamique extends Component {
 	onValueChangeCriteriaText (value: string) {
 		let items=[];
 		items=this.state.criteres_values;
-		items.push(value);
+		items.push(this.state.rowID);
 		/*alert(JSON.stringify(this.state.target_id)); */
         this.setState({
 			criteres_values:items,
@@ -156,8 +156,6 @@ export default class uploadFormDynamique extends Component {
 	});
   }
   renderRow(rowData,sectionID:number,rowID:number){
-	  for (var rowIdx = 0; rowIdx < rowID.length; rowIdx++) {
-	
 	return (
       <View style={styles.subBody}>
        <TouchableHighlight>
@@ -172,10 +170,15 @@ export default class uploadFormDynamique extends Component {
                    <Picker 
 						style={{width:100, color:"#29235c",marginTop:10}}
 						iosHeader="Select one"
-						ref="rowIndex"
+						ref={rowID}
 						mode="dropdown"
-						selectedValue={this.state.rowIdx}
-						onValueChange={(rowIdx) => this.setState({rowIdx})}>   
+						selectedValue={this.state.rowID}
+						onValueChange={(value:string) => this.setState({rowID:value})}>   
+							{/*onValueChangeCouleur (value: string) {
+			this.setState({
+				selected2 : value
+		});
+	}*/}
 							<Item label="Oui" value="Oui" />
 							<Item label="Non" value="Non" />
 					</Picker>
@@ -190,13 +193,12 @@ export default class uploadFormDynamique extends Component {
 				</Col>
 				<Col style={{ marginLeft:80}}>	
 				  <TextInput
-					ref="rowIndex"
-					placeholder={rowData.placeholder}
+					ref={rowID}
+					placeholder={rowID}
 					style={{width:100, textAlign :"left"}}
 					keyboardType='numbers-and-punctuation'
-					onChangeText={(rowIdx) => this.setState({rowIdx})}
-					onEndEditing={(rowIdx) => this.setState({rowIdx})}
-					value={this.state.rowIdx}
+					onChangeText={(text) => this.setState({rowID:text})}
+					value={this.state.rowID}
 					maxLength ={5}
 					underlineColorAndroid="#29235c"
 					/>
@@ -211,12 +213,11 @@ export default class uploadFormDynamique extends Component {
 				</Col>
 				<Col style={{ marginLeft:80}}>
 					<TextInput
-						ref="rowIndex"
-						placeholder={rowData.placeholder}
+						ref={rowID}
+						placeholder={rowID}
 						keyboardType="default"
-						value={this.state.rowIdx}
-						onChangeText={(rowIdx) => this.setState({rowIdx})}
-						onEndEditing={(rowIdx) => this.setState({rowIdx})}
+						value={this.state.rowID}
+						onChangeText={(text) => this.setState({rowID:text})}
 						style={{width:100, textAlign :"left"}}
 						underlineColorAndroid="#29235c"
 					/>
@@ -228,7 +229,6 @@ export default class uploadFormDynamique extends Component {
    </TouchableHighlight>
   </View>
    );
-   }
   }
   render() {
     return ( 
@@ -237,10 +237,8 @@ export default class uploadFormDynamique extends Component {
 	<ScrollView>
 		<ListItem style={{marginRight:10,marginLeft:15, borderColor:'#29235c'}}>
 			<Image style={styles.pic_cam} source={{uri:this.state.path}}/>
-			<Text style={{color:"black"}}>{this.state.list_length}</Text>
 		</ListItem>
 		    <ListView dataSource={this.state.dataSource}
-				initialListSize={this.state.list_length}
 				showsVerticalScrollIndicator={true}
 				renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
 				renderRow={this.renderRow.bind(this)} style={{backgroundColor: 'white'}}/>	
