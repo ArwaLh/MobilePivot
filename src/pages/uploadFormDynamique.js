@@ -44,7 +44,6 @@ export default class uploadFormDynamique extends Component {
 		  medecin_id: '',
 		  selected_boolean: 'Non',
 		  selected_text: '',
-		  selected_numerique: '',
 		  text: [],
 		  target_value: '',
 		  criteres_values:[],
@@ -94,7 +93,7 @@ export default class uploadFormDynamique extends Component {
  	validMetadataDynamic(){
 	alert(this.state.criteres_values);
 	this.state.criteres_values.forEach((element)=>{
-		alert(element.critere)
+		alert(element)
 	});
 		//send the data to valid meta dynamic	
 /* 		alert(this.state.med_pat_file.nombre_images_dossier);
@@ -143,74 +142,74 @@ export default class uploadFormDynamique extends Component {
 	});
   }
   renderRow(rowData,sectionID:number,rowID:number){
-            return (
-              <View style={styles.subBody}>
-                <TouchableHighlight>
-                    <View>
-                        {rowData.type=="Boolean" ? (
-						<Grid>
-						  <Row>
-						<Col>  
-							<Text style={styles.upload_dynamic}> {rowData.placeholder}</Text>
-						</Col>
-						<Col style={{ marginLeft:80}}>	
-                        <Picker 
-							style={{width:100, color:"#29235c",marginTop:10}}
-							iosHeader="Select one"
-							mode="dropdown"
-							selectedValue={this.state.selected_boolean}
-							onValueChange={this.onValueChangeCriteria}>   
-								<Item label="Oui" value="Oui" />
-								<Item label="Non" value="Non" />
-						</Picker>
-						</Col>
-						</Row>
-						</Grid>
-                        ):rowData.type=="Numérique" ? (
-						<Grid>
-						  <Row>
-						<Col>  
-							<Text style={styles.upload_dynamic}> {rowData.placeholder}</Text>
-						</Col>
-						<Col style={{ marginLeft:80}}>	
-                        <TextInput
-							ref="diametre"
-							placeholder={rowData.placeholder}
-							style={{width:100, textAlign :"left"}}
-							keyboardType='numbers-and-punctuation'
-							onEndEditing={this.onValueChangeCriteria}
-							value={this.state.selected_numerique}
-							maxLength ={5}
-							underlineColorAndroid="#29235c"
-						  />
-						</Col>
-						</Row>
-						</Grid>
-                        ):<View>
-						<Grid>
-						<Row>
-						  <Col>
-							<Text style={styles.upload_dynamic}>{rowData.placeholder}</Text>
-						  </Col>
-						  <Col style={{ marginLeft:80}}>
-							<TextInput
-								ref={rowData.placeholder}
-								placeholder={rowData.placeholder}
-								keyboardType="default"
-								value={this.state.selected_text}
-								onEndEditing={this.onValueChangeCriteria}
-								style={{width:100, textAlign :"left"}}
-								underlineColorAndroid="#29235c"
-						  />
-						  </Col>	
-						</Row>
-						</Grid>
-						</View>}
-                   </View>
-                </TouchableHighlight>
-              </View>
-        );
-       }
+	return (
+      <View style={styles.subBody}>
+       <TouchableHighlight>
+         <View>
+          {rowData.type=="Boolean" ? (
+			<Grid>
+			  <Row>
+				<Col>  
+					<Text style={styles.upload_dynamic}> {rowData.placeholder}</Text>
+				</Col>
+				<Col style={{ marginLeft:80}}>	
+                   <Picker 
+						style={{width:100, color:"#29235c",marginTop:10}}
+						iosHeader="Select one"
+						mode="dropdown"
+						selectedValue={this.state.selected_boolean}
+						onValueChange={this.onValueChangeCriteria}>   
+							<Item label="Oui" value="Oui" />
+							<Item label="Non" value="Non" />
+					</Picker>
+				</Col>
+			  </Row>
+			</Grid>
+          ):rowData.type=="Numérique" ? (
+			<Grid>
+			  <Row>
+				<Col>  
+					<Text style={styles.upload_dynamic}> {rowData.placeholder}</Text>
+				</Col>
+				<Col style={{ marginLeft:80}}>	
+				  <TextInput
+					ref="diametre"
+					placeholder={rowData.placeholder}
+					style={{width:100, textAlign :"left"}}
+					keyboardType='numbers-and-punctuation'
+					onEndEditing={this.onValueChangeCriteria}
+					value={this.state.selected_numerique}
+					maxLength ={5}
+					underlineColorAndroid="#29235c"
+					/>
+				</Col>
+			  </Row>
+			</Grid>
+            ):<View>
+			<Grid>
+			  <Row>
+				<Col>
+					<Text style={styles.upload_dynamic}>{rowData.placeholder}</Text>
+				</Col>
+				<Col style={{ marginLeft:80}}>
+					<TextInput
+						ref={rowData.placeholder}
+						placeholder={rowData.placeholder}
+						keyboardType="default"
+						value={this.state.selected_text}
+						onEndEditing={this.onValueChangeCriteria}
+						style={{width:100, textAlign :"left"}}
+						underlineColorAndroid="#29235c"
+					/>
+				</Col>	
+			  </Row>
+			</Grid>
+		  </View>}
+     </View>
+   </TouchableHighlight>
+  </View>
+   );
+  }
   render() {
     return ( 
 	<View>
