@@ -132,7 +132,7 @@ export default class rechercheP extends Component {
 			  <ListItem style={{height:60}}>
 				<Button onPress={() => {this.setState({ query: nom_pat+" "+prenom_pat})}} transparent>
 				  <Text style={styles.itemText}>
-					M./Mme {nom_pat} {prenom_pat} {this.state.id}
+					M./Mme {nom_pat} {prenom_pat}
 				  </Text>
 				  <Text style={styles.itemText_phone}>
 					{"\n"}{telephone_patient}
