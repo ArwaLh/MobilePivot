@@ -16,6 +16,7 @@ import {
   TouchableHighlight,
   ListView,
   Platform,
+  Picker,
   ProgressBar,
   TextInput,
   View
@@ -23,7 +24,7 @@ import {
 
 import HeaderUp from '../components/headerUp';
 import styles from '../styles/common-styles.js';
-import {Button, List, ListItem, Header, Picker} from 'native-base';
+import {Button, List, ListItem, Header} from 'native-base';
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
@@ -50,6 +51,7 @@ export default class uploadFormDynamique extends Component {
 		  target_id: '',
 		  patient_id: '',
 		  list_length:"",
+		  items:[],
 		  med_pat_file:{},
 		}
 		this.goBack = this.goBack.bind(this);
@@ -94,11 +96,10 @@ export default class uploadFormDynamique extends Component {
 	}
 		
  	validMetadataDynamic(){
-	alert(this.state.list_length);
 	
 	//alert(this.state.criteres_values);
 	this.state.criteres_values.forEach((element)=>{
-		//alert(element)
+		alert(element.critere)
 	});
 		//send the data to valid meta dynamic	
 /* 		alert(this.state.med_pat_file.nombre_images_dossier);
@@ -151,11 +152,20 @@ export default class uploadFormDynamique extends Component {
 		});
 	}
   onValueChangeBoolean (value: string) {
+	  let items=[];
+		items=this.state.criteres_values;
+		items.push(this.state.rowID);
+		/*alert(JSON.stringify(this.state.target_id)); */
+        this.setState({
+			criteres_values:items,
+
+		});
 	this.setState({
 		selected5 : value
 	});
   }
   renderRow(rowData,sectionID:number,rowID:number){
+		  let items=[];
 	return (
       <View style={styles.subBody}>
        <TouchableHighlight>
@@ -169,11 +179,10 @@ export default class uploadFormDynamique extends Component {
 				<Col style={{ marginLeft:80}}>	
                    <Picker 
 						style={{width:100, color:"#29235c",marginTop:10}}
-						iosHeader="Select one"
 						ref={rowID}
 						mode="dropdown"
-						selectedValue={this.state.rowID}
-						onValueChange={(value:string) => this.setState({rowID:value})}>   
+						selectedValue={items[rowID]}
+						onValueChange={this.onValueChangeBoolean.bind(this,items[rowID])}>   
 							{/*onValueChangeCouleur (value: string) {
 			this.setState({
 				selected2 : value
@@ -193,12 +202,14 @@ export default class uploadFormDynamique extends Component {
 				</Col>
 				<Col style={{ marginLeft:80}}>	
 				  <TextInput
-					ref={rowID}
-					placeholder={rowID}
+					ref={items[rowID]}
+					placeholder={items[rowID]}
 					style={{width:100, textAlign :"left"}}
 					keyboardType='numbers-and-punctuation'
-					onChange={(text) => this.setState({rowID:text})}
-					value={this.state.rowID}
+					value={this.state.items[rowID]}
+					onChangeText={(text) => {
+						this.setState({rowID:text});
+					}}
 					maxLength ={5}
 					underlineColorAndroid="#29235c"
 					/>
@@ -213,11 +224,17 @@ export default class uploadFormDynamique extends Component {
 				</Col>
 				<Col style={{ marginLeft:80}}>
 					<TextInput
-						ref={rowID}
+						ref={items[rowID]}
 						placeholder={rowID}
 						keyboardType="default"
 						value={this.state.rowID}
-						onChange={(text) => this.setState({rowID:text})}
+						onChangeText={(text) => {
+							alert(this.state.items[rowID])
+							let items2=[];
+							items2=this.state.criteres_values;
+							items2.push({"critere":text.toString()});
+							this.setState({rowID:text,criteres_values:items2});
+						}}
 						style={{width:100, textAlign :"left"}}
 						underlineColorAndroid="#29235c"
 					/>
