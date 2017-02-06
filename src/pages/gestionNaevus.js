@@ -111,8 +111,15 @@ export default class gestionNaevus extends Component {
 			prenom_patient_dossier: this.state.patient_lastname,
 			telephone_patient_dossier: this.state.patient_tel,
 			nombre_images_dossier: 0,
-			categorie_id:this.state.categorie_id
+			categorie_id:this.state.category_id
 		})
+		//set JSON array
+		AsyncStorage.removeItem("med_pat_file");
+		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":dossier_id,"categorie":this.state.category_id,"nombre_images_dossier":0,"emplacement":""})); 
+		//redirect to locate picture
+		this.props.navigator.push({
+		  component: LocatePic
+		});
 	}
   render() {
     return ( 
@@ -126,24 +133,22 @@ export default class gestionNaevus extends Component {
 				<Row><Text style={{color: "#29235c",marginLeft:13,marginBottom:0,fontSize:15,fontFamily: 'Roboto'}}>Téléphone : {this.state.patient_tel}</Text></Row>
 			</Grid>
 		</ListItem>	
+		<Text style={{color:'black',margin:10,marginLeft:22,fontSize:18,fontFamily:'Roboto'}}>Les dossiers médicaux</Text>
 		<ListView dataSource={this.state.dataSource}
 		enableEmptySections={true}             
         renderRow={(rowData) => 
-					<List style={{backgroundColor:'white',height:180, borderColor:'#29235c'}}>
-					  <ListItem style={{height:180, borderColor:'#29235c', width:340, paddingTop:0}}>
-					  <Button style={{height:180}} onPress={this.gestionF.bind(this,rowData._key,rowData.nombre_images_dossier)} transparent>
+					<List style={{backgroundColor:'white',height:140, borderColor:'#29235c'}}>
+					  <ListItem style={{height:140, borderColor:'#29235c', width:340, paddingTop:0}}>
+					  <Button style={{height:140}} onPress={this.gestionF.bind(this,rowData._key,rowData.nombre_images_dossier)} transparent>							
 						<Grid>
 						<Col style={{width:70}}>
 						<Image style={{width:65,height:60, marginTop:10}} source={{uri:'http://localhost:8081/img/Icdossier.png'}}/>
 						</Col>
-						<Col style={{width:230, margin:10}}>
-							<Text style={styles.listViewText1}>Naevus {rowData._key}</Text> 
-							<Text style={styles.listViewText1}>Nombre d'image</Text>							
-							<Text style={styles.listViewText2}>{rowData.nombre_images_dossier}</Text>
-							<Text style={styles.listViewText1}>Date de création</Text>
-							<Text style={styles.listViewText2}>{rowData.date_creation_dossier.substring(0,24)}</Text>
-							<Text style={styles.listViewText1}>Derniére mise à jour</Text>
-							<Text style={styles.listViewText2}>{rowData.date_MAJ_dossier.substring(0,24)}</Text>
+						<Col style={{width:250, margin:10}}>
+							<Text style={styles.listViewTitle}>Naevus {rowData.emplacement}</Text> 
+							<Text style={styles.listViewText1}>Nombre d'image: <Text style={styles.listViewText2}>{rowData.nombre_images_dossier}</Text></Text>							
+							<Text style={styles.listViewText1}>Date de création: <Text style={styles.listViewText2}>{rowData.date_creation_dossier.substring(0,24)}</Text></Text>
+							<Text style={styles.listViewText1}>Date de derniére image: <Text style={styles.listViewText2}>{rowData.date_MAJ_dossier.substring(0,24)}</Text></Text>
 						</Col>
 						</Grid>
 					  </Button>

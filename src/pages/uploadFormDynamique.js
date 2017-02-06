@@ -73,7 +73,7 @@ export default class uploadFormDynamique extends Component {
 				medecin_id: array.id_medecin,
 				patient_id: array.id_patient
 			});
-
+		alert(array.id_medecin);
 		//get the criterias list
 		this.itemsRef.child(array.id_medecin).child(array.categorie).child("criteres").on('value', (snap) => {
 			let array_cat=[];		

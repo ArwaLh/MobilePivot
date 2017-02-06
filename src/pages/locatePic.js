@@ -71,7 +71,7 @@ export default class locatePic extends Component {
 		this.localiser_jambe_gauche=this.localiser_jambe_gauche.bind(this);
 		this.localiser_jambe_droite=this.localiser_jambe_droite.bind(this);
 	}
-/* 	 componentDidMount(){
+ 	 componentDidMount(){
 		AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 			const array=JSON.parse(med_pat_filee);
 			this.setState({ 
@@ -82,7 +82,7 @@ export default class locatePic extends Component {
 				category_id: array.categorie
 			});
 		});
-	}  */
+	}  
 	localiser_tete(){
 		Alert.alert(
 		  'Vous avez sélectionné',
@@ -96,7 +96,7 @@ export default class locatePic extends Component {
 					emplacement:"Tête",
 					nombre_images_dossier:0
 					}); */
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
 					this.props.navigator.replace({
 						component: TakePicture
 					});
@@ -119,7 +119,7 @@ export default class locatePic extends Component {
 					emplacement:"Cou",
 					nombre_images_dossier:0
 					}); */
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Cou'}));
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Cou'}));
 					this.props.navigator.replace({
 						component: TakePicture
 					});
@@ -142,7 +142,7 @@ export default class locatePic extends Component {
 					emplacement:"Nuque",
 					nombre_images_dossier:0
 					}); */
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Nuque'}));
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Nuque'}));
 					this.props.navigator.replace({
 						component: TakePicture
 					});
@@ -165,7 +165,7 @@ export default class locatePic extends Component {
 					emplacement:"Épaule gauche",
 					nombre_images_dossier:0
 					}); */
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Épaule gauche'}));
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Épaule gauche'}));
 					this.props.navigator.replace({
 						component: TakePicture
 					});
@@ -188,7 +188,7 @@ export default class locatePic extends Component {
 					emplacement:"Épaule droite",
 					nombre_images_dossier:0
 					}); */
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Épaule droite'}));
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Épaule droite'}));
 					this.props.navigator.replace({
 						component: TakePicture
 					});
@@ -210,7 +210,7 @@ export default class locatePic extends Component {
 					emplacement:"Thorax",
 					nombre_images_dossier:0
 					}); */
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Thorax'}));
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Thorax'}));
 					this.props.navigator.replace({
 						component: TakePicture
 					});
@@ -232,7 +232,7 @@ export default class locatePic extends Component {
 					emplacement:"Abdomen",
 					nombre_images_dossier:0
 					}); */
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Abdomen'}));
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Abdomen'}));
 					this.props.navigator.replace({
 						component: TakePicture
 					});
@@ -254,7 +254,7 @@ export default class locatePic extends Component {
 					emplacement:"Dos",
 					nombre_images_dossier:0
 					}); */
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Dos'}));
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Dos'}));
 					this.props.navigator.replace({
 						component: TakePicture
 					});
@@ -276,7 +276,7 @@ export default class locatePic extends Component {
 					emplacement:"Main gauche",
 					nombre_images_dossier:0
 					}); */
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Main gauche'}));
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Main gauche'}));
 					this.props.navigator.replace({
 						component: TakePicture
 					});
@@ -299,7 +299,7 @@ export default class locatePic extends Component {
 					emplacement:"Main droite",
 					nombre_images_dossier:0
 					}); */
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Main droite'}));
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Main droite'}));
 					this.props.navigator.replace({
 						component: TakePicture
 					});
@@ -322,7 +322,7 @@ export default class locatePic extends Component {
 					emplacement:"Jambe gauche",
 					nombre_images_dossier:0
 					}); */
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Jambe gauche'}));
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Jambe gauche'}));
 					this.props.navigator.replace({
 						component: TakePicture
 					});
@@ -345,7 +345,7 @@ export default class locatePic extends Component {
 					emplacement:"Jambe droite",
 					nombre_images_dossier:0
 					}); */
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.medecin_id,"id_patient":array.patient_id,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Jambe droite'}));
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Jambe droite'}));
 					this.props.navigator.replace({
 						component: TakePicture
 					});
@@ -357,51 +357,51 @@ export default class locatePic extends Component {
 	}
 	face_avant(){
 		this.setState({
-							uri_img: 'http://localhost:8081/img/Katomi-face-1.png',
-							cou: this.localiser_cou,
-							epaule_gauche: this.localiser_epaule_gauche,
-							epaule_droite: this.localiser_epaule_droite,
-							thorax: this.localiser_thorax,
-							abdomen: this.localiser_abdomen,
-							main_droite: this.localiser_main_droite,
-							main_gauche: this.localiser_main_gauche,
-							jambe_droite: this.localiser_jambe_droite,
-							jambe_gauche: this.localiser_jambe_gauche,
-							text_tete: 'Tête',
-							text_cou: 'Cou',
-							text_thorax: 'Thorax',
-							text_abdomen: 'Abdomen',
-							text_epaule_droite: 'Épaule droite',
-							text_epaule_gauche: 'Épaule gauche',
-							text_jambe_droite: 'Jambe droite',
-							text_jambe_gauche: 'Jambe gauche',
-							text_main_droite: 'Main droite',
-							text_main_gauche: 'Main gauche',
-	});
+			uri_img: 'http://localhost:8081/img/Katomi-face-1.png',
+			cou: this.localiser_cou,
+			epaule_gauche: this.localiser_epaule_gauche,
+			epaule_droite: this.localiser_epaule_droite,
+			thorax: this.localiser_thorax,
+			abdomen: this.localiser_abdomen,
+			main_droite: this.localiser_main_droite,
+			main_gauche: this.localiser_main_gauche,
+			jambe_droite: this.localiser_jambe_droite,
+			jambe_gauche: this.localiser_jambe_gauche,
+			text_tete: 'Tête',
+			text_cou: 'Cou',
+			text_thorax: 'Thorax',
+			text_abdomen: 'Abdomen',
+			text_epaule_droite: 'Épaule droite',
+			text_epaule_gauche: 'Épaule gauche',
+			text_jambe_droite: 'Jambe droite',
+			text_jambe_gauche: 'Jambe gauche',
+			text_main_droite: 'Main droite',
+			text_main_gauche: 'Main gauche',
+		});
 	}
 	face_arriere(){
 		this.setState({
-							uri_img: 'http://localhost:8081/img/Katomi-Face-2.png',
-							cou: this.localiser_nuque,
-							epaule_gauche: this.localiser_epaule_droite,
-							epaule_droite: this.localiser_epaule_gauche,
-							thorax: null,
-							abdomen: this.localiser_dos,
-							main_droite: this.localiser_main_gauche,
-							main_gauche: this.localiser_main_droite,
-							jambe_droite: this.localiser_jambe_gauche,
-							jambe_gauche: this.localiser_jambe_droite,
-							text_tete: 'Tête',
-							text_cou: 'Nuque',
-							text_thorax: '',
-							text_abdomen: 'Dos',
-							text_epaule_droite: 'Épaule gauche',
-							text_epaule_gauche: 'Épaule droite',
-							text_jambe_droite: 'Jambe gauche',
-							text_jambe_gauche: 'Jambe droite',
-							text_main_droite: 'Main gauche',
-							text_main_gauche: 'Main droite',
-						});
+			uri_img: 'http://localhost:8081/img/Katomi-Face-2.png',
+			cou: this.localiser_nuque,
+			epaule_gauche: this.localiser_epaule_droite,
+			epaule_droite: this.localiser_epaule_gauche,
+			thorax: null,
+			abdomen: this.localiser_dos,
+			main_droite: this.localiser_main_gauche,
+			main_gauche: this.localiser_main_droite,
+			jambe_droite: this.localiser_jambe_gauche,
+			jambe_gauche: this.localiser_jambe_droite,
+			text_tete: 'Tête',
+			text_cou: 'Nuque',
+			text_thorax: '',
+			text_abdomen: 'Dos',
+			text_epaule_droite: 'Épaule gauche',
+			text_epaule_gauche: 'Épaule droite',
+			text_jambe_droite: 'Jambe gauche',
+			text_jambe_gauche: 'Jambe droite',
+			text_main_droite: 'Main gauche',
+			text_main_gauche: 'Main droite',
+		});
 	}
 	goBack() {
 		this.props.navigator.pop();

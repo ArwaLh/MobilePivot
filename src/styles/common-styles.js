@@ -295,18 +295,24 @@ module.exports = StyleSheet.create({
   },
   /*end categorie interface*/
   /*gestion naevus*/
-  listViewText1:{
+  listViewTitle:{
 	color: '#29235c',
 	fontFamily:'Roboto',
 	fontWeight: 'bold',
-	fontSize:14,
+	fontSize:17,
+  },
+  listViewText1:{
+	color: '#a8a8a8',
+	fontFamily:'Roboto',
+	fontWeight: 'bold',
+	fontSize:11,
 	
   },
   listViewText2:{
 	color: '#a8a8a8',
 	fontFamily:'Roboto',
-	fontWeight: 'bold',
-	fontSize:14
+	fontWeight: 'normal',
+	fontSize:11
   },
   icon_folder:{
 	color: '#29235c',
