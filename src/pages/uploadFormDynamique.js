@@ -131,7 +131,16 @@ export default class uploadFormDynamique extends Component {
 		items.push(value);
 		/*alert(JSON.stringify(this.state.target_id)); */
         this.setState({
-			selected_boolean:value,
+			criteres_values:items,
+
+		});
+	}
+	onValueChangeCriteriaText (value: string) {
+		let items=[];
+		items=this.state.criteres_values;
+		items.push(value);
+		/*alert(JSON.stringify(this.state.target_id)); */
+        this.setState({
 			criteres_values:items,
 
 		});
@@ -158,7 +167,7 @@ export default class uploadFormDynamique extends Component {
 						iosHeader="Select one"
 						mode="dropdown"
 						selectedValue={this.state.selected_boolean}
-						onValueChange={this.onValueChangeCriteria}>   
+						onValueChange={this.onValueChangeBoolean}>   
 							<Item label="Oui" value="Oui" />
 							<Item label="Non" value="Non" />
 					</Picker>
@@ -173,10 +182,11 @@ export default class uploadFormDynamique extends Component {
 				</Col>
 				<Col style={{ marginLeft:80}}>	
 				  <TextInput
-					ref="diametre"
+					ref={rowData.placeholder}
 					placeholder={rowData.placeholder}
 					style={{width:100, textAlign :"left"}}
 					keyboardType='numbers-and-punctuation'
+					onChangeText={(selected_numerique) => this.setState({selected_numerique})}
 					onEndEditing={this.onValueChangeCriteria}
 					value={this.state.selected_numerique}
 					maxLength ={5}
@@ -197,7 +207,8 @@ export default class uploadFormDynamique extends Component {
 						placeholder={rowData.placeholder}
 						keyboardType="default"
 						value={this.state.selected_text}
-						onEndEditing={this.onValueChangeCriteria}
+						onChangeText={(selected_text) => this.setState({selected_text})}
+						onEndEditing={this.onValueChangeCriteriaText}
 						style={{width:100, textAlign :"left"}}
 						underlineColorAndroid="#29235c"
 					/>
