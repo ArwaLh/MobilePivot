@@ -13,6 +13,7 @@ import {
   ScrollView,
   BackAndroid,
   AsyncStorage,
+  TouchableHighlight,
   ListView,
   Platform,
   ProgressBar,
@@ -41,15 +42,28 @@ export default class uploadFormDynamique extends Component {
 		  loaded:true,
 		  dossier_id: '',
 		  medecin_id: '',
+		  selected_boolean: 'Non',
+		  selected_text: '',
+		  selected_numerique: '',
 		  text: [],
 		  target_value: '',
+		  criteres_values:[],
 		  target_id: '',
 		  patient_id: '',
 		  med_pat_file:{},
 		}
 		this.goBack = this.goBack.bind(this);
+		this.onValueChangeCriteria = this.onValueChangeCriteria.bind(this);
 		this.validMetadataDynamic = this.validMetadataDynamic.bind(this);
 	}
+ componentWillMount(){
+		AsyncStorage.getItem('path').then((pathUp) => {                                                   
+		  this.setState({
+			path:pathUp
+		  });	
+		  path= this.state.path;
+		});
+  }
  componentDidMount(){
 		AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
 		  const array=JSON.parse(med_pat_file_locationn);
@@ -61,7 +75,6 @@ export default class uploadFormDynamique extends Component {
 			});
 
 		//get the criterias list
-		alert(array.id_medecin);
 		this.itemsRef.child(array.id_medecin).child(array.categorie).child("criteres").on('value', (snap) => {
 			let array_cat=[];		
 			let items=[];
@@ -71,7 +84,6 @@ export default class uploadFormDynamique extends Component {
 					 array_cat.push({"key":k,"placeholder":items[k].nom_critere,"type":items[k].type_critere});	
 				}
 			}
-			alert(array_cat.placeholder);
 			this.setState({
 			  dataSource: this.state.dataSource.cloneWithRows(array_cat),
 			});
@@ -80,7 +92,10 @@ export default class uploadFormDynamique extends Component {
 	}
 		
  	validMetadataDynamic(){
-	alert(JSON.stringify(this.state.target_id));
+	alert(this.state.criteres_values);
+	this.state.criteres_values.forEach((element)=>{
+		alert(element.critere)
+	});
 		//send the data to valid meta dynamic	
 /* 		alert(this.state.med_pat_file.nombre_images_dossier);
 
@@ -112,31 +127,101 @@ export default class uploadFormDynamique extends Component {
 		return true;
 	}
 	onValueChangeCriteria (value: string) {
+		let items=[];
+		items=this.state.criteres_values;
+		items.push(value);
+		/*alert(JSON.stringify(this.state.target_id)); */
         this.setState({
-            target_id: value
+			selected_boolean:value,
+			criteres_values:items,
+
 		});
 	}
+  onValueChangeBoolean (value: string) {
+	this.setState({
+		selected5 : value
+	});
+  }
+  renderRow(rowData,sectionID:number,rowID:number){
+            return (
+              <View style={styles.subBody}>
+                <TouchableHighlight>
+                    <View>
+                        {rowData.type=="Boolean" ? (
+						<Grid>
+						  <Row>
+						<Col>  
+							<Text style={styles.upload_dynamic}> {rowData.placeholder}</Text>
+						</Col>
+						<Col style={{ marginLeft:80}}>	
+                        <Picker 
+							style={{width:100, color:"#29235c",marginTop:10}}
+							iosHeader="Select one"
+							mode="dropdown"
+							selectedValue={this.state.selected_boolean}
+							onValueChange={this.onValueChangeCriteria}>   
+								<Item label="Oui" value="Oui" />
+								<Item label="Non" value="Non" />
+						</Picker>
+						</Col>
+						</Row>
+						</Grid>
+                        ):rowData.type=="Numérique" ? (
+						<Grid>
+						  <Row>
+						<Col>  
+							<Text style={styles.upload_dynamic}> {rowData.placeholder}</Text>
+						</Col>
+						<Col style={{ marginLeft:80}}>	
+                        <TextInput
+							ref="diametre"
+							placeholder={rowData.placeholder}
+							style={{width:100, textAlign :"left"}}
+							keyboardType='numbers-and-punctuation'
+							onEndEditing={this.onValueChangeCriteria}
+							value={this.state.selected_numerique}
+							maxLength ={5}
+							underlineColorAndroid="#29235c"
+						  />
+						</Col>
+						</Row>
+						</Grid>
+                        ):<View>
+						<Grid>
+						<Row>
+						  <Col>
+							<Text style={styles.upload_dynamic}>{rowData.placeholder}</Text>
+						  </Col>
+						  <Col style={{ marginLeft:80}}>
+							<TextInput
+								ref={rowData.placeholder}
+								placeholder={rowData.placeholder}
+								keyboardType="default"
+								value={this.state.selected_text}
+								onEndEditing={this.onValueChangeCriteria}
+								style={{width:100, textAlign :"left"}}
+								underlineColorAndroid="#29235c"
+						  />
+						  </Col>	
+						</Row>
+						</Grid>
+						</View>}
+                   </View>
+                </TouchableHighlight>
+              </View>
+        );
+       }
   render() {
     return ( 
 	<View>
 	<HeaderUp text=" 3/4 Upload Photo" loaded={this.state.loaded} onpress={this.goBack}/>
 	<ScrollView>
+		<ListItem style={{marginRight:10,marginLeft:15, borderColor:'#29235c'}}>
+			<Image style={styles.pic_cam} source={{uri:this.state.path}}/>
+		</ListItem>
 		    <ListView dataSource={this.state.dataSource}
-				renderRow={(rowData) => 
-					<List>
-					  <ListItem style={{height:100, borderColor:'#29235c',width:740, paddingTop:0}}>
-							<TextInput
-								ref={rowData.placeholder}
-								placeholder={rowData.placeholder}
-								value={this.state.ref}
-								keyboardType="default"
-								onChangeText={this.onValueChangeCriteria.bind(this)}
-								style={{width:320, textAlign :"left"}}
-								underlineColorAndroid="#29235c"
-							  /> 
-					  </ListItem>
-					</List>
-					} style={{backgroundColor: 'white'}}/>	
+				showsVerticalScrollIndicator={true}
+				renderRow={this.renderRow.bind(this)} style={{backgroundColor: 'white'}}/>	
 			<List>
 			<ListItem>
 			<Button

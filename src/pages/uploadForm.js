@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Text,
   Image,
+  Dimensions,
   ScrollView,
   BackAndroid,
   AsyncStorage,
@@ -26,6 +27,7 @@ import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
 import ValidMeta from './validMeta';
+const window = Dimensions.get('window');
 import Phototype from './phototype';
 export default class uploadForm extends Component {
 	constructor (props) {
@@ -47,7 +49,13 @@ export default class uploadForm extends Component {
 		  medecin_id: '',
 		  patient_id: '',
 		  med_pat_file:{},
+		  x: '',
+          y: '',
+          width: '',
+          height: '',
+          viewHeight: 100
 		}
+		
 		this.validMetadata=this.validMetadata.bind(this);
 		this.onValueChangeBords=this.onValueChangeBords.bind(this);
 		this.onValueChangeCouleur=this.onValueChangeCouleur.bind(this);
@@ -143,66 +151,65 @@ export default class uploadForm extends Component {
 		this.props.navigator.pop();
 		return true;
 	}
+	
   render() {
     return ( 
 	<View>
 	<HeaderUp text=" 3/4 Upload Photo" loaded={true} onpress={this.goBack.bind(this)}/>
 	<ScrollView>
-		    <ListItem style={{marginRight:10,marginLeft:15, borderColor:'#29235c'}}>
-
-			 <Image style={styles.pic_cam} source={{uri:this.state.path}}/>
-
-			</ListItem>
-			<Grid>
-			  <Row>
+		<ListItem style={{marginRight:10,marginLeft:15, borderColor:'#29235c'}}>
+			<Image style={styles.pic_cam} source={{uri:this.state.path}}/>
+		</ListItem>
+		<Grid>
+		  <Row>
 			<Col>  
 				<Text style={styles.bords}>Bords</Text>
 			</Col>
 			<Col style={{ marginLeft:130}}>	
-					<Picker 
-					    style={{width:100, color:"#29235c" }}
-                        iosHeader="Select one"
-                        mode="dropdown"
-                        selectedValue={this.state.selected1}
-                        onValueChange={this.onValueChangeBords.bind(this)}>  
-								<Item label="Régulier" value="Régulier" />
-								<Item label="Irrégulier" value="Irrégulier" />
-					</Picker>
+				<Picker 
+					style={{width:100, color:"#29235c" }}
+                    iosHeader="Select one"
+                    mode="dropdown"
+                    selectedValue={this.state.selected1}
+                    onValueChange={this.onValueChangeBords.bind(this)}>  
+						<Item label="Régulier" value="Régulier" />
+						<Item label="Irrégulier" value="Irrégulier" />
+				</Picker>
 			</Col>
-			 </Row>
-			  <Row>
-			  <Col>
+		  </Row>
+		  <Row>
+			<Col>
 				<Text style={styles.couleur}>Couleur</Text>
-			  </Col>
-			  <Col style={{ marginLeft:110}}>	
-				 <Picker
-						style={{width:109, color:"#29235c" }}
-                        iosHeader="Select one"
-                        mode="dropdown"
-                        selectedValue={this.state.selected2}
-                        onValueChange={this.onValueChangeCouleur.bind(this)}>  
-								<Item label="Brun foncé" value="Brun foncé" />
-								<Item label="Brun clair" value="Brun clair" />
-					</Picker>
-					</Col>
-				</Row>	
-			  <Row>
-			  <Col style={{width:140}}>
+			</Col>
+			<Col style={{ marginLeft:110}}>	
+				<Picker
+					style={{width:109, color:"#29235c" }}
+                    iosHeader="Select one"
+                    mode="dropdown"
+                    selectedValue={this.state.selected2}
+                    onValueChange={this.onValueChangeCouleur.bind(this)}>  
+						<Item label="Brun foncé" value="Brun foncé" />
+						<Item label="Brun clair" value="Brun clair" />
+				</Picker>
+			</Col>
+		  </Row>	
+		  <Row>
+			<Col style={{width:140}}>
 				<Text style={styles.asymetrie}>Asymétrie</Text>
-			  </Col>
-				<Col style={{ marginLeft:135}}>
-					<Picker 
-					    style={{width:65, color:"#29235c" }}
-                        iosHeader="Select one"
-                        mode="dropdown"
-                        selectedValue={this.state.selected3}
-                        onValueChange={this.onValueChangeAsymetrie.bind(this)}>  
-								<Item label="Oui" value="Oui" />
-								<Item label="Non" value="Non" />
-					</Picker>
-				</Col>	
-				</Row>
-				<Row>
+			</Col>
+			<Col style={{ marginLeft:135}}>
+				<Picker 
+				    style={{width:65, color:"#29235c" }}
+                    iosHeader="Select one"
+                    mode="dropdown"
+                    selectedValue={this.state.selected3}
+                    onValueChange={this.onValueChangeAsymetrie.bind(this)}>  
+						<Item label="Oui" value="Oui" />
+						<Item label="Non" value="Non" />
+				</Picker>
+			</Col>	
+		  </Row>
+		  <Row>
 				<Col style={{width:140}}>
 				<Text style={styles.phototypee}>Phototype</Text>
 				 </Col>
@@ -213,50 +220,50 @@ export default class uploadForm extends Component {
 					textStyle={{fontSize: 15, color:'#53507c'}}
 					bordered> phototype <Text> {this.state.phototype}</Text></Button>
 				</Col>
-                </Row>
-				<Row>
-				  <Col style={{width:140}}>
-					<Text style={styles.diametre}>Diamètre</Text>
-				  </Col>
-					<Col style={{ marginLeft:160}}>
-						 <TextInput
-							ref="diametre"
-							style={{width:45, textAlign :"center"}}
-							onChangeText={(text) => this.setState({diametre: text})}
-							value={this.state.diametre}
-							keyboardType='numbers-and-punctuation'
-							maxLength = {5}
-							underlineColorAndroid="#29235c"
-						  />
-					</Col>	
-				</Row>
-			  <Row>
-				  <Col style={{width:140}}>
+          </Row>
+		  <Row>
+			<Col style={{width:140}}>
+				<Text style={styles.diametre}>Diamètre</Text>
+			</Col>
+			<Col style={{ marginLeft:160}}>
+				<TextInput
+					ref="diametre"
+					style={{width:45, textAlign :"center"}}
+					onChangeText={(text) => this.setState({diametre: text})}
+					value={this.state.diametre}
+					keyboardType='numbers-and-punctuation'
+					maxLength = {5}
+					underlineColorAndroid="#29235c"
+				/>
+			</Col>	
+		  </Row>
+		  <Row>
+			<Col style={{width:140}}>
 					<Text style={styles.asymetrie}>Epaisseur</Text>
-				  </Col>
-					<Col style={{marginLeft:160}}>
-					<TextInput
-							ref="epaisseur"
-							style={{width:45, color:"#29235c", textAlign :"center"}}
-							onChangeText={(text) => this.setState({epaisseur: text})}
-							value={this.state.epaisseur}
-							placeholder={""}
-							keyboardType = 'numbers-and-punctuation'
-							maxLength = {5}
-							placeholderTextColor="#fff"
-							underlineColorAndroid="#29235c"
-						  />
-					</Col>	
-				</Row> 
-	       <Row>
+			</Col>
+			<Col style={{marginLeft:160}}>
+				<TextInput
+					ref="epaisseur"
+					style={{width:45, color:"#29235c", textAlign :"center"}}
+					onChangeText={(text) => this.setState({epaisseur: text})}
+					value={this.state.epaisseur}
+					placeholder={""}
+					keyboardType = 'numbers-and-punctuation'
+					maxLength = {5}
+					placeholderTextColor="#fff"
+					underlineColorAndroid="#29235c"
+				/>
+			</Col>	
+		  </Row> 
+	      <Row>
 				<Col>
 					<Text style={styles.suspicion}>Suspicion</Text>
 				</Col>
 				<Col>
 						<Text style={styles.melanome}> Mélanome:{this.state.mel}% </Text>
 				</Col>
-			</Row>
-			<Row>	
+		  </Row>
+		  <Row>	
 			<Slider
 				ref="mel"
 				value={this.state.mel}
