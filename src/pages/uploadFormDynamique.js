@@ -49,6 +49,7 @@ export default class uploadFormDynamique extends Component {
 		  criteres_values:[],
 		  target_id: '',
 		  patient_id: '',
+		  list_length:"",
 		  med_pat_file:{},
 		}
 		this.goBack = this.goBack.bind(this);
@@ -83,17 +84,21 @@ export default class uploadFormDynamique extends Component {
 					 array_cat.push({"key":k,"placeholder":items[k].nom_critere,"type":items[k].type_critere});	
 				}
 			}
+			alert(array_cat.length);
 			this.setState({
 			  dataSource: this.state.dataSource.cloneWithRows(array_cat),
+			  list_length:array_cat.length
 			});
 		});
 		});
 	}
 		
  	validMetadataDynamic(){
-	alert(this.state.criteres_values);
+	alert(this.state.list_length);
+	
+	//alert(this.state.criteres_values);
 	this.state.criteres_values.forEach((element)=>{
-		alert(element)
+		//alert(element)
 	});
 		//send the data to valid meta dynamic	
 /* 		alert(this.state.med_pat_file.nombre_images_dossier);
@@ -151,6 +156,8 @@ export default class uploadFormDynamique extends Component {
 	});
   }
   renderRow(rowData,sectionID:number,rowID:number){
+	  for (var rowIdx = 0; rowIdx < rowID.length; rowIdx++) {
+	
 	return (
       <View style={styles.subBody}>
        <TouchableHighlight>
@@ -165,9 +172,10 @@ export default class uploadFormDynamique extends Component {
                    <Picker 
 						style={{width:100, color:"#29235c",marginTop:10}}
 						iosHeader="Select one"
+						ref="rowIndex"
 						mode="dropdown"
-						selectedValue={this.state.selected_boolean}
-						onValueChange={this.onValueChangeBoolean}>   
+						selectedValue={this.state.rowIdx}
+						onValueChange={(rowIdx) => this.setState({rowIdx})}>   
 							<Item label="Oui" value="Oui" />
 							<Item label="Non" value="Non" />
 					</Picker>
@@ -182,13 +190,13 @@ export default class uploadFormDynamique extends Component {
 				</Col>
 				<Col style={{ marginLeft:80}}>	
 				  <TextInput
-					ref={rowData.placeholder}
+					ref="rowIndex"
 					placeholder={rowData.placeholder}
 					style={{width:100, textAlign :"left"}}
 					keyboardType='numbers-and-punctuation'
-					onChangeText={(selected_numerique) => this.setState({selected_numerique})}
-					onEndEditing={this.onValueChangeCriteria}
-					value={this.state.selected_numerique}
+					onChangeText={(rowIdx) => this.setState({rowIdx})}
+					onEndEditing={(rowIdx) => this.setState({rowIdx})}
+					value={this.state.rowIdx}
 					maxLength ={5}
 					underlineColorAndroid="#29235c"
 					/>
@@ -203,12 +211,12 @@ export default class uploadFormDynamique extends Component {
 				</Col>
 				<Col style={{ marginLeft:80}}>
 					<TextInput
-						ref={rowData.placeholder}
+						ref="rowIndex"
 						placeholder={rowData.placeholder}
 						keyboardType="default"
-						value={this.state.selected_text}
-						onChangeText={(selected_text) => this.setState({selected_text})}
-						onEndEditing={this.onValueChangeCriteriaText}
+						value={this.state.rowIdx}
+						onChangeText={(rowIdx) => this.setState({rowIdx})}
+						onEndEditing={(rowIdx) => this.setState({rowIdx})}
 						style={{width:100, textAlign :"left"}}
 						underlineColorAndroid="#29235c"
 					/>
@@ -220,6 +228,7 @@ export default class uploadFormDynamique extends Component {
    </TouchableHighlight>
   </View>
    );
+   }
   }
   render() {
     return ( 
@@ -228,9 +237,12 @@ export default class uploadFormDynamique extends Component {
 	<ScrollView>
 		<ListItem style={{marginRight:10,marginLeft:15, borderColor:'#29235c'}}>
 			<Image style={styles.pic_cam} source={{uri:this.state.path}}/>
+			<Text style={{color:"black"}}>{this.state.list_length}</Text>
 		</ListItem>
 		    <ListView dataSource={this.state.dataSource}
+				initialListSize={this.state.list_length}
 				showsVerticalScrollIndicator={true}
+				renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
 				renderRow={this.renderRow.bind(this)} style={{backgroundColor: 'white'}}/>	
 			<List>
 			<ListItem>
