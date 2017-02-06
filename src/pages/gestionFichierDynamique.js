@@ -26,7 +26,7 @@ const window = Dimensions.get('window');
 import Swiper from 'react-native-swiper';
 import firebase from 'firebase';
 import TakePic from './takePic';
-export default class gestionNaevus extends Component {
+export default class gestionNaevusDynamique extends Component {
 	constructor (props) {
 		super(props);
 		this.itemsRef = firebase.database().ref();
@@ -54,8 +54,7 @@ export default class gestionNaevus extends Component {
 				id_doc:arr
 			});
 			//get images data
-			this.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossiers_medicaux').child(arr.id_dossier).child("images").on('value', (snap) => {
-				alert(snap.val());
+			this.itemsRef.child('medecins').child(arr.medecin_id).child('patients').child(arr.patient_id).child('dossiers_medicaux').child(arr.id_dossier).child("images").on('child_added', (snap) => {
 				//let items=[];
 				// get children as an array
 				this.setState({
@@ -80,47 +79,42 @@ export default class gestionNaevus extends Component {
   render() {
     return ( 
 	<View style={{backgroundColor: 'white'}}>
-	  <HeaderUp text="Gestion des fichiers" loaded={true} onpress={this.goBack.bind(this)}/>
+		<HeaderUp text="Gestion des fichiers" loaded={true} onpress={this.goBack.bind(this)}/>
 		<ScrollView style={{backgroundColor: '#fff'}}>
 			<View style={{flex:1}}>
 				<ListItem style={{borderColor:'#29235c', width:340}}>
 				   <Grid>
-					  <Col style={{width:70}}>
+						<Col style={{width:70}}>
 						<Image style={{width:65,height:60, marginTop:10}} source={{uri:'http://localhost:8081/img/Icdossier.png'}}/>
-					  </Col>
-					  <Col>
+						</Col>
+						<Col>
 						<Text style={{color: "#29235c",margin:10,fontSize:18,fontFamily: 'Roboto',fontWeight:"bold"}}> Dossier {this.state.med_pat_filee.emplacement}</Text>
 						<Text style={{color: "#a8a8a8",marginLeft:10,fontSize:11,fontFamily: 'Roboto',fontWeight:"bold"}}>Nombre d'image: <Text style={styles.listViewText2}>{this.state.med_pat_filee.nombre_images_dossier}</Text></Text>							
 						<Text style={{color: "#a8a8a8",marginLeft:10,fontSize:11,fontFamily: 'Roboto',fontWeight:"bold"}}>Catégorie: <Text style={styles.listViewText2}>{this.state.med_pat_filee.categorie}</Text></Text>							
 						<Text style={{color: "#a8a8a8",marginLeft:10,fontSize:11,fontFamily: 'Roboto',fontWeight:"bold"}}>Date de création: <Text style={styles.listViewText2}>{this.state.med_pat_filee.date_creation_dossier}</Text></Text>
 						<Text style={{color: "#a8a8a8",marginLeft:10,fontSize:11,fontFamily: 'Roboto',fontWeight:"bold"}}>Date de derniére image: <Text style={styles.listViewText2}>{this.state.med_pat_filee.date_MAJ}</Text></Text>
-					  </Col>
+						</Col>
 					</Grid>
 				</ListItem>	
 				<ListView dataSource={this.state.dataSource}
 					enableEmptySections={true}
 					renderRow={(rowData) => 
-						<List style={{backgroundColor:'white',height:190, borderColor:'#29235c'}}>
-							<ListItem style={{height:190, borderColor:'#29235c', width:340, paddingTop:0}}>
-								<Grid>
-									<Col style={{width:70, marginTop:40,padding:20}}>
-									<Image style={{width:65,height:80}} source={{uri:'http://localhost:8081/img/Icfichier.png'}}/>
+						<List style={{backgroundColor:'white',height:180, borderColor:'#29235c'}}>
+							<ListItem style={{height:180, borderColor:'#29235c', width:340, paddingTop:0}}>
+								<Button style={{height:180}} onPress={this.localiser_photo.bind(this,rowData._key)} transparent>
+									<Grid>
+									<Col style={{width:70, height:120}}>
+									<Image style={{width:75,height:95, marginTop:10}} source={{uri:'http://localhost:8081/img/Icfichier.png'}}/>
 									</Col>
-									<Col style={{width:230,height:190, marginLeft:30,marginTop:30}}>				
-										<Text style={styles.listViewText1}>Date de consultation:<Text style={styles.listViewText2}>{rowData.date_compte_rendu_consultation.substring(0,24)}</Text></Text>
-										<Text style={styles.listViewText1}>SED:<Text style={styles.listViewText2}>{rowData.SED}</Text></Text>
-										<Text style={styles.listViewText1}>Asymétrie:<Text style={styles.listViewText2}>{rowData.asymetrie}</Text></Text>
-										<Text style={styles.listViewText1}>Bords:<Text style={styles.listViewText2}>{rowData.bords}</Text></Text>
-										<Text style={styles.listViewText1}>Couleur:<Text style={styles.listViewText2}>{rowData.couleur}</Text></Text>
-										<Text style={styles.listViewText1}>Diamétre:<Text style={styles.listViewText2}>{rowData.diametre}</Text></Text>
-										<Text style={styles.listViewText1}>Epaisseur:<Text style={styles.listViewText2}>{rowData.epaisseur}</Text></Text>
-										<Text style={styles.listViewText1}>Phototype:<Text style={styles.listViewText2}>{rowData.phototype}</Text></Text>
-										<Text style={styles.listViewText1}>Suspicion:<Text style={styles.listViewText2}>{rowData.suspicion}</Text></Text>
+									<Col style={{width:230, margin:20}}>				
+										<Text style={styles.listViewText1}>Date de consultation</Text>
+										<Text style={styles.listViewText2}>{rowData.date_creation_dossier.substring(0,24)}</Text>
 									</Col>
-								</Grid>
+									</Grid>
+								</Button>
 							</ListItem>
 						</List>
-				} style={{backgroundColor: 'white',marginLeft:30}}/>		
+				} style={{backgroundColor: 'white'}}/>		
 				<List style={{backgroundColor: 'white',height:100}}>
 					<ListItem>
 						<Button style={{height:120}} onPress={this.nouveau_fichier.bind(this)}transparent>
@@ -135,4 +129,4 @@ export default class gestionNaevus extends Component {
   }
 }
 
-AppRegistry.registerComponent('gestionNaevus', () => gestionNaevus);
+AppRegistry.registerComponent('gestionNaevusDynamique', () => gestionNaevusDynamique);
