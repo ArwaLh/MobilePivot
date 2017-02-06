@@ -197,7 +197,7 @@ export default class uploadFormDynamique extends Component {
 					placeholder={rowID}
 					style={{width:100, textAlign :"left"}}
 					keyboardType='numbers-and-punctuation'
-					onChangeText={(text) => this.setState({rowID:text})}
+					onChange={(text) => this.setState({rowID:text})}
 					value={this.state.rowID}
 					maxLength ={5}
 					underlineColorAndroid="#29235c"
@@ -217,7 +217,7 @@ export default class uploadFormDynamique extends Component {
 						placeholder={rowID}
 						keyboardType="default"
 						value={this.state.rowID}
-						onChangeText={(text) => this.setState({rowID:text})}
+						onChange={(text) => this.setState({rowID:text})}
 						style={{width:100, textAlign :"left"}}
 						underlineColorAndroid="#29235c"
 					/>
