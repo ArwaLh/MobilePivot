@@ -59,7 +59,7 @@ export default class gestionNaevus extends Component {
 					date_creation_dossier: child.val().date_creation_dossier,
 					date_MAJ_dossier: child.val().date_MAJ_dossier,
 					emplacement: child.val().emplacement,
-					categorie: child.val().categorie,
+					categorie_id: child.val().categorie_id,
 					_key: child.key
 				});
 			});
@@ -90,10 +90,9 @@ export default class gestionNaevus extends Component {
 		this.props.navigator.pop();
 		return true;
 	}
-	gestionF(id,nbre){
-		alert(id);
+	gestionF(id,nbre,emplacement,date_creation_dossier,date_MAJ){
 		AsyncStorage.removeItem("med_pat_file");
-		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id,"categorie":this.state.category_id,"nombre_images_dossier":nbre,"emplacement":this.state.dossiers_medicaux.emplacement})); 
+		AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id,"categorie":this.state.category_id,"nombre_images_dossier":nbre,"emplacement":emplacement,"date_creation_dossier":date_creation_dossier,"date_MAJ":date_MAJ})); 
 		//if emplacement =="" redirection vers l'interface localiser photo
 		//else redirection vers l'interface gestion fichier
 		this.props.navigator.push({
@@ -137,9 +136,9 @@ export default class gestionNaevus extends Component {
 		<ListView dataSource={this.state.dataSource}
 		enableEmptySections={true}             
         renderRow={(rowData) => 
-					<List style={{backgroundColor:'white',height:140, borderColor:'#29235c'}}>
-					  <ListItem style={{height:140, borderColor:'#29235c', width:340, paddingTop:0}}>
-					  <Button style={{height:140}} onPress={this.gestionF.bind(this,rowData._key,rowData.nombre_images_dossier)} transparent>							
+					<List style={{backgroundColor:'white',height:180, borderColor:'#29235c'}}>
+					  <ListItem style={{height:180, borderColor:'#29235c', width:340, paddingTop:0}}>
+					  <Button style={{height:180}} onPress={this.gestionF.bind(this,rowData._key,rowData.nombre_images_dossier,rowData.emplacement,rowData.date_creation_dossier.substring(0,24),rowData.date_MAJ_dossier.substring(0,24))} transparent>							
 						<Grid>
 						<Col style={{width:70}}>
 						<Image style={{width:65,height:60, marginTop:10}} source={{uri:'http://localhost:8081/img/Icdossier.png'}}/>
@@ -147,6 +146,7 @@ export default class gestionNaevus extends Component {
 						<Col style={{width:250, margin:10}}>
 							<Text style={styles.listViewTitle}>Naevus {rowData.emplacement}</Text> 
 							<Text style={styles.listViewText1}>Nombre d'image: <Text style={styles.listViewText2}>{rowData.nombre_images_dossier}</Text></Text>							
+							<Text style={styles.listViewText1}>Catégorie: <Text style={styles.listViewText2}>{rowData.categorie_id}</Text></Text>							
 							<Text style={styles.listViewText1}>Date de création: <Text style={styles.listViewText2}>{rowData.date_creation_dossier.substring(0,24)}</Text></Text>
 							<Text style={styles.listViewText1}>Date de derniére image: <Text style={styles.listViewText2}>{rowData.date_MAJ_dossier.substring(0,24)}</Text></Text>
 						</Col>

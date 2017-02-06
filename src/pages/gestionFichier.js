@@ -37,21 +37,20 @@ export default class gestionNaevus extends Component {
 			patient: null,
 			id_doc:"",
 			dossiers_medicaux: [],
-			med_pat_file: [],
+			med_pat_filee: [],
 			patient_id: '',
 			medecin_id: '',
 			nom_pat: '',
 			prenom_pat: '',
 		};
 	}
-	componentDidMount(){
+	componentWillMount(){
 		//date_compte_rendu_consultation
 		AsyncStorage.getItem('med_pat_file').then((patient_medecin_arrayy_loc) => {
 			const arr=JSON.parse(patient_medecin_arrayy_loc);
-			alert(arr.categorie);
-			alert(patient_medecin_arrayy_loc.id_dossier);
+			alert(arr.emplacement);
 			this.setState({
-				med_pat_file:arr,
+				med_pat_filee:arr,
 				id_doc:arr
 			});
 		});
@@ -64,7 +63,7 @@ export default class gestionNaevus extends Component {
 		
 	}
 	nouveau_fichier(){
-		AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.med_pat_file.id_medecin,"id_patient":this.state.med_pat_file.id_patient,"id_dossier":this.state.med_pat_file.id_dossier,"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,"categorie":this.state.med_pat_file.categorie,"emplacement":this.state.med_pat_file.emplacement}));
+		AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":this.state.med_pat_filee.id_medecin,"id_patient":this.state.med_pat_filee.id_patient,"id_dossier":this.state.med_pat_filee.id_dossier,"nombre_images_dossier":this.state.med_pat_filee.nombre_images_dossier,"categorie":this.state.med_pat_filee.categorie,"emplacement":this.state.med_pat_filee.emplacement}));
 		this.props.navigator.push({
           component: TakePic
         }); 
@@ -77,7 +76,15 @@ export default class gestionNaevus extends Component {
 			<View style={{flex:1}}>
 				<ListItem style={{borderColor:'#29235c', width:340}}>
 				   <Grid>
-						<Row><Text style={{color: "#29235c",marginLeft:10,fontSize:18,fontFamily: 'Roboto',fontWeight:"bold"}}> Naevus:{this.state.id_doc.id_dossier}</Text></Row>
+						<Col style={{width:70}}>
+						<Image style={{width:65,height:60, marginTop:10}} source={{uri:'http://localhost:8081/img/Icdossier.png'}}/>
+						</Col>
+						<Col>
+						<Text style={{color: "#29235c",margin:10,fontSize:18,fontFamily: 'Roboto',fontWeight:"bold"}}> Dossier {this.state.med_pat_filee.emplacement}</Text>
+						<Text style={{color: "#a8a8a8",marginLeft:10,fontSize:11,fontFamily: 'Roboto',fontWeight:"bold"}}>Nombre d'image: <Text style={styles.listViewText2}>{this.state.med_pat_filee.nombre_images_dossier}</Text></Text>							
+						<Text style={{color: "#a8a8a8",marginLeft:10,fontSize:11,fontFamily: 'Roboto',fontWeight:"bold"}}>Date de création: <Text style={styles.listViewText2}>{this.state.med_pat_filee.date_creation_dossier}</Text></Text>
+						<Text style={{color: "#a8a8a8",marginLeft:10,fontSize:11,fontFamily: 'Roboto',fontWeight:"bold"}}>Date de derniére image: <Text style={styles.listViewText2}>{this.state.med_pat_filee.date_MAJ}</Text></Text>
+						</Col>
 					</Grid>
 				</ListItem>	
 				<ListView dataSource={this.state.dataSource}

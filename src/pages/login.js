@@ -26,6 +26,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Hr from 'react-native-hr';
 import {InputGroup, Input, Button} from 'native-base';
 import firebase from 'firebase';
+
+import dismissKeyboard from 'react-native-dismiss-keyboard';
 export default class login extends Component {
 
   constructor(props){
@@ -43,6 +45,11 @@ export default class login extends Component {
     }
 	this.login=this.login.bind(this);
   }
+  handleKeyDown(e) {
+    if(e.nativeEvent.key == "Enter"){
+        dismissKeyboard();
+    }
+  }
 
   render(){
     return (
@@ -54,6 +61,7 @@ export default class login extends Component {
             onChangeText={(text) => this.setState({email_medecin: text})}
             value={this.state.email_medecin}
             placeholder={"E-mail"}
+			onKeyPress={this.handleKeyDown}
 			placeholderTextColor="#fff"
 			underlineColorAndroid="white"
           />
@@ -66,6 +74,7 @@ export default class login extends Component {
 				secureTextEntry={this.state.secureTextEntry}
 				placeholder={"Mot de passe"}
 				placeholderTextColor="#fff"
+				onKeyPress={this.handleKeyDown.bind(this)}
 				underlineColorAndroid="white"
 				inlineImagePadding={0}
 			  />
