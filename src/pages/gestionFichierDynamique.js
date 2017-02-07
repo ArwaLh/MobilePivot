@@ -97,7 +97,6 @@ export default class gestionNaevusDynamique extends Component {
 						</Col>
 					</Grid>
 				</ListItem>	
-				<Text>nothing to display</Text>
 				<List style={{backgroundColor: 'white',height:100}}>
 					<ListItem>
 						<Button style={{height:120}} onPress={this.nouveau_fichier.bind(this)}transparent>

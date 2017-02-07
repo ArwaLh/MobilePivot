@@ -48,8 +48,8 @@ export default class takePic extends Component {
 		// create Blob from file path
 		AsyncStorage.setItem('path', path);
 		AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn)=>{
-			const arr=JSON.parse(med_pat_file_locationn);
-			alert();
+		  const arr=JSON.parse(med_pat_file_locationn);
+		  alert();
 		  if(arr.categorie=="naevus"){
 			this.props.navigator.push({
 			  component: UploadForm

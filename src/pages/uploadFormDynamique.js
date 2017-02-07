@@ -100,7 +100,7 @@ export default class uploadFormDynamique extends Component {
 		
  	validMetadataDynamic(){
 	
-	alert(this.state.criteres_values[0]);
+	alert(this.state.criteres_values);
 	
 		//send the data to valid meta dynamic	
 /* 		alert(this.state.med_pat_file.nombre_images_dossier);
@@ -127,14 +127,16 @@ export default class uploadFormDynamique extends Component {
 		  component: ValidMetaDynamic
 		  
 		}); */
-	  }     
+	  } 
+  /*change the cursor to the next field*/
+  focusNextField(newtField){
+	  this.refs[newtField].focus();
+  }  
 	goBack() {
 		this.props.navigator.pop();
 		return true;
 	}
   render() {
-	 let cr=[];
-	 cr=this.state.criteres_values;
 	 let items_names=[];
 	for (var i = 0; i< this.state.list_length; i++){
 		items_names[i]="state"+i;
@@ -152,7 +154,7 @@ export default class uploadFormDynamique extends Component {
 				<Col style={{ marginLeft:80}}>	
                    <Picker 
 						style={{width:100, color:"#29235c",marginTop:10}}
-						key={items_names[i]}
+						ref={data.key}
 						mode="dropdown"
 						selectedValue={items_names[i]}
 						onValueChange={(value) => {
@@ -175,18 +177,20 @@ export default class uploadFormDynamique extends Component {
 				</Col>
 				<Col style={{ marginLeft:80}}>	
 				  <TextInput
-					key={items_names[i]}
+					ref={data.key}
 					placeholder={data.key}
 					style={{width:100, textAlign :"left"}}
 					keyboardType='numbers-and-punctuation'
 					value={items_names[i]}
+					blurOnSubmit={true}
 					onSubmitEditing={(text2) => {
-							this.setState({criteres_values:cr.push(text2)});
-							alert(items_names[i]);
+						const criteres_values = this.state.criteres_values;
+						criteres_values.push(items_names[i])
+						this.setState({criteres_values:criteres_values});
+						alert(items_names[i]);
 						}}
 					onChangeText={(text2) => {
 						items_names[i]=text2;
-						this.setState({criteres_values:this.state.criteres_values.push(text2)});
 						alert(items_names[i]);
 					}}
 					maxLength ={5}
@@ -203,13 +207,15 @@ export default class uploadFormDynamique extends Component {
 				</Col>
 				<Col style={{ marginLeft:80}}>
 					<TextInput
-						key={items_names[i]}
+						ref={data.key}
 						placeholder={data.key}
 						keyboardType="default"
 						value={items_names[i]}
+						blurOnSubmit={true}
 						onSubmitEditing={(text) => {
-							alert(cr);
-							this.setState({criteres_values:cr.push(text)});
+							const criteres_values = this.state.criteres_values;
+							criteres_values.push(items_names[i])
+							this.setState({criteres_values:criteres_values});
 							alert(items_names[i]);
 						}}
 						onChangeText={(text) => {
