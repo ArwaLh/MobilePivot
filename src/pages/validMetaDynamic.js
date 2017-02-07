@@ -139,8 +139,7 @@ export default class validMetaDynamic extends Component {
 							phototype:my_array.phototype,
 							SED:my_array.sed,
 							suspicion:my_array.suspicion,
-							imageName:image_id,
-							category_id:idd
+							imageName:image_id
 						})
 						//upadet medical folder data
 						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
