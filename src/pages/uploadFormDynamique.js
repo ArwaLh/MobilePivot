@@ -159,8 +159,9 @@ export default class uploadFormDynamique extends Component {
 						selectedValue={items_names[i]}
 						onValueChange={(value) => {
 							items_names[i]=value;
-							Item.value=items_names[i];
-							this.setState({criteres_values:cr.push(items_names[i])});
+							const criteres_values = this.state.criteres_values;
+							criteres_values.push(items_names[i])
+							this.setState({criteres_values:criteres_values});
 							alert(items_names[i]);
 							}}>   
 							<Item label="Oui" value="Oui" />
@@ -187,11 +188,9 @@ export default class uploadFormDynamique extends Component {
 						const criteres_values = this.state.criteres_values;
 						criteres_values.push(items_names[i])
 						this.setState({criteres_values:criteres_values});
-						alert(items_names[i]);
 						}}
 					onChangeText={(text2) => {
 						items_names[i]=text2;
-						alert(items_names[i]);
 					}}
 					maxLength ={5}
 					underlineColorAndroid="#29235c"
@@ -216,11 +215,9 @@ export default class uploadFormDynamique extends Component {
 							const criteres_values = this.state.criteres_values;
 							criteres_values.push(items_names[i])
 							this.setState({criteres_values:criteres_values});
-							alert(items_names[i]);
 						}}
 						onChangeText={(text) => {
 							items_names[i]=text;
-							alert(items_names[i]);
 						}}
 						style={{width:100, textAlign :"left"}}
 						underlineColorAndroid="#29235c"
