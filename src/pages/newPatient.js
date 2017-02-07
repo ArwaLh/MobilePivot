@@ -56,7 +56,6 @@ export default class newPatient extends Component {
 	}
   	componentDidMount(){
 		AsyncStorage.getItem('id').then((idd) => {
-			this.setState({id:idd});
 			alert(idd);
 			AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 			alert(medecin_usernamee);
