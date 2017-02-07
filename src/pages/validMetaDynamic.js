@@ -50,6 +50,7 @@ export default class validMetaDynamic extends Component {
 	this.state = {
 		dataSource: ds.cloneWithRows(['row 1', 'row 2']),
 		array: [],
+		meta_arr: [],
 		bords: '',
 		couleur: '',
 		loaded: true,
@@ -68,13 +69,24 @@ export default class validMetaDynamic extends Component {
 	componentDidMount(){
 		AsyncStorage.getItem('med_pat_file_location_image_data').then((med_pat_file_location_image_dataa) => {
 			const arr =JSON.parse(med_pat_file_location_image_dataa);
+			alert(med_pat_file_location_image_dataa);
 			this.setState({
 				array:arr,
 				dossier_id: arr.id_dossier,
 				medecin_id: arr.id_medecin,
 				patient_id: arr.id_patient,
 				category_id: arr.categoriet,
-				dataSource: this.state.dataSource.cloneWithRows(arr)
+				
+			});
+		});	
+		//get upload form dynamique data
+		/*dataSource: this.state.dataSource.cloneWithRows(arr)*/
+		AsyncStorage.getItem('valid_meta').then((valid_meta) => {
+			const array =JSON.parse(valid_meta);
+			alert(valid_meta);
+			this.setState({
+				meta_arr:array,
+				dataSource: this.state.dataSource.cloneWithRows(array)
 			});
 		});	
 		AsyncStorage.getItem('path').then((pathUp) => {                                                   
@@ -109,7 +121,7 @@ export default class validMetaDynamic extends Component {
 			  // upload image using Firebase SDK
 			  var uploadTask= firebase.storage()
 				.ref()
-				.child('medecins'+'_'+this.state.medecin_id).child('patients'+'_'+this.state.patient_id).child('categories'+'_'+id_category).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images')
+				.child('medecins'+'_'+this.state.medecin_id).child('patients'+'_'+this.state.patient_id).child('categories'+'_'+id_category).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images'+'_'+this.state.category_id)
 				.child(testImageName.substring(0,44).replace(/\s/g, "_"))
 				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
@@ -125,20 +137,10 @@ export default class validMetaDynamic extends Component {
 				/*-----Add to firebase databse method ----*/
 					//and store image name
 					let compte_rendu=new Date();
+					let myarray=JSON.stringify(this.state.meta_arr.push({"date_compte_rendu_consultation": compte_rendu.toString()}));
 					let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
 					AsyncStorage.getItem('id').then((idd)=>{
-						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set({ 
-							date_compte_rendu_consultation: compte_rendu.toString(),
-							bords:my_array.bords,
-							couleur:my_array.couleur,
-							epaisseur:my_array.epaisseur,
-							diametre:my_array.diametre,
-							asymetrie:my_array.asymetrie,
-							phototype:my_array.phototype,
-							SED:my_array.sed,
-							suspicion:my_array.suspicion,
-							imageName:image_id
-						})
+						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(myarray);
 						//upadet medical folder data
 						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
 						date_MAJ_dossier: compte_rendu.toString(),
