@@ -100,7 +100,7 @@ export default class uploadFormDynamique extends Component {
 		
  	validMetadataDynamic(){
 	
-	alert(this.state.criteres_values);
+	alert(JSON.stringify(this.state.criteres_values));
 	
 		//send the data to valid meta dynamic	
 /* 		alert(this.state.med_pat_file.nombre_images_dossier);
@@ -137,7 +137,7 @@ export default class uploadFormDynamique extends Component {
 		return true;
 	}
   render() {
-	 let items_names=[];
+	 let items_names=new Array(this.state.list_length);
 	for (var i = 0; i< this.state.list_length; i++){
 		items_names[i]="state"+i;
 	}
@@ -160,7 +160,8 @@ export default class uploadFormDynamique extends Component {
 						onValueChange={(value) => {
 							items_names[i]=value;
 							const criteres_values = this.state.criteres_values;
-							criteres_values.push(items_names[i])
+							let criteria_name=data.key;
+							criteres_values.push({i:items_names[i]});
 							this.setState({criteres_values:criteres_values});
 							alert(items_names[i]);
 							}}>   
@@ -186,7 +187,8 @@ export default class uploadFormDynamique extends Component {
 					blurOnSubmit={true}
 					onSubmitEditing={(text2) => {
 						const criteres_values = this.state.criteres_values;
-						criteres_values.push(items_names[i])
+						let criteria_name=data.key;
+						criteres_values.push({i:items_names[i]});
 						this.setState({criteres_values:criteres_values});
 						}}
 					onChangeText={(text2) => {
@@ -213,7 +215,8 @@ export default class uploadFormDynamique extends Component {
 						blurOnSubmit={true}
 						onSubmitEditing={(text) => {
 							const criteres_values = this.state.criteres_values;
-							criteres_values.push(items_names[i])
+							let criteria_name=data.key;
+							criteres_values.push({i:items_names[i]});
 							this.setState({criteres_values:criteres_values});
 						}}
 						onChangeText={(text) => {
