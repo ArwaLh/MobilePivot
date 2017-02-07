@@ -86,6 +86,7 @@ export default class uploadFormDynamique extends Component {
 			this.setState({
 			  dataSource: this.state.dataSource.cloneWithRows(array_cat),
 			  my_textinput_array:array_cat,
+			  //criteres_values:this.state.criteres_values.push({"id_medecin":this.state.medecin_id},{"id_patient":this.state.patient_id},{"id_dossier":this.state.dossier_id},{"categorie":this.state.med_pat_file.categorie},{"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier},{"emplacement":this.state.med_pat_file.emplacement},{"imageURL":this.state.path}),
 			  list_length:array_cat.length
 			});
 		});
@@ -94,10 +95,19 @@ export default class uploadFormDynamique extends Component {
 		
  	validMetadataDynamic(){
 	
-	alert(JSON.stringify(this.state.criteres_values));
-
+	//alert(JSON.stringify(this.state.criteres_values.push({"id_medecin":this.state.medecin_id},{"id_patient":this.state.patient_id},{"id_dossier":this.state.dossier_id},{"categorie":this.state.med_pat_file.categorie},{"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier},{"emplacement":this.state.med_pat_file.emplacement},{"imageURL":this.state.path})));
 	AsyncStorage.removeItem('med_pat_file_location_image_data');
-	AsyncStorage.setItem('med_pat_file_location_image_data', JSON.stringify(this.state.criteres_values));   
+	AsyncStorage.setItem('med_pat_file_location_image_data', JSON.stringify({
+			"id_medecin":this.state.medecin_id,
+			"id_patient":this.state.patient_id,
+			"id_dossier":this.state.dossier_id,
+			"categorie":this.state.med_pat_file.categorie,
+			"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,
+			"emplacement":this.state.med_pat_file.emplacement,
+			"imageURL":this.state.path,
+			}));   
+	AsyncStorage.removeItem('valid_meta');   
+	AsyncStorage.setItem('valid_meta', JSON.stringify(this.state.criteres_values));   
  		this.props.navigator.push({
 		  component: ValidMetaDynamic
 		  
@@ -129,7 +139,7 @@ export default class uploadFormDynamique extends Component {
 				<Col style={{ marginLeft:80}}>	
                    <Picker 
 						style={{width:100, color:"#29235c",marginTop:10}}
-						ref={data.key}
+						key={data.key}
 						mode="dropdown"
 						selectedValue={items_names[i]}
 						onValueChange={(value) => {
@@ -153,7 +163,7 @@ export default class uploadFormDynamique extends Component {
 				</Col>
 				<Col style={{ marginLeft:80}}>	
 				  <TextInput
-					ref={data.key}
+					key={data.key}
 					placeholder={data.key}
 					style={{width:100, textAlign :"left"}}
 					keyboardType='numbers-and-punctuation'
@@ -182,14 +192,14 @@ export default class uploadFormDynamique extends Component {
 				</Col>
 				<Col style={{ marginLeft:80}}>
 					<TextInput
-						ref={data.key}
+						key={data.key}
 						placeholder={data.key}
 						keyboardType="default"
 						value={items_names[i]}
 						blurOnSubmit={true}
 						onSubmitEditing={(text) => {
 							const criteres_values = this.state.criteres_values;
-							let criteria_name=data.key;
+							const criteria_name=data.key;
 							criteres_values.push({"criteria_name":criteria_name,"value":items_names[i]});
 							this.setState({criteres_values:criteres_values});
 						}}

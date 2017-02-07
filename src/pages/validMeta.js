@@ -111,7 +111,7 @@ export default class validMeta extends Component {
 			  // upload image using Firebase SDK
 			  var uploadTask= firebase.storage()
 				.ref()
-				.child('medecins'+'_'+this.state.medecin_id).child('patients'+'_'+this.state.patient_id).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images')
+				.child('medecins'+'_'+this.state.medecin_id).child('patients'+'_'+this.state.patient_id).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images'+'_'+this.state.category_id)
 				.child(testImageName.substring(0,44).replace(/\s/g, "_"))
 				.put(blob, {contentType : 'image/jpg'});
 				uploadTask.on('state_changed', function(snapshot){
