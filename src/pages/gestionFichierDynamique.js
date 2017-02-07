@@ -49,12 +49,13 @@ export default class gestionNaevusDynamique extends Component {
 		AsyncStorage.getItem('med_pat_file').then((patient_medecin_arrayy_loc) => {
 			const arr=JSON.parse(patient_medecin_arrayy_loc);
 			alert(arr.emplacement);
+			alert(arr.id_medecin);
 			this.setState({
 				med_pat_filee:arr,
 				id_doc:arr
 			});
 			//get images data
-			this.itemsRef.child('medecins').child(arr.medecin_id).child('patients').child(arr.patient_id).child('dossiers_medicaux').child(arr.id_dossier).child("images").on('child_added', (snap) => {
+			this.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossiers_medicaux').child(arr.id_dossier).child("images").on('child_added', (snap) => {
 				//let items=[];
 				// get children as an array
 				this.setState({
@@ -79,7 +80,7 @@ export default class gestionNaevusDynamique extends Component {
   render() {
     return ( 
 	<View style={{backgroundColor: 'white'}}>
-		<HeaderUp text="Gestion des fichiers" loaded={true} onpress={this.goBack.bind(this)}/>
+		<HeaderUp text="Gestion des fichiers " loaded={true} onpress={this.goBack.bind(this)}/>
 		<ScrollView style={{backgroundColor: '#fff'}}>
 			<View style={{flex:1}}>
 				<ListItem style={{borderColor:'#29235c', width:340}}>
@@ -96,25 +97,7 @@ export default class gestionNaevusDynamique extends Component {
 						</Col>
 					</Grid>
 				</ListItem>	
-				<ListView dataSource={this.state.dataSource}
-					enableEmptySections={true}
-					renderRow={(rowData) => 
-						<List style={{backgroundColor:'white',height:180, borderColor:'#29235c'}}>
-							<ListItem style={{height:180, borderColor:'#29235c', width:340, paddingTop:0}}>
-								<Button style={{height:180}} onPress={this.localiser_photo.bind(this,rowData._key)} transparent>
-									<Grid>
-									<Col style={{width:70, height:120}}>
-									<Image style={{width:75,height:95, marginTop:10}} source={{uri:'http://localhost:8081/img/Icfichier.png'}}/>
-									</Col>
-									<Col style={{width:230, margin:20}}>				
-										<Text style={styles.listViewText1}>Date de consultation</Text>
-										<Text style={styles.listViewText2}>{rowData.date_creation_dossier.substring(0,24)}</Text>
-									</Col>
-									</Grid>
-								</Button>
-							</ListItem>
-						</List>
-				} style={{backgroundColor: 'white'}}/>		
+				<Text>nothing to display</Text>
 				<List style={{backgroundColor: 'white',height:100}}>
 					<ListItem>
 						<Button style={{height:120}} onPress={this.nouveau_fichier.bind(this)}transparent>
