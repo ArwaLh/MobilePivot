@@ -231,7 +231,7 @@ export default class uploadForm extends Component {
 					style={{width:45, textAlign :"center"}}
 					onChangeText={(text) => this.setState({diametre: text})}
 					value={this.state.diametre}
-					keyboardType='numbers-and-punctuation'
+					keyboardType='phone-pad'
 					maxLength = {5}
 					underlineColorAndroid="#29235c"
 				/>
@@ -248,7 +248,7 @@ export default class uploadForm extends Component {
 					onChangeText={(text) => this.setState({epaisseur: text})}
 					value={this.state.epaisseur}
 					placeholder={""}
-					keyboardType = 'numbers-and-punctuation'
+					keyboardType = 'phone-pad'
 					maxLength = {5}
 					placeholderTextColor="#fff"
 					underlineColorAndroid="#29235c"

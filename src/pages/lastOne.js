@@ -23,6 +23,7 @@ import Header from '../components/header';
 import styles from '../styles/common-styles.js';
 import {List, ListItem, Button} from 'native-base';
 import Categories from './categories';
+import login from './login';
 import uploadFormDynamique from './uploadFormDynamique';
 import Hr from 'react-native-hr';
 import firebase from 'firebase';
@@ -40,7 +41,7 @@ export default class lastOne extends Component {
 	}
 	retour_categorie(){
 		this.props.navigator.push({
-          component: Categories
+          component: login
         }); 
 	}
   render() {
