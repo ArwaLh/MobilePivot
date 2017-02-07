@@ -151,7 +151,7 @@ export default class gestionNaevus extends Component {
 						<Image style={{width:65,height:60, marginTop:10}} source={{uri:'http://localhost:8081/img/Icdossier.png'}}/>
 						</Col>
 						<Col style={{width:250, margin:10}}>
-							<Text style={styles.listViewTitle}> Dossier  {rowData.emplacement}</Text> 
+							<Text style={styles.listViewTitle}> Dossier {rowData.emplacement}</Text> 
 							<Text style={styles.listViewText1}>Nombre d'image: <Text style={styles.listViewText2}>{rowData.nombre_images_dossier}</Text></Text>							
 							<Text style={styles.listViewText1}>Catégorie: <Text style={styles.listViewText2}>{rowData.categorie_id}</Text></Text>							
 							<Text style={styles.listViewText1}>Date de création: <Text style={styles.listViewText2}>{rowData.date_creation_dossier.substring(0,24)}</Text></Text>
