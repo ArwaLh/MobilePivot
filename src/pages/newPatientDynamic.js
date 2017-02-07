@@ -106,7 +106,7 @@ export default class newPatientDynamic extends Component {
 						nombre_images_dossier: 0
 					})
 					AsyncStorage.removeItem('med_pat_file');
-					AsyncStorage.setItem('med_pat_file',JSON.stringify({"id_medecin":medecin_usernamee,"id_patient":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": idd,"id_dossier":dossier_id}));
+					AsyncStorage.setItem('med_pat_file',JSON.stringify({"id_medecin":medecin_usernamee,"id_patient":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": idd,"id_dossier":dossier_id,"nombre_images_dossier":0}));
 					alert("sucesss patient added"); 
 					this.props.navigator.push({
 					component: LocatePic
