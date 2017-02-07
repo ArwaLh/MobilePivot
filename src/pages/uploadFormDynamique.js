@@ -160,9 +160,9 @@ export default class uploadFormDynamique extends Component {
 						onValueChange={(value) => {
 							items_names[i]=value;
 							const criteres_values = this.state.criteres_values;
-							const criteria_name="data.key.toString()";
+							const criteria_name=data.key;
 							alert(criteria_name.toString());
-							criteres_values.push({criteria_name:items_names[i]});
+							criteres_values.push({"criteria_name":criteria_name,"value":items_names[i]});
 							this.setState({criteres_values:criteres_values});
 							}}>   
 							<Item label="Oui" value="Oui" />
@@ -187,8 +187,8 @@ export default class uploadFormDynamique extends Component {
 					blurOnSubmit={true}
 					onSubmitEditing={(text2) => {
 						const criteres_values = this.state.criteres_values;
-						const criteria_name=data.key.toString();
-						criteres_values.push({criteria_name:items_names[i]});
+						const criteria_name=data.key;
+						criteres_values.push({"criteria_name":criteria_name,"value":items_names[i]});
 						this.setState({criteres_values:criteres_values});
 						}}
 					onChangeText={(text2) => {
@@ -215,8 +215,8 @@ export default class uploadFormDynamique extends Component {
 						blurOnSubmit={true}
 						onSubmitEditing={(text) => {
 							const criteres_values = this.state.criteres_values;
-							let criteria_name=data.key.toString();
-							criteres_values.push({criteria_name:items_names[i]});
+							let criteria_name=data.key;
+							criteres_values.push({"criteria_name":criteria_name,"value":items_names[i]});
 							this.setState({criteres_values:criteres_values});
 						}}
 						onChangeText={(text) => {
