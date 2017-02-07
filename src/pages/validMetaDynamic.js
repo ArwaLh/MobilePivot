@@ -69,18 +69,17 @@ export default class validMetaDynamic extends Component {
 	componentDidMount(){
 		AsyncStorage.getItem('med_pat_file_location_image_data').then((med_pat_file_location_image_dataa) => {
 			const arr =JSON.parse(med_pat_file_location_image_dataa);
-			alert(med_pat_file_location_image_dataa);
+			alert("my data",med_pat_file_location_image_dataa);
 			this.setState({
 				array:arr,
 				dossier_id: arr.id_dossier,
 				medecin_id: arr.id_medecin,
 				patient_id: arr.id_patient,
-				category_id: arr.categoriet,
+				category_id: arr.categorie,
 				
 			});
 		});	
 		//get upload form dynamique data
-		/*dataSource: this.state.dataSource.cloneWithRows(arr)*/
 		AsyncStorage.getItem('valid_meta').then((valid_meta) => {
 			const array =JSON.parse(valid_meta);
 			alert(valid_meta);
