@@ -135,12 +135,10 @@ export default class uploadFormDynamique extends Component {
   render() {
 	 let cr=[];
 	 cr=this.state.criteres_values;
-	 alert("cr",cr);
 	 let items_names=[];
 	for (var i = 0; i< this.state.list_length; i++){
 		items_names[i]="state"+i;
 	}
-	alert(items_names[i])
 	let Arr = this.state.my_textinput_array.map((data) => {
       return (
 	  <View style={styles.subBody}>
