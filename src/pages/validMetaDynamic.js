@@ -9,6 +9,7 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  ListView,
   Platform,
   Picker,
   AsyncStorage,
@@ -45,7 +46,9 @@ export default class validMetaDynamic extends Component {
     super(props);
 	this.itemsRef = firebase.database().ref();
 	this.storageRef = firebase.storage().ref();
+	const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 	this.state = {
+		dataSource: ds.cloneWithRows(['row 1', 'row 2']),
 		array: [],
 		bords: '',
 		couleur: '',
@@ -56,17 +59,11 @@ export default class validMetaDynamic extends Component {
 		downloadURL:""
 	}
 	this.validate=this.validate.bind(this);
-	this.uploadP=this.uploadP.bind(this);
 	this.goBack=this.goBack.bind(this);
 	}
 	goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
-	}
-	uploadP(){
-		this.props.navigator.push({
-          component: UploadFormDynamique
-        }); 
 	}
 	componentDidMount(){
 		AsyncStorage.getItem('med_pat_file_location_image_data').then((med_pat_file_location_image_dataa) => {
@@ -76,7 +73,8 @@ export default class validMetaDynamic extends Component {
 				dossier_id: arr.id_dossier,
 				medecin_id: arr.id_medecin,
 				patient_id: arr.id_patient,
-				category_id: arr.categorie
+				category_id: arr.categoriet,
+				dataSource: this.state.dataSource.cloneWithRows(arr)
 			});
 		});	
 		AsyncStorage.getItem('path').then((pathUp) => {                                                   
@@ -153,105 +151,41 @@ export default class validMetaDynamic extends Component {
 					});//end get category ID
 			})
 	}
+  renderRow(rowData,sectionID:number,rowID:number){
+	  /*for statement*/
+	return (
+      <View style={styles.subBody}>
+			<Grid>
+			  <Row>
+				<Col>  
+					<Text style={styles.upload_dynamic}> {rowData.criteria_name}</Text>
+				</Col>
+				<Col>	
+				  <Text style={styles.upload_dynamic}>{rowData.value}</Text>
+				</Col>
+			  </Row>
+			</Grid>
+	</View>
+   );
+  }
   render() {
     return ( 
 	<View>
 	<HeaderUp text="4/4 Données patient" loaded={this.state.loaded} onpress={this.goBack}/>
-		<ScrollView>	
-			<ListItem style={styles.list_MetaData}>   
-				<Grid>
-					<Col>
-						<Text style={styles.metaDataForm}>Bords</Text>
-					</Col>
-					 <Col>
-						 <Text  style={styles.metaDataForm2} >{this.state.array.bords}</Text>
-					</Col> 
-				 </Grid>			 
-			</ListItem>	
-			<ListItem style={styles.list_MetaData}>   
-				 <Grid>
-					 <Col>
-						<Text style={styles.metaDataForm}>Couleur</Text>
-					  </Col>
-					 <Col>
-						 <Text  style={styles.metaDataForm2} >{this.state.array.couleur}</Text>
-					 </Col> 
-				 </Grid>			 
-			</ListItem> 
-			<ListItem style={styles.list_MetaData}>   
-				<Grid>
-					<Col>
-						<Text style={styles.metaDataForm}>Asymétrie</Text>
-					</Col>
-					<Col>
-						<Text style={styles.metaDataForm3}>{this.state.array.asymetrie}</Text>
-					</Col> 
-				</Grid>			 
-			</ListItem>
-			<ListItem style={styles.list_MetaData}>   
-				<Grid>
-					<Col>
-						<Text style={styles.metaDataForm}>Phototype </Text>
-					</Col>
-					<Col>
-						<Text style={styles.phototypeF}> Phototype {this.state.array.phototype}</Text>
-					</Col> 
-				</Grid>			 
-			</ListItem> 
-			<ListItem style={styles.list_MetaData}>   
-				<Grid>
-					<Col>
-						<Text style={styles.metaDataForm}>SED </Text>
-					</Col>
-					<Col>
-						<Text style={styles.metaDataForm3} > {this.state.array.sed}</Text>
-					</Col> 
-				</Grid>			 
-			</ListItem> 	  
-			<ListItem style={styles.list_MetaData}>   
-				 <Grid>
-					<Col>
-						<Text style={styles.metaDataForm}>Diamètre</Text> 
-					</Col>
-					<Col>
-						<Text style={styles.metaDataForm3}>{this.state.array.diametre}</Text>
-					</Col> 
-				</Grid>			 
-			</ListItem> 
-			<ListItem style={styles.list_MetaData}>   
-				<Grid>
-					<Col>
-						<Text style={styles.metaDataForm}>Epaisseur</Text> 
-					</Col>
-					<Col>
-						<Text style={styles.metaDataForm3}> {this.state.array.epaisseur}</Text>
-					 </Col> 
-				</Grid>			 
-			</ListItem>	 
-			<ListItem style={styles.list_MetaData}>   
-				<Grid>
-					<Col>
-						<Text style={styles.metaDataForm}>Suspicion</Text> 
-					</Col>
-					<Col>
-						<Text style={styles.mélanomeF}> Mélanome: {this.state.array.suspicion}%</Text>
-					</Col> 
-				</Grid>			 
-			</ListItem>	 
-					
-			<Grid>
-				<Row style={{marginTop:20, marginLeft:10}}>
-					<Col style={{width:200}}>
-						<Button onPress={this.uploadP} textStyle={styles.back_to_upload_button_valid_meta} transparent> MODIFIER LES INORMATIONS</Button> 
-					</Col>
-					<Col>	
-						<Button
-							onPress={this.validate}
-							style={styles.send_button_valid_meta}
-							textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
-					</Col>
-				</Row>	
-			</Grid>			
+		<ScrollView>	 
+		 <ListView dataSource={this.state.dataSource}
+				showsVerticalScrollIndicator={true}
+				renderRow={this.renderRow.bind(this)} style={{backgroundColor: 'white'}}/>
+		<Grid>
+			<Row style={{marginTop:20, marginLeft:10}}>
+				<Col>	
+					<Button
+						onPress={this.validate}
+						style={styles.send_button_valid_meta}
+						textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
+				</Col>
+			</Row>	
+		</Grid>						
 		</ScrollView>   
 	</View>
     );

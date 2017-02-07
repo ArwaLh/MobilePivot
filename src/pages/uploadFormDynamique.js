@@ -70,13 +70,7 @@ export default class uploadFormDynamique extends Component {
   }
  componentDidMount(){
 		AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
-		  const array=JSON.parse(med_pat_file_locationn);
-			this.setState({ 
-				med_pat_file:array,
-				dossier_id: array.id_dossier,
-				medecin_id: array.id_medecin,
-				patient_id: array.id_patient
-			});
+		 const array=JSON.parse(med_pat_file_locationn);
 		alert(array.id_medecin);
 		//get the criterias list
 		this.itemsRef.child(array.id_medecin).child(array.categorie).child("criteres").on('value', (snap) => {
@@ -101,32 +95,13 @@ export default class uploadFormDynamique extends Component {
  	validMetadataDynamic(){
 	
 	alert(JSON.stringify(this.state.criteres_values));
-	
-		//send the data to valid meta dynamic	
-/* 		alert(this.state.med_pat_file.nombre_images_dossier);
 
-		AsyncStorage.removeItem('med_pat_file_location_image_data');
-		AsyncStorage.setItem('med_pat_file_location_image_data', JSON.stringify({
-			"id_medecin":this.state.medecin_id,
-			"id_patient":this.state.patient_id,
-			"id_dossier":this.state.dossier_id,
-			"categorie":this.state.med_pat_file.categorie,
-			"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,
-			"emplacement":this.state.med_pat_file.emplacement,
-			"imageURL":this.state.path,
-			'bords':this.state.selected1,
-			'couleur':this.state.selected2,
-			'asymetrie':this.state.selected3,
-			'phototype':this.state.phototype,
-			'sed':this.state.sed,
-			'diametre':this.state.diametre,
-			'epaisseur':this.state.epaisseur,
-			'suspicion':this.state.mel
-			}));   */
-/* 		this.props.navigator.push({
+	AsyncStorage.removeItem('med_pat_file_location_image_data');
+	AsyncStorage.setItem('med_pat_file_location_image_data', JSON.stringify(this.state.criteres_values));   
+ 		this.props.navigator.push({
 		  component: ValidMetaDynamic
 		  
-		}); */
+		}); 
 	  } 
   /*change the cursor to the next field*/
   focusNextField(newtField){
@@ -161,7 +136,6 @@ export default class uploadFormDynamique extends Component {
 							items_names[i]=value;
 							const criteres_values = this.state.criteres_values;
 							const criteria_name=data.key;
-							alert(criteria_name.toString());
 							criteres_values.push({"criteria_name":criteria_name,"value":items_names[i]});
 							this.setState({criteres_values:criteres_values});
 							}}>   
