@@ -22,6 +22,7 @@ import Header from '../components/header';
 import styles from '../styles/common-styles.js';
 import {List, ListItem, Button} from 'native-base';
 import GestionPatient from './gestionPatient';
+import Hr from 'react-native-hr';
 import uploadFormDynamique from './uploadFormDynamique';
 import firebase from 'firebase';
 

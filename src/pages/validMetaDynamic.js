@@ -136,10 +136,24 @@ export default class validMetaDynamic extends Component {
 				/*-----Add to firebase databse method ----*/
 					//and store image name
 					let compte_rendu=new Date();
-					let myarray=JSON.stringify(this.state.meta_arr.push({"date_compte_rendu_consultation": compte_rendu.toString()}));
+					//create a JSON array from a javascript array
+					let myarray={};
+					//create the JSON array all over again
+					let array_cat=[];		
+					let items=[];
+					items=this.state.meta_arr;
+					this.state.meta_arr.forEach
+					/* for (var k in items){
+						if (items.hasOwnProperty(k)) {
+							alert(items[k]);
+							myarray={"value":items[k].value};	
+						}
+					} */
+					alert("this.state.meta_arr",myarray);
+					myarray=JSON.stringify(this.state.meta_arr);
 					let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
 					AsyncStorage.getItem('id').then((idd)=>{
-						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(myarray);
+						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set();
 						//upadet medical folder data
 						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
 						date_MAJ_dossier: compte_rendu.toString(),

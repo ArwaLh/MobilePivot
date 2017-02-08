@@ -45,7 +45,7 @@ export default class uploadFormDynamique extends Component {
 		  medecin_id: '',
 		  selected_boolean: 'Non',
 		  selected_text: '',
-		  text: [],
+		  array_all: [],
 		  input_num:"",
 		  input_txt: "",
 		  target_value: '',
@@ -71,7 +71,7 @@ export default class uploadFormDynamique extends Component {
  componentDidMount(){
 		AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
 		 const array=JSON.parse(med_pat_file_locationn);
-		alert(array.id_medecin);
+		alert(array.id_patient);
 		//get the criterias list
 		this.itemsRef.child(array.id_medecin).child(array.categorie).child("criteres").on('value', (snap) => {
 			let array_cat=[];		
@@ -84,6 +84,7 @@ export default class uploadFormDynamique extends Component {
 			}
 			alert(array_cat.length);
 			this.setState({
+			  array_all:array,
 			  dataSource: this.state.dataSource.cloneWithRows(array_cat),
 			  my_textinput_array:array_cat,
 			  //criteres_values:this.state.criteres_values.push({"id_medecin":this.state.medecin_id},{"id_patient":this.state.patient_id},{"id_dossier":this.state.dossier_id},{"categorie":this.state.med_pat_file.categorie},{"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier},{"emplacement":this.state.med_pat_file.emplacement},{"imageURL":this.state.path}),
@@ -98,12 +99,12 @@ export default class uploadFormDynamique extends Component {
 	//alert(JSON.stringify(this.state.criteres_values.push({"id_medecin":this.state.medecin_id},{"id_patient":this.state.patient_id},{"id_dossier":this.state.dossier_id},{"categorie":this.state.med_pat_file.categorie},{"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier},{"emplacement":this.state.med_pat_file.emplacement},{"imageURL":this.state.path})));
 	AsyncStorage.removeItem('med_pat_file_location_image_data');
 	AsyncStorage.setItem('med_pat_file_location_image_data', JSON.stringify({
-			"id_medecin":this.state.medecin_id,
-			"id_patient":this.state.patient_id,
-			"id_dossier":this.state.dossier_id,
-			"categorie":this.state.med_pat_file.categorie,
-			"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,
-			"emplacement":this.state.med_pat_file.emplacement,
+			"id_medecin":this.state.array_all.id_medecin,
+			"id_patient":this.state.array_all.id_patient,
+			"id_dossier":this.state.array_all.id_dossier,
+			"categorie":this.state.array_all.categorie,
+			"nombre_images_dossier":this.state.array_all.nombre_images_dossier,
+			"emplacement":this.state.array_all.emplacement,
 			"imageURL":this.state.path,
 			}));   
 	AsyncStorage.removeItem('valid_meta');   
@@ -134,7 +135,7 @@ export default class uploadFormDynamique extends Component {
 			<Grid>
 			  <Row>
 				<Col>  
-					<Text key={items_names[i]} style={styles.upload_dynamic}> {data.key}</Text>
+					<Text key={data.key} style={styles.upload_dynamic}> {data.key}</Text>
 				</Col>
 				<Col style={{ marginLeft:80}}>	
                    <Picker 
@@ -159,7 +160,7 @@ export default class uploadFormDynamique extends Component {
 			<Grid>
 			  <Row>
 				<Col>  
-					<Text key={items_names[i]} style={styles.upload_dynamic}> {data.key}</Text>
+					<Text key={data.key} style={styles.upload_dynamic}> {data.key}</Text>
 				</Col>
 				<Col style={{ marginLeft:80}}>	
 				  <TextInput
@@ -188,7 +189,7 @@ export default class uploadFormDynamique extends Component {
 			<Grid>
 			  <Row>
 				<Col>
-					<Text key={items_names[i]} style={styles.upload_dynamic}>{data.key}</Text>
+					<Text key={data.key} style={styles.upload_dynamic}>{data.key}</Text>
 				</Col>
 				<Col style={{ marginLeft:80}}>
 					<TextInput
