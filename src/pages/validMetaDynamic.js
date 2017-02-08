@@ -114,7 +114,7 @@ export default class validMetaDynamic extends Component {
 		})
 		const rnfbURI= RNFetchBlob.wrap(path);
 		// create Blob from file path
-		Blob
+/* 		Blob
 			.build(rnfbURI, { type : 'image/jpg;'})
 			.then((blob) => {
 			  // upload image using Firebase SDK
@@ -132,27 +132,42 @@ export default class validMetaDynamic extends Component {
 				  blob.close();
 				  let downloadURL = uploadTask.snapshot.downloadURL;
 				  alert("done uploading",downloadURL);
-				});
+				}); */
 				/*-----Add to firebase databse method ----*/
 					//and store image name
 					let compte_rendu=new Date();
 					//create a JSON array from a javascript array
-					let myarray={};
+					let myarray_keys=[];
+					let myarray_values=[];
 					//create the JSON array all over again
-					let array_cat=[];		
+					let array_all=[];		
 					let items=[];
-					items=this.state.meta_arr;
-					this.state.meta_arr.forEach
-					/* for (var k in items){
-						if (items.hasOwnProperty(k)) {
-							alert(items[k]);
-							myarray={"value":items[k].value};	
-						}
-					} */
-					alert("this.state.meta_arr",myarray);
+					//items=this.state.meta_arr;
+					for (var k in this.state.meta_arr){
+						if (this.state.meta_arr.hasOwnProperty(k)) {
+							myarray_keys.push({this.state.meta_arr[k].criteria_name});	
+						}  
+					} 
+					for (var k in this.state.meta_arr){
+						if (this.state.meta_arr.hasOwnProperty(k)) {
+							myarray_values.push({"value":this.state.meta_arr[k].value});	
+						}  
+					} 
+					/*merge both arrays*/
+					for (var key in myarray_keys){
+						for (var value in myarray_values){
+							alert(key);
+							
+							array_all.push({"value":key.value});
+						}	
+					}	
+						
+					alert(JSON.stringify(myarray_keys));
+					//alert(JSON.stringify(myarray_values));
+					//alert(this.state.meta_arr[0].value);
 					myarray=JSON.stringify(this.state.meta_arr);
 					let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
-					AsyncStorage.getItem('id').then((idd)=>{
+/* 					AsyncStorage.getItem('id').then((idd)=>{
 						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set();
 						//upadet medical folder data
 						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
@@ -163,8 +178,8 @@ export default class validMetaDynamic extends Component {
 						this.props.navigator.push({
 						  component: LastPageDynamic
 						});
-					});//end get category ID
-			})
+					});//end get category ID 
+			})*/
 	}
   renderRow(rowData,sectionID:number,rowID:number){
 	  /*for statement*/
