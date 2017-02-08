@@ -69,18 +69,17 @@ export default class validMetaDynamic extends Component {
 	componentDidMount(){
 		AsyncStorage.getItem('med_pat_file_location_image_data').then((med_pat_file_location_image_dataa) => {
 			const arr =JSON.parse(med_pat_file_location_image_dataa);
-			alert(med_pat_file_location_image_dataa);
+			alert("my data",med_pat_file_location_image_dataa);
 			this.setState({
 				array:arr,
 				dossier_id: arr.id_dossier,
 				medecin_id: arr.id_medecin,
 				patient_id: arr.id_patient,
-				category_id: arr.categoriet,
+				category_id: arr.categorie,
 				
 			});
 		});	
 		//get upload form dynamique data
-		/*dataSource: this.state.dataSource.cloneWithRows(arr)*/
 		AsyncStorage.getItem('valid_meta').then((valid_meta) => {
 			const array =JSON.parse(valid_meta);
 			alert(valid_meta);
@@ -115,7 +114,7 @@ export default class validMetaDynamic extends Component {
 		})
 		const rnfbURI= RNFetchBlob.wrap(path);
 		// create Blob from file path
-		Blob
+/* 		Blob
 			.build(rnfbURI, { type : 'image/jpg;'})
 			.then((blob) => {
 			  // upload image using Firebase SDK
@@ -133,14 +132,43 @@ export default class validMetaDynamic extends Component {
 				  blob.close();
 				  let downloadURL = uploadTask.snapshot.downloadURL;
 				  alert("done uploading",downloadURL);
-				});
+				}); */
 				/*-----Add to firebase databse method ----*/
 					//and store image name
 					let compte_rendu=new Date();
-					let myarray=JSON.stringify(this.state.meta_arr.push({"date_compte_rendu_consultation": compte_rendu.toString()}));
+					//create a JSON array from a javascript array
+					let myarray_keys=[];
+					let myarray_values=[];
+					//create the JSON array all over again
+					let array_all=[];		
+					let items=[];
+					//items=this.state.meta_arr;
+					for (var k in this.state.meta_arr){
+						if (this.state.meta_arr.hasOwnProperty(k)) {
+							myarray_keys.push({this.state.meta_arr[k].criteria_name});	
+						}  
+					} 
+					for (var k in this.state.meta_arr){
+						if (this.state.meta_arr.hasOwnProperty(k)) {
+							myarray_values.push({"value":this.state.meta_arr[k].value});	
+						}  
+					} 
+					/*merge both arrays*/
+					for (var key in myarray_keys){
+						for (var value in myarray_values){
+							alert(key);
+							
+							array_all.push({"value":key.value});
+						}	
+					}	
+						
+					alert(JSON.stringify(myarray_keys));
+					//alert(JSON.stringify(myarray_values));
+					//alert(this.state.meta_arr[0].value);
+					myarray=JSON.stringify(this.state.meta_arr);
 					let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
-					AsyncStorage.getItem('id').then((idd)=>{
-						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(myarray);
+/* 					AsyncStorage.getItem('id').then((idd)=>{
+						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set();
 						//upadet medical folder data
 						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
 						date_MAJ_dossier: compte_rendu.toString(),
@@ -150,8 +178,8 @@ export default class validMetaDynamic extends Component {
 						this.props.navigator.push({
 						  component: LastPageDynamic
 						});
-					});//end get category ID
-			})
+					});//end get category ID 
+			})*/
 	}
   renderRow(rowData,sectionID:number,rowID:number){
 	  /*for statement*/
