@@ -55,6 +55,7 @@ export default class takePic extends Component {
 			  component: UploadForm
 			}); 
 		  }else{
+			AsyncStorage.setItem('path', path);
 			this.props.navigator.push({
 			  component: UploadFormDynamique
 			}); 

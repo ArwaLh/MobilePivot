@@ -136,7 +136,7 @@ export default class validMetaDynamic extends Component {
 				});    
 				/*-----Add to firebase databse method ----*/
 					//and store image name
-					let compte_rendu=new Date();
+					let compte_rendu                 =new Date();
 					//create a JSON array from a javascript array
 					let myarray_keys=[];
 					let myarray_values=[];
@@ -163,7 +163,6 @@ export default class validMetaDynamic extends Component {
 					alert(obj);
 					array_all=JSON.parse(obj);
 					/*merge both arrays*/
-
 					//alert(JSON.stringify(myarray_values));
 					//alert(this.state.meta_arr[0].value);
 					myarray=JSON.stringify(this.state.meta_arr);

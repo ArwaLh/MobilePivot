@@ -43,12 +43,10 @@ export default class gestionNaevusDynamique extends Component {
 			prenom_pat: '',
 		};
 	}
-	componentWillMount(){
+	componentDidMount(){
 		//date_compte_rendu_consultation
 		AsyncStorage.getItem('med_pat_file').then((patient_medecin_arrayy_loc) => {
 			const arr=JSON.parse(patient_medecin_arrayy_loc);
-			alert(arr.emplacement);
-			alert(arr.id_medecin);
 			this.setState({
 				med_pat_filee:arr,
 				id_doc:arr
@@ -56,8 +54,17 @@ export default class gestionNaevusDynamique extends Component {
 			//get images data
 			this.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossiers_medicaux').child(arr.id_dossier).child("images").on('value', (snap) => {
 				// get children as an array
+				let array_cat=[];		
+				let items=[];
+				items=snap.val();
+				for (var k in items){
+					if (items.hasOwnProperty(k)) {
+						 array_cat.push({"key":k,"value":items[k]});	
+					}
+				}
+				alert(JSON.stringify(snap.val()));
 				this.setState({
-				  dataSource: this.state.dataSource.cloneWithRows(snap.val()),
+				  dataSource: this.state.dataSource.cloneWithRows(array_cat),
 				});
 			});
 		});
