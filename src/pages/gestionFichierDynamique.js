@@ -44,12 +44,10 @@ export default class gestionNaevusDynamique extends Component {
 			prenom_pat: '',
 		};
 	}
-	componentWillMount(){
+	componentDidMount(){
 		//date_compte_rendu_consultation
 		AsyncStorage.getItem('med_pat_file').then((patient_medecin_arrayy_loc) => {
 			const arr=JSON.parse(patient_medecin_arrayy_loc);
-			alert(arr.emplacement);
-			alert(arr.id_medecin);
 			this.setState({
 				med_pat_filee:arr,
 				id_doc:arr
@@ -58,8 +56,17 @@ export default class gestionNaevusDynamique extends Component {
 			this.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossiers_medicaux').child(arr.id_dossier).child("images").on('child_added', (snap) => {
 				//let items=[];
 				// get children as an array
+				let array_cat=[];		
+				let items=[];
+				items=snap.val();
+				for (var k in items){
+					if (items.hasOwnProperty(k)) {
+						 array_cat.push({"key":k,"value":items[k]});	
+					}
+				}
+				alert(JSON.stringify(snap.val()));
 				this.setState({
-				  dataSource: this.state.dataSource.cloneWithRows(snap.val()),
+				  dataSource: this.state.dataSource.cloneWithRows(array_cat),
 				});
 			});
 		});
@@ -97,6 +104,22 @@ export default class gestionNaevusDynamique extends Component {
 						</Col>
 					</Grid>
 				</ListItem>	
+				<ListView dataSource={this.state.dataSource}
+					enableEmptySections={true}
+					renderRow={(rowData) => 
+						<List style={{backgroundColor:'white',height:190, borderColor:'#29235c'}}>
+							<ListItem style={{height:190, borderColor:'#29235c', width:340, paddingTop:0}}>
+								<Grid>
+									<Col style={{width:70, marginTop:40,padding:20}}>
+									<Image style={{width:65,height:80}} source={{uri:'http://localhost:8081/img/Icfichier.png'}}/>
+									</Col>
+									<Col style={{width:230,height:190, marginLeft:30,marginTop:30}}>				
+										<Text style={styles.listViewText1}>Date de consultation:<Text style={styles.listViewText2}>{rowData.value.date_compte_rendu_consultation}</Text></Text>
+									</Col>
+								</Grid>
+							</ListItem>
+						</List>
+				} style={{backgroundColor: 'white',marginLeft:30}}/>
 				<List style={{backgroundColor: 'white',height:100}}>
 					<ListItem>
 						<Button style={{height:120}} onPress={this.nouveau_fichier.bind(this)}transparent>

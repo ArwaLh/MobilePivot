@@ -12,6 +12,7 @@ import {
   Dimensions,
   StyleSheet,
   Text,
+  Linking,
   Image,
   ListView,
   BackAndroid,
@@ -23,7 +24,7 @@ import styles from '../styles/common-styles.js';
 import {List, ListItem, Button} from 'native-base';
 import GestionPatient from './gestionPatient';
 import Hr from 'react-native-hr';
-import uploadFormDynamique from './uploadFormDynamique';
+import TakePic from './takePic';
 import firebase from 'firebase';
 
 export default class lastPageDynamic extends Component {
@@ -40,7 +41,7 @@ export default class lastPageDynamic extends Component {
 	}
 	retour_categorie(){
 		this.props.navigator.push({
-          component: uploadFormDynamique
+          component: TakePic
         }); 
 	}
   goBack() {
