@@ -30,10 +30,9 @@ export default class gestionNaevusDynamique extends Component {
 	constructor (props) {
 		super(props);
 		this.itemsRef = firebase.database().ref();
+		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
-			dataSource: new ListView.DataSource({
-			  rowHasChanged: (row1, row2) => row1 !== row2,
-			}),
+			dataSource: ds.cloneWithRows(['row 1', 'row 2']),
 			patient: null,
 			id_doc:"",
 			dossiers_medicaux: [],
@@ -55,8 +54,7 @@ export default class gestionNaevusDynamique extends Component {
 				id_doc:arr
 			});
 			//get images data
-			this.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossiers_medicaux').child(arr.id_dossier).child("images").on('child_added', (snap) => {
-				//let items=[];
+			this.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossiers_medicaux').child(arr.id_dossier).child("images").on('value', (snap) => {
 				// get children as an array
 				this.setState({
 				  dataSource: this.state.dataSource.cloneWithRows(snap.val()),
@@ -106,8 +104,8 @@ export default class gestionNaevusDynamique extends Component {
 									<Col style={{width:70, marginTop:40,padding:20}}>
 									<Image style={{width:65,height:80}} source={{uri:'http://localhost:8081/img/Icfichier.png'}}/>
 									</Col>
-									<Col style={{width:230,height:190, marginLeft:30,marginTop:30}}>				
-										<Text style={styles.listViewText1}>Date de consultation:<Text style={styles.listViewText2}>{rowData.date_compte_rendu_consultation.substring(0,24)}</Text></Text>
+									<Col style={{width:230,height:190, marginLeft:30,marginTop:70}}>				
+										<Text style={styles.listViewText1}>Date de consultation:<Text style={styles.listViewText2}>{rowData.date_compte_rendu_consultation}</Text></Text>
 									</Col>
 								</Grid>
 							</ListItem>

@@ -109,6 +109,7 @@ export default class validMetaDynamic extends Component {
             console.log('firebase sigin failed', err)
           })
 
+		  
 		firebase.auth().onAuthStateChanged((user) => {
 			<Text>{JSON.stringify(user)}</Text>
 		})
