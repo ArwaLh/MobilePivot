@@ -56,17 +56,9 @@ export default class gestionNaevusDynamique extends Component {
 			this.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossiers_medicaux').child(arr.id_dossier).child("images").on('child_added', (snap) => {
 				//let items=[];
 				// get children as an array
-				let array_cat=[];		
-				let items=[];
-				items=snap.val();
-				for (var k in items){
-					if (items.hasOwnProperty(k)) {
-						 array_cat.push({"key":k,"value":items[k]});	
-					}
-				}
 				alert(JSON.stringify(snap.val()));
 				this.setState({
-				  dataSource: this.state.dataSource.cloneWithRows(array_cat),
+				  dataSource: this.state.dataSource.cloneWithRows(snap.val()),
 				});
 			});
 		});
@@ -114,7 +106,7 @@ export default class gestionNaevusDynamique extends Component {
 									<Image style={{width:65,height:80}} source={{uri:'http://localhost:8081/img/Icfichier.png'}}/>
 									</Col>
 									<Col style={{width:230,height:190, marginLeft:30,marginTop:30}}>				
-										<Text style={styles.listViewText1}>Date de consultation:<Text style={styles.listViewText2}>{rowData.value.date_compte_rendu_consultation}</Text></Text>
+										<Text style={styles.listViewText1}>Date de consultation:<Text style={styles.listViewText2}>{rowData}</Text></Text>
 									</Col>
 								</Grid>
 							</ListItem>
