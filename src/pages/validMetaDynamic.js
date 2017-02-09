@@ -96,7 +96,7 @@ export default class validMetaDynamic extends Component {
 		});			
 	}
 	
-	validate(){
+  validate(){
 		let id_medecin=this.state.medecin_id;
 		let id_patient=this.state.patient_id;
 		let id_dossier=this.state.dossier_id;
@@ -114,7 +114,7 @@ export default class validMetaDynamic extends Component {
 		})
 		const rnfbURI= RNFetchBlob.wrap(path);
 		// create Blob from file path
-/* 		Blob
+/*    		Blob
 			.build(rnfbURI, { type : 'image/jpg;'})
 			.then((blob) => {
 			  // upload image using Firebase SDK
@@ -132,7 +132,7 @@ export default class validMetaDynamic extends Component {
 				  blob.close();
 				  let downloadURL = uploadTask.snapshot.downloadURL;
 				  alert("done uploading",downloadURL);
-				}); */
+				});   */ 
 				/*-----Add to firebase databse method ----*/
 					//and store image name
 					let compte_rendu=new Date();
@@ -145,42 +145,42 @@ export default class validMetaDynamic extends Component {
 					//items=this.state.meta_arr;
 					for (var k in this.state.meta_arr){
 						if (this.state.meta_arr.hasOwnProperty(k)) {
-							myarray_keys.push({this.state.meta_arr[k].criteria_name});	
+							myarray_keys.push(this.state.meta_arr[k].criteria_name);	
 						}  
 					} 
 					for (var k in this.state.meta_arr){
 						if (this.state.meta_arr.hasOwnProperty(k)) {
-							myarray_values.push({"value":this.state.meta_arr[k].value});	
+							myarray_values.push(this.state.meta_arr[k].value);	
 						}  
 					} 
+					let obj ="{"
+					for (var i =0; i < myarray_values.length;i++){
+					obj+=JSON.stringify(myarray_keys[i])+":"+JSON.stringify(myarray_values[i])+",";
+	
+					}
+					obj+=JSON.stringify("date_compte_rendu_consultation")+":"+JSON.stringify(compte_rendu.toString())+"}";
+					alert(obj);
+					array_all=JSON.parse(obj);
 					/*merge both arrays*/
-					for (var key in myarray_keys){
-						for (var value in myarray_values){
-							alert(key);
-							
-							array_all.push({"value":key.value});
-						}	
-					}	
-						
-					alert(JSON.stringify(myarray_keys));
+
 					//alert(JSON.stringify(myarray_values));
 					//alert(this.state.meta_arr[0].value);
 					myarray=JSON.stringify(this.state.meta_arr);
 					let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
-/* 					AsyncStorage.getItem('id').then((idd)=>{
-						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set();
+  					AsyncStorage.getItem('id').then((idd)=>{
+						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(array_all);
 						//upadet medical folder data
 						this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
 						date_MAJ_dossier: compte_rendu.toString(),
 						nombre_images_dossier: my_array.nombre_images_dossier+1,
 						emplacement: my_array.emplacement
 						});
-						this.props.navigator.push({
+						/*this.props.navigator.push({
 						  component: LastPageDynamic
-						});
+						});*/
 					});//end get category ID 
-			})*/
-	}
+			//}) */ 
+  }
   renderRow(rowData,sectionID:number,rowID:number){
 	  /*for statement*/
 	return (
