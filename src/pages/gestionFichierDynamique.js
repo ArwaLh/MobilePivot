@@ -97,6 +97,22 @@ export default class gestionNaevusDynamique extends Component {
 						</Col>
 					</Grid>
 				</ListItem>	
+				<ListView dataSource={this.state.dataSource}
+					enableEmptySections={true}
+					renderRow={(rowData) => 
+						<List style={{backgroundColor:'white',height:190, borderColor:'#29235c'}}>
+							<ListItem style={{height:190, borderColor:'#29235c', width:340, paddingTop:0}}>
+								<Grid>
+									<Col style={{width:70, marginTop:40,padding:20}}>
+									<Image style={{width:65,height:80}} source={{uri:'http://localhost:8081/img/Icfichier.png'}}/>
+									</Col>
+									<Col style={{width:230,height:190, marginLeft:30,marginTop:30}}>				
+										<Text style={styles.listViewText1}>Date de consultation:<Text style={styles.listViewText2}>{rowData.date_compte_rendu_consultation.substring(0,24)}</Text></Text>
+									</Col>
+								</Grid>
+							</ListItem>
+						</List>
+				} style={{backgroundColor: 'white',marginLeft:30}}/>
 				<List style={{backgroundColor: 'white',height:100}}>
 					<ListItem>
 						<Button style={{height:120}} onPress={this.nouveau_fichier.bind(this)}transparent>
