@@ -123,6 +123,7 @@ export default class uploadFormDynamique extends Component {
 		return true;
 	}
   render() {
+	  
 	 let items_names=new Array(this.state.list_length);
 	for (var i = 0; i< this.state.list_length; i++){
 		items_names[i]="state"+i;
