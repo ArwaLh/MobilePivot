@@ -114,7 +114,7 @@ export default class validMetaDynamic extends Component {
 		})
 		const rnfbURI= RNFetchBlob.wrap(path);
 		// create Blob from file path
-/*    		Blob
+   		Blob
 			.build(rnfbURI, { type : 'image/jpg;'})
 			.then((blob) => {
 			  // upload image using Firebase SDK
@@ -132,7 +132,7 @@ export default class validMetaDynamic extends Component {
 				  blob.close();
 				  let downloadURL = uploadTask.snapshot.downloadURL;
 				  alert("done uploading",downloadURL);
-				});   */ 
+				});    
 				/*-----Add to firebase databse method ----*/
 					//and store image name
 					let compte_rendu=new Date();
@@ -175,11 +175,11 @@ export default class validMetaDynamic extends Component {
 						nombre_images_dossier: my_array.nombre_images_dossier+1,
 						emplacement: my_array.emplacement
 						});
-						/*this.props.navigator.push({
+						this.props.navigator.push({
 						  component: LastPageDynamic
-						});*/
+						});
 					});//end get category ID 
-			//}) */ 
+			})  
   }
   renderRow(rowData,sectionID:number,rowID:number){
 	  /*for statement*/
