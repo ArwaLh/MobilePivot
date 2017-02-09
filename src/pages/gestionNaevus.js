@@ -48,7 +48,7 @@ export default class gestionNaevus extends Component {
 	componentDidMount(){
 		AsyncStorage.getItem('medecin_patient').then((patient_medecin_arrayy) => {
 			const arr=JSON.parse(patient_medecin_arrayy);
-			this.itemsRef.child('medecins').child(arr.medecin_id).child('patients').child(arr.patient_id).child('dossiers_medicaux').on('value', (snap) => {
+			this.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossiers_medicaux').on('value', (snap) => {
 			let items=[];
 			// get children as an array
 			snap.forEach((child) => {
@@ -66,8 +66,8 @@ export default class gestionNaevus extends Component {
 			});
 			this.setState({
 			  dataSource: this.state.dataSource.cloneWithRows(items),
-			  patient_id: arr.patient_id,
-			  medecin_id: arr.medecin_id,
+			  patient_id: arr.id_patient,
+			  medecin_id: arr.id_medecin,
 			  category_id: arr.categorie,
 			});
 			//const patients_array = items;
@@ -75,7 +75,7 @@ export default class gestionNaevus extends Component {
 			this.setState({ dossiers_medicaux });
 			});
 			let patient_a=null;
-			this.itemsRef.child('medecins').child(arr.medecin_id).child('patients').orderByKey().equalTo(arr.patient_id).once("child_added", function(snapshot) {
+			this.itemsRef.child('medecins').child(arr.id_medecin).child('patients').orderByKey().equalTo(arr.id_patient).once("child_added", function(snapshot) {
 				patient_a = snapshot.val(); 
 			});
 			alert(patient_a);
