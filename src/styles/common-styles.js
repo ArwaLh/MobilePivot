@@ -388,6 +388,18 @@ module.exports = StyleSheet.create({
 	marginTop:10
   },
   /*Upload Form*/
+  
+  /*Valid meta Dynamic*/
+   send_button_valid_meta_dyn:{
+	flex:9,
+	backgroundColor: "#29235c",
+	width:130,
+	height:37,
+	marginLeft:70,
+	marginTop:8,
+	alignItems:'center'
+  },
+  /*Valid meta Dynamic*/
   go_to_valid_meta_button:{
 	flex:9,
 	backgroundColor: "#29235c",

@@ -211,7 +211,7 @@ export default class validMetaDynamic extends Component {
 				<Col>	
 					<Button
 						onPress={this.validate}
-						style={styles.send_button_valid_meta}
+						style={styles.send_button_valid_meta_dyn}
 						textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
 				</Col>
 			</Row>	

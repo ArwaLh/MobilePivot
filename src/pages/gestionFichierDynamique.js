@@ -53,11 +53,14 @@ export default class gestionNaevusDynamique extends Component {
 			});
 			//get images data
 			this.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossiers_medicaux').child(arr.id_dossier).child("images").on('value', (snap) => {
+				if(snap.val()==undefined){
+					alert("Vous n'avez pas des fichiers")
+				}else{
 				// get children as an array
-				alert(JSON.stringify(snap.val()));
 				this.setState({
 				  dataSource: this.state.dataSource.cloneWithRows(snap.val()),
 				});
+				}
 			});
 		});
 	}
@@ -95,7 +98,7 @@ export default class gestionNaevusDynamique extends Component {
 					</Grid>
 				</ListItem>	
 				<ListView dataSource={this.state.dataSource}
-					enableEmptySections={true}
+					enableEmptySections={false}
 					renderRow={(rowData) => 
 						<List style={{backgroundColor:'white',height:190, borderColor:'#29235c'}}>
 							<ListItem style={{height:190, borderColor:'#29235c', width:340, paddingTop:0}}>
