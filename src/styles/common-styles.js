@@ -104,8 +104,8 @@ module.exports = StyleSheet.create({
   image_last_one: {
 	width:150,
 	height:150,
-	marginTop:20,
-	marginLeft:90
+	marginTop:60,
+	marginLeft:100
   },
   /* end last interface */
   transparent_button: {
@@ -395,7 +395,7 @@ module.exports = StyleSheet.create({
 	backgroundColor: "#29235c",
 	width:130,
 	height:37,
-	marginLeft:70,
+	marginLeft:80,
 	marginTop:8,
 	alignItems:'center'
   },

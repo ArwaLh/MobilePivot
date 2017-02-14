@@ -126,7 +126,7 @@ export default class uploadFormDynamique extends Component {
 	  
 	 let items_names=new Array(this.state.list_length);
 	for (var i = 0; i< this.state.list_length; i++){
-		items_names[i]="state"+i;
+		items_names[i]="";
 	}
 	let Arr = this.state.my_textinput_array.map((data) => {
       return (
@@ -136,12 +136,11 @@ export default class uploadFormDynamique extends Component {
 			<Grid>
 			  <Row>
 				<Col>  
-					<Text key={data.key} style={styles.upload_dynamic}> {data.key}</Text>
+					<Text style={styles.upload_dynamic}> {data.key}</Text>
 				</Col>
 				<Col style={{ marginLeft:80}}>	
                    <Picker 
 						style={{width:100, color:"#29235c",marginTop:10}}
-						key={data.key}
 						mode="dropdown"
 						selectedValue={items_names[i]}
 						onValueChange={(value) => {
@@ -161,11 +160,10 @@ export default class uploadFormDynamique extends Component {
 			<Grid>
 			  <Row>
 				<Col>  
-					<Text key={data.key} style={styles.upload_dynamic}> {data.key}</Text>
+					<Text style={styles.upload_dynamic}> {data.key}</Text>
 				</Col>
 				<Col style={{ marginLeft:80}}>	
 				  <TextInput
-					key={data.key}
 					placeholder={data.key}
 					style={{width:100, textAlign :"left"}}
 					keyboardType='numbers-and-punctuation'
@@ -190,11 +188,10 @@ export default class uploadFormDynamique extends Component {
 			<Grid>
 			  <Row>
 				<Col>
-					<Text key={data.key} style={styles.upload_dynamic}>{data.key}</Text>
+					<Text style={styles.upload_dynamic}>{data.key}</Text>
 				</Col>
 				<Col style={{ marginLeft:80}}>
 					<TextInput
-						key={data.key}
 						placeholder={data.key}
 						keyboardType="default"
 						value={items_names[i]}

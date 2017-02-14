@@ -49,12 +49,6 @@ export default class lastOne extends Component {
 	<View>
 		<Header text="Katomi SKIN" loaded={true}/>
 		<Image style={styles.image_last_one} source={{uri:'http://localhost:8081/img/last.png'}}/>
-		<Text style={styles.text_last_one}> Vous pouvez retourner sur la liste {"\n"}des catégories</Text>	
-		<Button
-			onPress={this.retour_categorie}
-			style={styles.button_last}
-			textStyle={styles.text_return_btn_last_one}>Liste des catégories</Button>
-			<Hr lineColor='#29235c' line={{width:10}}/>
 		<Text style={styles.text_last_one}> Rendez-vous sur notre site {"\n"}web Katomi </Text>			
 		<Text style={styles.text_last_one_link}
 			onPress={() => Linking.openURL('https://osereso.tn/')}>
