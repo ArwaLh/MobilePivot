@@ -59,11 +59,10 @@ export default class categories extends Component {
 					 array_cat.push({"key":k,"value":items[k].nom_categorie});	
 				}
 			}
-				this.setState({
-				  dataSource: this.state.dataSource.cloneWithRows(array_cat),
-				});
+			this.setState({
+				dataSource: this.state.dataSource.cloneWithRows(array_cat),
 			});
-			
+			});
 		});
 	} 
   render() {

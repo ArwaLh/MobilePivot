@@ -17,7 +17,7 @@ export default class header extends Component {
     return (
       <View style={styles.header}>
         <View style={styles.header_item}>
-			<Image style={{width:25,height:25,flex:1}} source={{uri:'http://localhost:8081/img/k.png'}}></Image>
+			<Image style={{width:37,height:37,flex:1,margin:0,padding:0}} source={{uri:'http://localhost:8081/img/katomi_interne.png'}}></Image>
         </View>
 		<View style={styles.header_item_text}>
 			<Text style={styles.header_text}>{this.props.text}</Text>
@@ -43,10 +43,9 @@ const styles = StyleSheet.create({
   },
   header_item: {
 	position: 'relative',
-	paddingBottom: 3,
 	marginRight: 20,
-	height:30,
-	width:30
+	height:37,
+	width:37
   },
   header_item_text: {
 	position: 'relative',
