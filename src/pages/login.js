@@ -35,12 +35,7 @@ export default class login extends Component {
     this.state = {
       email_medecin: '',
       password: '',
-      loaded: true,
-	  secureTextEntry: true,
-	  medecin_id:"",
-	  id: [],
-	  all_arrays:[],
-	  all_array:[]
+	  secureTextEntry: true
     }
 	this.login=this.login.bind(this);
   }
