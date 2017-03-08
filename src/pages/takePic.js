@@ -22,7 +22,6 @@ export default class takePic extends Component {
   constructor(props) {
     super(props);
     this.camera = null;
-
     this.state = {
       camera: {
         aspect: Camera.constants.Aspect.stretch,
@@ -152,8 +151,6 @@ export default class takePic extends Component {
     console.log('Barcode: ' + e.data);
     console.log('Type: ' + e.type);
   }
-
-
   render() {
     return (
       <View style={styles.container}>

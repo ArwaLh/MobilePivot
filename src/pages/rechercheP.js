@@ -6,92 +6,84 @@
 
 import React, { Component } from 'react';
 import {
-  ScrollView,
   AppRegistry,
   AsyncStorage,
   Dimensions,
-  StyleSheet,
   Text,
-  Image,
-  TextInput,
   BackAndroid,
-  TouchableOpacity,
-  TouchableHighlight,
   View
 } from 'react-native';
+
 import HeaderSearch from '../components/headerSearch';
 import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
-import {InputGroup, Input, Button, Card, CardItem, Header, List,ListItem} from 'native-base';
-import TakePic from './takePic';
+import {Button} from 'native-base';
 import GestionNaevus from './gestionNaevus';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import firebase from 'firebase';
 import Autocomplete from 'react-native-autocomplete-input';
+
 export default class rechercheP extends Component {
-	constructor(props){
+  constructor(props){
     super(props);
 	this.itemsRef = firebase.database().ref();
 	AsyncStorage.multiRemove(["patient_id","medecin_patient"]);
-		this.state = {
-		  patients_array: [],
-		  query: '',
-		  id: ''
-		};
-		this.goBack = this.goBack.bind(this);
-		this.gestionNaevus = this.gestionNaevus.bind(this);
+	this.state = {
+	  patients_array: [],
+	  query: '',
+	  id: ''
+	};
+	this.goBack = this.goBack.bind(this);
+	this.gestionNaevus = this.gestionNaevus.bind(this);
+  }
+  gestionNaevus(){
+	let patient_id='';
+	if (this.state.query === '') {
+	  return [];//do nothing whenever the query is empty
 	}
-	gestionNaevus(){
-		alert(this.state.username_med);
-		let patient_id='';
-		if (this.state.query === '') {
-		  return [];//do nothing whenever the query is empty
-		}
-		this.itemsRef.child('medecins').child(this.state.username_med).child('patients').orderByChild('nom_pat').equalTo(this.state.query.substring(0,this.state.query.indexOf(" "))).on("child_added", function(snapshot) {
-			patient_id=snapshot.key;
-		});
-		AsyncStorage.setItem("medecin_patient",JSON.stringify({"id_patient":patient_id,"id_medecin":this.state.username_med,"categorie":this.state.id}));
-		this.props.navigator.push({
-        component: GestionNaevus
-        }); 
-	}
-	goBack() {
-		this.props.navigator.pop();
-		return true; // do not exit app
-	}
-	componentDidMount(){
-		//recherche par l'id du categorie!!!
-		AsyncStorage.getItem('id').then((idd) => {
-		this.setState({
-			id: idd
-			        });
-		});
-		//asynchronous storage for medecin id
-		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
-			alert(medecin_usernamee);
-			this.setState({
-				username_med:medecin_usernamee
+	this.itemsRef.child('medecins').child(this.state.username_med).child('patients').orderByChild('nom_pat').equalTo(this.state.query.substring(0,this.state.query.indexOf(" "))).on("child_added", function(snapshot) {
+		patient_id=snapshot.key;
+	});
+	AsyncStorage.setItem("medecin_patient",JSON.stringify({"id_patient":patient_id,"id_medecin":this.state.username_med,"categorie":this.state.id}));
+	this.props.navigator.push({
+       component: GestionNaevus
+    }); 
+  }
+  goBack() {
+	this.props.navigator.pop();
+	return true; // do not exit app
+  }
+  componentDidMount(){
+	//recherche par l'id du categorie!!!
+	AsyncStorage.getItem('id').then((idd) => {
+	  this.setState({
+		id: idd
+	 });
+	});
+	//asynchronous storage for medecin id
+	AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
+	  this.setState({
+			username_med:medecin_usernamee
+	  });
+	  //get patients list
+	  this.itemsRef.child('medecins').child(medecin_usernamee).child("patients").on('value', (snap) => {
+		let items=[];
+		// get children as an array
+		snap.forEach((child) => {
+			items.push({
+				nom_pat: child.val().nom_pat,
+				prenom_pat: child.val().prenom_pat,
+				id: child.val().id,
+				telephone_patient: child.val().telephone_patient,
+				_key: child.key,
 			});
-		//get patients list
-		this.itemsRef.child('medecins').child(medecin_usernamee).child("patients").on('value', (snap) => {
-				let items=[];
-				// get children as an array
-				snap.forEach((child) => {
-					items.push({
-						nom_pat: child.val().nom_pat,
-						prenom_pat: child.val().prenom_pat,
-						id: child.val().id,
-						telephone_patient: child.val().telephone_patient,
-						_key: child.key,
-					});
-				});
-				//const patients_array = items;
-				const patients_array = items; 
-				this.setState({ patients_array });
-			});
-		});	
-   }
-	findPatient(query) {
+		});
+		//const patients_array = items;
+		const patients_array = items; 
+		this.setState({ patients_array });
+	  });
+	});	
+  }
+  findPatient(query) {
 	//this method is called whenever the user is typing
     if (query === '') {
       return [];
@@ -117,18 +109,18 @@ export default class rechercheP extends Component {
 		 -Saisissez le nom et prénom du patient {"\n"}
 		 -Sélectionnez le dossier patient
 		</Text>
-        <Autocomplete
-			ref="autocomplete"
-			autoCapitalize="none"
-			autoCorrect={false}
-			containerStyle={styles.autocompleteContainer}
-			inputContainerStyle={styles.autocompleteInput}
-			data={patients_array.length === 1 && comp(query, patients_array[0].nom_pat,  patients_array[0].prenom_pat) ? [] : patients_array}
-			defaultValue={query}
-			onChangeText={text => this.setState({ query: text })}
-			placeholder="Nom & Prénom"
-			renderItem={({ nom_pat,prenom_pat,telephone_patient }) => (
-			  <List>
+		<Autocomplete
+		  ref="autocomplete"
+		  autoCapitalize="none"
+		  autoCorrect={false}
+		  containerStyle={styles.autocompleteContainer}
+		  inputContainerStyle={styles.autocompleteInput}
+		  data={patients_array.length === 1 && comp(query, patients_array[0].nom_pat,  patients_array[0].prenom_pat) ? [] : patients_array}
+		  defaultValue={query}
+		  onChangeText={text => this.setState({ query: text })}
+		  placeholder="Nom & Prénom"
+		  renderItem={({ nom_pat,prenom_pat,telephone_patient }) => (
+			<List>
 			  <ListItem style={{height:60}}>
 				<Button onPress={() => {this.setState({ query: nom_pat+" "+prenom_pat})}} transparent>
 				  <Text style={styles.itemText}>
@@ -139,13 +131,13 @@ export default class rechercheP extends Component {
 				  </Text>
 				</Button>
 			  </ListItem>
-			  </List>
-				)}
+			</List>
+		  )}
 		/>	
 		<Button
-			onPress={this.gestionNaevus}
-			style={styles.primary_button_naevus}
-			textStyle={styles.primary_button_text}>Gérer dossier</Button>
+		  onPress={this.gestionNaevus}
+		  style={styles.primary_button_naevus}
+		  textStyle={styles.primary_button_text}>Gérer dossier</Button>
       </View>
     );
   }
