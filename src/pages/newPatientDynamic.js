@@ -189,21 +189,21 @@ export default class newPatientDynamic extends Component {
 					dateText: {
 						color: '#333'
 					},
-					  placeholderText: {
+					placeholderText: {
 						color: '#29235c'
-					  },
-					  datePickerMask: {
+					},
+					datePickerMask: {
 						flex: 1,
 						alignItems: 'flex-end',
 						flexDirection: 'row',
 						backgroundColor: '#00000077'
-					  },
-					  datePickerCon: {
+					},
+					datePickerCon: {
 						backgroundColor: '#fff',
 						height: 0,
 						overflow: 'hidden'
-					  },
-					  btnText: {
+					},
+					btnText: {
 						position: 'absolute',
 						top: 0,
 						height: 42,
@@ -211,31 +211,31 @@ export default class newPatientDynamic extends Component {
 						flexDirection: 'row',
 						alignItems: 'center',
 						justifyContent: 'center'
-					  },
-					  btnTextText: {
+					},
+					btnTextText: {
 						fontSize: 16,
 						color: '#29235c'
-					  },
-					  btnTextCancel: {
+					},
+					btnTextCancel: {
 						color: '#29235c'
-					  },
-					  btnCancel: {
+					},
+					btnCancel: {
 						left: 0
-					  },
-					  btnConfirm: {
+					},
+					btnConfirm: {
 						right: 0
-					  },
-					  datePicker: {
+					},
+					datePicker: {
 						marginTop: 42,
 						borderTopColor: '#ccc',
 						borderTopWidth: 1,
 						backgroundColor: '#29235c'
-					  },
-					  disabled: {
+					},
+					disabled: {
 						backgroundColor: '#eee'
-					  }
-					}}
-					onDateChange={(date) => {this.setState({dateNaissance_pat: date})}}
+					}
+				  }}
+				onDateChange={(date) => {this.setState({dateNaissance_pat: date})}}
 				/>
 			  </Col>
 			 </Grid>
