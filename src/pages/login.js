@@ -129,7 +129,6 @@ export default class login extends Component {
 	const auth=firebase.auth();
     auth.signInWithEmailAndPassword(this.state.email_medecin,this.state.password).then((user_data) =>{
 		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(this.state.email_medecin).on("child_added", (snapshot)=> {
-			alert(JSON.stringify(snapshot.key));
 			AsyncStorage.setItem('medecin_username', snapshot.key);
 			this.itemsRef.child('categories').child(snapshot.key).on("value", (snap)=> {
 				if(snap.val()==null || Object.keys(snap.val()).length==1){
