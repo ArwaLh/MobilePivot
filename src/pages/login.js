@@ -15,18 +15,15 @@ import {
   AsyncStorage
 } from 'react-native';
 import Header from '../components/header';
-
+import styles from '../styles/common-styles.js';
+import Hr from 'react-native-hr';
+import {Button} from 'native-base';
+import firebase from 'firebase';
+import dismissKeyboard from 'react-native-dismiss-keyboard';
 import Signup from './signup';
 import GestionPatient from './gestionPatient';
 import Categories from './categories';
 
-import styles from '../styles/common-styles.js';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Hr from 'react-native-hr';
-import {InputGroup, Input, Button} from 'native-base';
-import firebase from 'firebase';
-
-import dismissKeyboard from 'react-native-dismiss-keyboard';
 export default class login extends Component {
 
   constructor(props){
