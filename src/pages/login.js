@@ -19,8 +19,6 @@ import Header from '../components/header';
 import Signup from './signup';
 import GestionPatient from './gestionPatient';
 import Categories from './categories';
-import Categories2 from './Categories2';
-import UploadFormDynamique from './uploadFormDynamique';
 
 import styles from '../styles/common-styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
