@@ -28,7 +28,7 @@ const window = Dimensions.get('window');
 import TakePicture from './takePic';
 import * as firebase from 'firebase';
 export default class locatePic extends Component {
-	constructor(props){
+  constructor(props){
     super(props);
 	this.itemsRef=firebase.database().ref();
 		this.state = {
@@ -70,32 +70,32 @@ export default class locatePic extends Component {
 		this.localiser_main_droite=this.localiser_main_droite.bind(this);
 		this.localiser_jambe_gauche=this.localiser_jambe_gauche.bind(this);
 		this.localiser_jambe_droite=this.localiser_jambe_droite.bind(this);
-	}
-	localiser_tete(){
-		Alert.alert(
-		  'Vous avez sélectionné',
-		  'Tête',
-		  [
-			{text: 'Valider pour étape suivante', onPress: () =>{
-			//update dossier médical
-			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
-				const array=JSON.parse(med_pat_filee);
-				alert(array.id_dossier);
-				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({ 
-					emplacement:"Tête",
-					nombre_images_dossier:array.nombre_images_dossier
-					});
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
-					this.props.navigator.push({
-						component: TakePicture
-					});
+  }
+  localiser_tete(){
+	Alert.alert(
+	  'Vous avez sélectionné',
+	  'Tête',
+	  [
+		{text: 'Valider pour étape suivante', onPress: () =>{
+		  //update dossier médical
+		  AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
+			const array=JSON.parse(med_pat_filee);
+			alert(array.id_dossier);
+			this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({ 
+				emplacement:"Tête",
+				nombre_images_dossier:array.nombre_images_dossier
+				});
+			AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
+			this.props.navigator.push({
+				component: TakePicture
 			});
-			} 
-			}
-		  ]
-		) 
-	}
-	localiser_cou(){
+		  });
+		} 
+		}
+	  ]
+	) 
+  }
+  localiser_cou(){
 		Alert.alert(
 		  'Vous avez sélectionné',
 		  'Cou',
@@ -117,8 +117,8 @@ export default class locatePic extends Component {
 			}
 		  ]
 		)
-	}
-	localiser_nuque(){
+  }
+  localiser_nuque(){
 		Alert.alert(
 		  'Vous avez sélectionné',
 		  'Nuque',
@@ -140,8 +140,8 @@ export default class locatePic extends Component {
 			}
 		  ]
 		)
-	}
-	localiser_epaule_gauche(){
+  }
+  localiser_epaule_gauche(){
 		Alert.alert(
 		  'Vous avez sélectionné',
 		  'Épaule gauche',
@@ -163,8 +163,8 @@ export default class locatePic extends Component {
 			}
 		  ]
 		)
-	}
-	localiser_epaule_droite(){
+  }
+  localiser_epaule_droite(){
 		Alert.alert(
 		  'Vous avez sélectionné',
 		  'Épaule droite',
@@ -185,8 +185,8 @@ export default class locatePic extends Component {
 			}}		
 		  ]
 		)
-	}
-	localiser_thorax(){
+  }
+  localiser_thorax(){
 		Alert.alert(
 		  'Vous avez sélectionné',
 		  'Thorax',
@@ -207,8 +207,8 @@ export default class locatePic extends Component {
 			}}
 		  ]
 		)
-	}
-	localiser_abdomen(){
+  }
+  localiser_abdomen(){
 		Alert.alert(
 		  'Vous avez sélectionné',
 		  'Abdomen',
@@ -229,8 +229,8 @@ export default class locatePic extends Component {
 			}}
 		  ]
 		)
-	}
-	localiser_dos(){
+  }
+  localiser_dos(){
 		Alert.alert(
 		  'Vous avez sélectionné',
 		  'Dos',
@@ -251,8 +251,8 @@ export default class locatePic extends Component {
 			}}
 		  ]
 		)
-	}
-	localiser_main_gauche(){
+  }
+  localiser_main_gauche(){
 		Alert.alert(
 		  'Vous avez sélectionné',
 		  'Main gauche',
@@ -274,8 +274,8 @@ export default class locatePic extends Component {
 		  ]
 		)
 
-	}
-	localiser_main_droite(){
+  }
+  localiser_main_droite(){
 		Alert.alert(
 		  'Vous avez sélectionné',
 		  'Main droite',
@@ -297,8 +297,8 @@ export default class locatePic extends Component {
 		  ]
 		)
 
-	}
-	localiser_jambe_gauche(){
+  }
+  localiser_jambe_gauche(){
 		Alert.alert(
 		  'Vous avez sélectionné',
 		  'Jambe gauche',
@@ -320,8 +320,8 @@ export default class locatePic extends Component {
 		  ]
 		)
 
-	}
-	localiser_jambe_droite(){
+  }
+  localiser_jambe_droite(){
 		Alert.alert(
 		  'Vous avez sélectionné',
 		  'Jambe droite',
@@ -343,8 +343,8 @@ export default class locatePic extends Component {
 		  ]
 		)
 
-	}
-	face_avant(){
+  }
+  face_avant(){
 		this.setState({
 			uri_img: 'http://localhost:8081/img/Katomi-face-1.png',
 			cou: this.localiser_cou,
@@ -367,8 +367,8 @@ export default class locatePic extends Component {
 			text_main_droite: 'Main droite',
 			text_main_gauche: 'Main gauche',
 		});
-	}
-	face_arriere(){
+  }
+  face_arriere(){
 		this.setState({
 			uri_img: 'http://localhost:8081/img/Katomi-Face-2.png',
 			cou: this.localiser_nuque,
@@ -391,11 +391,11 @@ export default class locatePic extends Component {
 			text_main_droite: 'Main gauche',
 			text_main_gauche: 'Main droite',
 		});
-	}
-	goBack() {
+  }
+  goBack() {
 		this.props.navigator.pop();
 		return true; // do not exit app
-	}	
+  }	
   render() {
     return (
 	<View>
