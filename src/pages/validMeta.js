@@ -193,42 +193,42 @@ export default class validMeta extends Component {
 		</ListItem> 
 		<ListItem style={styles.list_MetaData}>   
 		  <Grid>
-				<Col>
-				<Text style={styles.metaDataForm}>SED </Text>
-				</Col>
-				<Col>
-					<Text style={styles.metaDataForm3} > {this.state.array.sed}</Text>
-				</Col> 
+			<Col>
+			  <Text style={styles.metaDataForm}>SED </Text>
+			</Col>
+			<Col>
+			  <Text style={styles.metaDataForm3} > {this.state.array.sed}</Text>
+			</Col> 
 		  </Grid>			 
 		</ListItem> 	  
 		<ListItem style={styles.list_MetaData}>   
 		  <Grid>
-				<Col>
-					<Text style={styles.metaDataForm}>Diamètre</Text> 
-				</Col>
-				<Col>
-					<Text style={styles.metaDataForm3}>{this.state.array.diametre}</Text>
-				</Col> 
+			<Col>
+			  <Text style={styles.metaDataForm}>Diamètre</Text> 
+			</Col>
+			<Col>
+			  <Text style={styles.metaDataForm3}>{this.state.array.diametre}</Text>
+			</Col> 
 		  </Grid>			 
 		</ListItem> 
 		<ListItem style={styles.list_MetaData}>   
 		  <Grid>
-				<Col>
-					<Text style={styles.metaDataForm}>Epaisseur</Text> 
-				</Col>
-				<Col>
-					<Text style={styles.metaDataForm3}> {this.state.array.epaisseur}</Text>
-				 </Col> 
+			<Col>
+			  <Text style={styles.metaDataForm}>Epaisseur</Text> 
+			</Col>
+			<Col>
+			  <Text style={styles.metaDataForm3}> {this.state.array.epaisseur}</Text>
+			</Col> 
 		  </Grid>			 
 		</ListItem>	 
 		<ListItem style={styles.list_MetaData}>   
 		  <Grid>
-				<Col>
-					<Text style={styles.metaDataForm}>Suspicion</Text> 
-				</Col>
-				<Col>
-					<Text style={styles.mélanomeF}> Mélanome: {this.state.array.suspicion}%</Text>
-				</Col> 
+			<Col>
+			  <Text style={styles.metaDataForm}>Suspicion</Text> 
+			</Col>
+			<Col>
+			  <Text style={styles.mélanomeF}> Mélanome: {this.state.array.suspicion}%</Text>
+			</Col> 
 		  </Grid>			 
 		</ListItem>	 	
 		<Grid>
