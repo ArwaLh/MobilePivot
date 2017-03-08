@@ -25,16 +25,14 @@ export default class signup extends Component {
 	  secureTextEntry: true,
 	  secureText: true,
 	  count_pass: 0,
-	  count_conf_pass: 0,
-	  items_med :[]
+	  count_conf_pass: 0
     };
 	this.signup=this.signup.bind(this);
   }
   componentDidMount(){
-	this.itemsRef.child("medecins").on("value", (snap) => {
+	this.itemsRef.child("medecins").once("value", (snap) => {
 		let items=[];
 		items=Object.keys(snap.val());
-		alert(items.length);
 		AsyncStorage.removeItem("medecins");
 		AsyncStorage.setItem("medecins",items.length.toString());
 	});
