@@ -153,13 +153,5 @@ export default class login extends Component {
     });
   }
 }
-const styles2 = StyleSheet.create({
-  body: {
-    flex: 9,
-    alignItems: 'center',
-	marginTop: 40,
-	backgroundColor: '#29255c'
-  },
-});
 
 AppRegistry.registerComponent('login', () => login);
