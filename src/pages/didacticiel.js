@@ -10,6 +10,7 @@ import {
 import Swiper from 'react-native-swiper';
 import Button from '../components/button';
 import Login from './login';
+
 const { width, height } = Dimensions.get('window');
 var styles = {
   wrapper: {
@@ -63,60 +64,57 @@ var styles = {
   },
 }
 export default class didacticiel extends Component {
-	constructor(props){
-		super(props);
-		this.state = {
-		  loaded: true
-		}
-	}
-	next(){
-		alert('Passer au didacticiel');
-	}
-	skip(){
-		this.props.navigator.push({
-          component: Login
-        });
-	}
-	componentDidMount() {
-        //the '.bind(this)' makes sure 'this' refers to 'ViewComponent'
-        BackAndroid.addEventListener('hardwareBackPress', function() {
-            this.props.navigator.pop();
-            return true;
-        }.bind(this));
-    }
-	render() {
-		return (
-			<View>
-			  <Swiper style={styles.wrapper}
-				dot={<View style={{backgroundColor: 'rgba(255,255,255,.3)', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
-				activeDot={<View style={{backgroundColor: '#fff', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
-				paginationStyle={{
-				  bottom: 70
-				}}
-				loop={false} showsButtons>
-				<View style={styles.slide1}>
-				  <Image style={styles.image} source={{uri:'http://localhost:8081/img/didacticiel.png'}}>
-						<Button
-							text="Démarrer"
-							onpress={this.next.bind(this)}
-							button_styles={styles.transparent_button_left}
-							button_text_styles={styles.transparent_button_text_left} />
-						<Button
-							text="Sortir"
-							onpress={this.skip.bind(this)}
-							button_styles={styles.transparent_button_right}
-							button_text_styles={styles.transparent_button_text_right} />
-				  </Image>
-				</View>
-				<View style={styles.slide2}>
-				  <Image style={styles.image} source={{uri:'http://localhost:8081/img/did2.png'}} />
-				</View>
-				<View style={styles.slide3}>
-				  <Image style={styles.image} source={{uri:'http://localhost:8081/img/did3.png'}} />
-				</View>
-			  </Swiper>
-		  </View>
-		);
-	}
+  constructor(props){
+	super(props);
+  }
+  next(){
+	alert('Passer au didacticiel');
+  }
+  skip(){
+	this.props.navigator.push({
+		component: Login
+    });
+  }
+  componentDidMount() {
+	//the '.bind(this)' makes sure 'this' refers to 'ViewComponent'
+    BackAndroid.addEventListener('hardwareBackPress', function() {
+		this.props.navigator.pop();
+		return true;
+    }.bind(this));
+  }
+  render() {
+	return (
+	<View>
+	  <Swiper style={styles.wrapper}
+		dot={<View style={{backgroundColor: 'rgba(255,255,255,.3)', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
+		activeDot={<View style={{backgroundColor: '#fff', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
+		paginationStyle={{
+		  bottom: 70
+		}}
+		loop={false} showsButtons>
+		<View style={styles.slide1}>
+		  <Image style={styles.image} source={{uri:'http://localhost:8081/img/didacticiel.png'}}>
+			<Button
+			text="Démarrer"
+			onpress={this.next.bind(this)}
+			button_styles={styles.transparent_button_left}
+			button_text_styles={styles.transparent_button_text_left} />
+			<Button
+			text="Sortir"
+			onpress={this.skip.bind(this)}
+			button_styles={styles.transparent_button_right}
+			button_text_styles={styles.transparent_button_text_right} />
+		  </Image>
+		</View>
+		<View style={styles.slide2}>
+		  <Image style={styles.image} source={{uri:'http://localhost:8081/img/did2.png'}} />
+		</View>
+		<View style={styles.slide3}>
+		  <Image style={styles.image} source={{uri:'http://localhost:8081/img/did3.png'}} />
+		</View>
+	  </Swiper>
+	</View>
+	);
+  }
 }
 AppRegistry.registerComponent('didacticiel', () => didacticiel);
