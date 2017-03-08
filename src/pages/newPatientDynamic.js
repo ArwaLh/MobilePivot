@@ -38,8 +38,7 @@ export default class newPatientDynamic extends Component {
 	  datedate:"",
 	  username_med: '',
 	  patient_id: '',
-	  dateNaissance_pat: '',
-	  id: ''
+	  dateNaissance_pat: ''
 	}
   }
   componentDidMount(){
