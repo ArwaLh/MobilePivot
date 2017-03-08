@@ -14,7 +14,6 @@ import {
   TouchableOpacity,
   AsyncStorage
 } from 'react-native';
-import Header from '../components/header';
 import styles from '../styles/common-styles.js';
 import Hr from 'react-native-hr';
 import {Button} from 'native-base';
@@ -25,7 +24,6 @@ import GestionPatient from './gestionPatient';
 import Categories from './categories';
 
 export default class login extends Component {
-
   constructor(props){
     super(props);
 	this.itemsRef = firebase.database().ref();
@@ -41,7 +39,6 @@ export default class login extends Component {
         dismissKeyboard();
     }
   }
-
   render(){
     return (
       <View style={styles.container}>

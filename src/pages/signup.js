@@ -8,13 +8,9 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import ButtonS from '../components/button';
-import Header from '../components/header';
-
 import Login from './login';
 import styles from '../styles/common-styles.js';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {InputGroup, Input, Button} from 'native-base';
+import { Button} from 'native-base';
 import * as firebase from 'firebase';
 
 export default class signup extends Component {
