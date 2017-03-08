@@ -7,43 +7,20 @@
 import React, { Component } from 'react';
 import {
   AsyncStorage,
-  ScrollView,
   AppRegistry,
   Dimensions,
-  StyleSheet,
   Text,
   Image,
   Linking,
-  ListView,
-  BackAndroid,
-  TouchableOpacity,
   View
 } from 'react-native';
 import Header from '../components/header';
 import styles from '../styles/common-styles.js';
-import {List, ListItem, Button} from 'native-base';
-import Categories from './categories';
-import Splashscreen from './splashscreen';
-import uploadFormDynamique from './uploadFormDynamique';
-import Hr from 'react-native-hr';
-import firebase from 'firebase';
 
 export default class lastOne extends Component {
 	constructor(props){
     super(props);
-	this.button_last=this.button_last.bind(this);
-	this.retour_categorie=this.retour_categorie.bind(this);
 	}	     
-   button_last(){
-		this.props.navigator.push({
-		 component: Categories
-		});
-	}
-	retour_categorie(){
-		this.props.navigator.push({
-          component: Splashscreen
-        }); 
-	}
   render() {
     return (
 	<View>
