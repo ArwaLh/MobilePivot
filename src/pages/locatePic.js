@@ -96,7 +96,7 @@ export default class locatePic extends Component {
 	) 
   }
   localiser_cou(){
-		Alert.alert(
+	Alert.alert(
 		  'Vous avez sélectionné',
 		  'Cou',
 		  [
@@ -116,10 +116,10 @@ export default class locatePic extends Component {
 			}
 			}
 		  ]
-		)
+	)
   }
   localiser_nuque(){
-		Alert.alert(
+	Alert.alert(
 		  'Vous avez sélectionné',
 		  'Nuque',
 		  [
@@ -139,10 +139,10 @@ export default class locatePic extends Component {
 			}
 			}
 		  ]
-		)
+	)
   }
   localiser_epaule_gauche(){
-		Alert.alert(
+	Alert.alert(
 		  'Vous avez sélectionné',
 		  'Épaule gauche',
 		  [
@@ -162,10 +162,10 @@ export default class locatePic extends Component {
 			}
 			}
 		  ]
-		)
+	)
   }
   localiser_epaule_droite(){
-		Alert.alert(
+	Alert.alert(
 		  'Vous avez sélectionné',
 		  'Épaule droite',
 		  [
@@ -184,10 +184,10 @@ export default class locatePic extends Component {
 			});
 			}}		
 		  ]
-		)
+	)
   }
   localiser_thorax(){
-		Alert.alert(
+	Alert.alert(
 		  'Vous avez sélectionné',
 		  'Thorax',
 		  [
@@ -206,10 +206,10 @@ export default class locatePic extends Component {
 			});
 			}}
 		  ]
-		)
+	)
   }
   localiser_abdomen(){
-		Alert.alert(
+	Alert.alert(
 		  'Vous avez sélectionné',
 		  'Abdomen',
 		  [
@@ -228,10 +228,10 @@ export default class locatePic extends Component {
 			});
 			}}
 		  ]
-		)
+	)
   }
   localiser_dos(){
-		Alert.alert(
+	Alert.alert(
 		  'Vous avez sélectionné',
 		  'Dos',
 		  [
@@ -250,10 +250,10 @@ export default class locatePic extends Component {
 			});
 			}}
 		  ]
-		)
+	)
   }
   localiser_main_gauche(){
-		Alert.alert(
+	Alert.alert(
 		  'Vous avez sélectionné',
 		  'Main gauche',
 		  [
@@ -272,11 +272,10 @@ export default class locatePic extends Component {
 			});
 			}}
 		  ]
-		)
-
+	)
   }
   localiser_main_droite(){
-		Alert.alert(
+	Alert.alert(
 		  'Vous avez sélectionné',
 		  'Main droite',
 		  [
@@ -295,11 +294,10 @@ export default class locatePic extends Component {
 			});
 			}}
 		  ]
-		)
-
+	)
   }
   localiser_jambe_gauche(){
-		Alert.alert(
+	Alert.alert(
 		  'Vous avez sélectionné',
 		  'Jambe gauche',
 		  [
@@ -318,11 +316,10 @@ export default class locatePic extends Component {
 			});
 			}}
 		  ]
-		)
-
+	)
   }
   localiser_jambe_droite(){
-		Alert.alert(
+	Alert.alert(
 		  'Vous avez sélectionné',
 		  'Jambe droite',
 		  [
@@ -341,11 +338,10 @@ export default class locatePic extends Component {
 			});
 			},style: styles.primary_button_oui}
 		  ]
-		)
-
+	)
   }
   face_avant(){
-		this.setState({
+	this.setState({
 			uri_img: 'http://localhost:8081/img/Katomi-face-1.png',
 			cou: this.localiser_cou,
 			epaule_gauche: this.localiser_epaule_gauche,
@@ -366,10 +362,10 @@ export default class locatePic extends Component {
 			text_jambe_gauche: 'Jambe gauche',
 			text_main_droite: 'Main droite',
 			text_main_gauche: 'Main gauche',
-		});
+	});
   }
   face_arriere(){
-		this.setState({
+	this.setState({
 			uri_img: 'http://localhost:8081/img/Katomi-Face-2.png',
 			cou: this.localiser_nuque,
 			epaule_gauche: this.localiser_epaule_droite,
@@ -390,11 +386,11 @@ export default class locatePic extends Component {
 			text_jambe_gauche: 'Jambe droite',
 			text_main_droite: 'Main gauche',
 			text_main_gauche: 'Main droite',
-		});
+	});
   }
   goBack() {
-		this.props.navigator.pop();
-		return true; // do not exit app
+	this.props.navigator.pop();
+	return true; // do not exit app
   }	
   render() {
     return (
