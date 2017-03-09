@@ -71,7 +71,6 @@ export default class uploadFormDynamique extends Component {
  componentDidMount(){
 		AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
 		 const array=JSON.parse(med_pat_file_locationn);
-		alert(array.id_patient);
 		//get the criterias list
 		this.itemsRef.child(array.id_medecin).child(array.categorie).child("criteres").on('value', (snap) => {
 			let array_cat=[];		
@@ -82,7 +81,6 @@ export default class uploadFormDynamique extends Component {
 					 array_cat.push({"key":k,"type":items[k].type_critere});	
 				}
 			}
-			alert(array_cat.length);
 			this.setState({
 			  array_all:array,
 			  dataSource: this.state.dataSource.cloneWithRows(array_cat),
@@ -142,6 +140,7 @@ export default class uploadFormDynamique extends Component {
                    <Picker 
 						style={{width:100, color:"#29235c",marginTop:10}}
 						mode="dropdown"
+						key={items_names[i]}
 						selectedValue={items_names[i]}
 						onValueChange={(value) => {
 							items_names[i]=value;
@@ -165,6 +164,7 @@ export default class uploadFormDynamique extends Component {
 				<Col style={{ marginLeft:80}}>	
 				  <TextInput
 					placeholder={data.key}
+					key={items_names[i]}
 					style={{width:100, textAlign :"left"}}
 					keyboardType='numbers-and-punctuation'
 					value={items_names[i]}
@@ -193,6 +193,7 @@ export default class uploadFormDynamique extends Component {
 				<Col style={{ marginLeft:80}}>
 					<TextInput
 						placeholder={data.key}
+						key={items_names[i]}
 						keyboardType="default"
 						value={items_names[i]}
 						blurOnSubmit={true}

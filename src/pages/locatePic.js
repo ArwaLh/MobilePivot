@@ -97,8 +97,8 @@ export default class locatePic extends Component {
   }
   localiser_cou(){
 	Alert.alert(
-		  'Vous avez sélectionné',
-		  'Cou',
+		'Vous avez sélectionné',
+		'Cou',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 			//update dossier médical
@@ -120,8 +120,8 @@ export default class locatePic extends Component {
   }
   localiser_nuque(){
 	Alert.alert(
-		  'Vous avez sélectionné',
-		  'Nuque',
+		'Vous avez sélectionné',
+		'Nuque',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 			//update dossier médical
@@ -143,8 +143,8 @@ export default class locatePic extends Component {
   }
   localiser_epaule_gauche(){
 	Alert.alert(
-		  'Vous avez sélectionné',
-		  'Épaule gauche',
+		'Vous avez sélectionné',
+		'Épaule gauche',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 			//update dossier médical
@@ -166,8 +166,8 @@ export default class locatePic extends Component {
   }
   localiser_epaule_droite(){
 	Alert.alert(
-		  'Vous avez sélectionné',
-		  'Épaule droite',
+		'Vous avez sélectionné',
+		'Épaule droite',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 			//update dossier médical
@@ -188,8 +188,8 @@ export default class locatePic extends Component {
   }
   localiser_thorax(){
 	Alert.alert(
-		  'Vous avez sélectionné',
-		  'Thorax',
+		'Vous avez sélectionné',
+		'Thorax',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 			//update dossier médical
@@ -210,8 +210,8 @@ export default class locatePic extends Component {
   }
   localiser_abdomen(){
 	Alert.alert(
-		  'Vous avez sélectionné',
-		  'Abdomen',
+		'Vous avez sélectionné',
+		'Abdomen',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 			//update dossier médical
@@ -232,8 +232,8 @@ export default class locatePic extends Component {
   }
   localiser_dos(){
 	Alert.alert(
-		  'Vous avez sélectionné',
-		  'Dos',
+		'Vous avez sélectionné',
+		'Dos',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 			//update dossier médical
@@ -254,8 +254,8 @@ export default class locatePic extends Component {
   }
   localiser_main_gauche(){
 	Alert.alert(
-		  'Vous avez sélectionné',
-		  'Main gauche',
+		'Vous avez sélectionné',
+		'Main gauche',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 			//update dossier médical
@@ -276,9 +276,9 @@ export default class locatePic extends Component {
   }
   localiser_main_droite(){
 	Alert.alert(
-		  'Vous avez sélectionné',
-		  'Main droite',
-		  [
+		'Vous avez sélectionné',
+		'Main droite',
+		[
 			{text: 'Valider pour étape suivante', onPress: () => {
 			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
@@ -293,13 +293,13 @@ export default class locatePic extends Component {
 					});
 			});
 			}}
-		  ]
+		]
 	)
   }
   localiser_jambe_gauche(){
 	Alert.alert(
-		  'Vous avez sélectionné',
-		  'Jambe gauche',
+		'Vous avez sélectionné',
+		'Jambe gauche',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 			//update dossier médical
@@ -320,8 +320,8 @@ export default class locatePic extends Component {
   }
   localiser_jambe_droite(){
 	Alert.alert(
-		  'Vous avez sélectionné',
-		  'Jambe droite',
+		'Vous avez sélectionné',
+		'Jambe droite',
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 			//update dossier médical

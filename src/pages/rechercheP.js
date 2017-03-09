@@ -17,7 +17,7 @@ import {
 import HeaderSearch from '../components/headerSearch';
 import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
-import {Button} from 'native-base';
+import {Button,List, ListItem,} from 'native-base';
 import GestionNaevus from './gestionNaevus';
 import firebase from 'firebase';
 import Autocomplete from 'react-native-autocomplete-input';
