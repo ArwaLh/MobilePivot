@@ -29,11 +29,13 @@ export default class splashscreen extends Component {
   render() {
 	return (
 	  <View>
-		<Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/splashscreen.png'}}>
+		<Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/Splash.png'}}>
+		<Text style={{fontFamily:'Roboto',fontSize:94,marginBottom:0,marginTop:140,marginBottom:0, color:"#FFF",fontWeight: "100",textAlign:"center"}}>katomi</Text>
+		<Text style={{fontFamily:'Roboto',fontSize:16,marginBottom:0,marginTop:0, color:"#FFF",fontWeight: "normal",textAlign:"center"}}>  S      K      I      N  </Text>
 			<View style={{flexDirection: 'column',backgroundColor: 'transparent'}}>
 				<Button
 					onPress={this.demarrer.bind(this)}
-					style={{width:200,height:50,marginLeft:(window.width/2)-100,marginTop:500,marginBottom:1,borderColor: 'white'}}
+					style={{width:200,height:50,marginLeft:(window.width/2)-100,marginTop:190,marginBottom:1,borderColor: 'white'}}
 					bordered><Text style={{color: 'white'}}>DEMARRER</Text></Button>
 				<Button
 					onPress={this.didacticiel.bind(this)}
