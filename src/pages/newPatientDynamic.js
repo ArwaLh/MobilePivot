@@ -56,6 +56,22 @@ export default class newPatientDynamic extends Component {
 	  });
 	});
   }
+   /*format date function*/
+  formatDate(date){
+  var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  return day + '/' + monthIndex+ '/' + year;
+  }
+  /*end format date function*/
   locatePic(){
 	if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
 	  alert("Vous n'avez pas remplis tous les champs!!");
@@ -70,6 +86,7 @@ export default class newPatientDynamic extends Component {
 				let patient_id="";
 				patient_id=this.state.nom_pat.toLowerCase()+'_'+this.state.prenom_pat.toLowerCase()+'_'+items_pat.length;
 				//ajout patient
+				let cr_date=this.formatDate(new Date());
 				this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).set({ 
 				  nom_pat: this.state.nom_pat.charAt(0).toUpperCase()+this.state.nom_pat.slice(1), 
 				  prenom_pat: this.state.prenom_pat.charAt(0).toUpperCase()+this.state.prenom_pat.slice(1), 
@@ -80,14 +97,14 @@ export default class newPatientDynamic extends Component {
 				  antecedents_personnels: this.state.antec_perso, 
 				  antecedents_familiaux: this.state.antec_fam, 
 				  nombre_grain_de_beaute: this.state.nbreGrain, 
+				  date_creation:cr_date.toString()
 				})
 				//new patient first folder so the length is 0
 				let dossier_id=medecin_usernamee+'_'+patient_id+'_'+"0";
-				var mydate=new Date();
 				//ajouter un nouveau dossier pour le nouveau patient
 				this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
-				  date_creation_dossier: mydate.toString(),
-				  date_MAJ_dossier: mydate.toString(),
+				  date_creation_dossier:cr_date.toString(),
+				  date_MAJ_dossier: cr_date.toString(),
 				  nom_patient_dossier: this.state.nom_pat.charAt(0).toUpperCase()+this.state.nom_pat.slice(1),
 				  prenom_patient_dossier: this.state.prenom_pat.charAt(0).toUpperCase()+this.state.prenom_pat.slice(1),
 				  emplacement:"",

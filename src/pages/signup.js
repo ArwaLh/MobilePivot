@@ -37,6 +37,22 @@ export default class signup extends Component {
 		AsyncStorage.setItem("medecins",items.length.toString());
 	});
    }
+   /*format date function*/
+  formatDate(date){
+  var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  return day + '/' + monthIndex+ '/' + year;
+  }
+  /*end format date function*/
   signup(){
 	AsyncStorage.getItem("medecins").then((medecinss) => {
 	let medecin_id=this.state.email_medecin.slice(0,this.state.email_medecin.indexOf('@')).slice(0,this.state.email_medecin.indexOf('.'))+medecinss;
@@ -55,8 +71,10 @@ export default class signup extends Component {
 			categories:[]
 			})
 		//add category naevus to the doctor which is the default category
+		let cr_date=this.formatDate(new Date());
 		this.itemsRef.child("categories").child(medecin_id).child("naevus").set({ 
-			nom_categorie:"Naevus"
+			nom_categorie:"Naevus",
+			date_creation:cr_date.toString()
 		})
 		//succes d'ajout dans auth et database
 			alert('Your account was created!');
