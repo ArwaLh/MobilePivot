@@ -84,15 +84,8 @@ export default class newPatient extends Component {
   }
    /*format date function*/
   formatDate(date){
-  var monthNames = [
-    "January", "February", "March",
-    "April", "May", "June", "July",
-    "August", "September", "October",
-    "November", "December"
-  ];
-
   var day = date.getDate();
-  var monthIndex = date.getMonth();
+  var monthIndex = date.getMonth()+1;
   var year = date.getFullYear();
 
   return day + '/' + monthIndex+ '/' + year;
