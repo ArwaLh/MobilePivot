@@ -94,10 +94,11 @@ export default class newPatientDynamic extends Component {
 				})
 				//new patient first folder so the length is 0
 				let dossier_id=medecin_usernamee+'_'+patient_id+'_'+"0";
+				let my_date=new Date();
 				//ajouter un nouveau dossier pour le nouveau patient
 				this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
-				  date_creation_dossier:cr_date.toString(),
-				  date_MAJ_dossier: cr_date.toString(),
+				  date_creation_dossier:my_date.toString(),
+				  date_MAJ_dossier: my_date.toString(),
 				  nom_patient_dossier: this.state.nom_pat.charAt(0).toUpperCase()+this.state.nom_pat.slice(1),
 				  prenom_patient_dossier: this.state.prenom_pat.charAt(0).toUpperCase()+this.state.prenom_pat.slice(1),
 				  emplacement:"",
