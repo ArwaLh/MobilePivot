@@ -92,6 +92,15 @@ module.exports = StyleSheet.create({
 	marginBottom:30,
 	textDecorationLine: 'underline'
   },
+  text_last_one_link2: {
+	color: "#29235c",
+	fontFamily: 'Roboto',
+	fontSize: 18,
+	fontWeight: 'bold',
+	textAlign: 'center',
+	marginLeft:80,
+	marginTop:80
+  },
   button_last: {
 	width: 210,
 	height: 40,

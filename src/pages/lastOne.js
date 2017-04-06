@@ -31,6 +31,11 @@ export default class lastOne extends Component {
 			onPress={() => Linking.openURL('https://osereso.tn/')}>
 		  ACCEDER AU SITE KATOMI 
 		</Text>
+			
+		<Text style={styles.text_last_one_link2}
+			onPress={() => Linking.openURL('https://chiraz54.typeform.com/to/ZQXS3G')}>
+		 Votre avis nous intéresse  
+		</Text>
      </View>
     );
   }
