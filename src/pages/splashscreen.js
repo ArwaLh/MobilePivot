@@ -7,7 +7,7 @@ import {
   Dimensions
 } from 'react-native';
 import Didacticiel from './didacticiel';
-import Login from './lastOne';
+import Login from './lastPageDynamic';
 import {Button} from 'native-base';
 import styles from '../styles/common-styles.js';
 

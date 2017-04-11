@@ -27,7 +27,7 @@ export default class lastOne extends Component {
   render() {
     return (
 	<View>
-		<Header text="Katomi SKIN" loaded={true}/>
+		<Header text="Katomi  PIX" loaded={true}/>
 		<Image style={styles.image_last_one} source={{uri:'http://localhost:8081/img/last.png'}}/>
 		<Text style={styles.text_last_one}> Rendez-vous sur notre site {"\n"}web Katomi </Text>			
 		<Text style={styles.text_last_one_link}
@@ -44,7 +44,7 @@ export default class lastOne extends Component {
 		</Grid>
 		<Text style={styles.text_last_one_link2}
 			onPress={() => Linking.openURL('https://chiraz54.typeform.com/to/ZQXS3G')}>
-		cliquez ici pour  donner votre avis  
+		cliquez ici pour  donner votre avis
 		</Text>
      </View>
     );
