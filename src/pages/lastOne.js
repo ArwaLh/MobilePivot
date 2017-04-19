@@ -43,7 +43,7 @@ export default class lastOne extends Component {
 		  </Row>	
 		</Grid>
 		<Text style={styles.text_last_one_link2}
-			onPress={() => Linking.openURL('https://chiraz54.typeform.com/to/ZQXS3G')}>
+			onPress={() => Linking.openURL('https://chiraz54.typeform.com/to/Bkbkkw')}>
 		cliquez ici pour  donner votre avis
 		</Text>
      </View>
