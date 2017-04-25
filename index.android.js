@@ -32,8 +32,10 @@ export default class FacebookApp extends Component {
 		super(props);
 		this.state = {
 		  component: null,
-		  loaded: false
+		  loaded: false,
+		  
 		};
+		console.disableYellowBox = true;
 	}
 	render() {
 		return (
