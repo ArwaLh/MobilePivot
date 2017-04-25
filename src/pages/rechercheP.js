@@ -10,6 +10,7 @@ import {
   AsyncStorage,
   Dimensions,
   Text,
+  ScrollView,
   BackAndroid,
   View
 } from 'react-native';
@@ -35,14 +36,15 @@ export default class rechercheP extends Component {
 	this.goBack = this.goBack.bind(this);
 	this.gestionNaevus = this.gestionNaevus.bind(this);
   }
-  gestionNaevus(){
-	let patient_id='';
+  gestionNaevus(patient_id,nom_pat,prenom_pat){
+	this.setState({ query: nom_pat+" "+prenom_pat});
+	//let patient_id='';
 	if (this.state.query === '') {
 	  return [];//do nothing whenever the query is empty
 	}
-	this.itemsRef.child('medecins').child(this.state.username_med).child('patients').orderByChild('nom_pat').equalTo(this.state.query.substring(0,this.state.query.indexOf(" "))).on("child_added", function(snapshot) {
+/* 	this.itemsRef.child('medecins').child(this.state.username_med).child('patients').orderByChild('nom_pat').equalTo(this.state.query.substring(0,this.state.query.indexOf(" "))).on("child_added", function(snapshot) {
 		patient_id=snapshot.key;
-	});
+	}); */
 	AsyncStorage.setItem("medecin_patient",JSON.stringify({"id_patient":patient_id,"id_medecin":this.state.username_med,"categorie":this.state.id}));
 	this.props.navigator.push({
        component: GestionNaevus
@@ -99,6 +101,11 @@ export default class rechercheP extends Component {
     return (
 	 <View style={styles.firstContainer}>
 		<HeaderSearch text="Rechercher un patient" onpress={this.goBack}/>
+		<ScrollView
+		  scrollEnabled={true}
+		  showsVerticalScrollIndicator={true}
+		  keyboardShouldPersistTaps={true}
+		  keyboardDismissMode='on-drag'>
 		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'black', marginTop:55,marginLeft:25,marginRight:25}}>
 		Ajouter et modifier des nouvelles données dans le dossier medical du patient
 		</Text>
@@ -119,10 +126,10 @@ export default class rechercheP extends Component {
 		  defaultValue={query}
 		  onChangeText={text => this.setState({ query: text })}
 		  placeholder="Nom & Prénom"
-		  renderItem={({ nom_pat,prenom_pat,telephone_patient }) => (
+		  renderItem={({ _key,nom_pat,prenom_pat,telephone_patient }) => (
 			<List>
 			  <ListItem style={{height:60}}>
-				<Button onPress={() => {this.setState({ query: nom_pat+" "+prenom_pat})}} transparent>
+				<Button onPress={this.gestionNaevus.bind(this,_key,nom_pat,prenom_pat)} transparent>
 				  <Text style={styles.itemText}>
 					M./Mme {nom_pat} {prenom_pat}
 				  </Text>
@@ -134,10 +141,7 @@ export default class rechercheP extends Component {
 			</List>
 		  )}
 		/>	
-		<Button
-		  onPress={this.gestionNaevus}
-		  style={styles.primary_button_naevus}
-		  textStyle={styles.primary_button_text}>Gérer dossier</Button>
+		</ScrollView>
       </View>
     );
   }
