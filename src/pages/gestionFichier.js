@@ -50,10 +50,16 @@ export default class gestionNaevus extends Component {
 		id_doc:arr
 	  });
 	  //get images data
-	  this.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossiers_medicaux').child(arr.id_dossier).child("images").on('value', (snap) => {
+	  this.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossiers_medicaux').child(arr.id_dossier).child("images").once('value', (snap) => {
+		if(snap.val()==null){
+			this.setState({
+			  dataSource: this.state.dataSource.cloneWithRows({}),
+			});
+		}else{
 		this.setState({
 		  dataSource: this.state.dataSource.cloneWithRows(snap.val()),
 		});
+		}
 	  });
 	});
   }
