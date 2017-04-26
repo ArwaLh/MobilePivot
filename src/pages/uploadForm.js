@@ -264,6 +264,9 @@ export default class uploadForm extends Component {
 				ref="mel"
 				value={this.state.mel}
 				style={styles.slidee}
+				minimumValue={0}
+				maximumValue={100}
+				step={1}
 				onValueChange={(value) => this.setState({mel:value})} >
 			</Slider>
 		  </Row>			
