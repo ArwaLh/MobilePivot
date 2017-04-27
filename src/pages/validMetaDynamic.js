@@ -73,8 +73,7 @@ export default class validMetaDynamic extends Component {
 		category_id: arr.categorie,
 	  });
 	});	
-	//get upload form dynamique data
-	AsyncStorage.getItem('valid_meta').then((valid_meta) => {
+	AsyncStorage.getItem('valid_meta').then((valid_meta) => {//get upload form dynamique data
 	  const array =JSON.parse(valid_meta);
 	  this.setState({
 		meta_arr:array,
@@ -104,13 +103,11 @@ export default class validMetaDynamic extends Component {
 	firebase.auth().onAuthStateChanged((user) => {
 		<Text>{JSON.stringify(user)}</Text>
 	})
-	const rnfbURI= RNFetchBlob.wrap(path);
-	// create Blob from file path
+	const rnfbURI= RNFetchBlob.wrap(path);// create Blob from file path
    	Blob
 	  .build(rnfbURI, { type : 'image/jpg;'})
 	  .then((blob) => {
-	  // upload image using Firebase SDK
-	  var uploadTask= firebase.storage()
+	  var uploadTask= firebase.storage()// upload image using Firebase SDK
 		.ref()
 		.child('medecins'+'_'+this.state.medecin_id).child('patients'+'_'+this.state.patient_id).child('categories'+'_'+id_category).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images'+'_'+this.state.category_id)
 		.child(testImageName.substring(0,44).replace(/\s/g, "_"))
@@ -131,10 +128,8 @@ export default class validMetaDynamic extends Component {
 		//create a JSON array from a javascript array
 		let myarray_keys=[];
 		let myarray_values=[];
-		//create the JSON array all over again
 		let array_all=[];		
 		let items=[];
-		//items=this.state.meta_arr;
 		for (var k in this.state.meta_arr){
 		  if (this.state.meta_arr.hasOwnProperty(k)) {
 			myarray_keys.push(this.state.meta_arr[k].criteria_name);	
@@ -151,13 +146,12 @@ export default class validMetaDynamic extends Component {
 		}
 		obj+=JSON.stringify("date_compte_rendu_consultation")+":"+JSON.stringify(compte_rendu.toString())+"}";
 		array_all=JSON.parse(obj);
-		/*merge both arrays*/
-		myarray=JSON.stringify(this.state.meta_arr);
+		
+		myarray=JSON.stringify(this.state.meta_arr);//merge both arrays
 		let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
   		AsyncStorage.getItem('id').then((idd)=>{
-		  this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(array_all);
-		  //upadet medical folder data
-		  this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
+		  this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(array_all);	  
+		  this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //upadet medical folder data
 		    date_MAJ_dossier: compte_rendu.toString(),
 		    nombre_images_dossier: my_array.nombre_images_dossier+1,
 		    emplacement: my_array.emplacement

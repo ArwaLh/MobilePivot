@@ -45,7 +45,6 @@ export default class newPatientDynamic extends Component {
 	AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 	  this.itemsRef.child('medecins').child(medecin_usernamee).child("patients").on('value', (snap) => {
 	    let items_pat=[];
-		// get children as an array
 		snap.forEach((child) => {
 		  items_pat.push({
 			antecedents_familiaux :child.val().antecedents_familiaux,
@@ -56,7 +55,6 @@ export default class newPatientDynamic extends Component {
 	  });
 	});
   }
-   /*format date function*/
   formatDate(date){
   var day = date.getDate();
   var monthIndex = date.getMonth()+1;
@@ -64,7 +62,6 @@ export default class newPatientDynamic extends Component {
 
   return day + '/' + monthIndex+ '/' + year;
   }
-  /*end format date function*/
   locatePic(){
 	if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
 	  alert("Vous n'avez pas remplis tous les champs!!");
@@ -78,7 +75,6 @@ export default class newPatientDynamic extends Component {
 			  if(this.state.nom_pat!="" && this.state.prenom_pat!=""){
 				let patient_id="";
 				patient_id=this.state.nom_pat.toLowerCase()+'_'+this.state.prenom_pat.toLowerCase()+'_'+items_pat.length;
-				//ajout patient
 				let cr_date=this.formatDate(new Date());
 				this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).set({ 
 				  nom_pat: this.state.nom_pat.charAt(0).toUpperCase()+this.state.nom_pat.slice(1), 
@@ -92,11 +88,9 @@ export default class newPatientDynamic extends Component {
 				  nombre_grain_de_beaute: this.state.nbreGrain, 
 				  date_creation:cr_date.toString()
 				})
-				//new patient first folder so the length is 0
-				let dossier_id=medecin_usernamee+'_'+patient_id+'_'+"0";
+				let dossier_id=medecin_usernamee+'_'+patient_id+'_'+"0";//new patient first folder so the length is 0
 				let my_date=new Date();
-				//ajouter un nouveau dossier pour le nouveau patient
-				this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
+				this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({//ajouter un nouveau dossier pour le nouveau patient
 				  date_creation_dossier:my_date.toString(),
 				  date_MAJ_dossier: my_date.toString(),
 				  nom_patient_dossier: this.state.nom_pat.charAt(0).toUpperCase()+this.state.nom_pat.slice(1),

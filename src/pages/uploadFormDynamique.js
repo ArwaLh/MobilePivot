@@ -61,58 +61,51 @@ export default class uploadFormDynamique extends Component {
 		this.validMetadataDynamic = this.validMetadataDynamic.bind(this);
 	}
  componentWillMount(){
-		AsyncStorage.getItem('path').then((pathUp) => {                                                   
-		  this.setState({
-			path:pathUp
-		  });	
-		  path= this.state.path;
-		});
+	AsyncStorage.getItem('path').then((pathUp) => {                                                   
+	  this.setState({
+		path:pathUp
+	  });	
+	  path= this.state.path;
+	});
   }
  componentDidMount(){
-		AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
-		 const array=JSON.parse(med_pat_file_locationn);
-		//get the criterias list
-		this.itemsRef.child(array.id_medecin).child(array.categorie).child("criteres").on('value', (snap) => {
-			let array_cat=[];		
-			let items=[];
-			items=snap.val();
-			for (var k in items){
-				if (items.hasOwnProperty(k)) {
-					 array_cat.push({"key":k,"type":items[k].type_critere});	
-				}
-			}
-			this.setState({
-			  array_all:array,
-			  dataSource: this.state.dataSource.cloneWithRows(array_cat),
-			  my_textinput_array:array_cat,
-			  //criteres_values:this.state.criteres_values.push({"id_medecin":this.state.medecin_id},{"id_patient":this.state.patient_id},{"id_dossier":this.state.dossier_id},{"categorie":this.state.med_pat_file.categorie},{"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier},{"emplacement":this.state.med_pat_file.emplacement},{"imageURL":this.state.path}),
-			  list_length:array_cat.length
-			});
-		});
-		});
-	}
+	AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
+	  const array=JSON.parse(med_pat_file_locationn);
+	  this.itemsRef.child(array.id_medecin).child(array.categorie).child("criteres").on('value', (snap) => {//get the criterias list
+	    let array_cat=[];		
+	    let items=[];
+	    items=snap.val();
+	    for (var k in items){
+		  if (items.hasOwnProperty(k)) {
+			array_cat.push({"key":k,"type":items[k].type_critere});	
+		  }
+	    }
+	    this.setState({
+			array_all:array,
+			dataSource: this.state.dataSource.cloneWithRows(array_cat),
+			my_textinput_array:array_cat,
+			list_length:array_cat.length
+	    });
+	  });
+	});
+  }
 		
- 	validMetadataDynamic(){
-	
-	//alert(JSON.stringify(this.state.criteres_values.push({"id_medecin":this.state.medecin_id},{"id_patient":this.state.patient_id},{"id_dossier":this.state.dossier_id},{"categorie":this.state.med_pat_file.categorie},{"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier},{"emplacement":this.state.med_pat_file.emplacement},{"imageURL":this.state.path})));
-	AsyncStorage.removeItem('med_pat_file_location_image_data');
+  validMetadataDynamic(){	
 	AsyncStorage.setItem('med_pat_file_location_image_data', JSON.stringify({
-			"id_medecin":this.state.array_all.id_medecin,
-			"id_patient":this.state.array_all.id_patient,
-			"id_dossier":this.state.array_all.id_dossier,
-			"categorie":this.state.array_all.categorie,
-			"nombre_images_dossier":this.state.array_all.nombre_images_dossier,
-			"emplacement":this.state.array_all.emplacement,
-			"imageURL":this.state.path,
-			}));   
+	"id_medecin":this.state.array_all.id_medecin,
+	"id_patient":this.state.array_all.id_patient,
+	"id_dossier":this.state.array_all.id_dossier,
+	"categorie":this.state.array_all.categorie,
+	"nombre_images_dossier":this.state.array_all.nombre_images_dossier,
+	"emplacement":this.state.array_all.emplacement,
+	"imageURL":this.state.path,
+	}));   
 	AsyncStorage.removeItem('valid_meta');   
 	AsyncStorage.setItem('valid_meta', JSON.stringify(this.state.criteres_values));   
- 		this.props.navigator.push({
-		  component: ValidMetaDynamic
-		  
-		}); 
-	  } 
-  /*change the cursor to the next field*/
+	  this.props.navigator.push({
+		component: ValidMetaDynamic
+	  }); 
+  } 
   focusNextField(newtField){
 	this.refs[newtField].focus();
   }  
