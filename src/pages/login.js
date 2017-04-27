@@ -9,6 +9,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  Dimensions,
   View,
   Image,
   TouchableOpacity,
@@ -22,7 +23,7 @@ import dismissKeyboard from 'react-native-dismiss-keyboard';
 import Signup from './signup';
 import GestionPatient from './gestionPatient';
 import Categories from './categories';
-
+const window = Dimensions.get('window');
 export default class login extends Component {
   constructor(props){
     super(props);
@@ -43,8 +44,7 @@ export default class login extends Component {
     return (
       <View style={styles.container}>
 	  <Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/Splash.png'}}>
-		<Text style={{fontFamily:'Roboto',fontSize:94,marginBottom:0,marginTop:10,marginBottom:0, color:"#FFF",fontWeight: "100",textAlign:"center"}}>katomi</Text>
-		<Text style={{fontFamily:'Roboto',fontSize:16,marginBottom:0,marginTop:0, color:"#FFF",fontWeight: "normal",textAlign:"center"}}>  P       I       X  </Text>
+		<Image style={{marginBottom:0,marginTop:40,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={{uri:'http://localhost:8081/img/logo_katomi.png'}}></Image>
         <View style={styles.body_login}>
           <TextInput
             style={styles.textinput_email}
