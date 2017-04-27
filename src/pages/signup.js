@@ -5,6 +5,7 @@ import {
   TextInput,
   AsyncStorage,
   Image,
+  Dimensions,
   TouchableOpacity,
   View
 } from 'react-native';
@@ -12,7 +13,7 @@ import Login from './login';
 import styles from '../styles/common-styles.js';
 import { Button} from 'native-base';
 import * as firebase from 'firebase';
-
+const window = Dimensions.get('window');
 export default class signup extends Component {
   constructor(props){
     super(props);
@@ -94,8 +95,7 @@ export default class signup extends Component {
     return (
     <View style={styles.container}>
 	 <Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/Splash.png'}}>
-		<Text style={{fontFamily:'Roboto',fontSize:94,marginBottom:0,marginTop:10,marginBottom:0, color:"#FFF",fontWeight: "100",textAlign:"center"}}>katomi</Text>
-		<Text style={{fontFamily:'Roboto',fontSize:16,marginBottom:0,marginTop:0, color:"#FFF",fontWeight: "normal",textAlign:"center"}}>  P        I        X  </Text>
+		<Image style={{marginBottom:0,marginTop:40,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={{uri:'http://localhost:8081/img/logo_katomi.png'}}></Image>
         <View style={styles.body_login}>
             <TextInput
                 style={styles.textinput_email}
