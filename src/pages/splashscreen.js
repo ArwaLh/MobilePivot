@@ -30,8 +30,6 @@ export default class splashscreen extends Component {
 	return (
 	  <View>
 		<Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/Splash.png'}}>
-		<Text style={{fontFamily:'Roboto',fontSize:94,marginBottom:0,marginTop:140,marginBottom:0, color:"#FFF",fontWeight: "100",textAlign:"center"}}>katomi</Text>
-		<Text style={{fontFamily:'Roboto',fontSize:16,marginBottom:0,marginTop:0, color:"#FFF",fontWeight: "normal",textAlign:"center"}}>  P       I       X  </Text>
 			<View style={{flexDirection: 'column',backgroundColor: 'transparent'}}>
 				<Button
 					onPress={this.demarrer.bind(this)}
