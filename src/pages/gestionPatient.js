@@ -31,56 +31,55 @@ import LastOne from './lastOne';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 const window = Dimensions.get('window');
 export default class gestionPatient extends Component {
-	constructor(props){
+  constructor(props){
     super(props);
-		this.state = {
-		  loaded: true,
-          id: ''
-		}
+	this.state = {
+	  loaded: true,
+	  id: ''
 	}
-	componentDidMount(){ 
-		AsyncStorage.getItem('id').then((idd) => {
-			this.setState({
-				id: idd
-			  });
-		});
+  }
+  componentDidMount(){ 
+	AsyncStorage.getItem('id').then((idd) => {
+	  this.setState({
+		id: idd
+	  });
+	});
+  }
+  ajoutPat(){
+	if(this.state.id=="naevus"){
+	  this.props.navigator.push({
+		component: NewPatient
+	  });
+	}else{
+	  this.props.navigator.push({
+		component: NewPatientDynamic
+	  }); 
 	}
-	ajoutPat(){
-			//create category name
-			if(this.state.id=="naevus"){
-				this.props.navigator.push({
-				component: NewPatient
-				});
-			}else{
-				this.props.navigator.push({
-				component: NewPatientDynamic
-				}); 
-			}
-	}
-	modPat(){
-		this.props.navigator.push({
-          component: RechercheP
-        }); 
-	}
-	last(){
-		this.props.navigator.push({
-          component: LastOne
-        }); 
-	}
-	upl(){
-		this.props.navigator.push({
-          component: UploadForm
-        }); 
-	}	
-	goBack() {
-		this.props.navigator.pop();
-		return true;
-	}	
+  }
+  modPat(){
+	this.props.navigator.push({
+	  component: RechercheP
+	}); 
+  }
+  last(){
+	this.props.navigator.push({
+	  component: LastOne
+	}); 
+  }
+  upl(){
+	this.props.navigator.push({
+	  component: UploadForm
+	}); 
+  }	
+  goBack() {
+	this.props.navigator.pop();
+	return true;
+  }	
   render() {
     return (
 	<View>
 	<HeaderUp text="   Gestion des patients" loaded={true} onpress={this.goBack.bind(this)}/>
-		 <View style={{margin:7, marginTop:30}}>
+	  <View style={{margin:7, marginTop:30}}>
 		 <List>
 		 <ListItem style={{height:(window.height/2)-70}}>
 		   <Grid>

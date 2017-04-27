@@ -44,8 +44,7 @@ export default class takePic extends Component {
    takePicture() {
   this.camera.capture()
     .then(({path}) => {
-		// create Blob from file path
-		AsyncStorage.setItem('path', path);
+		AsyncStorage.setItem('path', path);// create Blob from file path
 		AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn)=>{
 		  const arr=JSON.parse(med_pat_file_locationn);
 		  if(arr.categorie=="naevus"){

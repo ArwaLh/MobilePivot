@@ -38,7 +38,6 @@ export default class rechercheP extends Component {
   }
   gestionNaevus(patient_id,nom_pat,prenom_pat){
 	this.setState({ query: nom_pat+" "+prenom_pat});
-	//let patient_id='';
 	if (this.state.query === '') {
 	  return [];//do nothing whenever the query is empty
 	}
@@ -52,21 +51,17 @@ export default class rechercheP extends Component {
 	return true; // do not exit app
   }
   componentDidMount(){
-	//recherche par l'id du categorie!!!
-	AsyncStorage.getItem('id').then((idd) => {
+	AsyncStorage.getItem('id').then((idd) => {//recherche par l'id du categorie
 	  this.setState({
 		id: idd
 	 });
 	});
-	//asynchronous storage for medecin id
-	AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
+	AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {//asynchronous storage for medecin id
 	  this.setState({
 			username_med:medecin_usernamee
-	  });
-	  //get patients list
-	  this.itemsRef.child('medecins').child(medecin_usernamee).child("patients").on('value', (snap) => {
+	  }); 
+	  this.itemsRef.child('medecins').child(medecin_usernamee).child("patients").on('value', (snap) => {//get patients list
 		let items=[];
-		// get children as an array
 		snap.forEach((child) => {
 			items.push({
 				nom_pat: child.val().nom_pat,
@@ -76,15 +71,13 @@ export default class rechercheP extends Component {
 				_key: child.key,
 			});
 		});
-		//const patients_array = items;
 		const patients_array = items; 
 		this.setState({ patients_array });
 	  });
 	});	
   }
   findPatient(query) {
-	//this method is called whenever the user is typing
-    if (query === '') {
+    if (query === '') {//this method is called whenever the user is typing
       return [];
     }
     const { patients_array } = this.state;	

@@ -31,14 +31,19 @@ export default class signup extends Component {
 	this.signup=this.signup.bind(this);
   }
   componentDidMount(){
-	this.itemsRef.child("medecins").once("value", (snap) => {
+	this.itemsRef.child("medecins").on("value", (snap) => {
 		let items=[];
-		items=Object.keys(snap.val());
-		AsyncStorage.removeItem("medecins");
-		AsyncStorage.setItem("medecins",items.length.toString());
+		if(snap.val()==null){
+			items=0;
+			AsyncStorage.removeItem("medecins");
+			AsyncStorage.setItem("medecins",0);
+		}else{
+			items=Object.keys(snap.val());
+			AsyncStorage.removeItem("medecins");
+			AsyncStorage.setItem("medecins",items.length.toString());
+		}
 	});
    }
-   /*format date function*/
   formatDate(date){
   var day = date.getDate();
   var monthIndex = date.getMonth()+1;
@@ -46,7 +51,6 @@ export default class signup extends Component {
 
   return day + '/' + monthIndex+ '/' + year;
   }
-  /*end format date function*/
   signup(){
 	AsyncStorage.getItem("medecins").then((medecinss) => {
 	let medecin_id=this.state.email_medecin.slice(0,this.state.email_medecin.indexOf('@')).slice(0,this.state.email_medecin.indexOf('.'))+medecinss;
@@ -95,7 +99,7 @@ export default class signup extends Component {
     return (
     <View style={styles.container}>
 	 <Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/Splash.png'}}>
-		<Image style={{marginBottom:0,marginTop:40,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={{uri:'http://localhost:8081/img/logo_katomi.png'}}></Image>
+		<Image style={{marginBottom:0,marginTop:50,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={{uri:'http://localhost:8081/img/logo_katomi.png'}}></Image>
         <View style={styles.body_login}>
             <TextInput
                 style={styles.textinput_email}

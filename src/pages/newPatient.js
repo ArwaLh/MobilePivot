@@ -55,7 +55,6 @@ export default class newPatient extends Component {
 	  AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 		this.itemsRef.child('medecins').child(medecin_usernamee).child("patients").on('value', (snap) => {
 		let items_pat=[];
-		// get children as an array
 		snap.forEach((child) => {
 		  items_pat.push({
 			antecedents_familiaux :child.val().antecedents_familiaux,
@@ -82,7 +81,6 @@ export default class newPatient extends Component {
 	  nbreGrain: value
 	});
   }
-   /*format date function*/
   formatDate(date){
   var day = date.getDate();
   var monthIndex = date.getMonth()+1;
@@ -90,9 +88,7 @@ export default class newPatient extends Component {
 
   return day + '/' + monthIndex+ '/' + year;
   }
-  /*end format date function*/
-  locatePic(){
-	//create category name
+  locatePic(){//create category name
 	if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
 	  alert("Vous n'avez pas remplis tous les champs!!");
 	}else{ 
@@ -102,7 +98,6 @@ export default class newPatient extends Component {
 			let items_patt=JSON.parse(items_pat);
 			this.itemsRef.child('medecins').child(medecin_usernamee).child("patients").on('value', (snap) => {
 			  let items_pat=[];
-			  // get children as an array
 			  snap.forEach((child) => {
 				items_pat.push({
 					antecedents_familiaux :child.val().antecedents_familiaux,
@@ -113,10 +108,9 @@ export default class newPatient extends Component {
 			});
 			let patient_id="";
 			patient_id=this.state.nom_pat.toLowerCase()+'_'+this.state.prenom_pat.toLowerCase()+'_'+items_patt.length;
-			//ajout patient
 			let cr_date=this.formatDate(new Date());
 			this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).set({ 
-			  nom_pat: this.state.nom_pat.charAt(0).toUpperCase()+this.state.nom_pat.slice(1), //string.charAt(0).toUpperCase() + string.slice(1);
+			  nom_pat: this.state.nom_pat.charAt(0).toUpperCase()+this.state.nom_pat.slice(1),
 			  prenom_pat: this.state.prenom_pat.charAt(0).toUpperCase()+this.state.prenom_pat.slice(1), 
 			  date_de_naissance_pat: this.state.dateNaissance_pat, 
 			  lieu_pat: this.state.lieu_pat.charAt(0).toUpperCase()+this.state.lieu_pat.slice(1), 
@@ -129,8 +123,7 @@ export default class newPatient extends Component {
 			})
 			let dossier_id=medecin_usernamee+'_'+patient_id+'_'+0;
 			let my_date=new Date();
-			//ajouter un nouveau dossier pour le nouveau patient
-			this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
+			this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
 			  date_creation_dossier: my_date.toString(),
 			  date_MAJ_dossier: my_date.toString(),
 			  nom_patient_dossier: this.state.nom_pat.charAt(0).toUpperCase()+this.state.nom_pat.slice(1),

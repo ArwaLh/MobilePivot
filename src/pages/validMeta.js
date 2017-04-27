@@ -97,12 +97,11 @@ export default class validMeta extends Component {
 	  <Text>{JSON.stringify(user)}</Text>
 	})
 	const rnfbURI= RNFetchBlob.wrap(path);
-	// create Blob from file path
-	Blob
+	
+	Blob // create Blob from file path
 	  .build(rnfbURI, { type : 'image/jpg;'})
 	  .then((blob) => {
-	  // upload image using Firebase SDK
-	  var uploadTask= firebase.storage()
+	  var uploadTask= firebase.storage()// upload image using Firebase SDK 
 		.ref()
 		.child('medecins'+'_'+this.state.medecin_id).child('patients'+'_'+this.state.patient_id).child('categories'+'_'+id_category).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images'+'_'+this.state.category_id)
 		.child(testImageName.substring(0,44).replace(/\s/g, "_"))
@@ -117,9 +116,8 @@ export default class validMeta extends Component {
 			let downloadURL = uploadTask.snapshot.downloadURL;
 			alert("done uploading",downloadURL);
 		});//end successful function
-		/*-----Add to firebase databse method ----*/
-		//and store image name
-		let compte_rendu=new Date();
+		/*-----Add to firebase databse method ----*/	
+		let compte_rendu=new Date();//and store image name
 		let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
 		AsyncStorage.getItem('id').then((idd)=>{
 		  this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set({ 
@@ -134,8 +132,7 @@ export default class validMeta extends Component {
 			suspicion:my_array.suspicion,
 			imageName:image_id
 		  })
-		  //upadet medical folder data
-		  this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ 
+		  this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //upadet medical folder data
 			date_MAJ_dossier: compte_rendu.toString(),
 			nombre_images_dossier: my_array.nombre_images_dossier+1,
 			emplacement: my_array.emplacement
