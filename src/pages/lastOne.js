@@ -27,8 +27,8 @@ export default class lastOne extends Component {
   render() {
     return (
 	<View>
-		<Header text="Katomi  PIX" loaded={true}/>
-		<Image style={styles.image_last_one} source={{uri:'http://localhost:8081/img/last.png'}}/>
+		<Header text="Katomi" loaded={true}/>
+		<Image style={styles.image_last_one} source={{uri:'http://localhost:8081/img/.png'}}/>
 		<Text style={styles.text_last_one}> Rendez-vous sur notre site {"\n"}web Katomi </Text>			
 		<Text style={styles.text_last_one_link}
 			onPress={() => Linking.openURL('https://katomi.co/')}>

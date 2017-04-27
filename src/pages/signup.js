@@ -151,7 +151,7 @@ export default class signup extends Component {
 				style={styles.primary_button_signup}
 				textStyle={{fontSize: 16, color:'#fff'}}
 				bordered>CRÉER UN COMPTE</Button>
-			<Text style={styles.text_signup_terms}>En cliquant sur "créer un compte" ,vous acceptez nos condition d'utilisation et notre Politique de confidentialité.</Text>
+			<Text style={styles.text_signup_terms}>En cliquant sur "créer un compte" ,vous acceptez nos conditions d'utilisation et notre Politique de confidentialité.</Text>
         </View>
 		</Image>
       </View>
