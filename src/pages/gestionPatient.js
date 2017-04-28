@@ -44,7 +44,6 @@ export default class gestionPatient extends Component {
   componentWillMount() {
     AsyncStorage.getItem('medecin_username').then((user_id) => {
 	  this.itemsRef.child('categories').child(user_id).once("value", (snap)=> {
-		//test
 		if(Object.keys(snap.val()).length==1){
 		  AsyncStorage.setItem('id',"naevus"); 
 		  this.setState({
