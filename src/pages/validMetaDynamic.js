@@ -123,9 +123,8 @@ export default class validMetaDynamic extends Component {
 		}, function() {
 		  blob.close();
 		  let downloadURL = uploadTask.snapshot.downloadURL;
-		  alert("done uploading",downloadURL);
-		});    
-		/*-----Add to firebase databse method ----*/
+		  alert("Upload Terminé",downloadURL);
+		  /*-----Add to firebase databse method ----*/
 		//and store image name
 		let compte_rendu=new Date();
 		//create a JSON array from a javascript array
@@ -133,14 +132,14 @@ export default class validMetaDynamic extends Component {
 		let myarray_values=[];
 		let array_all=[];		
 		let items=[];
-		for (var k in this.state.meta_arr){
-		  if (this.state.meta_arr.hasOwnProperty(k)) {
-			myarray_keys.push(this.state.meta_arr[k].criteria_name);	
+		for (var k in that.state.meta_arr){
+		  if (that.state.meta_arr.hasOwnProperty(k)) {
+			myarray_keys.push(that.state.meta_arr[k].criteria_name);	
 		  }  
 		} 
-		for (var k in this.state.meta_arr){
-		  if (this.state.meta_arr.hasOwnProperty(k)) {
-			myarray_values.push(this.state.meta_arr[k].value);	
+		for (var k in that.state.meta_arr){
+		  if (that.state.meta_arr.hasOwnProperty(k)) {
+			myarray_values.push(that.state.meta_arr[k].value);	
 		  }  
 		} 
 		let obj ="{"
@@ -150,18 +149,20 @@ export default class validMetaDynamic extends Component {
 		obj+=JSON.stringify("date_compte_rendu_consultation")+":"+JSON.stringify(compte_rendu.toString())+"}";
 		array_all=JSON.parse(obj);
 		
-		myarray=JSON.stringify(this.state.meta_arr);//merge both arrays
+		myarray=JSON.stringify(that.state.meta_arr);//merge both arrays
 		let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
   		AsyncStorage.getItem('id').then((idd)=>{
-		  this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(array_all);	  
-		  this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //upadet medical folder data
+		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(array_all);	  
+		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //upadet medical folder data
 		    date_MAJ_dossier: compte_rendu.toString(),
 		    nombre_images_dossier: my_array.nombre_images_dossier+1,
 		    emplacement: my_array.emplacement
 		  });
-		  this.props.navigator.push({
+		  that.props.navigator.push({
 			component: LastPageDynamic
 		  });
+		});    
+		
 		});//end get category ID 
 	})  
   }
@@ -200,7 +201,7 @@ export default class validMetaDynamic extends Component {
 			</Col>
 		  </Row>
 		  <Row>
-		    <ProgressBarAndroid progress={that.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="purple"/>
+		    <ProgressBarAndroid progress={that.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="purple" style={{height:60}}/>
 		  </Row>
 		</Grid>						
 	  </ScrollView>   

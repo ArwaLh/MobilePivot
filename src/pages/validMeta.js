@@ -118,7 +118,7 @@ export default class validMeta extends Component {
 		}, function() {
 			blob.close();
 			let downloadURL = uploadTask.snapshot.downloadURL;
-			alert("done uploading",downloadURL);
+			alert("Upload terminé",downloadURL);
 			/*-----Add to firebase databse method ----*/	
 		let compte_rendu=new Date();//and store image name
 		let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
@@ -140,12 +140,11 @@ export default class validMeta extends Component {
 			nombre_images_dossier: my_array.nombre_images_dossier+1,
 			emplacement: my_array.emplacement
 		  });
-		  //alert(progress);
+		  
 		  that.props.navigator.push({
 			 component: LastOne
 		  }); 
 		});//end successful function
-		
 		});//end getItem id category
 		})
   }
