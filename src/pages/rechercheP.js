@@ -34,7 +34,6 @@ export default class rechercheP extends Component {
 	  id: ''
 	};
 	this.goBack = this.goBack.bind(this);
-	this.gestionNaevus = this.gestionNaevus.bind(this);
   }
   gestionNaevus(patient_id,nom_pat,prenom_pat){
 	this.setState({ query: nom_pat+" "+prenom_pat});

@@ -13,6 +13,7 @@ import {
   Platform,
   AsyncStorage,
   ScrollView,
+  ProgressBarAndroid,
   TextInput,
   View
 } from 'react-native';
@@ -51,6 +52,7 @@ export default class validMetaDynamic extends Component {
 		couleur: '',
 		loaded: true,
 		dossier_id: '',
+		progress_bar_value: 1,
 		medecin_id: '',
 		patient_id: '',
 		downloadURL:""
@@ -163,7 +165,6 @@ export default class validMetaDynamic extends Component {
 	})  
   }
   renderRow(rowData,sectionID:number,rowID:number){
-	/*for statement*/
 	return (
       <View style={styles.subBody}>
 		<Grid>
@@ -195,7 +196,10 @@ export default class validMetaDynamic extends Component {
 				style={styles.send_button_valid_meta_dyn}
 				textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
 			</Col>
-		  </Row>	
+		  </Row>
+		  <Row>
+		    <ProgressBarAndroid progress={this.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="blue"/>
+		  </Row>
 		</Grid>						
 	  </ScrollView>   
 	</View>

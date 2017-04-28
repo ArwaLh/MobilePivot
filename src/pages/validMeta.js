@@ -11,6 +11,7 @@ import {
   Platform,
   AsyncStorage,
   ScrollView,
+  ProgressBarAndroid,
   TextInput,
   View
 } from 'react-native';
@@ -46,6 +47,7 @@ export default class validMeta extends Component {
 		couleur: '',
 		loaded: true,
 		dossier_id: '',
+		progress_bar_value: 1,
 		medecin_id: '',
 		patient_id: '',
 		downloadURL:""
@@ -239,7 +241,8 @@ export default class validMeta extends Component {
 			    style={styles.send_button_valid_meta}
 			    textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
 			</Col>
-		  </Row>	
+		  </Row>
+		  <ProgressBarAndroid progress={this.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="blue"/>
 		</Grid>			
 	  </ScrollView>   
 	</View>
