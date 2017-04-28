@@ -28,7 +28,7 @@ import TakePic from './takePic';
 import firebase from 'firebase';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import Icon from 'react-native-vector-icons/FontAwesome'; 
-
+const window = Dimensions.get('window');
 export default class lastPageDynamic extends Component {
 	constructor(props){
     super(props);
@@ -53,8 +53,8 @@ export default class lastPageDynamic extends Component {
   render() {
     return ( 
 	<View>
-		<Header text="Katomi  PIX " loaded={true}/>
-		<Image style={styles.image_last_one} source={{uri:'http://localhost:8081/img/last.png'}}/>
+		<Header text="Katomi" loaded={true}/>
+		<Image style={{height: window.height-570, width:((window.width)/2)+60, marginLeft: ((window.width)/5)-15,marginRight: ((window.width)/5)-15, marginTop:(window.height)-600, marginBottom:(window.height)-620}} source={{uri:'http://localhost:8081/img/katomi_violet_mobile.png'}}/>
 		<Text style={styles.text_last_one}> Rendez-vous sur notre site {"\n"}web Katomi </Text>			
 		<Text style={styles.text_last_one_link}
 			onPress={() => Linking.openURL('https://katomi.co/')}>
