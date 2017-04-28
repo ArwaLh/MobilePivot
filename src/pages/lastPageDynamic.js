@@ -62,7 +62,7 @@ export default class lastPageDynamic extends Component {
 		</Text>
 		<Hr lineColor='black'  textColor='#29235c' line={{width:10}}/>	
 		<Grid>
-		  <Row style={{width:300, height:300, margin:10, marginLeft:50, marginTop:20}}>
+		  <Row style={{width:300, height:300, margin:10, marginLeft:50, marginTop:40}}>
 			<Col style={{width:100, height:50}}><Icon name="smile-o" style={{color:'#29235c', fontSize:60}} /></Col>
 			<Col style={{width:100, height:200}}><Text style={{fontFamily:'Roboto', fontSize:30, color:'#29235c', fontWeight:'bold', marginTop:10}}> OU </Text></Col>
 			<Col style={{width:100, height:50}}><Icon name="frown-o" style={{color:'#29235c', fontSize:60}} /></Col>
@@ -70,7 +70,7 @@ export default class lastPageDynamic extends Component {
 		</Grid>
 		<Text style={styles.text_last_one_link2}
 		    onPress={() => Linking.openURL('https://chiraz54.typeform.com/to/Bkbkkw')}>
-		    cliquez ici pour  donner votre avis
+		    cliquez ici pour donner votre avis
 		</Text>
 		
      </View>
