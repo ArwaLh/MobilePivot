@@ -47,7 +47,7 @@ export default class validMeta extends Component {
 		couleur: '',
 		loaded: true,
 		dossier_id: '',
-		progress_bar_value: 0.5,
+		progress_bar_value: 0,
 		medecin_id: '',
 		patient_id: '',
 		downloadURL:""
@@ -81,9 +81,11 @@ export default class validMeta extends Component {
 		path:pathUp
 	  });
 	  path= this.state.path;
-	});			
+	});	
   }
   validate(){
+	let that = this;
+	let progress=0;
 	let id_medecin=this.state.medecin_id;
 	let id_patient=this.state.patient_id;
 	let id_dossier=this.state.dossier_id;
@@ -109,8 +111,9 @@ export default class validMeta extends Component {
 		.child(testImageName.substring(0,44).replace(/\s/g, "_"))
 		.put(blob, {contentType : 'image/jpg'});
 		uploadTask.on('state_changed', function(snapshot){
-			progress =Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-			alert(progress); 
+			progress =Math.floor(snapshot.bytesTransferred / snapshot.totalBytes);
+			alert((snapshot.bytesTransferred / snapshot.totalBytes)); 
+			that.setState({progress_bar_value:progress});
 		}, function(error) {
 		  alert("error in uploading");
 		}, function() {
@@ -139,9 +142,10 @@ export default class validMeta extends Component {
 			nombre_images_dossier: my_array.nombre_images_dossier+1,
 			emplacement: my_array.emplacement
 		  });
-		  this.props.navigator.push({
+		  //alert(progress);
+		  /* this.props.navigator.push({
 			 component: LastOne
-		  });
+		  }); */
 		});//end getItem id category
 		})
   }
@@ -237,14 +241,14 @@ export default class validMeta extends Component {
 			</Col>
 			<Col>	
 			  <Button
-			    onPress={this.validate}
+			    onPress={this.validate.bind(this)}
 			    style={styles.send_button_valid_meta}
 			    textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
 			</Col>
 		  </Row>
 		  <Row>
 		  <Col style={{margin:10}}>
-		  <ProgressBarAndroid progress={this.state.progress_bar_value} styleAttr="Horizontal" indeterminate={true} color="purple" style={{height:50}}/>
+		  <ProgressBarAndroid progress={this.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="purple" style={{height:60}}/>
 		  </Col>
 		  </Row>
 		</Grid>			
