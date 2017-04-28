@@ -240,9 +240,9 @@ export default class validMeta extends Component {
 		<Grid>
 		  <Row style={{marginTop:20, marginLeft:10}}>
 			<Col style={{width:200}}>
-			  <Button onPress={this.uploadP} textStyle={styles.back_to_upload_button_valid_meta} transparent> MODIFIER LES INORMATIONS</Button> 
+			  <Button onPress={this.uploadP} textStyle={styles.back_to_upload_button_valid_meta} style={{height:40}}transparent> MODIFIER LES INORMATIONS</Button> 
 			</Col>
-			<Col>	
+			<Col style={{height:30,marginBottom:30}}>	
 			  <Button
 			    onPress={this.validate.bind(this)}
 			    style={styles.send_button_valid_meta}
@@ -250,9 +250,9 @@ export default class validMeta extends Component {
 			</Col>
 		  </Row>
 		  <Row>
-		  <Col style={{margin:10}}>
-			<Text>{that.state.progress_text_value}%</Text>
-			<ProgressBarAndroid progress={that.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="purple" style={{height:60}}/>
+		  <Col style={{marginLeft:20,marginTop:10,marginRight:20}}>
+			<Text style={{color:"#29235c"}}>{that.state.progress_text_value}%</Text>
+			<ProgressBarAndroid progress={that.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="purple" style={{height:30}}/>
 		  </Col>
 		  </Row>
 		</Grid>			

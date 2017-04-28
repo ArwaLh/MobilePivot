@@ -203,8 +203,8 @@ export default class validMetaDynamic extends Component {
 				textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
 			</Col>
 		  </Row>
-		  <Row>
-			<Text>{that.state.progress_text_value}%</Text>
+		  <Row style={{margin:10}}>
+			<Text style={{color:"#29235c"}}>{that.state.progress_text_value}%</Text>
 		    <ProgressBarAndroid progress={that.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="purple" style={{height:60}}/>  
 		  </Row>
 		</Grid>						

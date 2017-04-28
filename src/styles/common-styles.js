@@ -341,40 +341,40 @@ module.exports = StyleSheet.create({
   },
  list_MetaData:{
 	borderColor:'#29235c',
-	height:60,
+	height:50,
 	width:330,
 	marginBottom:0,
 	marginTop:0
   },
   metaDataForm: {
    fontFamily: 'Roboto',
-	fontSize:16,
+	fontSize:15,
 	color:'#29235c',  
-	margin:10
+	margin:8
   },
   metaDataForm2: {
    fontFamily: 'Roboto',
-	fontSize:16,
+	fontSize:15,
 	color:'#29235c',  
-	margin:10
+	margin:8
   },
   metaDataForm3: {
    fontFamily: 'Roboto',
-	fontSize:16,
+	fontSize:15,
 	color:'#29235c',  
-	margin:10
+	margin:8
   },
   mélanomeF: {
 	fontFamily: 'Roboto',
-	fontSize:16,
+	fontSize:15,
 	color:'#29235c',  
-	margin:10  
+	margin:8  
   },  
   phototypeF: {
 	fontFamily: 'Roboto',
-	fontSize:16,
+	fontSize:15,
 	color:'#29235c',  
-	margin:10  
+	margin:8  
   },
   title_upload:{
 	color:"#fff",
