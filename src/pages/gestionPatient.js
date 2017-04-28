@@ -27,7 +27,9 @@ import NewPatient from './newPatient';
 import NewPatientDynamic from './newPatientDynamic';
 import LocatePic from './locatePic';
 import RechercheP from './rechercheP';
+import firebase from 'firebase';
 import LastOne from './lastOne';
+
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 const window = Dimensions.get('window');
 export default class gestionPatient extends Component {
@@ -37,15 +39,29 @@ export default class gestionPatient extends Component {
 	  loaded: true,
 	  id: ''
 	}
+	this.itemsRef = firebase.database().ref();
   }
-  componentDidMount(){ 
-	AsyncStorage.getItem('id').then((idd) => {
-	  this.setState({
-		id: idd
+  componentWillMount() {
+    AsyncStorage.getItem('medecin_username').then((user_id) => {
+	  this.itemsRef.child('categories').child(user_id).once("value", (snap)=> {
+		//test
+		if(Object.keys(snap.val()).length==1){
+		  AsyncStorage.setItem('id',"naevus"); 
+		  this.setState({
+			id: "naevus"
+          });
+		}else{
+		  AsyncStorage.getItem('id').then((idd) => {
+			this.setState({
+			  id: idd
+			});
+		  });
+		}
 	  });
-	});
+    });
   }
   ajoutPat(){
+	alert(this.state.id)
 	if(this.state.id=="naevus"){
 	  this.props.navigator.push({
 		component: NewPatient
@@ -77,6 +93,7 @@ export default class gestionPatient extends Component {
   }	
   render() {
     return (
+
 	<View>
 	<HeaderUp text="   Gestion des patients" loaded={true} onpress={this.goBack.bind(this)}/>
 	  <View style={{margin:7, marginTop:30}}>

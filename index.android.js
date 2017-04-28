@@ -44,7 +44,7 @@ export default class FacebookApp extends Component {
 			  configureScene={(route) => {
 				return {
 					...Navigator.SceneConfigs.HorizontalSwipeJump,
-					gestures: {}
+					gestures: {},
 				};
 			  }}
 			  renderScene={(route, navigator) => {

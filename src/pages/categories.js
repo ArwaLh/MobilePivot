@@ -42,6 +42,7 @@ export default class categories extends Component {
 		return true;
 	}
 	gestionP(id){
+	 AsyncStorage.removeItem('id'); 
 	 AsyncStorage.setItem('id',id);  
 		this.props.navigator.push({ 
 		 component: GestionPatient
