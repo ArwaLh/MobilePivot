@@ -243,8 +243,8 @@ export default class validMeta extends Component {
 			</Col>
 		  </Row>
 		  <Row>
-		  <Col style={{margin:20}}>
-		  <ProgressBarAndroid progress={this.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="purple"/>
+		  <Col style={{margin:10}}>
+		  <ProgressBarAndroid progress={this.state.progress_bar_value} styleAttr="Horizontal" indeterminate={true} color="purple" style={{height:50}}/>
 		  </Col>
 		  </Row>
 		</Grid>			
