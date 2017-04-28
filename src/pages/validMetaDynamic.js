@@ -52,7 +52,8 @@ export default class validMetaDynamic extends Component {
 		couleur: '',
 		loaded: true,
 		dossier_id: '',
-		progress_bar_value: 1,
+		progress_bar_value: 0,
+		progress_text_value: 0,
 		medecin_id: '',
 		patient_id: '',
 		downloadURL:""
@@ -116,8 +117,10 @@ export default class validMetaDynamic extends Component {
 		.child(testImageName.substring(0,44).replace(/\s/g, "_"))
 		.put(blob, {contentType : 'image/jpg'});
 		uploadTask.on('state_changed', function(snapshot){
-			progress =Math.floor(snapshot.bytesTransferred / snapshot.totalBytes);
+			progress =Math.round(snapshot.bytesTransferred / snapshot.totalBytes);
+			progress_text =Math.floor(snapshot.bytesTransferred / snapshot.totalBytes)*100;
 			that.setState({progress_bar_value:progress});
+			that.setState({progress_text_value:progress_text});
 		}, function(error) {
 		  alert("error in uploading");
 		}, function() {
@@ -201,7 +204,8 @@ export default class validMetaDynamic extends Component {
 			</Col>
 		  </Row>
 		  <Row>
-		    <ProgressBarAndroid progress={that.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="purple" style={{height:60}}/>
+			<Text>{that.state.progress_text_value}%</Text>
+		    <ProgressBarAndroid progress={that.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="purple" style={{height:60}}/>  
 		  </Row>
 		</Grid>						
 	  </ScrollView>   
