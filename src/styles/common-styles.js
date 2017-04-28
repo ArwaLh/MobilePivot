@@ -443,7 +443,8 @@ module.exports = StyleSheet.create({
 	fontSize:15,
 	color:'#29235c',
 	marginLeft:50,
-	marginTop:12
+	marginTop:20,
+	marginBottom:3
   },
   slidee: {
 	width:280,
@@ -461,8 +462,8 @@ module.exports = StyleSheet.create({
 	fontFamily: 'Roboto',
 	fontSize:17,
 	color:'#29235c',
-	marginTop:10,
-    margin:20	
+	marginTop:9,
+    margin:19	
   },
   couleur: {
   	fontFamily: 'Roboto',

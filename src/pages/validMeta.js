@@ -239,7 +239,7 @@ export default class validMeta extends Component {
 		</ListItem>	 	
 		<Grid>
 		  <Row style={{marginTop:20, marginLeft:10}}>
-			<Col style={{width:200}}>
+			<Col style={{width:170}}>
 			  <Button onPress={this.uploadP} textStyle={styles.back_to_upload_button_valid_meta} style={{height:40}}transparent> MODIFIER LES INORMATIONS</Button> 
 			</Col>
 			<Col style={{height:30,marginBottom:30}}>	

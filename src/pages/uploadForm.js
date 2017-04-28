@@ -205,14 +205,14 @@ export default class uploadForm extends Component {
 			  </Picker>
 			</Col>	
 		  </Row>
-		  <Row>
+		  <Row style={{marginBottom:5}}>
 			<Col style={{width:140}}>
 			  <Text style={styles.phototypee}>Phototype</Text>
 			</Col>
 			<Col style={{width:190}}>
 			  <Button
 			    onPress={this.phototypeb.bind(this)}
-				style={{borderColor: "#53507c",width:150,height:35,marginLeft:50}}
+				style={{borderColor: "#53507c",width:150,height:35,marginLeft:50,marginTop:9}}
 				textStyle={{fontSize: 15, color:'#53507c'}}
 				bordered> phototype <Text> {this.state.phototype}</Text></Button>
 			</Col>
@@ -221,10 +221,10 @@ export default class uploadForm extends Component {
 			<Col style={{width:140}}>
 			  <Text style={styles.diametre}>Diamètre</Text>
 			</Col>
-			<Col style={{ marginLeft:160}}>
+			<Col style={{ marginLeft:160,marginTop:0}}>
 			  <TextInput
 				ref="diametre"
-				style={{width:45, textAlign :"center"}}
+				style={{width:45, textAlign :"center",marginTop:0}}
 				onChangeText={(text) => this.setState({diametre: text})}
 				value={this.state.diametre}
 				keyboardType='phone-pad'
