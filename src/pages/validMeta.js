@@ -112,7 +112,6 @@ export default class validMeta extends Component {
 		.put(blob, {contentType : 'image/jpg'});
 		uploadTask.on('state_changed', function(snapshot){
 			progress =Math.floor(snapshot.bytesTransferred / snapshot.totalBytes);
-			alert((snapshot.bytesTransferred / snapshot.totalBytes)); 
 			that.setState({progress_bar_value:progress});
 		}, function(error) {
 		  alert("error in uploading");
@@ -120,12 +119,11 @@ export default class validMeta extends Component {
 			blob.close();
 			let downloadURL = uploadTask.snapshot.downloadURL;
 			alert("done uploading",downloadURL);
-		});//end successful function
-		/*-----Add to firebase databse method ----*/	
+			/*-----Add to firebase databse method ----*/	
 		let compte_rendu=new Date();//and store image name
 		let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
 		AsyncStorage.getItem('id').then((idd)=>{
-		  this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set({ 
+		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set({ 
 			date_compte_rendu_consultation: compte_rendu.toString(),
 			bords:my_array.bords,
 			couleur:my_array.couleur,
@@ -137,15 +135,17 @@ export default class validMeta extends Component {
 			suspicion:my_array.suspicion,
 			imageName:image_id
 		  })
-		  this.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //upadet medical folder data
+		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //upadet medical folder data
 			date_MAJ_dossier: compte_rendu.toString(),
 			nombre_images_dossier: my_array.nombre_images_dossier+1,
 			emplacement: my_array.emplacement
 		  });
 		  //alert(progress);
-		  /* this.props.navigator.push({
+		  that.props.navigator.push({
 			 component: LastOne
-		  }); */
+		  }); 
+		});//end successful function
+		
 		});//end getItem id category
 		})
   }
