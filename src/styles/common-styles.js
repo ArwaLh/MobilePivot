@@ -98,7 +98,7 @@ module.exports = StyleSheet.create({
 	fontSize: 18,
 	fontWeight: 'normal',
 	textAlign: 'center',
-	marginTop:100,
+	marginTop:140,
 	textDecorationLine: 'underline'
   },
   button_last: {
