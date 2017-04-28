@@ -27,6 +27,7 @@ import NewPatient from './newPatient';
 import NewPatientDynamic from './newPatientDynamic';
 import LocatePic from './locatePic';
 import RechercheP from './rechercheP';
+import firebase from 'firebase';
 import LastOne from './lastOne';
 
 import Icon from 'react-native-vector-icons/FontAwesome'; 
@@ -38,12 +39,17 @@ export default class gestionPatient extends Component {
 	  loaded: true,
 	  id: ''
 	}
+	this.itemsRef = firebase.database().ref();
   }
   componentWillMount() {
-    AsyncStorage.getItem('id').then((idd) => {
+
+    AsyncStorage.getItem('medecin_username').then((user_id) => {
+	this.itemsRef.child('categories').child(user_id).once("value", (snap)=> {
+	AsyncStorage.setItem('id',Object.keys(snap.val())); 
       this.setState({
-		id: idd
+		id: Object.keys(snap.val())
       });
+    });
     });
   }
   ajoutPat(){
