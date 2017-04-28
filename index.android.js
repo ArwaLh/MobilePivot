@@ -35,7 +35,6 @@ export default class FacebookApp extends Component {
 		  loaded: false,
 		  
 		};
-		console.disableYellowBox = true;
 	}
 	render() {
 		return (
