@@ -47,7 +47,7 @@ export default class validMeta extends Component {
 		couleur: '',
 		loaded: true,
 		dossier_id: '',
-		progress_bar_value: 1,
+		progress_bar_value: 0.5,
 		medecin_id: '',
 		patient_id: '',
 		downloadURL:""
@@ -242,7 +242,11 @@ export default class validMeta extends Component {
 			    textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
 			</Col>
 		  </Row>
-		  <ProgressBarAndroid progress={this.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="blue"/>
+		  <Row>
+		  <Col style={{margin:20}}>
+		  <ProgressBarAndroid progress={this.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="purple"/>
+		  </Col>
+		  </Row>
 		</Grid>			
 	  </ScrollView>   
 	</View>

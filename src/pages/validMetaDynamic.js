@@ -198,7 +198,7 @@ export default class validMetaDynamic extends Component {
 			</Col>
 		  </Row>
 		  <Row>
-		    <ProgressBarAndroid progress={this.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="blue"/>
+		    <ProgressBarAndroid progress={this.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="purple"/>
 		  </Row>
 		</Grid>						
 	  </ScrollView>   
