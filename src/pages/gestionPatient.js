@@ -42,14 +42,22 @@ export default class gestionPatient extends Component {
 	this.itemsRef = firebase.database().ref();
   }
   componentWillMount() {
-
     AsyncStorage.getItem('medecin_username').then((user_id) => {
-	this.itemsRef.child('categories').child(user_id).once("value", (snap)=> {
-	AsyncStorage.setItem('id',Object.keys(snap.val())); 
-      this.setState({
-		id: Object.keys(snap.val())
-      });
-    });
+	  this.itemsRef.child('categories').child(user_id).once("value", (snap)=> {
+		//test
+		if(Object.keys(snap.val()).length==1){
+		  AsyncStorage.setItem('id',"naevus"); 
+		  this.setState({
+			id: "naevus"
+          });
+		}else{
+		  AsyncStorage.getItem('id').then((idd) => {
+			this.setState({
+			  id: idd
+			});
+		  });
+		}
+	  });
     });
   }
   ajoutPat(){
