@@ -267,7 +267,7 @@ export default class newPatientDynamic extends Component {
 				underlineColorAndroid="#29235c"/> 	
 			</Row>
 			<Row style={{marginTop:8}}>
-			  <PhoneInput ref='phone' initialCountry="tn" style={{height: 20,width: 330,margin:7,marginLeft:10,marginTop:20,borderColor:"#29235c",borderBottomWidth:1.5}} textStyle={{color: "#29235c",fontFamily: 'Roboto',fontSize: 16}}/>
+			  <PhoneInput ref='phone' initialCountry="tn" style={{height: 20,width: 335,margin:7,marginLeft:10,marginTop:22,borderColor:"#29235c",borderBottomWidth:1.5}} textStyle={{color: "#29235c",fontFamily: 'Roboto',fontSize: 16}}/>
 			</Row>	
 		  </Grid>
 		  <Button

@@ -267,8 +267,8 @@ module.exports = StyleSheet.create({
 	color: '#939393'
   },
   firstContainer: {
-    backgroundColor: 'transparent',
-    flex: 1
+    backgroundColor: 'white',
+	flex:1
   },
   descriptionContainer: {
     // `backgroundColor` needs to be set otherwise the
