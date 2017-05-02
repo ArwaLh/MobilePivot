@@ -140,7 +140,24 @@ export default class login extends Component {
 			});
 		});
     }).catch((error)=>{
-		 alert(error.message);
+		//change Firebase alerts to french (catch them and switch text)
+		switch (error.code) {
+			case 'auth/email-already-in-use':
+			  alert("E-mail déja utilisé");
+			  break;
+				case 'auth/invalid-email':
+			  // User doesn't have permission to access the object
+			  alert("E-mail non valide");
+			  break;
+				case 'auth/operation-not-allowed':
+			  // User canceled the upload
+			  alert("Opération non permise");
+			  break;
+				case 'auth/weak-password':
+			  // Unknown error occurred, inspect the server response
+			  alert("Mot de passe faible.Le mot de passe doit dépasser 6 caractéres");
+			  break;
+		  }
 	});
   }
   goToSignup(){

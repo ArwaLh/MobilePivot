@@ -80,7 +80,20 @@ export default class signup extends Component {
 			  component: Login
 			});
 		}).catch((error)=>{
-			  alert(error.message);
+			 switch (error.code) {
+			case 'auth/email-already-in-use':
+			  alert("E-mail déja utilisé");
+			  break;
+				case 'auth/invalid-email':
+			  alert("E-mail non valide");
+			  break;
+				case 'auth/operation-not-allowed':
+			  alert("Opération non permise");
+			  break;
+				case 'auth/weak-password':
+			  alert("Mot de passe faible.Le mot de passe doit dépasser 6 caractéres");
+			  break;
+		  }
 			});
 		  this.setState({
 			loaded: true
