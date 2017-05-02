@@ -124,17 +124,40 @@ export default class locatePic extends Component {
 		  [
 			{text: 'Valider pour étape suivante', onPress: () => {
 			//update dossier médical
-			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
+			  AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
-				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({  
-					emplacement:"Cou",
-					nombre_images_dossier:array.nombre_images_dossier
-					});
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Cou'}));
-					this.props.navigator.push({
-						component: TakePicture
-					});
-			});
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
+				let dossier_length=0;
+				let items_pat=[];
+				snap.forEach((child) => {
+				  items_pat.push({
+					nombre_images_dossier :child.val().nombre_images_dossier,
+					_key: child.key,
+				  });
+				});
+				if(items_pat==null){
+					dossier_length=0;
+				}else{
+					dossier_length=items_pat.length
+				}
+				alert(dossier_length)
+				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let my_date=new Date();
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
+				  date_creation_dossier: my_date.toString(),
+				  date_MAJ_dossier: my_date.toString(),
+				  nom_patient_dossier: array.nom_pat.charAt(0).toUpperCase()+array.nom_pat.slice(1),
+				  prenom_patient_dossier:array.prenom_pat.charAt(0).toUpperCase()+array.prenom_pat.slice(1),
+				  emplacement:"Cou",
+				  categorie_id:array.categorie,
+				  nombre_images_dossier: array.nombre_images_dossier
+				})
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":dossier_id,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
+				this.props.navigator.push({
+					component: TakePicture
+				});
+				});
+			  });
 			}
 			}
 		  ]
@@ -149,15 +172,38 @@ export default class locatePic extends Component {
 			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
-				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({ 
-					emplacement:"Nuque",
-					nombre_images_dossier:array.nombre_images_dossier
-					});
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Nuque'}));
-					this.props.navigator.push({
-						component: TakePicture
-					});
-			});
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
+				let dossier_length=0;
+				let items_pat=[];
+				snap.forEach((child) => {
+				  items_pat.push({
+					nombre_images_dossier :child.val().nombre_images_dossier,
+					_key: child.key,
+				  });
+				});
+				if(items_pat==null){
+					dossier_length=0;
+				}else{
+					dossier_length=items_pat.length
+				}
+				alert(dossier_length)
+				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let my_date=new Date();
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
+				  date_creation_dossier: my_date.toString(),
+				  date_MAJ_dossier: my_date.toString(),
+				  nom_patient_dossier: array.nom_pat.charAt(0).toUpperCase()+array.nom_pat.slice(1),
+				  prenom_patient_dossier:array.prenom_pat.charAt(0).toUpperCase()+array.prenom_pat.slice(1),
+				  emplacement:"Nuque",
+				  categorie_id:array.categorie,
+				  nombre_images_dossier: array.nombre_images_dossier
+				})
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":dossier_id,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
+				this.props.navigator.push({
+					component: TakePicture
+				});
+				});
+			  });
 			}
 			}
 		  ]
@@ -172,15 +218,38 @@ export default class locatePic extends Component {
 			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
-				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({ 
-					emplacement:"Épaule gauche",
-					nombre_images_dossier:array.nombre_images_dossier
-					});
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Épaule gauche'}));
-					this.props.navigator.push({
-						component: TakePicture
-					});
-			});
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
+				let dossier_length=0;
+				let items_pat=[];
+				snap.forEach((child) => {
+				  items_pat.push({
+					nombre_images_dossier :child.val().nombre_images_dossier,
+					_key: child.key,
+				  });
+				});
+				if(items_pat==null){
+					dossier_length=0;
+				}else{
+					dossier_length=items_pat.length
+				}
+				alert(dossier_length)
+				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let my_date=new Date();
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
+				  date_creation_dossier: my_date.toString(),
+				  date_MAJ_dossier: my_date.toString(),
+				  nom_patient_dossier: array.nom_pat.charAt(0).toUpperCase()+array.nom_pat.slice(1),
+				  prenom_patient_dossier:array.prenom_pat.charAt(0).toUpperCase()+array.prenom_pat.slice(1),
+				  emplacement:"Épaule gauche",
+				  categorie_id:array.categorie,
+				  nombre_images_dossier: array.nombre_images_dossier
+				})
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":dossier_id,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
+				this.props.navigator.push({
+					component: TakePicture
+				});
+				});
+			  });
 			}
 			}
 		  ]
@@ -195,15 +264,38 @@ export default class locatePic extends Component {
 			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
-				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({ 
-					emplacement:"Épaule droite",
-					nombre_images_dossier:array.nombre_images_dossier
-					});
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Épaule droite'}));
-					this.props.navigator.push({
-						component: TakePicture
-					});
-			});
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
+				let dossier_length=0;
+				let items_pat=[];
+				snap.forEach((child) => {
+				  items_pat.push({
+					nombre_images_dossier :child.val().nombre_images_dossier,
+					_key: child.key,
+				  });
+				});
+				if(items_pat==null){
+					dossier_length=0;
+				}else{
+					dossier_length=items_pat.length
+				}
+				alert(dossier_length)
+				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let my_date=new Date();
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
+				  date_creation_dossier: my_date.toString(),
+				  date_MAJ_dossier: my_date.toString(),
+				  nom_patient_dossier: array.nom_pat.charAt(0).toUpperCase()+array.nom_pat.slice(1),
+				  prenom_patient_dossier:array.prenom_pat.charAt(0).toUpperCase()+array.prenom_pat.slice(1),
+				  emplacement:"Épaule droite",
+				  categorie_id:array.categorie,
+				  nombre_images_dossier: array.nombre_images_dossier
+				})
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":dossier_id,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
+				this.props.navigator.push({
+					component: TakePicture
+				});
+				});
+			  });
 			}}		
 		  ]
 	)
@@ -217,15 +309,38 @@ export default class locatePic extends Component {
 			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
-				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({ 
-					emplacement:"Thorax",
-					nombre_images_dossier:array.nombre_images_dossier
-					});
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Thorax'}));
-					this.props.navigator.push({
-						component: TakePicture
-					});
-			});
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
+				let dossier_length=0;
+				let items_pat=[];
+				snap.forEach((child) => {
+				  items_pat.push({
+					nombre_images_dossier :child.val().nombre_images_dossier,
+					_key: child.key,
+				  });
+				});
+				if(items_pat==null){
+					dossier_length=0;
+				}else{
+					dossier_length=items_pat.length
+				}
+				alert(dossier_length)
+				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let my_date=new Date();
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
+				  date_creation_dossier: my_date.toString(),
+				  date_MAJ_dossier: my_date.toString(),
+				  nom_patient_dossier: array.nom_pat.charAt(0).toUpperCase()+array.nom_pat.slice(1),
+				  prenom_patient_dossier:array.prenom_pat.charAt(0).toUpperCase()+array.prenom_pat.slice(1),
+				  emplacement:"Thorax",
+				  categorie_id:array.categorie,
+				  nombre_images_dossier: array.nombre_images_dossier
+				})
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":dossier_id,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
+				this.props.navigator.push({
+					component: TakePicture
+				});
+				});
+			  });
 			}}
 		  ]
 	)
@@ -239,15 +354,38 @@ export default class locatePic extends Component {
 			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
-				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({ 
-					emplacement:"Abdomen",
-					nombre_images_dossier:array.nombre_images_dossier
-					});
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Abdomen'}));
-					this.props.navigator.push({
-						component: TakePicture
-					});
-			});
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
+				let dossier_length=0;
+				let items_pat=[];
+				snap.forEach((child) => {
+				  items_pat.push({
+					nombre_images_dossier :child.val().nombre_images_dossier,
+					_key: child.key,
+				  });
+				});
+				if(items_pat==null){
+					dossier_length=0;
+				}else{
+					dossier_length=items_pat.length
+				}
+				alert(dossier_length)
+				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let my_date=new Date();
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
+				  date_creation_dossier: my_date.toString(),
+				  date_MAJ_dossier: my_date.toString(),
+				  nom_patient_dossier: array.nom_pat.charAt(0).toUpperCase()+array.nom_pat.slice(1),
+				  prenom_patient_dossier:array.prenom_pat.charAt(0).toUpperCase()+array.prenom_pat.slice(1),
+				  emplacement:"Abdomen",
+				  categorie_id:array.categorie,
+				  nombre_images_dossier: array.nombre_images_dossier
+				})
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":dossier_id,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
+				this.props.navigator.push({
+					component: TakePicture
+				});
+				});
+			  });
 			}}
 		  ]
 	)
@@ -261,15 +399,38 @@ export default class locatePic extends Component {
 			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
-				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({ 
-					emplacement:"Dos",
-					nombre_images_dossier:array.nombre_images_dossier
-					});
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Dos'}));
-					this.props.navigator.push({
-						component: TakePicture
-					});
-			});
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
+				let dossier_length=0;
+				let items_pat=[];
+				snap.forEach((child) => {
+				  items_pat.push({
+					nombre_images_dossier :child.val().nombre_images_dossier,
+					_key: child.key,
+				  });
+				});
+				if(items_pat==null){
+					dossier_length=0;
+				}else{
+					dossier_length=items_pat.length
+				}
+				alert(dossier_length)
+				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let my_date=new Date();
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
+				  date_creation_dossier: my_date.toString(),
+				  date_MAJ_dossier: my_date.toString(),
+				  nom_patient_dossier: array.nom_pat.charAt(0).toUpperCase()+array.nom_pat.slice(1),
+				  prenom_patient_dossier:array.prenom_pat.charAt(0).toUpperCase()+array.prenom_pat.slice(1),
+				  emplacement:"Dos",
+				  categorie_id:array.categorie,
+				  nombre_images_dossier: array.nombre_images_dossier
+				})
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":dossier_id,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
+				this.props.navigator.push({
+					component: TakePicture
+				});
+				});
+			  });
 			}}
 		  ]
 	)
@@ -283,15 +444,38 @@ export default class locatePic extends Component {
 			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
-				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.id_dossier).update({ 
-					emplacement:"Main gauche",
-					nombre_images_dossier:array.nombre_images_dossier
-					});
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Main gauche'}));
-					this.props.navigator.push({
-						component: TakePicture
-					});
-			});
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
+				let dossier_length=0;
+				let items_pat=[];
+				snap.forEach((child) => {
+				  items_pat.push({
+					nombre_images_dossier :child.val().nombre_images_dossier,
+					_key: child.key,
+				  });
+				});
+				if(items_pat==null){
+					dossier_length=0;
+				}else{
+					dossier_length=items_pat.length
+				}
+				alert(dossier_length)
+				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let my_date=new Date();
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
+				  date_creation_dossier: my_date.toString(),
+				  date_MAJ_dossier: my_date.toString(),
+				  nom_patient_dossier: array.nom_pat.charAt(0).toUpperCase()+array.nom_pat.slice(1),
+				  prenom_patient_dossier:array.prenom_pat.charAt(0).toUpperCase()+array.prenom_pat.slice(1),
+				  emplacement:"Main gauche",
+				  categorie_id:array.categorie,
+				  nombre_images_dossier: array.nombre_images_dossier
+				})
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":dossier_id,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
+				this.props.navigator.push({
+					component: TakePicture
+				});
+				});
+			  });
 			}}
 		  ]
 	)
@@ -305,15 +489,38 @@ export default class locatePic extends Component {
 			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
-				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.dossier_id).update({ 
-					emplacement:"Main droite",
-					nombre_images_dossier:array.nombre_images_dossier
-					});
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Main droite'}));
-					this.props.navigator.push({
-						component: TakePicture
-					});
-			});
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
+				let dossier_length=0;
+				let items_pat=[];
+				snap.forEach((child) => {
+				  items_pat.push({
+					nombre_images_dossier :child.val().nombre_images_dossier,
+					_key: child.key,
+				  });
+				});
+				if(items_pat==null){
+					dossier_length=0;
+				}else{
+					dossier_length=items_pat.length
+				}
+				alert(dossier_length)
+				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let my_date=new Date();
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
+				  date_creation_dossier: my_date.toString(),
+				  date_MAJ_dossier: my_date.toString(),
+				  nom_patient_dossier: array.nom_pat.charAt(0).toUpperCase()+array.nom_pat.slice(1),
+				  prenom_patient_dossier:array.prenom_pat.charAt(0).toUpperCase()+array.prenom_pat.slice(1),
+				  emplacement:"Main droite",
+				  categorie_id:array.categorie,
+				  nombre_images_dossier: array.nombre_images_dossier
+				})
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":dossier_id,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
+				this.props.navigator.push({
+					component: TakePicture
+				});
+				});
+			  });
 			}}
 		]
 	)
@@ -327,15 +534,38 @@ export default class locatePic extends Component {
 			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
-				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.dossier_id).update({ 
-					emplacement:"Jambe gauche",
-					nombre_images_dossier:array.nombre_images_dossier
-					});
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Jambe gauche'}));
-					this.props.navigator.push({
-						component: TakePicture
-					});
-			});
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
+				let dossier_length=0;
+				let items_pat=[];
+				snap.forEach((child) => {
+				  items_pat.push({
+					nombre_images_dossier :child.val().nombre_images_dossier,
+					_key: child.key,
+				  });
+				});
+				if(items_pat==null){
+					dossier_length=0;
+				}else{
+					dossier_length=items_pat.length
+				}
+				alert(dossier_length)
+				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let my_date=new Date();
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
+				  date_creation_dossier: my_date.toString(),
+				  date_MAJ_dossier: my_date.toString(),
+				  nom_patient_dossier: array.nom_pat.charAt(0).toUpperCase()+array.nom_pat.slice(1),
+				  prenom_patient_dossier:array.prenom_pat.charAt(0).toUpperCase()+array.prenom_pat.slice(1),
+				  emplacement:"Jambe gauche",
+				  categorie_id:array.categorie,
+				  nombre_images_dossier: array.nombre_images_dossier
+				})
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":dossier_id,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
+				this.props.navigator.push({
+					component: TakePicture
+				});
+				});
+			  });
 			}}
 		  ]
 	)
@@ -349,15 +579,38 @@ export default class locatePic extends Component {
 			//update dossier médical
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
-				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(array.dossier_id).update({ 
-					emplacement:"Jambe droite",
-					nombre_images_dossier:array.nombre_images_dossier
-					});
-				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":array.dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Jambe droite'}));
-					this.props.navigator.push({
-						component: TakePicture
-					});
-			});
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
+				let dossier_length=0;
+				let items_pat=[];
+				snap.forEach((child) => {
+				  items_pat.push({
+					nombre_images_dossier :child.val().nombre_images_dossier,
+					_key: child.key,
+				  });
+				});
+				if(items_pat==null){
+					dossier_length=0;
+				}else{
+					dossier_length=items_pat.length
+				}
+				alert(dossier_length)
+				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let my_date=new Date();
+				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
+				  date_creation_dossier: my_date.toString(),
+				  date_MAJ_dossier: my_date.toString(),
+				  nom_patient_dossier: array.nom_pat.charAt(0).toUpperCase()+array.nom_pat.slice(1),
+				  prenom_patient_dossier:array.prenom_pat.charAt(0).toUpperCase()+array.prenom_pat.slice(1),
+				  emplacement:"Jambe droite",
+				  categorie_id:array.categorie,
+				  nombre_images_dossier: array.nombre_images_dossier
+				})
+				AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":dossier_id,"id_dossier":array.id_dossier,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'Tête'}));
+				this.props.navigator.push({
+					component: TakePicture
+				});
+				});
+			  });
 			},style: styles.primary_button_oui}
 		  ]
 	)
