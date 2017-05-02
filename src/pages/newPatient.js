@@ -292,7 +292,8 @@ export default class newPatient extends Component {
 			 placeholder={"Profession"}
 			 maxLength = {25}
 			 underlineColorAndroid="#29235c"/> 	
-		  <PhoneInput ref='phone' initialCountry="tn" style={{height: 20,width: 200,margin:7,marginLeft:20,marginTop:20}} textStyle={{color: "#29235c",fontFamily: 'Roboto',fontSize: 18}}/>
+			 
+		  <PhoneInput ref='phone' initialCountry="tn" style={{height: 20,width: 330,margin:7,marginLeft:16,marginTop:22,borderColor:"#29235c",borderBottomWidth:1.5}} textStyle={{color: "#29235c",fontFamily: 'Roboto',fontSize: 16}}/>
 
 		  <Grid style={{marginTop:10}}>
 			<Col>
