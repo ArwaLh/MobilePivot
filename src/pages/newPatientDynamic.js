@@ -150,13 +150,13 @@ export default class newPatientDynamic extends Component {
 				maxLength = {25}
 				underlineColorAndroid="#53507c"/>
 			</Row>	
-			<Grid style={{marginTop:10}}>
+			<Grid style={{marginTop:16,marginLeft:2,marginBottom:0}}>
 			  <Col>
 				<Text style={styles.date_de_naissance}>Date de naissance</Text>
 			  </Col>
 			  <Col>
 			  	<DatePicker
-				  style={{width: 200,marginTop:10}}
+				  style={{width: 200,marginTop:8,marginBottom:0}}
 				  date={this.state.dateNaissance_pat}
 				  mode="date"
 				  placeholder={this.state.dateNaissance_pat}
@@ -267,7 +267,7 @@ export default class newPatientDynamic extends Component {
 				underlineColorAndroid="#29235c"/> 	
 			</Row>
 			<Row style={{marginTop:8}}>
-			  <PhoneInput ref='phone' initialCountry="tn" style={{height: 20,width: 200,margin:7,marginLeft:20,marginTop:20}} textStyle={{color: "#29235c",fontFamily: 'Roboto',fontSize: 18}}/>
+			  <PhoneInput ref='phone' initialCountry="tn" style={{height: 20,width: 330,margin:7,marginLeft:10,marginTop:20,borderColor:"#29235c",borderBottomWidth:1.5}} textStyle={{color: "#29235c",fontFamily: 'Roboto',fontSize: 16}}/>
 			</Row>	
 		  </Grid>
 		  <Button
@@ -281,21 +281,6 @@ export default class newPatientDynamic extends Component {
   }
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
   component: {
    marginBottom: 15,
    marginLeft: 20,
@@ -309,24 +294,24 @@ const styles = StyleSheet.create({
 	width: 340,
 	color: "#29235c",
 	fontFamily: 'Roboto',
-	fontSize: 17,
-	margin: 10,
-	marginTop:20,
+	fontSize: 16,
+	marginLeft: 10,
+	marginTop:10,
 	marginBottom:0
   },
   date_de_naissance: {
 	fontFamily: 'Roboto',
-	fontSize:17,
+	fontSize:16,
 	color:'#29235c',
 	marginTop:10,
 	margin:12  
   },
   title_upload:{
-	  color:"#fff",
-	  fontSize:18,
-	  paddingTop:10,
-	  height:40,
-      fontWeight:'bold'}
+	color:"#fff",
+	fontSize:18,
+	paddingTop:10,
+	height:40,
+	fontWeight:'bold'}
   });
 
 AppRegistry.registerComponent('newPatientDynamic', () => newPatientDynamic);
