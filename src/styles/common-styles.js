@@ -244,27 +244,30 @@ module.exports = StyleSheet.create({
   autocomplete: {
     backgroundColor: 'transparent',
     flex: 1,
-    paddingTop: 25
+    paddingTop: 15
   },
   autocompleteContainer: {
 	backgroundColor: 'transparent',
-    marginLeft: 30,
-    marginTop: 50,
+    marginLeft: 15,
+    marginTop: 10,
     marginRight: 0,
-	width:300
+	width:320
   },
   autocompleteInput: {
 	borderColor: 'transparent',
 	backgroundColor: 'transparent'
   },
-    itemText: {
+  itemText: {
+	fontWeight: "bold",
+	fontFamily: 'Roboto',
     fontSize: 15,
-	color: 'black'
+	color: '#3E396C'
   },
   itemText_phone: {
+	fontFamily: 'Roboto',
     fontSize: 13,
-    margin: 2,
-	color: '#939393'
+    margin: 5,
+	color: '#9491AD'
   },
   firstContainer: {
     backgroundColor: 'white',

@@ -95,13 +95,13 @@ export default class rechercheP extends Component {
 		  showsVerticalScrollIndicator={true}
 		  keyboardShouldPersistTaps={true}
 		  keyboardDismissMode='on-drag'>
-		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'#29235c', marginTop:55,marginLeft:25,marginRight:25}}>
+		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'#29235c',margin:7, marginTop:55,marginLeft:25,marginRight:25}}>
 		Ajouter et modifier des nouvelles données dans le dossier medical du patient
 		</Text>
-		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'#29235c',marginLeft:25,marginRight:25}}>
+		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'#29235c',margin:7,marginLeft:25,marginRight:25}}>
 		 Afin de modifier le dossier médical du patient existant:
 		</Text>
-		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'#29235c',marginLeft:25,marginRight:25}}>
+		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'#29235c',margin:7,marginLeft:25,marginRight:25}}>
 		 -Saisissez le nom et prénom du patient {"\n"}
 		 -Sélectionnez le dossier patient
 		</Text>
