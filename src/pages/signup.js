@@ -91,7 +91,7 @@ export default class signup extends Component {
 			  alert("Opération non permise");
 			  break;
 				case 'auth/weak-password':
-			  alert("Mot de passe faible.Le mot de passe doit dépasser 6 caractéres");
+			  alert("Mot de passe faible. Le mot de passe doit dépasser 6 caractéres");
 			  break;
 		  }
 			});
