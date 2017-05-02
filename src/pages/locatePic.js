@@ -71,6 +71,7 @@ export default class locatePic extends Component {
 		this.localiser_jambe_gauche=this.localiser_jambe_gauche.bind(this);
 		this.localiser_jambe_droite=this.localiser_jambe_droite.bind(this);
   }
+  
   localiser_tete(){
 	Alert.alert(
 	  'Vous avez sélectionné',
