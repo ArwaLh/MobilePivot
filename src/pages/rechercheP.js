@@ -63,7 +63,7 @@ export default class rechercheP extends Component {
 			username_med:medecin_usernamee
 	  }); 
 	  that.itemsRef.child('medecins').child(medecin_usernamee).child("patients").once('value', (snap) => {//get patients list
-		that items=[];
+		let items=[];
 		snap.forEach((child) => {
 			items.push({
 				nom_pat: child.val().nom_pat,

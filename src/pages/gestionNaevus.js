@@ -47,7 +47,7 @@ export default class gestionNaevus extends Component {
 	let that=this;
 	AsyncStorage.getItem('medecin_patient').then((patient_medecin_arrayy) => {
 	  const arr=JSON.parse(patient_medecin_arrayy);
-	  this.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossiers_medicaux').on('value', (snap) => {
+	  that.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossiers_medicaux').on('value', (snap) => {
 	  let items=[];
 	  // get children as an array
 	  snap.forEach((child) => {
