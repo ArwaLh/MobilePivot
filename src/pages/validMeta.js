@@ -117,7 +117,7 @@ export default class validMeta extends Component {
 			that.setState({progress_bar_value:progress});
 			that.setState({progress_text_value:progress_text});
 		}, function(error) {
-		  alert("error in uploading");
+		  alert("Erreur dans l'upload");
 		}, function() {
 			blob.close();
 			let downloadURL = uploadTask.snapshot.downloadURL;

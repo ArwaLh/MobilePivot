@@ -60,7 +60,6 @@ export default class gestionPatient extends Component {
     });
   }
   ajoutPat(){
-	alert(this.state.id)
 	if(this.state.id=="naevus"){
 	  this.props.navigator.push({
 		component: NewPatient

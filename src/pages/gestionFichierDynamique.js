@@ -51,7 +51,6 @@ export default class gestionNaevusDynamique extends Component {
 	  //get images data
 	  this.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossiers_medicaux').child(arr.id_dossier).child("images").on('value', (snap) => {
 		if(snap.val()==null){
-		  alert("Vous n'avez pas de fichiers");
 		  this.setState({
 			dataSource: this.state.dataSource.cloneWithRows({}),
 		  });

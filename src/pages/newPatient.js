@@ -128,17 +128,6 @@ export default class newPatient extends Component {
 			  nombre_grain_de_beaute: this.state.nbreGrain,
 			  date_creation:cr_date.toString()
 			})
-			/* let dossier_id=medecin_usernamee+'_'+patient_id+'_'+0;
-			let my_date=new Date();
-			this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
-			  date_creation_dossier: my_date.toString(),
-			  date_MAJ_dossier: my_date.toString(),
-			  nom_patient_dossier: this.state.nom_pat.charAt(0).toUpperCase()+this.state.nom_pat.slice(1),
-			  prenom_patient_dossier: this.state.prenom_pat.charAt(0).toUpperCase()+this.state.prenom_pat.slice(1),
-			  emplacement:"",
-			  categorie_id:idd,
-			  nombre_images_dossier: 0
-			}) */
 			AsyncStorage.removeItem('med_pat_file');
 			AsyncStorage.setItem('med_pat_file',JSON.stringify({"id_medecin":medecin_usernamee,"id_patient":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": idd,"nombre_images_dossier":0,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat}));
 			alert("Nouveau patient ajouté"); 

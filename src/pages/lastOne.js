@@ -21,9 +21,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const window = Dimensions.get('window');
 export default class lastOne extends Component {
-	constructor(props){
-    super(props);
-	}	     
+  constructor(props){
+	super(props);
+ }	     
   render() {
     return (
 	<View>
