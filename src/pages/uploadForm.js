@@ -72,7 +72,6 @@ export default class uploadForm extends Component {
   componentDidMount(){
 	AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
 	  const array=JSON.parse(med_pat_file_locationn);
-	  alert(array.id_dossier);
 	  this.setState({ 
 		med_pat_file:array,
 		dossier_id: array.id_dossier,

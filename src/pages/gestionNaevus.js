@@ -42,6 +42,8 @@ export default class gestionNaevus extends Component {
 		patient_tel:'',
 		patient_lastname:''
 	};
+	this.gestionF=this.gestionF.bind(this);
+	this.nouveau_dossier=this.nouveau_dossier.bind(this);
   }
   componentDidMount(){
 	let that=this;
@@ -89,22 +91,24 @@ export default class gestionNaevus extends Component {
 	return true;
   }
   gestionF(id,nbre,emplacement,date_creation_dossier,date_MAJ,categorie){
+	let that = this;
 	AsyncStorage.removeItem("med_pat_file");
 	AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id,"categorie":categorie,"nombre_images_dossier":nbre,"emplacement":emplacement,"date_creation_dossier":date_creation_dossier,"date_MAJ":date_MAJ,"nom_pat":this.state.patient_lastname,"prenom_pat":this.state.patient_name})); 
 	if(categorie=="naevus"){
-	  this.props.navigator.push({
+	  that.props.navigator.push({
 		  component: GestionFichier
 	  });
 	}else{
-	  this.props.navigator.push({
+	  that.props.navigator.push({
 		  component: GestionFichierDynamique
 	  });
 	}
   }
   nouveau_dossier(){
+	let that = this;
 	AsyncStorage.removeItem("med_pat_file");
 	AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"categorie":this.state.category_id,"nombre_images_dossier":0,"emplacement":"","nom_pat":this.state.patient_lastname,"prenom_pat":this.state.patient_name})); 
-	this.props.navigator.push({
+	that.props.navigator.push({
 	  component: LocatePic
 	});
   }
