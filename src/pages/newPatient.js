@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   ScrollView,
   AsyncStorage,
   View
@@ -22,6 +23,7 @@ const Item = Picker.Item;
 import LocatePic from './locatePic';
 import * as firebase from 'firebase';
 import DatePicker from 'react-native-datepicker';
+import PhoneInput from 'react-native-phone-input';
 
 export default class newPatient extends Component {
   constructor (props) {
@@ -43,12 +45,35 @@ export default class newPatient extends Component {
 	  datedate:"",
 	  username_med: '',
 	  patient_id: '',
-	  medecin_id: ''
+	  medecin_id: '',
+	  valid: '',//phone input
+      type: '',
+      value: ''
 	}
 	this.onValueChangePerso=this.onValueChangePerso.bind(this);
 	this.onValueChangeFam=this.onValueChangeFam.bind(this);
 	this.onValueChangeNbreGrain=this.onValueChangeNbreGrain.bind(this);
 	this.locatePic=this.locatePic.bind(this);
+	this.updateInfo = this.updateInfo.bind(this)
+    this.renderInfo = this.renderInfo.bind(this)
+  }
+  updateInfo(){
+        this.setState({
+            valid: this.refs.phone.isValidNumber(),
+            type: this.refs.phone.getNumberType(),
+            value: this.refs.phone.getValue()
+        })
+    }
+
+  renderInfo(){
+	if(this.state.value)
+	 return (
+		<View style={styles.info}>
+		  <Text>Is Valid: <Text style={{fontWeight:'bold'}}>{this.state.valid.toString()}</Text></Text>
+		  <Text>Type: <Text style={{fontWeight:'bold'}}>{this.state.type}</Text></Text>
+		  <Text>Value: <Text style={{fontWeight:'bold'}}>{this.state.value}</Text></Text>
+		</View>
+	  )
   }
   componentDidMount(){
 	AsyncStorage.getItem('id').then((idd) => {
@@ -89,7 +114,9 @@ export default class newPatient extends Component {
   return day + '/' + monthIndex+ '/' + year;
   }
   locatePic(){//create category name
-	if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
+	if(this.refs.phone.isValidNumber()==false){
+	  alert("Numéro de telephone est invalide")
+	}else if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.refs.phone.getValue()=="" || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
 	  alert("Vous n'avez pas remplis tous les champs!!");
 	}else{ 
 	  AsyncStorage.getItem('id').then((idd) => {
@@ -115,7 +142,7 @@ export default class newPatient extends Component {
 			  date_de_naissance_pat: this.state.dateNaissance_pat, 
 			  lieu_pat: this.state.lieu_pat.charAt(0).toUpperCase()+this.state.lieu_pat.slice(1), 
 			  profession_pat: this.state.profession_pat.charAt(0).toUpperCase()+this.state.profession_pat.slice(1), 
-			  telephone_patient: "+336 "+this.state.telephone_patient, 
+			  telephone_patient: this.refs.phone.getValue(), 
 			  antecedents_personnels: this.state.antec_perso, 
 			  antecedents_familiaux: this.state.antec_fam, 
 			  nombre_grain_de_beaute: this.state.nbreGrain,
@@ -285,15 +312,8 @@ export default class newPatient extends Component {
 			 placeholder={"Profession"}
 			 maxLength = {25}
 			 underlineColorAndroid="#29235c"/> 	
-		  <TextInput
-			 style={styles.textinput_new_patinet}
-			 placeholderTextColor="#29235c"
-			 onChangeText={(text) => this.setState({telephone_patient: text})}
-			 value={this.state.telephone_patient}
-			 keyboardType = 'phone-pad'
-			 placeholder={"Téléphone"}
-			 maxLength = {25}
-			 underlineColorAndroid="#53507c"/>	
+		  <PhoneInput ref='phone' initialCountry="tn" style={{height: 20,width: 200,margin:7,marginLeft:20,marginTop:20}} textStyle={{color: "#29235c",fontFamily: 'Roboto',fontSize: 18}}/>
+
 		  <Grid style={{marginTop:10}}>
 			<Col>
 			  <Text style={styles.a_a_n}>Antécédents personnel</Text>

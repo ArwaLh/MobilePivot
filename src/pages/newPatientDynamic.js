@@ -24,6 +24,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import LocatePic from './locatePic';
 import firebase from 'firebase';
 import DatePicker from 'react-native-datepicker';
+import PhoneInput from 'react-native-phone-input';
 
 export default class newPatientDynamic extends Component {
   constructor (props) {
@@ -82,7 +83,7 @@ export default class newPatientDynamic extends Component {
 				  date_de_naissance_pat: this.state.dateNaissance_pat, 
 				  lieu_pat: this.state.lieu_pat.charAt(0).toUpperCase()+this.state.lieu_pat.slice(1), 
 				  profession_pat: this.state.profession_pat.charAt(0).toUpperCase()+this.state.profession_pat.slice(1), 
-				  telephone_patient: "+336 "+this.state.telephone_patient, 
+				  telephone_patient: this.state.telephone_patient, 
 				  antecedents_personnels: this.state.antec_perso, 
 				  antecedents_familiaux: this.state.antec_fam, 
 				  nombre_grain_de_beaute: this.state.nbreGrain, 
