@@ -75,7 +75,7 @@ export default class signup extends Component {
 			date_creation:cr_date.toString()
 		})
 		//succes d'ajout dans auth et database
-			alert('Your account was created!');
+			alert('Compte crée!');
 			this.props.navigator.push({
 			  component: Login
 			});

@@ -23,7 +23,7 @@ import styles from '../styles/common-styles.js';
 import {Button} from 'native-base';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import UploadFormDynamique from './uploadFormDynamique';
-import LastPageDynamic from './lastPageDynamic';
+import LastOne from './lastOne';
 
 const testImageName = `patient_pic_${Platform.OS}_${new Date()}.jpg`
 const EMAIL = 'arwa.louihig@esprit.tn'
@@ -162,7 +162,7 @@ export default class validMetaDynamic extends Component {
 		  });
 		  alert("Upload Terminé",downloadURL);
 		  that.props.navigator.push({
-			component: LastPageDynamic
+			component: LastOne
 		  });
 		});    
 		

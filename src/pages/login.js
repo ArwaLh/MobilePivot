@@ -98,23 +98,23 @@ export default class login extends Component {
           onLoginFinished={
             (error, result) => {
               if (error) {
-                alert("Login failed with error: " + result.error);
+                alert("Connexion echouée: " + result.error);
               } else if (result.isCancelled) {
-                alert("Login was cancelled");
+                alert("Connexion interrompue");
               } else {
 				  AccessToken.getCurrentAccessToken().then(
                   (data) => {
                     console.log(data.accessToken.toString())
                   }
                 )
-                alert("Login was successful with permissions: " + result.grantedPermissions);
+                alert("Connecté avec les permissions: " + result.grantedPermissions);
 				this.props.navigator.push({
 				  component: GestionPatient
 				});
               }
             }
           }
-          onLogoutFinished={() => alert("User logged out")}
+          onLogoutFinished={() => alert("Utilisateur deconnecté")}
 		  />
         </View>
 		</Image>
@@ -126,7 +126,6 @@ export default class login extends Component {
     auth.signInWithEmailAndPassword(this.state.email_medecin,this.state.password).then((user_data) =>{
 		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(this.state.email_medecin).on("child_added", (snapshot)=> {
 			AsyncStorage.setItem('medecin_username', snapshot.key);
-			
 			this.itemsRef.child('categories').child(snapshot.key).once("value", (snap)=> {
 				if(Object.keys(snap.val()).length==1){
 					this.props.navigator.push({ 
