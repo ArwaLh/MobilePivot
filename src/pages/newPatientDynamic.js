@@ -64,7 +64,9 @@ export default class newPatientDynamic extends Component {
   return day + '/' + monthIndex+ '/' + year;
   }
   locatePic(){
-	if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' || this.state.telephone_patient=='' || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
+	if(this.refs.phone.isValidNumber()==false){
+	  alert("Numéro de telephone est invalide")
+	}else if(this.state.nom_pat==''|| this.state.prenom_pat==''||this.state.dateNaissance_pat=='' || this.state.lieu_pat=='' || this.state.profession_pat=='' ||this.refs.phone.getValue()=="" || this.state.antec_perso=='' || this.state.antec_fam==''  ||this.state.nbreGrain==''){
 	  alert("Vous n'avez pas remplis tous les champs!!");
 	}else{ 
 	  AsyncStorage.getItem('id').then((idd) => {
@@ -83,7 +85,7 @@ export default class newPatientDynamic extends Component {
 				  date_de_naissance_pat: this.state.dateNaissance_pat, 
 				  lieu_pat: this.state.lieu_pat.charAt(0).toUpperCase()+this.state.lieu_pat.slice(1), 
 				  profession_pat: this.state.profession_pat.charAt(0).toUpperCase()+this.state.profession_pat.slice(1), 
-				  telephone_patient: this.state.telephone_patient, 
+				  telephone_patient: this.refs.phone.getValue(), 
 				  antecedents_personnels: this.state.antec_perso, 
 				  antecedents_familiaux: this.state.antec_fam, 
 				  nombre_grain_de_beaute: this.state.nbreGrain, 
@@ -265,15 +267,7 @@ export default class newPatientDynamic extends Component {
 				underlineColorAndroid="#29235c"/> 	
 			</Row>
 			<Row style={{marginTop:8}}>
-			  <TextInput
-				style={styles.textinput_new_patinet}
-				placeholderTextColor="#29235c"
-				onChangeText={(text) => this.setState({telephone_patient: text})}
-				value={this.state.telephone_patient}
-				keyboardType = 'phone-pad'
-				placeholder={"Téléphone"}
-				maxLength = {25}
-				underlineColorAndroid="#53507c"/>	
+			  <PhoneInput ref='phone' initialCountry="tn" style={{height: 20,width: 200,margin:7,marginLeft:20,marginTop:20}} textStyle={{color: "#29235c",fontFamily: 'Roboto',fontSize: 18}}/>
 			</Row>	
 		  </Grid>
 		  <Button

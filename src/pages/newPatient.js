@@ -54,26 +54,6 @@ export default class newPatient extends Component {
 	this.onValueChangeFam=this.onValueChangeFam.bind(this);
 	this.onValueChangeNbreGrain=this.onValueChangeNbreGrain.bind(this);
 	this.locatePic=this.locatePic.bind(this);
-	this.updateInfo = this.updateInfo.bind(this)
-    this.renderInfo = this.renderInfo.bind(this)
-  }
-  updateInfo(){
-        this.setState({
-            valid: this.refs.phone.isValidNumber(),
-            type: this.refs.phone.getNumberType(),
-            value: this.refs.phone.getValue()
-        })
-    }
-
-  renderInfo(){
-	if(this.state.value)
-	 return (
-		<View style={styles.info}>
-		  <Text>Is Valid: <Text style={{fontWeight:'bold'}}>{this.state.valid.toString()}</Text></Text>
-		  <Text>Type: <Text style={{fontWeight:'bold'}}>{this.state.type}</Text></Text>
-		  <Text>Value: <Text style={{fontWeight:'bold'}}>{this.state.value}</Text></Text>
-		</View>
-	  )
   }
   componentDidMount(){
 	AsyncStorage.getItem('id').then((idd) => {
