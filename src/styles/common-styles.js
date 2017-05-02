@@ -313,13 +313,14 @@ module.exports = StyleSheet.create({
 	fontFamily:'Roboto',
 	fontWeight: 'bold',
 	fontSize:17,
+	marginLeft:0
   },
   listViewText1:{
 	color: '#a8a8a8',
 	fontFamily:'Roboto',
 	fontWeight: 'bold',
 	fontSize:11,
-	
+	marginLeft:4
   },
   listViewText2:{
 	color: '#a8a8a8',

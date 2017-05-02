@@ -44,6 +44,7 @@ export default class gestionNaevus extends Component {
 	};
   }
   componentDidMount(){
+	let that=this;
 	AsyncStorage.getItem('medecin_patient').then((patient_medecin_arrayy) => {
 	  const arr=JSON.parse(patient_medecin_arrayy);
 	  this.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossiers_medicaux').on('value', (snap) => {
@@ -62,20 +63,20 @@ export default class gestionNaevus extends Component {
 			_key: child.key
 		});
 	  });
-	  this.setState({
-		dataSource: this.state.dataSource.cloneWithRows(items),
+	  that.setState({
+		dataSource: that.state.dataSource.cloneWithRows(items),
 		patient_id: arr.id_patient,
 		medecin_id: arr.id_medecin,
 		category_id: arr.categorie,
 	  });
 	  const dossiers_medicaux = items; 
-	  this.setState({ dossiers_medicaux });
+	  that.setState({ dossiers_medicaux });
 	  });
 	  let patient_a=null;
-	  this.itemsRef.child('medecins').child(arr.id_medecin).child('patients').orderByKey().equalTo(arr.id_patient).once("child_added", function(snapshot) {
+	  that.itemsRef.child('medecins').child(arr.id_medecin).child('patients').orderByKey().equalTo(arr.id_patient).once("child_added", function(snapshot) {
 		patient_a = snapshot.val(); 
 	  });
-	  this.setState({
+	  that.setState({
 		patient:patient_a,
 		patient_name:patient_a.nom_pat,
 		patient_tel:patient_a.telephone_patient,
@@ -89,7 +90,7 @@ export default class gestionNaevus extends Component {
   }
   gestionF(id,nbre,emplacement,date_creation_dossier,date_MAJ,categorie){
 	AsyncStorage.removeItem("med_pat_file");
-	AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id,"categorie":categorie,"nombre_images_dossier":nbre,"emplacement":emplacement,"date_creation_dossier":date_creation_dossier,"date_MAJ":date_MAJ})); 
+	AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id,"categorie":categorie,"nombre_images_dossier":nbre,"emplacement":emplacement,"date_creation_dossier":date_creation_dossier,"date_MAJ":date_MAJ,"nom_pat":this.state.patient_lastname,"prenom_pat":this.state.patient_name})); 
 	if(categorie=="naevus"){
 	  this.props.navigator.push({
 		  component: GestionFichier
@@ -101,20 +102,8 @@ export default class gestionNaevus extends Component {
 	}
   }
   nouveau_dossier(){
-	let my_date=new Date();
-	let dossier_id=this.state.medecin_id+'_'+this.state.patient_id+'_'+this.state.dossiers_medicaux.length;
-	this.itemsRef.child('medecins').child(this.state.medecin_id).child('patients').child(this.state.patient_id).child('dossiers_medicaux').child(dossier_id).set({ 
-		date_creation_dossier: my_date.toString(),
-		date_MAJ_dossier: my_date.toString(),
-		nom_patient_dossier: this.state.patient_name,
-		emplacement: "",
-		prenom_patient_dossier: this.state.patient_lastname,
-		telephone_patient_dossier: this.state.patient_tel,
-		nombre_images_dossier: 0,
-		categorie_id:this.state.category_id
-	})
 	AsyncStorage.removeItem("med_pat_file");
-	AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":dossier_id,"categorie":this.state.category_id,"nombre_images_dossier":0,"emplacement":""})); 
+	AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"categorie":this.state.category_id,"nombre_images_dossier":0,"emplacement":"","nom_pat":this.state.patient_lastname,"prenom_pat":this.state.patient_name})); 
 	this.props.navigator.push({
 	  component: LocatePic
 	});
@@ -127,8 +116,8 @@ export default class gestionNaevus extends Component {
 		<View style={{flex:1}}>
 			<ListItem style={{borderColor:'#29235c', width:340}}>
 			   <Grid>
-					<Row><Text style={{color: "#29235c",marginLeft:10,fontSize:20,fontFamily: 'Roboto',fontWeight:"bold"}}>{this.state.patient_name} {this.state.patient_lastname}</Text></Row>
-					<Row><Text style={{color: "#29235c",marginLeft:13,marginBottom:0,fontSize:15,fontFamily: 'Roboto'}}>Téléphone : {this.state.patient_tel}</Text></Row>
+					<Row><Text style={{color: "#29235c",marginLeft:5,fontSize:20,fontFamily: 'Roboto',fontWeight:"bold"}}>{this.state.patient_name} {this.state.patient_lastname}</Text></Row>
+					<Row><Text style={{color: "#9491AD",marginLeft:5,marginBottom:0,fontSize:15,fontFamily: 'Roboto'}}>Téléphone : {this.state.patient_tel}</Text></Row>
 				</Grid>
 			</ListItem>	
 			<Text style={{color:'#29235c',margin:10,marginLeft:22,fontSize:18,fontFamily:'Roboto'}}>Les dossiers médicaux </Text>
@@ -142,7 +131,7 @@ export default class gestionNaevus extends Component {
 						<Col style={{width:70}}>
 						  <Image style={{width:65,height:60, marginTop:10}} source={{uri:'http://localhost:8081/img/Icdossier.png'}}/>
 						</Col>
-						<Col style={{width:250, margin:10}}>
+						<Col style={{width:250,marginLeft:8, margin:10}}>
 						  <Text style={styles.listViewTitle}> Dossier {rowData.emplacement}</Text> 
 						  <Text style={styles.listViewText1}>Nombre d'image: <Text style={styles.listViewText2}>{rowData.nombre_images_dossier}</Text></Text>							
 						  <Text style={styles.listViewText1}>Catégorie: <Text style={styles.listViewText2}>{rowData.categorie_id}</Text></Text>							

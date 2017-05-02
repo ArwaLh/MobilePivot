@@ -128,7 +128,7 @@ export default class newPatient extends Component {
 			  nombre_grain_de_beaute: this.state.nbreGrain,
 			  date_creation:cr_date.toString()
 			})
-			let dossier_id=medecin_usernamee+'_'+patient_id+'_'+0;
+			/* let dossier_id=medecin_usernamee+'_'+patient_id+'_'+0;
 			let my_date=new Date();
 			this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
 			  date_creation_dossier: my_date.toString(),
@@ -138,9 +138,9 @@ export default class newPatient extends Component {
 			  emplacement:"",
 			  categorie_id:idd,
 			  nombre_images_dossier: 0
-			})
+			}) */
 			AsyncStorage.removeItem('med_pat_file');
-			AsyncStorage.setItem('med_pat_file',JSON.stringify({"id_medecin":medecin_usernamee,"id_patient":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": idd,"id_dossier":dossier_id,"nombre_images_dossier":0}));
+			AsyncStorage.setItem('med_pat_file',JSON.stringify({"id_medecin":medecin_usernamee,"id_patient":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": idd,"nombre_images_dossier":0,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat}));
 			alert("sucesss patient added"); 
 			this.props.navigator.push({
 			  component: LocatePic

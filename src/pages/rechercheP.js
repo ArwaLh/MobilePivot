@@ -34,13 +34,15 @@ export default class rechercheP extends Component {
 	  id: ''
 	};
 	this.goBack = this.goBack.bind(this);
+	this.gestionNaevus = this.gestionNaevus.bind(this);
   }
   gestionNaevus(patient_id,nom_pat,prenom_pat){
 	this.setState({ query: nom_pat+" "+prenom_pat});
 	if (this.state.query === '') {
 	  return [];//do nothing whenever the query is empty
 	}
-	AsyncStorage.setItem("medecin_patient",JSON.stringify({"id_patient":patient_id,"id_medecin":this.state.username_med,"categorie":this.state.id}));
+	AsyncStorage.removeItem("medecin_patient");
+	AsyncStorage.setItem("medecin_patient",JSON.stringify({"id_patient":patient_id,"id_medecin":this.state.username_med,"categorie":this.state.id,"nom_pat":nom_pat,"prenom_pat":prenom_pat}));
 	this.props.navigator.push({
        component: GestionNaevus
     }); 
@@ -50,17 +52,18 @@ export default class rechercheP extends Component {
 	return true; // do not exit app
   }
   componentDidMount(){
+	let that=this;
 	AsyncStorage.getItem('id').then((idd) => {//recherche par l'id du categorie
-	  this.setState({
+	  that.setState({
 		id: idd
 	 });
 	});
 	AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {//asynchronous storage for medecin id
-	  this.setState({
+	  that.setState({
 			username_med:medecin_usernamee
 	  }); 
-	  this.itemsRef.child('medecins').child(medecin_usernamee).child("patients").on('value', (snap) => {//get patients list
-		let items=[];
+	  that.itemsRef.child('medecins').child(medecin_usernamee).child("patients").once('value', (snap) => {//get patients list
+		that items=[];
 		snap.forEach((child) => {
 			items.push({
 				nom_pat: child.val().nom_pat,
@@ -71,7 +74,7 @@ export default class rechercheP extends Component {
 			});
 		});
 		const patients_array = items; 
-		this.setState({ patients_array });
+		that.setState({ patients_array });
 	  });
 	});	
   }
