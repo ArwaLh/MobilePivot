@@ -19,11 +19,12 @@ import Login from './src/pages/login';
 import firebase from 'firebase';
 // Initialize Firebase
 const config = {
-    apiKey: "AIzaSyC7F3pn_tG3LJk-4pPocpvMRyh8SEW-1sQ",
-    authDomain: "katomi-148921.firebaseapp.com",
-    databaseURL: "https://katomi-148921.firebaseio.com",
-    storageBucket: "katomi-148921.appspot.com",
-    messagingSenderId: "229375856602"
+    apiKey: "AIzaSyB1-UHxQsLRzCZBgFG6zEtrh9ybGm3XgxI",
+    authDomain: "katomipix.firebaseapp.com",
+    databaseURL: "https://katomipix.firebaseio.com",
+    projectId: "katomipix",
+    storageBucket: "katomipix.appspot.com",
+    messagingSenderId: "565838743870"
   };
 firebase.initializeApp(config);
 import styles from './src/styles/common-styles.js';
