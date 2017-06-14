@@ -82,7 +82,7 @@ export default class locatePic extends Component {
 		  AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 			const array=JSON.parse(med_pat_filee);
 			this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
-			let dossier_id=firebaseDb.ref().push().getKey();
+			let dossier_id=this.itemsRef.push().getKey();
 			let my_date=new Date();
 			this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
 			  date_creation_dossier: my_date.toString(),
@@ -114,20 +114,7 @@ export default class locatePic extends Component {
 			  AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
-				let dossier_length=0;
-				let items_pat=[];
-				snap.forEach((child) => {
-				  items_pat.push({
-					nombre_images_dossier :child.val().nombre_images_dossier,
-					_key: child.key,
-				  });
-				});
-				if(items_pat==null){
-					dossier_length=0;
-				}else{
-					dossier_length=items_pat.length
-				}
-				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let dossier_id=this.itemsRef.push().getKey();
 				let my_date=new Date();
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
 				  date_creation_dossier: my_date.toString(),
@@ -159,20 +146,7 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
-				let dossier_length=0;
-				let items_pat=[];
-				snap.forEach((child) => {
-				  items_pat.push({
-					nombre_images_dossier :child.val().nombre_images_dossier,
-					_key: child.key,
-				  });
-				});
-				if(items_pat==null){
-					dossier_length=0;
-				}else{
-					dossier_length=items_pat.length
-				}
-				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let dossier_id=this.itemsRef.push().getKey();
 				let my_date=new Date();
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
 				  date_creation_dossier: my_date.toString(),
@@ -204,20 +178,7 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
-				let dossier_length=0;
-				let items_pat=[];
-				snap.forEach((child) => {
-				  items_pat.push({
-					nombre_images_dossier :child.val().nombre_images_dossier,
-					_key: child.key,
-				  });
-				});
-				if(items_pat==null){
-					dossier_length=0;
-				}else{
-					dossier_length=items_pat.length
-				}
-				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let dossier_id=this.itemsRef.push().getKey();
 				let my_date=new Date();
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
 				  date_creation_dossier: my_date.toString(),
@@ -249,20 +210,7 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
-				let dossier_length=0;
-				let items_pat=[];
-				snap.forEach((child) => {
-				  items_pat.push({
-					nombre_images_dossier :child.val().nombre_images_dossier,
-					_key: child.key,
-				  });
-				});
-				if(items_pat==null){
-					dossier_length=0;
-				}else{
-					dossier_length=items_pat.length
-				}
-				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let dossier_id=this.itemsRef.push().getKey();
 				let my_date=new Date();
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
 				  date_creation_dossier: my_date.toString(),
@@ -293,20 +241,7 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
-				let dossier_length=0;
-				let items_pat=[];
-				snap.forEach((child) => {
-				  items_pat.push({
-					nombre_images_dossier :child.val().nombre_images_dossier,
-					_key: child.key,
-				  });
-				});
-				if(items_pat==null){
-					dossier_length=0;
-				}else{
-					dossier_length=items_pat.length
-				}
-				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let dossier_id=this.itemsRef.push().getKey();
 				let my_date=new Date();
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
 				  date_creation_dossier: my_date.toString(),
@@ -337,20 +272,7 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
-				let dossier_length=0;
-				let items_pat=[];
-				snap.forEach((child) => {
-				  items_pat.push({
-					nombre_images_dossier :child.val().nombre_images_dossier,
-					_key: child.key,
-				  });
-				});
-				if(items_pat==null){
-					dossier_length=0;
-				}else{
-					dossier_length=items_pat.length
-				}
-				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let dossier_id=this.itemsRef.push().getKey();
 				let my_date=new Date();
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
 				  date_creation_dossier: my_date.toString(),
@@ -381,20 +303,7 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
-				let dossier_length=0;
-				let items_pat=[];
-				snap.forEach((child) => {
-				  items_pat.push({
-					nombre_images_dossier :child.val().nombre_images_dossier,
-					_key: child.key,
-				  });
-				});
-				if(items_pat==null){
-					dossier_length=0;
-				}else{
-					dossier_length=items_pat.length
-				}
-				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let dossier_id=this.itemsRef.push().getKey();
 				let my_date=new Date();
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
 				  date_creation_dossier: my_date.toString(),
@@ -425,20 +334,7 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
-				let dossier_length=0;
-				let items_pat=[];
-				snap.forEach((child) => {
-				  items_pat.push({
-					nombre_images_dossier :child.val().nombre_images_dossier,
-					_key: child.key,
-				  });
-				});
-				if(items_pat==null){
-					dossier_length=0;
-				}else{
-					dossier_length=items_pat.length
-				}
-				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let dossier_id=this.itemsRef.push().getKey();
 				let my_date=new Date();
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
 				  date_creation_dossier: my_date.toString(),
@@ -469,20 +365,7 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
-				let dossier_length=0;
-				let items_pat=[];
-				snap.forEach((child) => {
-				  items_pat.push({
-					nombre_images_dossier :child.val().nombre_images_dossier,
-					_key: child.key,
-				  });
-				});
-				if(items_pat==null){
-					dossier_length=0;
-				}else{
-					dossier_length=items_pat.length
-				}
-				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let dossier_id=this.itemsRef.push().getKey();
 				let my_date=new Date();
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
 				  date_creation_dossier: my_date.toString(),
@@ -513,20 +396,7 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
-				let dossier_length=0;
-				let items_pat=[];
-				snap.forEach((child) => {
-				  items_pat.push({
-					nombre_images_dossier :child.val().nombre_images_dossier,
-					_key: child.key,
-				  });
-				});
-				if(items_pat==null){
-					dossier_length=0;
-				}else{
-					dossier_length=items_pat.length
-				}
-				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let dossier_id=this.itemsRef.push().getKey();
 				let my_date=new Date();
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
 				  date_creation_dossier: my_date.toString(),
@@ -557,20 +427,7 @@ export default class locatePic extends Component {
 			AsyncStorage.getItem('med_pat_file').then((med_pat_filee) => {
 				const array=JSON.parse(med_pat_filee);
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').once('value', (snap) => {
-				let dossier_length=0;
-				let items_pat=[];
-				snap.forEach((child) => {
-				  items_pat.push({
-					nombre_images_dossier :child.val().nombre_images_dossier,
-					_key: child.key,
-				  });
-				});
-				if(items_pat==null){
-					dossier_length=0;
-				}else{
-					dossier_length=items_pat.length
-				}
-				let dossier_id=array.id_medecin+'_'+array.id_patient+'_'+dossier_length;
+				let dossier_id=this.itemsRef.push().getKey();
 				let my_date=new Date();
 				this.itemsRef.child('medecins').child(array.id_medecin).child('patients').child(array.id_patient).child('dossiers_medicaux').child(dossier_id).set({ //ajouter un nouveau dossier pour le nouveau patient
 				  date_creation_dossier: my_date.toString(),

@@ -60,7 +60,7 @@ export default class newPatientDynamic extends Component {
 		    AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 			  if(this.state.nom_pat!="" && this.state.prenom_pat!=""){
 				//generate the pushed key
-				let patient_id=firebaseDb.ref().push().getKey();
+				let patient_id=this.itemsRef.push().getKey();
 				let cr_date=this.formatDate(new Date());
 				this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).set({ 
 				  nom_pat: this.state.nom_pat.charAt(0).toUpperCase()+this.state.nom_pat.slice(1), 
