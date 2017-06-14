@@ -130,7 +130,7 @@ export default class newPatient extends Component {
 			})
 			AsyncStorage.removeItem('med_pat_file');
 			AsyncStorage.setItem('med_pat_file',JSON.stringify({"id_medecin":medecin_usernamee,"id_patient":patient_id,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat,"categorie": idd,"nombre_images_dossier":0,"nom_pat":this.state.nom_pat,"prenom_pat":this.state.prenom_pat}));
-			alert("sucesss patient added"); 
+			alert("Nouveau patient ajouté"); 
 			this.props.navigator.push({
 			  component: LocatePic
 			});

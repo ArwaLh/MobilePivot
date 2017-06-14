@@ -154,7 +154,7 @@ export default class login extends Component {
 			  break;
 				case 'auth/weak-password':
 			  // Unknown error occurred, inspect the server response
-			  alert("Mot de passe faible.Le mot de passe doit dépasser 6 caractéres");
+			  alert("Mot de passe faible. Le mot de passe doit dépasser 6 caractéres");
 			  break;
 		  }
 	});
