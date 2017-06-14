@@ -40,7 +40,6 @@ export default class newPatient extends Component {
 	  antec_perso: 'oui',
 	  antec_fam: 'oui',
 	  nbreGrain: 'sup',
-	  items_pat:[],
 	  items_dossiers:[],
 	  datedate:"",
 	  username_med: '',
@@ -54,22 +53,6 @@ export default class newPatient extends Component {
 	this.onValueChangeFam=this.onValueChangeFam.bind(this);
 	this.onValueChangeNbreGrain=this.onValueChangeNbreGrain.bind(this);
 	this.locatePic=this.locatePic.bind(this);
-  }
-  componentDidMount(){
-	AsyncStorage.getItem('id').then((idd) => {
-	  AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
-		this.itemsRef.child('medecins').child(medecin_usernamee).child("patients").on('value', (snap) => {
-		let items_pat=[];
-		snap.forEach((child) => {
-		  items_pat.push({
-			antecedents_familiaux :child.val().antecedents_familiaux,
-			_key: child.key,
-		  });
-		});
-		AsyncStorage.setItem('items_pat',JSON.stringify(items_pat));
-		});
-	  });
-	});
   }  
   onValueChangePerso (value: string) {
 	this.setState({
@@ -101,20 +84,8 @@ export default class newPatient extends Component {
 	}else{ 
 	  AsyncStorage.getItem('id').then((idd) => {
 		AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
-		  AsyncStorage.getItem('items_pat').then((items_pat) => {
-			let items_patt=JSON.parse(items_pat);
-			this.itemsRef.child('medecins').child(medecin_usernamee).child("patients").on('value', (snap) => {
-			  let items_pat=[];
-			  snap.forEach((child) => {
-				items_pat.push({
-					antecedents_familiaux :child.val().antecedents_familiaux,
-				  _key: child.key,
-				});
-			  });
-			  this.setState({items_pat:items_pat});
-			});
-			let patient_id="";
-			patient_id=this.state.nom_pat.toLowerCase()+'_'+this.state.prenom_pat.toLowerCase()+'_'+items_patt.length;
+			//generate the pushed key
+			let patient_id=firebaseDb.ref().push().getKey();
 			let cr_date=this.formatDate(new Date());
 			this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).set({ 
 			  nom_pat: this.state.nom_pat.charAt(0).toUpperCase()+this.state.nom_pat.slice(1),
@@ -134,7 +105,6 @@ export default class newPatient extends Component {
 			this.props.navigator.push({
 			  component: LocatePic
 			});
-		  });
 		});
 	});
 	}//else ends here
