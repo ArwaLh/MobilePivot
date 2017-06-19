@@ -177,7 +177,7 @@ export default class newPatient extends Component {
 					dateInput: {
 						flex: 1,
 						height: 40,
-					borderWidth: 1,
+						borderWidth: 1,
 						borderColor: '#29235c',
 						alignItems: 'center',
 						justifyContent: 'center'
