@@ -154,12 +154,19 @@ export default class validMetaDynamic extends Component {
 		myarray=JSON.stringify(that.state.meta_arr);//merge both arrays
 		let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
   		AsyncStorage.getItem('id').then((idd)=>{
-		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(array_all);	  
-		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //upadet medical folder data
-		    date_MAJ_dossier: compte_rendu.toString(),
-		    nombre_images_dossier: my_array.nombre_images_dossier+1,
-		    emplacement: my_array.emplacement
-		  });
+		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(array_all);
+		  if(my_array.emplacement=="null"){
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //upadet medical folder data
+				date_MAJ_dossier: compte_rendu.toString(),
+				nombre_images_dossier: my_array.nombre_images_dossier+1
+		    });
+		  }else{
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //upadet medical folder data
+				date_MAJ_dossier: compte_rendu.toString(),
+				nombre_images_dossier: my_array.nombre_images_dossier+1,
+				emplacement: my_array.emplacement
+		    });
+		  }		  
 		  alert("Upload Terminé",downloadURL);
 		  that.props.navigator.push({
 			component: LastOne

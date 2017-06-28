@@ -148,11 +148,10 @@ export default class locatePic extends Component {
 			date_MAJ_dossier: my_date.toString(),
 			nom_patient_dossier: array.nom_pat.charAt(0).toUpperCase()+array.nom_pat.slice(1),
 			prenom_patient_dossier:array.prenom_pat.charAt(0).toUpperCase()+array.prenom_pat.slice(1),
-			emplacement:null,
 			categorie_id:array.categorie,
 			nombre_images_dossier: array.nombre_images_dossier
 		})
-		AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":'null'}));
+		AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":array.id_medecin,"id_patient":array.id_patient,"id_dossier":dossier_id,"nombre_images_dossier":array.nombre_images_dossier,"categorie":array.categorie,"emplacement":null}));
 			this.props.navigator.push({
 				component: TakePicture
 			});
@@ -525,8 +524,9 @@ export default class locatePic extends Component {
   }	
   render() {
     return (
-	<View>
+	<View style={{backgroundColor: "white"}}>
 	<HeaderUp text="Séléction zone" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
+	<ScrollView>
 		<Image style={styles.image} ref="img" source={{uri:this.state.uri_img}}>
 			<View style={{flexDirection: 'row', flexWrap:'wrap',backgroundColor: 'transparent'}}>
 				<Button onPress={this.face_avant.bind(this)} style={{backgroundColor:'transparent',marginLeft: 0,marginTop:0,width:180,height:60,alignItems: 'flex-start',borderColor:'transparent'}} bordered>
@@ -592,14 +592,14 @@ export default class locatePic extends Component {
 				style={{width:100,height:24,marginLeft:20,marginBottom:10,backgroundColor: "transparent"}}>
 				<Text style={{color:'#29235c',textAlign: "center"}}>{this.state.text_jambe_droite}</Text>
 				</TouchableOpacity>
-			<TouchableOpacity
-				onPress={this.state.passer}
-				style={{width:300,height:240,marginLeft:20,marginBottom:10,backgroundColor: "transparent"}}>
-				<Text style={{color:'#29235c',textAlign: "center"}}>{this.state.passer}</Text>
-				</TouchableOpacity>
 			</View>
 		</Image>
-
+			<TouchableOpacity
+				onPress={this.passer.bind(this)}
+				style={{width:100,height:30,marginLeft:250,backgroundColor: "#29235c",top:5,bottom:0}}>
+				<Text style={{color:'white',textAlign: "center"}}> Passer</Text>
+				</TouchableOpacity>
+	</ScrollView>			
      </View>
     );
   }

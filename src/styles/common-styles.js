@@ -202,7 +202,7 @@ module.exports = StyleSheet.create({
 	resizeMode:'stretch',
 	backgroundColor: 'white',
 	width: window.width,
-	height: window.height-95,
+	height: window.height-125,
   },
   image_splash: {
 	top:0,
