@@ -152,7 +152,7 @@ export default class login extends Component {
 			  // User canceled the upload
 			  alert("Opération non permise");
 			  break;
-				case 'auth/weak-password':
+				case 'auth/weak-password': 
 			  // Unknown error occurred, inspect the server response
 			  alert("Mot de passe faible. Le mot de passe doit dépasser 6 caractéres");
 			  break;
