@@ -526,7 +526,7 @@ export default class locatePic extends Component {
     return (
 	<View style={{backgroundColor: "white"}}>
 	<HeaderUp text="Séléction zone" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
-	<ScrollView>
+	<ScrollView style={{height:window.height}}>
 		<Image style={styles.image} ref="img" source={{uri:this.state.uri_img}}>
 			<View style={{flexDirection: 'row', flexWrap:'wrap',backgroundColor: 'transparent'}}>
 				<Button onPress={this.face_avant.bind(this)} style={{backgroundColor:'transparent',marginLeft: 0,marginTop:0,width:180,height:60,alignItems: 'flex-start',borderColor:'transparent'}} bordered>
@@ -594,12 +594,15 @@ export default class locatePic extends Component {
 				</TouchableOpacity>
 			</View>
 		</Image>
-			<TouchableOpacity
-				onPress={this.passer.bind(this)}
-				style={{width:100,height:30,marginLeft:250,backgroundColor: "#29235c",top:5,bottom:0}}>
-				<Text style={{color:'white',textAlign: "center"}}> Passer</Text>
-				</TouchableOpacity>
-	</ScrollView>			
+		
+	</ScrollView>
+	<Button
+		onPress={this.passer.bind(this)}
+		style={{width:130,height:40,left:200,backgroundColor: "#29235c",top:0,bottom:10,alignItems: "center",margin:10}}
+		textStyle={{fontSize: 16, color:'#fff'}}
+		>
+		  <Text style={{fontSize: 18, color:'#fff',textAlign: "center",paddingBottom:5}}> Passer <Icon name="md-arrow-dropright" style={{fontSize: 25, color: '#fff'}}/><Icon name="md-arrow-dropright" style={{fontSize: 25, color: '#fff'}}/></Text>
+	</Button>	
      </View>
     );
   }

@@ -200,9 +200,9 @@ module.exports = StyleSheet.create({
 	left:0,
 	right:0,
 	resizeMode:'stretch',
-	backgroundColor: 'white',
+	backgroundColor: 'transparent',
 	width: window.width,
-	height: window.height-125,
+	height: window.height-155,
   },
   image_splash: {
 	top:0,
