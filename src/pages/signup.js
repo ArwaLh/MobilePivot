@@ -30,20 +30,6 @@ export default class signup extends Component {
     };
 	this.signup=this.signup.bind(this);
   }
-  componentDidMount(){
-	this.itemsRef.child("medecins").on("value", (snap) => {
-		let items=[];
-		if(snap.val()==null){
-			items=0;
-			AsyncStorage.removeItem("medecins");
-			AsyncStorage.setItem("medecins",0);
-		}else{
-			items=Object.keys(snap.val());
-			AsyncStorage.removeItem("medecins");
-			AsyncStorage.setItem("medecins",items.length.toString());
-		}
-	});
-   }
   formatDate(date){
   var day = date.getDate();
   var monthIndex = date.getMonth()+1;
@@ -52,8 +38,8 @@ export default class signup extends Component {
   return day + '/' + monthIndex+ '/' + year;
   }
   signup(){
-	AsyncStorage.getItem("medecins").then((medecinss) => {
-	let medecin_id=this.state.email_medecin.slice(0,this.state.email_medecin.indexOf('@')).slice(0,this.state.email_medecin.indexOf('.'))+medecinss;
+	//generate the pushed key
+	let medecin_id=this.itemsRef.push().getKey();
 	if(this.state.password==this.state.confirm_password){
 		firebase.auth().createUserWithEmailAndPassword(this.state.email_medecin,this.state.password).then((userData) =>{
 		//ajouter medecin à firebase database
@@ -74,34 +60,33 @@ export default class signup extends Component {
 			nom_categorie:"Naevus",
 			date_creation:cr_date.toString()
 		})
-		//succes d'ajout dans auth et database
-			alert('Compte crée!');
-			this.props.navigator.push({
+		  //succes d'ajout dans auth et database
+		  alert('Compte crée!');
+		  this.props.navigator.push({
 			  component: Login
-			});
+		  });
 		}).catch((error)=>{
 			 switch (error.code) {
 			case 'auth/email-already-in-use':
 			  alert("E-mail déja utilisé");
 			  break;
-				case 'auth/invalid-email':
+			case 'auth/invalid-email':
 			  alert("E-mail non valide");
 			  break;
-				case 'auth/operation-not-allowed':
+			case 'auth/operation-not-allowed':
 			  alert("Opération non permise");
 			  break;
-				case 'auth/weak-password':
+			case 'auth/weak-password':
 			  alert("Mot de passe faible. Le mot de passe doit dépasser 6 caractéres");
 			  break;
-		  }
+			default:
+				//alert("Erreur d'authentification");
+				alert("Erreur d'inscription");
+			}
 			});
-		  this.setState({
-			loaded: true
-		  });
 	}else{
 	  alert("les champs mot de passe et confirmer mot de passe doivent être identiques")
 	}
-	});	
   }
   goToLogin(){
     this.props.navigator.push({

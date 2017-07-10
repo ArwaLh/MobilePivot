@@ -139,23 +139,25 @@ export default class login extends Component {
 			});
 		});
     }).catch((error)=>{
-		//change Firebase alerts to french (catch them and switch text)
 		switch (error.code) {
-			case 'auth/email-already-in-use':
-			  alert("E-mail déja utilisé");
+			case 'auth/invalid-email':
+			  alert("Erreur d'authentification: e-mail invalide");
 			  break;
-				case 'auth/invalid-email':
+			case 'auth/user-disabled':
 			  // User doesn't have permission to access the object
-			  alert("E-mail non valide");
+			  alert("Erreur d'authentification: utilisateur désactivé");
 			  break;
-				case 'auth/operation-not-allowed':
+			case 'auth/user-not-found':
 			  // User canceled the upload
-			  alert("Opération non permise");
+			  alert("Erreur d'authentification: utilisateur introuvable");
 			  break;
-				case 'auth/weak-password':
+			case 'auth/wrong-password':
 			  // Unknown error occurred, inspect the server response
-			  alert("Mot de passe faible.Le mot de passe doit dépasser 6 caractéres");
+			  alert("Erreur d'authentification: mot de passe incorrect");
 			  break;
+			default:
+				//alert("Erreur d'authentification");
+				alert("Erreur d'authentification");
 		  }
 	});
   }

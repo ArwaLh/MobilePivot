@@ -138,11 +138,18 @@ export default class validMeta extends Component {
 			suspicion:my_array.suspicion,
 			imageName:image_id
 		  })
-		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //upadet medical folder data
-			date_MAJ_dossier: compte_rendu.toString(),
-			nombre_images_dossier: my_array.nombre_images_dossier+1,
-			emplacement: my_array.emplacement
-		  });
+		  if(my_array.emplacement=="null"){
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //upadet medical folder data
+				date_MAJ_dossier: compte_rendu.toString(),
+				nombre_images_dossier: my_array.nombre_images_dossier+1
+		    });
+		  }else{
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //upadet medical folder data
+				date_MAJ_dossier: compte_rendu.toString(),
+				nombre_images_dossier: my_array.nombre_images_dossier+1,
+				emplacement: my_array.emplacement
+			});
+		  }	
 		  alert("Upload terminé",downloadURL);
 		  that.props.navigator.push({
 			 component: LastOne

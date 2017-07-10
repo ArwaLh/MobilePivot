@@ -35,26 +35,11 @@ export default class newPatientDynamic extends Component {
 	  antec_perso: 'oui',
 	  antec_fam: 'oui',
 	  nbreGrain: 'sup',
-	  items_pat:[],
 	  datedate:"",
 	  username_med: '',
 	  patient_id: '',
 	  dateNaissance_pat: ''
 	}
-  }
-  componentDidMount(){
-	AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
-	  this.itemsRef.child('medecins').child(medecin_usernamee).child("patients").on('value', (snap) => {
-	    let items_pat=[];
-		snap.forEach((child) => {
-		  items_pat.push({
-			antecedents_familiaux :child.val().antecedents_familiaux,
-			_key: child.key,
-		  });
-		});
-		AsyncStorage.setItem('items_pat',JSON.stringify(items_pat));
-	  });
-	});
   }
   formatDate(date){
   var day = date.getDate();
@@ -70,14 +55,12 @@ export default class newPatientDynamic extends Component {
 	  alert("Vous n'avez pas remplis tous les champs!!");
 	}else{ 
 	  AsyncStorage.getItem('id').then((idd) => {
-		AsyncStorage.getItem('items_pat').then((items_patt) => {
-		  let items_pat=JSON.parse(items_patt);
 		  AsyncStorage.getItem('items_dossiers').then((items_dossierss) => {
 		    let items_dossiers1=JSON.parse(items_dossierss);
 		    AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {
 			  if(this.state.nom_pat!="" && this.state.prenom_pat!=""){
-				let patient_id="";
-				patient_id=this.state.nom_pat.toLowerCase()+'_'+this.state.prenom_pat.toLowerCase()+'_'+items_pat.length;
+				//generate the pushed key
+				let patient_id=this.itemsRef.push().getKey();
 				let cr_date=this.formatDate(new Date());
 				this.itemsRef.child('medecins').child(medecin_usernamee).child('patients').child(patient_id).set({ 
 				  nom_pat: this.state.nom_pat.charAt(0).toUpperCase()+this.state.nom_pat.slice(1), 
@@ -100,7 +83,6 @@ export default class newPatientDynamic extends Component {
 			  }
 		    });
 		  });
-		});
 	  });
 	}//else ends here
   }
