@@ -39,7 +39,7 @@ export default class signup extends Component {
   }
   signup(){
 	//generate the pushed key
-	let medecin_id=this.itemsRef.push().getKey();
+	let medecin_id=this.itemsRef.child("medecins").push().getKey();
 	if(this.state.password==this.state.confirm_password){
 		firebase.auth().createUserWithEmailAndPassword(this.state.email_medecin,this.state.password).then((userData) =>{
 		//ajouter medecin à firebase database
