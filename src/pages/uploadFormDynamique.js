@@ -170,7 +170,7 @@ export default class uploadFormDynamique extends Component {
 					onChangeText={(text2) => {
 						items_names[i]=text2;
 					}}
-					maxLength ={5}
+					maxLength ={10}
 					underlineColorAndroid="#29235c"
 					/>
 				</Col>
