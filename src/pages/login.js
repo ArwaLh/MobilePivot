@@ -150,6 +150,7 @@ export default class login extends Component {
 			}else{
 				alert("Email n'est pas verifié.");
 			}
+			
 		  }).catch(function(error) {
 			  localStorage.setItem('error_login', true);
 			  that.setState({error_login: true});
