@@ -87,7 +87,7 @@ android {
     buildToolsVersion "25.0.0"
 
     defaultConfig {
-        applicationId "com.facebookapp"
+        applicationId "com.katomi"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
@@ -95,6 +95,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        vectorDrawables.useSupportLibrary = true
     }
 	signingConfigs {
         release {

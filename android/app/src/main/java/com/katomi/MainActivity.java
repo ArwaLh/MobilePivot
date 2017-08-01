@@ -1,4 +1,4 @@
-package com.facebookapp;
+package com.katomi;
 
 import android.os.Bundle;
 
