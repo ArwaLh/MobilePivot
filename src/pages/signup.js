@@ -60,8 +60,11 @@ export default class signup extends Component {
 			nom_categorie:"Naevus",
 			date_creation:cr_date.toString()
 		})
-		  //succes d'ajout dans auth et database
-		  alert('Compte crée!');
+		  firebase.auth().currentUser.sendEmailVerification().then(function() {
+			  alert('Compte crée! Verifiez votre e-mail!!');
+		  }, function(error) {
+			alert("E-mail de verification d'e-mail non envoyé.Un erreur est survenu.");
+		  });
 		  this.props.navigator.push({
 			  component: Login
 		  });
