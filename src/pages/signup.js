@@ -99,8 +99,8 @@ export default class signup extends Component {
   render() {
     return (
     <View style={styles.container}>
-	 <Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/Splash.png'}}>
-		<Image style={{marginBottom:0,marginTop:50,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={{uri:'http://localhost:8081/img/logo_katomi.png'}}></Image>
+	 <Image style={styles.image_splash} source={{uri:'http://localhost:8081/android/app/src/main/assets/Splash.png'}}>
+		<Image style={{marginBottom:0,marginTop:50,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={{uri:'http://localhost:8081/android/app/src/main/assets/logo_katomi.png'}}></Image>
         <View style={styles.body_login}>
             <TextInput
                 style={styles.textinput_email}

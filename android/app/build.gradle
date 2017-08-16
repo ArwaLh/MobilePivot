@@ -87,7 +87,7 @@ android {
     buildToolsVersion "25.0.0"
 
     defaultConfig {
-        applicationId "com.katomi"
+        applicationId "com.katomiapp"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
