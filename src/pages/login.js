@@ -43,8 +43,8 @@ export default class login extends Component {
   render(){
     return (
       <View style={styles.container}>
-	  <Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/Splash.png'}}>
-		<Image style={{marginBottom:0,marginTop:40,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={{uri:'http://localhost:8081/img/logo_katomi.png'}}></Image>
+	  <Image style={styles.image_splash} source={{uri:'http://localhost:8081/android/app/src/main/assets/Splash.png'}}>
+		<Image style={{marginBottom:0,marginTop:40,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={{uri:'http://localhost:8081/android/app/src/main/assets/logo_katomi.png'}}></Image>
         <View style={styles.body_login}>
           <TextInput
             style={styles.textinput_email}
@@ -126,6 +126,16 @@ export default class login extends Component {
     auth.signInWithEmailAndPassword(this.state.email_medecin,this.state.password).then((user_data) =>{
 		this.itemsRef.child('medecins').orderByChild('email_medecin').equalTo(this.state.email_medecin).on("child_added", (snapshot)=> {
 			AsyncStorage.setItem('medecin_username', snapshot.key);
+			var name, email, photoUrl, uid, emailVerified;
+
+		  if (user_data != null) {
+			name = user_data.displayName;
+			email = user_data.email;
+			photoUrl = user_data.photoURL;
+			emailVerified = user_data.emailVerified;
+			uid = user_data.uid;
+		  }	
+		  if(emailVerified){
 			this.itemsRef.child('categories').child(snapshot.key).once("value", (snap)=> {
 				if(Object.keys(snap.val()).length==1){
 					this.props.navigator.push({ 
@@ -137,29 +147,36 @@ export default class login extends Component {
 					});
 				}
 			});
+			}else{
+				alert("Email n'est pas verifié.");
+			}
+			})
+		  }).catch(function(error) {
+			  localStorage.setItem('error_login', true);
+			  that.setState({error_login: true});
+			  //switch cases of authentication errors
+				switch (error.code) {
+				case "auth/invalid-email":
+					//alert("Erreur d'authentification: e-mail invalide");
+					alert("Erreur d'authentification: e-mail invalide");
+					break;
+				case "auth/user-disabled":
+					//alert("Erreur d'authentification: utilisateur désactivé");
+					alert("Erreur d'authentification: utilisateur désactivé");
+					break;
+				case "auth/user-not-found":
+					//alert("Erreur d'authentification: utilisateur introuvable");
+					alert("Erreur d'authentification: utilisateur introuvable");
+					break;
+				case "auth/wrong-password":
+					//alert("Erreur d'authentification: mot de passe incorrect");
+					alert("Erreur d'authentification: mot de passe incorrect");
+					break;
+				default:
+					//alert("Erreur d'authentification");
+					alert("Erreur d'authentification");
+				}
 		});
-    }).catch((error)=>{
-		switch (error.code) {
-			case 'auth/invalid-email':
-			  alert("Erreur d'authentification: e-mail invalide");
-			  break;
-			case 'auth/user-disabled':
-			  // User doesn't have permission to access the object
-			  alert("Erreur d'authentification: utilisateur désactivé");
-			  break;
-			case 'auth/user-not-found':
-			  // User canceled the upload
-			  alert("Erreur d'authentification: utilisateur introuvable");
-			  break;
-			case 'auth/wrong-password':
-			  // Unknown error occurred, inspect the server response
-			  alert("Erreur d'authentification: mot de passe incorrect");
-			  break;
-			default:
-				//alert("Erreur d'authentification");
-				alert("Erreur d'authentification");
-		  }
-	});
   }
   goToSignup(){
     this.props.navigator.push({

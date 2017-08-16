@@ -93,7 +93,7 @@ export default class didacticiel extends Component {
 		}}
 		loop={false} showsButtons>
 		<View style={styles.slide1}>
-		  <Image style={styles.image} source={{uri:'http://localhost:8081/img/didacticiel.png'}}>
+		  <Image style={styles.image} source={{uri:'http://localhost:8081/android/app/src/main/assets/didacticiel.png'}}>
 			<Button
 			text="Démarrer"
 			onpress={this.next.bind(this)}
@@ -107,10 +107,10 @@ export default class didacticiel extends Component {
 		  </Image>
 		</View>
 		<View style={styles.slide2}>
-		  <Image style={styles.image} source={{uri:'http://localhost:8081/img/did2.png'}} />
+		  <Image style={styles.image} source={{uri:'http://localhost:8081/android/app/src/main/assets/did2.png'}} />
 		</View>
 		<View style={styles.slide3}>
-		  <Image style={styles.image} source={{uri:'http://localhost:8081/img/did3.png'}} />
+		  <Image style={styles.image} source={{uri:'http://localhost:8081/android/app/src/main/assets/did3.png'}} />
 		</View>
 	  </Swiper>
 	</View>

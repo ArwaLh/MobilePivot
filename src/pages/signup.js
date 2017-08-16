@@ -60,8 +60,11 @@ export default class signup extends Component {
 			nom_categorie:"Naevus",
 			date_creation:cr_date.toString()
 		})
-		  //succes d'ajout dans auth et database
-		  alert('Compte crée!');
+		  firebase.auth().currentUser.sendEmailVerification().then(function() {
+			  alert('Compte crée! Verifiez votre e-mail!!');
+		  }, function(error) {
+			alert("E-mail de verification d'e-mail non envoyé.Un erreur est survenu.");
+		  });
 		  this.props.navigator.push({
 			  component: Login
 		  });
@@ -96,8 +99,8 @@ export default class signup extends Component {
   render() {
     return (
     <View style={styles.container}>
-	 <Image style={styles.image_splash} source={{uri:'http://localhost:8081/img/Splash.png'}}>
-		<Image style={{marginBottom:0,marginTop:50,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={{uri:'http://localhost:8081/img/logo_katomi.png'}}></Image>
+	 <Image style={styles.image_splash} source={{uri:'http://localhost:8081/android/app/src/main/assets/Splash.png'}}>
+		<Image style={{marginBottom:0,marginTop:50,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={{uri:'http://localhost:8081/android/app/src/main/assets/logo_katomi.png'}}></Image>
         <View style={styles.body_login}>
             <TextInput
                 style={styles.textinput_email}

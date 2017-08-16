@@ -1,4 +1,4 @@
-rootProject.name = 'FacebookApp'
+rootProject.name = 'Katomi'
 
 include ':app'
 include ':react-native-fbsdk'
