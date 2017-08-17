@@ -8,7 +8,7 @@ let mar_left=(window.width-170)/2;
 module.exports = StyleSheet.create({
   container: {
     flex: 1,
-	backgroundColor: '#53507c'
+	backgroundColor: '#29235c'
   },
   body_login: {
     flex: 9,
