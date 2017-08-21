@@ -75,16 +75,6 @@ export default class gestionPatient extends Component {
 	  component: RechercheP
 	}); 
   }
-  last(){
-	this.props.navigator.push({
-	  component: LastOne
-	}); 
-  }
-  upl(){
-	this.props.navigator.push({
-	  component: UploadForm
-	}); 
-  }	
   goBack() {
 	this.props.navigator.pop();
 	return true;

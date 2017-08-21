@@ -43,8 +43,8 @@ export default class login extends Component {
   render(){
     return (
       <View style={styles.container}>
-	  <Image style={styles.image_splash} source={{uri:'http://localhost:8081/android/app/src/main/assets/Splash.png'}}>
-		<Image style={{marginBottom:0,marginTop:40,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={{uri:'http://localhost:8081/android/app/src/main/assets/logo_katomi.png'}}></Image>
+	  <Image style={styles.image_splash} source={require('./img/Splash.png')}>
+		<Image style={{marginBottom:0,marginTop:40,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={require('./img/logo_katomi.png')}></Image>
         <View style={styles.body_login}>
           <TextInput
             style={styles.textinput_email}
@@ -75,7 +75,7 @@ export default class login extends Component {
 						this.setState({secureTextEntry: true,count:0});
 					}
 					}}  style={{width: 27,margin:0 ,padding:0,marginBottom:0,height:15,marginTop:30}}>
-				<Image style={{width:27,height:15,margin:0,padding:0}} source={{uri:'http://localhost:8081/img/eye.png'}}></Image>
+				<Image style={{width:27,height:15,margin:0,padding:0}} source={require('./img/eye.png')}></Image>
 			</TouchableOpacity>
 		  </View>
 		  <Text style={{marginBottom:15}}></Text>

@@ -39,7 +39,7 @@ export default class signup extends Component {
   }
   signup(){
 	//generate the pushed key
-	let medecin_id=this.itemsRef.push().getKey();
+	let medecin_id=this.itemsRef.child("medecins").push().getKey();
 	if(this.state.password==this.state.confirm_password){
 		firebase.auth().createUserWithEmailAndPassword(this.state.email_medecin,this.state.password).then((userData) =>{
 		//ajouter medecin à firebase database
@@ -99,8 +99,8 @@ export default class signup extends Component {
   render() {
     return (
     <View style={styles.container}>
-	 <Image style={styles.image_splash} source={{uri:'http://localhost:8081/android/app/src/main/assets/Splash.png'}}>
-		<Image style={{marginBottom:0,marginTop:50,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={{uri:'http://localhost:8081/android/app/src/main/assets/logo_katomi.png'}}></Image>
+	 <Image style={styles.image_splash} source={require('./img/Splash.png')}>
+		<Image alt="logo" style={{marginBottom:0,marginTop:50,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={require('./img/logo_katomi.png')}></Image>
         <View style={styles.body_login}>
             <TextInput
                 style={styles.textinput_email}
@@ -127,7 +127,7 @@ export default class signup extends Component {
 					}
 					}} 
 					style={{width: 35,margin:0,padding:0,marginBottom:0,height:20,marginTop:30}}>
-					<Image style={{width:27,height:15,margin:0,padding:0}} source={{uri:'http://localhost:8081/img/eye.png'}}></Image>
+					<Image style={{width:27,height:15,margin:0,padding:0}} source={require('./img/eye.png')}></Image>
 				</TouchableOpacity >
 			</View>
 			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
@@ -148,7 +148,7 @@ export default class signup extends Component {
 					}
 					}} 
 					style={{width: 35,margin:0,padding:0,marginBottom:0,height:20,marginTop:30}}>
-					<Image style={{width:27,height:15,margin:0,padding:0}} source={{uri:'http://localhost:8081/img/eye.png'}}></Image>
+					<Image style={{width:27,height:15,margin:0,padding:0}} source={require('./img/eye.png')}></Image>
 				</TouchableOpacity>
 			</View>
 			<Button

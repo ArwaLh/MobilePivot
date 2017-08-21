@@ -118,7 +118,7 @@ export default class phototype extends Component {
 			  <Button onPress={this.phototype_1} style={{backgroundColor: this.state.back_color, borderColor:'black', width: 420,height:90}} textStyle={{color: this.state.textColor}} transparent>
 				<Row style={{width: 400,height:90}} >
 				  <Col style={{width: 75}}>
-					<Image style={styles.circle} source={{uri:'http://localhost:8081/android/app/src/main/assets/1.jpg'}}/>
+					<Image style={styles.circle} source={require('./img/1.jpg')}/>
 				  </Col>
 				  <Col style={{width: 325}}>
 					<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor}}>Phototypes I{"\n"}</Text> 
@@ -133,7 +133,7 @@ export default class phototype extends Component {
 			  <Button onPress={this.phototype_2} style={{backgroundColor: this.state.back_color1, width: 420,height:90}} textStyle={{color: this.state.textColor1}} transparent>
 				<Row style={{width: 400,height:90}} >
 					<Col style={{width:75}}>
-						<Image style={styles.circle} source={{uri:'http://localhost:8081/android/app/src/main/assets/2.jpg'}}/>
+						<Image style={styles.circle} source={require('./img/2.jpg')}/>
 					</Col> 
 					<Col style={{width: 325}}>
 						<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor1}}>Phototypes II{"\n"}</Text> 
@@ -148,7 +148,7 @@ export default class phototype extends Component {
 			  <Button onPress={this.phototype_3} style={{backgroundColor: this.state.back_color2, width: 420,height:90}} textStyle={{color: this.state.textColor2}} transparent>
 				<Row style={{width: 400,height:90}} >
 				  <Col style={{width:75}}>
-					<Image style={styles.circle} source={{uri:'http://localhost:8081/android/app/src/main/assets/3.jpg'}}/>
+					<Image style={styles.circle} source={require('./img/3.jpg')}/>
 				  </Col>
 				  <Col style={{width: 325}}>
 					<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor2}}>Phototypes III{"\n"}</Text> 
@@ -163,7 +163,7 @@ export default class phototype extends Component {
 			  <Button onPress={this.phototype_4} style={{backgroundColor: this.state.back_color3,width: 420,height:90}} textStyle={{color: this.state.textColor3}} transparent>
 				<Row style={{width: 400,height:90}} >
 				  <Col style={{width:75}}>
-					<Image style={styles.circle} source={{uri:'http://localhost:8081/android/app/src/main/assets/4.jpg'}}/>
+					<Image style={styles.circle} source={require('./img/4.jpg')}/>
 				  </Col>
 				  <Col style={{width: 325}}>
 					<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor3}}>Phototypes IV{"\n"}</Text> 
@@ -178,7 +178,7 @@ export default class phototype extends Component {
 			  <Button onPress={this.phototype_5} style={{backgroundColor: this.state.back_color4, width: 420,height:90}} textStyle={{color: this.state.textColor4}} transparent>
 				<Row style={{width: 400,height:90}} >
 				  <Col style={{width:75}}>
-					<Image style={styles.circle} source={{uri:'http://localhost:8081/android/app/src/main/assets/5.jpg'}}/>
+					<Image style={styles.circle} source={require('./img/5.jpg')}/>
 				  </Col>
 				  <Col style={{width: 325}}>
 					<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor4}}>Phototypes V{"\n"}</Text> 
@@ -193,7 +193,7 @@ export default class phototype extends Component {
 			  <Button onPress={this.phototype_6} style={{backgroundColor: this.state.back_color5,width: 420,height:90}} textStyle={{color: this.state.textColor5}} transparent>
 				<Row style={{width: 400,height:90}} >
 				  <Col style={{width:75}}>
-					<Image style={styles.circle} source={{uri:'http://localhost:8081/android/app/src/main/assets/6.jpg'}}/>
+					<Image style={styles.circle} source={require('./img/6.jpg')}/>
 				  </Col>
 				  <Col style={{width: 325}}>
 					<Text style={{fontSize: 15,fontWeight:"bold",color: this.state.textColor5}}>Phototypes VI{"\n"}</Text> 
