@@ -62,11 +62,11 @@ export default class gestionPatient extends Component {
   ajoutPat(){
 	if(this.state.id=="naevus"){
 	  this.props.navigator.push({
-		component: LocatePic
+		component: NewPatient
 	  });
 	}else{
 	  this.props.navigator.push({
-		component: LocatePic
+		component: NewPatientDynamic
 	  }); 
 	}
   }
