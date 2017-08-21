@@ -62,11 +62,11 @@ export default class gestionPatient extends Component {
   ajoutPat(){
 	if(this.state.id=="naevus"){
 	  this.props.navigator.push({
-		component: NewPatient
+		component: LocatePic
 	  });
 	}else{
 	  this.props.navigator.push({
-		component: NewPatientDynamic
+		component: LocatePic
 	  }); 
 	}
   }
@@ -75,16 +75,6 @@ export default class gestionPatient extends Component {
 	  component: RechercheP
 	}); 
   }
-  last(){
-	this.props.navigator.push({
-	  component: LastOne
-	}); 
-  }
-  upl(){
-	this.props.navigator.push({
-	  component: UploadForm
-	}); 
-  }	
   goBack() {
 	this.props.navigator.pop();
 	return true;

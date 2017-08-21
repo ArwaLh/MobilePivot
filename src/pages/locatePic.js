@@ -27,6 +27,15 @@ import Modal from 'react-native-modalbox';
 const window = Dimensions.get('window');
 import TakePicture from './takePic';
 import * as firebase from 'firebase';
+/* const IMAGES = {
+  image1: require('katomifaceavant'), // statically analyzed
+  image2: require('./img/katomifacearriere'), // statically analyzed
+}*/
+/*
+getImage(num: number) { // dynamically invoked
+  return IMAGES['image' + num];
+} */
+
 export default class locatePic extends Component {
   constructor(props){
     super(props);
@@ -37,7 +46,7 @@ export default class locatePic extends Component {
 		  medecin_id: '',
 		  patient_id: '',
 		  med_pat_file:{},
-		  uri_img:'./img/Katomi-face-1.png',
+		  uri_img:'katomifaceavant',
 		  cou: this.localiser_cou.bind(this),
 		  epaule_gauche: this.localiser_epaule_gauche.bind(this),
 		  epaule_droite: this.localiser_epaule_droite.bind(this),
@@ -472,7 +481,7 @@ export default class locatePic extends Component {
   }
   face_avant(){
 	this.setState({
-		uri_img: './img/Katomi-face-1.png',
+		uri_img: 'katomifaceavant',
 		cou: this.localiser_cou,
 		epaule_gauche: this.localiser_epaule_gauche,
 		epaule_droite: this.localiser_epaule_droite,
@@ -496,7 +505,7 @@ export default class locatePic extends Component {
   }
   face_arriere(){
 	this.setState({
-		uri_img: './img/Katomi-Face-2.png',
+		uri_img: 'katomifacearriere',
 		cou: this.localiser_nuque,
 		epaule_gauche: this.localiser_epaule_droite,
 		epaule_droite: this.localiser_epaule_gauche,
@@ -527,7 +536,7 @@ export default class locatePic extends Component {
 	<View style={{backgroundColor: "white"}}>
 	<HeaderUp text="Séléction zone" loaded={this.state.loaded} onpress={this.goBack.bind(this)}/>
 	<ScrollView style={{height:window.height}}>
-		<Image style={styles.image} ref="img" source={require(this.state.uri_img)}>
+		<Image style={styles.image} ref="img" source={{uri: this.state.uri_img}}>
 			<View style={{flexDirection: 'row', flexWrap:'wrap',backgroundColor: 'transparent'}}>
 				<Button onPress={this.face_avant.bind(this)} style={{backgroundColor:'transparent',marginLeft: 0,marginTop:0,width:180,height:60,alignItems: 'flex-start',borderColor:'transparent'}} bordered>
 				<Text style={{color:'transparent',textAlign: "center",padding:10,fontSize:20}}>Avant</Text>
