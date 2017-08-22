@@ -27,15 +27,6 @@ import Modal from 'react-native-modalbox';
 const window = Dimensions.get('window');
 import TakePicture from './takePic';
 import * as firebase from 'firebase';
-/* const IMAGES = {
-  image1: require('katomifaceavant'), // statically analyzed
-  image2: require('./img/katomifacearriere'), // statically analyzed
-}*/
-/*
-getImage(num: number) { // dynamically invoked
-  return IMAGES['image' + num];
-} */
-
 export default class locatePic extends Component {
   constructor(props){
     super(props);

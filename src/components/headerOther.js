@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  Image,
   View
 } from 'react-native';
 
@@ -26,8 +25,6 @@ export default class headerOther extends Component {
       </View>
     );
   }
-
-
 }
 
 const styles = StyleSheet.create({

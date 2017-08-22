@@ -17,7 +17,7 @@ export default class header extends Component {
     return (
       <View style={styles.header}>
         <View style={styles.header_item}>
-			<Image style={{width:37,height:37,flex:1,margin:0,padding:0}} source={require('./img/katomi_interne.png')}></Image>
+			<Image style={{width:37,height:37,flex:1,margin:0,padding:0}} source={{uri: 'katomi_interne'}}></Image>
         </View>
 		<View style={styles.header_item_text}>
 			<Text style={styles.header_text}>{this.props.text}</Text>

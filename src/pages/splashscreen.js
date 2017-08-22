@@ -30,7 +30,7 @@ export default class splashscreen extends Component {
   render() {
 	return (
 	  <View style={{backgroundColor: "#29235c"}}>
-		<Image style={styles.image_splash} source={{uri: 'Splash'}}>
+		<Image style={styles.image_splash} source={{uri: 'splash'}}>
 			<View style={{flexDirection: 'column',backgroundColor: 'transparent'}}>
 			    <Image style={{height:((window.width)/6)+30,width:(window.width/2)+122,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15 , marginTop:(window.height/2)-110}} source={{uri: 'logo_katomi'}}></Image>
 				<Button

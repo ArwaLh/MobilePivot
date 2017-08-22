@@ -133,7 +133,7 @@ export default class gestionNaevus extends Component {
 				    <Button style={{height:160}} onPress={this.gestionF.bind(this,rowData._key,rowData.nombre_images_dossier,rowData.emplacement,rowData.date_creation_dossier.substring(0,24),rowData.date_MAJ_dossier.substring(0,24),rowData.categorie_id)} transparent>							
 					  <Grid>
 						<Col style={{width:70}}>
-						  <Image style={{width:65,height:60, marginTop:10}} source={{uri: 'Icdossier'}}/>
+						  <Image style={{width:65,height:60, marginTop:10}} source={{uri: 'icdossier'}}/>
 						</Col>
 						<Col style={{width:250,marginLeft:8, margin:10}}>
 						  <Text style={styles.listViewTitle}> Dossier {rowData.emplacement}</Text> 

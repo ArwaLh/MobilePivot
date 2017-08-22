@@ -99,7 +99,7 @@ export default class signup extends Component {
   render() {
     return (
     <View style={styles.container}>
-	 <Image style={styles.image_splash} source={{uri: 'Splash'}}>
+	 <Image style={styles.image_splash} source={{uri: 'splash'}}>
 		<Image alt="logo" style={{marginBottom:0,marginTop:50,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={{uri: 'logo_katomi'}}></Image>
         <View style={styles.body_login}>
             <TextInput
