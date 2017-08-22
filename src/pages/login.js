@@ -34,11 +34,7 @@ export default class login extends Component {
 	  secureTextEntry: true
     }
 	this.login=this.login.bind(this);
-  }
-  handleKeyDown(e) {
-    if(e.nativeEvent.key == "Enter"){
-        dismissKeyboard();
-    }
+	this.goToSignup=this.goToSignup.bind(this);
   }
   render(){
     return (
@@ -51,7 +47,6 @@ export default class login extends Component {
             onChangeText={(text) => this.setState({email_medecin: text})}
             value={this.state.email_medecin}
             placeholder={"E-mail"}
-			onKeyPress={this.handleKeyDown}
 			placeholderTextColor="#fff"
 			underlineColorAndroid="white"
           />
@@ -64,7 +59,6 @@ export default class login extends Component {
 				secureTextEntry={this.state.secureTextEntry}
 				placeholder={"Mot de passe"}
 				placeholderTextColor="#fff"
-				onKeyPress={this.handleKeyDown.bind(this)}
 				underlineColorAndroid="white"
 				inlineImagePadding={0}
 			  />
@@ -81,11 +75,11 @@ export default class login extends Component {
 		  <Text style={{marginBottom:15}}></Text>
 		  <View style={{flexDirection:'row', flexWrap:'wrap',marginBottom:15}}>
 			  <Button
-				onPress={this.goToSignup.bind(this)}
+				onPress={this.goToSignup}
 				style={{borderColor: "#fff"}}
 				textStyle={{fontSize: 16, color:'#fff'}} transparent>S'INSCRIRE</Button>
 			  <Button
-				onPress={this.login.bind(this)}
+				onPress={this.login}
 				style={{borderColor: "#fff",marginLeft:15}}
 				textStyle={{fontSize: 16, color:'#fff'}}
 				bordered>CONNEXION</Button>

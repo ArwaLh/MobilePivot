@@ -91,11 +91,6 @@ export default class signup extends Component {
 	  alert("les champs mot de passe et confirmer mot de passe doivent être identiques")
 	}
   }
-  goToLogin(){
-    this.props.navigator.push({
-      component: Login
-    });
-  }
   render() {
     return (
     <View style={styles.container}>
