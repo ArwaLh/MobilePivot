@@ -93,7 +93,7 @@ export default class didacticiel extends Component {
 		}}
 		loop={false} showsButtons>
 		<View style={styles.slide1}>
-		  <Image style={styles.image} source={require('./img/didacticiel.png')}>
+		  <Image style={styles.image} source={{uri: 'didacticiel'}}>
 			<Button
 			text="Démarrer"
 			onpress={this.next.bind(this)}
@@ -107,10 +107,10 @@ export default class didacticiel extends Component {
 		  </Image>
 		</View>
 		<View style={styles.slide2}>
-		  <Image style={styles.image} source={require('./img/did2.png')} />
+		  <Image style={styles.image} source={{uri: 'did2'}} />
 		</View>
 		<View style={styles.slide3}>
-		  <Image style={styles.image} source={require('./img/did3.png')} />
+		  <Image style={styles.image} source={{uri: 'did3'}} />
 		</View>
 	  </Swiper>
 	</View>

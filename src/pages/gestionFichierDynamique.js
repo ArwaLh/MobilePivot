@@ -82,7 +82,7 @@ export default class gestionNaevusDynamique extends Component {
 		  <ListItem style={{borderColor:'#29235c', width:340}}>
 			<Grid>
 			  <Col style={{width:70}}>
-				<Image style={{width:65,height:60, marginTop:10}} source={require('./img/Icdossier.png')}/>
+				<Image style={{width:65,height:60, marginTop:10}} source={{uri: 'Icdossier'}}/>
 			  </Col>
 			  <Col>
 				<Text style={{color: "#29235c",margin:10,fontSize:18,fontFamily: 'Roboto',fontWeight:"bold"}}> Dossier {this.state.med_pat_filee.emplacement}</Text>
@@ -100,7 +100,7 @@ export default class gestionNaevusDynamique extends Component {
 				<ListItem style={{height:190, borderColor:'#29235c', width:340, paddingTop:0}}>
 					<Grid>
 						<Col style={{width:70, marginTop:40,padding:20}}>
-						  <Image style={{width:65,height:80}} source={require('./img/Icfichier.png')}/>
+						  <Image style={{width:65,height:80}} source={{uri: 'Icfichier'}}/>
 						</Col>
 						<Col style={{width:230,height:190, marginLeft:30,marginTop:70}}>				
 						  <Text style={styles.listViewText1}>Date de consultation:<Text style={styles.listViewText2}>{rowData.date_compte_rendu_consultation}</Text></Text>

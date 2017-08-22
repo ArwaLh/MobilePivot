@@ -99,8 +99,8 @@ export default class signup extends Component {
   render() {
     return (
     <View style={styles.container}>
-	 <Image style={styles.image_splash} source={require('./img/Splash.png')}>
-		<Image alt="logo" style={{marginBottom:0,marginTop:50,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={require('./img/logo_katomi.png')}></Image>
+	 <Image style={styles.image_splash} source={{uri: 'Splash'}}>
+		<Image alt="logo" style={{marginBottom:0,marginTop:50,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={{uri: 'logo_katomi'}}></Image>
         <View style={styles.body_login}>
             <TextInput
                 style={styles.textinput_email}
@@ -127,7 +127,7 @@ export default class signup extends Component {
 					}
 					}} 
 					style={{width: 35,margin:0,padding:0,marginBottom:0,height:20,marginTop:30}}>
-					<Image style={{width:27,height:15,margin:0,padding:0}} source={require('./img/eye.png')}></Image>
+					<Image style={{width:27,height:15,margin:0,padding:0}} source={{uri: 'eye'}}></Image>
 				</TouchableOpacity >
 			</View>
 			<View style={{flexDirection:'row', flexWrap:'wrap'}}>
@@ -148,7 +148,7 @@ export default class signup extends Component {
 					}
 					}} 
 					style={{width: 35,margin:0,padding:0,marginBottom:0,height:20,marginTop:30}}>
-					<Image style={{width:27,height:15,margin:0,padding:0}} source={require('./img/eye.png')}></Image>
+					<Image style={{width:27,height:15,margin:0,padding:0}} source={{uri: 'eye'}}></Image>
 				</TouchableOpacity>
 			</View>
 			<Button
