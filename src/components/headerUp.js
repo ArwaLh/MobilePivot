@@ -16,7 +16,7 @@ export default class headerUp extends Component {
     return (
       <View style={styles.header}>
 		<Button transparent onPress={this.props.onpress}>
-	  	 <Image style={{width:20,height:20,flex:1}} source={require('./img/arrow-left.png')}></Image>
+	  	 <Image style={{width:20,height:20,flex:1}} source={{uri: 'arrow_left'}}></Image>
 		</Button>
         <View style={styles.header_item}>
 			<Text style={styles.header_text}>{this.props.text}</Text>
