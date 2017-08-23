@@ -161,9 +161,9 @@ export default class uploadForm extends Component {
 			<Col>  
 			  <Text style={styles.bords}>Bords</Text>
 			</Col>
-			<Col style={{ marginLeft:130}}>	
+			<Col style={{ marginLeft:80}}>	
 			  <Picker 
-				style={{width:100, color:"#29235c" }}
+				style={{width:130, color:"#29235c" }}
                 iosHeader="Select one"
                 mode="dropdown"
                 selectedValue={this.state.selected1}
@@ -177,9 +177,9 @@ export default class uploadForm extends Component {
 			<Col>
 			  <Text style={styles.couleur}>Couleur</Text>
 			</Col>
-			<Col style={{ marginLeft:110}}>	
+			<Col style={{ marginLeft:50}}>	
 			  <Picker
-				style={{width:109, color:"#29235c" }}
+				style={{width:145, color:"#29235c" }}
                 iosHeader="Select one"
                 mode="dropdown"
                 selectedValue={this.state.selected2}
@@ -193,9 +193,9 @@ export default class uploadForm extends Component {
 			<Col style={{width:140}}>
 			  <Text style={styles.asymetrie}>Asymétrie</Text>
 			</Col>
-			<Col style={{ marginLeft:135}}>
+			<Col style={{ marginLeft:110}}>
 			  <Picker 
-				style={{width:65, color:"#29235c" }}
+				style={{width:100, color:"#29235c" }}
                 iosHeader="Select one"
                 mode="dropdown"
                 selectedValue={this.state.selected3}
@@ -221,10 +221,10 @@ export default class uploadForm extends Component {
 			<Col style={{width:140}}>
 			  <Text style={styles.diametre}>Diamètre</Text>
 			</Col>
-			<Col style={{ marginLeft:160,marginTop:0}}>
+			<Col style={{ marginLeft:160,marginTop:0, color:"#29235c"}}>
 			  <TextInput
 				ref="diametre"
-				style={{width:45, textAlign :"center",marginTop:0}}
+				style={{width:45, textAlign :"center",marginTop:0, color:"#29235c"}}
 				onChangeText={(text) => this.setState({diametre: text})}
 				value={this.state.diametre}
 				keyboardType='phone-pad'

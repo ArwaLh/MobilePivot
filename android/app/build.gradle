@@ -87,7 +87,7 @@ android {
     buildToolsVersion "25.0.0"
 
     defaultConfig {
-        applicationId "com.katomiapp"
+        applicationId "com.katomimobile"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
@@ -107,7 +107,7 @@ android {
             }
             keyAlias 'my-key-alias'
             keyPassword 'katomi2016*'
-            storeFile file('C:/Users/lenovo/katomidiseases/android/app/my-release-key.keystore')
+            storeFile file('C:/Users/user-pc/Desktop/katomi/android/app/my-release-key.keystore')
             storePassword 'katomi2016*'
         }
     }

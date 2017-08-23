@@ -1,4 +1,4 @@
-package com.katomiapp;
+package com.katomimobile;
 
 import android.os.Bundle;
 
