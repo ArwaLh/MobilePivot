@@ -36,7 +36,7 @@ window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
 window.Blob = Blob
 const dirs = RNFetchBlob.fs.dirs
 const path=null;
-const testFile = null;
+const testFile = null;    
 
 export default class validMetaDynamic extends Component {
   constructor (props) {
@@ -99,7 +99,7 @@ export default class validMetaDynamic extends Component {
 	let my_array=this.state.array;
 	/*-----upload to firebase storage method ----*/
 	firebase.auth()
-      .signInWithEmailAndPassword(EMAIL, PASSWORD)
+      .signInWithEmailAndPassword(EMAIL, PASS-WORD)
       .catch((err) => {
 		console.log('firebase sigin failed', err)
       })
