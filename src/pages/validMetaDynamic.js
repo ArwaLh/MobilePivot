@@ -167,7 +167,7 @@ export default class validMetaDynamic extends Component {
 				emplacement: my_array.emplacement
 		    });
 		  }		  
-		  alert("Upload Terminé",downloadURL);
+		  alert("Upload Terminée",downloadURL);
 		  that.props.navigator.push({
 			component: LastOne
 		  });
