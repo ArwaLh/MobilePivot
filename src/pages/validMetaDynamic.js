@@ -153,7 +153,7 @@ export default class validMetaDynamic extends Component {
 		
 		myarray=JSON.stringify(that.state.meta_arr);//merge both arrays
 		let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
-  		AsyncStorage.getItem('id').then((idd)=>{
+  		AsyncStorage.getItem('id').then((    )=>{
 		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(array_all);
 		  if(my_array.emplacement=="null"){
 			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //upadet medical folder data
@@ -167,7 +167,7 @@ export default class validMetaDynamic extends Component {
 				emplacement: my_array.emplacement
 		    });
 		  }		  
-		  alert("Upload Terminée",downloadURL);
+		  alert("Upload Terminé",downloadURL);
 		  that.props.navigator.push({
 			component: LastOne
 		  });

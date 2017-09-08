@@ -84,7 +84,7 @@ export default class gestionNaevus extends Component {
 			    <Col style={{width:70}}>
 				  <Image style={{width:65,height:60, marginTop:10}} source={{uri: 'icdossier'}}/>
 				</Col>
-				<Col>
+				<Col> 
 				  <Text style={{color: "#29235c",margin:10,fontSize:18,fontFamily: 'Roboto',fontWeight:"bold"}}> Dossier {this.state.med_pat_filee.emplacement}</Text>
 				  <Text style={{color: "#a8a8a8",marginLeft:10,fontSize:11,fontFamily: 'Roboto',fontWeight:"bold"}}>Nombre d'image: <Text style={styles.listViewText2}>{this.state.med_pat_filee.nombre_images_dossier}</Text></Text>							
 				  <Text style={{color: "#a8a8a8",marginLeft:10,fontSize:11,fontFamily: 'Roboto',fontWeight:"bold"}}>Catégorie: <Text style={styles.listViewText2}>{this.state.med_pat_filee.categorie}</Text></Text>							

@@ -57,7 +57,7 @@ export default class gestionNaevus extends Component {
 			nom_patient_dossier: child.val().nom_patient_dossier,
 			prenom_patient_dossier: child.val().prenom_patient_dossier,
 			nombre_images_dossier: child.val().nombre_images_dossier,
-			telephone_patient_dossier: child.val().telephone_patient_dossier,
+			telephone_patient_dossier: child.val().telephone_patient_dossier,   
 			date_creation_dossier: child.val().date_creation_dossier,
 			date_MAJ_dossier: child.val().date_MAJ_dossier,
 			emplacement: child.val().emplacement,
@@ -85,6 +85,10 @@ export default class gestionNaevus extends Component {
 		patient_lastname:patient_a.prenom_pat
 	  });
 	});
+		    AsyncStorage.getItem('id').then((idd)=>{
+		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(array_all);		  
+		  alert("Upload Terminé",downloadURL);
+		}); 
   }
   goBack() { 
 	this.props.navigator.pop();
