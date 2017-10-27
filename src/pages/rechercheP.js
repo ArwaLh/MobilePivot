@@ -50,6 +50,7 @@ export default class rechercheP extends Component {
       }); 
 	}else{// if un seul motif de consultation
 	AsyncStorage.removeItem("med_pat_file_location");
+	alert(Object.keys(snapshot.val())[0])
 	AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":id_medecin,"id_patient":_key,"id_dossier":Object.keys(snapshot.val())[0],"nombre_images_dossier":Object.values(snapshot.val())[0].nombre_images_dossier,"emplacement":Object.values(snapshot.val())[0].emplacement}));
 	  that.props.navigator.push({
        component: GestionNaevus

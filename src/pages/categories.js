@@ -18,10 +18,12 @@ import {
   View
 } from 'react-native';
 import Header from '../components/header';
+import HeaderUp from '../components/headerUp';
 import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input,Card, CardItem, List, ListItem, Button} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
+import UploadForm from './uploadForm';
 import GestionNaevus from './gestionNaevus';
 const window = Dimensions.get('window');
 import firebase from 'firebase';
@@ -41,8 +43,15 @@ export default class categories extends Component {
 	return true;
   }
   gestionP(id){
-	this.props.navigator.push({ 
-		 component: GestionNaevus
+	let that = this;
+ 	AsyncStorage.getItem('med_pat_file_location').then((patient_medecin_arrayy) => {
+		const arr=JSON.parse(patient_medecin_arrayy);
+		that.itemsRef.child("medecins").child(arr.id_medecin).child("patients").child(arr.id_patient).child("dossier_medical").child(arr.id_dossier).child("motifs").child(arr.motif).update({
+			categorie: id
+		});  
+ 		that.props.navigator.push({ 
+			 component: UploadForm
+		}); 
 	});
   }	 
   componentDidMount(){
@@ -66,7 +75,7 @@ export default class categories extends Component {
   render() {
     return (
 	<View>
-	  <Header text="Les categories" loaded={true}/>
+	  <HeaderUp text="Les categories" loaded={true} onpress={this.goBack.bind(this)}/>
 	  <ListView dataSource={this.state.dataSource}
 		enableEmptySections={true}
         renderRow={(rowData) => 
