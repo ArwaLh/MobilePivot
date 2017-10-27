@@ -22,8 +22,7 @@ import styles from '../styles/common-styles.js';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input,Card, CardItem, List, ListItem, Button} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
-import GestionPatient from './gestionPatient';
-import LastOne from './lastOne';
+import GestionNaevus from './gestionNaevus';
 const window = Dimensions.get('window');
 import firebase from 'firebase';
 
@@ -42,10 +41,8 @@ export default class categories extends Component {
 	return true;
   }
   gestionP(id){
-	AsyncStorage.removeItem('id'); 
-	AsyncStorage.setItem('id',id);  
 	this.props.navigator.push({ 
-		 component: GestionPatient
+		 component: GestionNaevus
 	});
   }	 
   componentDidMount(){

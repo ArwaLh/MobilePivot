@@ -47,10 +47,11 @@ export default class gestionNaevus extends Component {
   }
   componentDidMount(){
 	let that=this;
-	AsyncStorage.getItem('medecin_patient').then((patient_medecin_arrayy) => {
+	AsyncStorage.getItem('med_pat_file_location').then((patient_medecin_arrayy) => {
 	  const arr=JSON.parse(patient_medecin_arrayy);
-	  that.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossiers_medicaux').on('value', (snap) => {
+	  that.itemsRef.child('medecins').child(arr.id_medecin).child('patients').child(arr.id_patient).child('dossier_medical').child(arr.id_dossier).child("motifs").once('value', (snap) => {
 	  let items=[];
+	  alert(snap.val())
 	  // get children as an array
 	  snap.forEach((child) => {
 		items.push({
@@ -58,10 +59,10 @@ export default class gestionNaevus extends Component {
 			prenom_patient_dossier: child.val().prenom_patient_dossier,
 			nombre_images_dossier: child.val().nombre_images_dossier,
 			telephone_patient_dossier: child.val().telephone_patient_dossier,   
-			date_creation_dossier: child.val().date_creation_dossier,
+			date_creation_dossier: child.val().date_creation_motif,
 			date_MAJ_dossier: child.val().date_MAJ_dossier,
 			emplacement: child.val().emplacement,
-			categorie_id: child.val().categorie_id,
+			categorie: child.val().categorie_id,
 			_key: child.key
 		});
 	  });
@@ -85,7 +86,7 @@ export default class gestionNaevus extends Component {
 		patient_lastname:patient_a.prenom_pat
 	  });
 	});
-		    AsyncStorage.getItem('id').then((idd)=>{
+		AsyncStorage.getItem('id').then((idd)=>{
 		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(array_all);		  
 		  alert("Upload Terminé",downloadURL);
 		}); 
@@ -96,8 +97,6 @@ export default class gestionNaevus extends Component {
   }
   gestionF(id,nbre,emplacement,date_creation_dossier,date_MAJ,categorie){
 	let that = this;
-	AsyncStorage.removeItem("med_pat_file");
-	AsyncStorage.setItem("med_pat_file",JSON.stringify({"id_medecin":this.state.medecin_id,"id_patient":this.state.patient_id,"id_dossier":id,"categorie":categorie,"nombre_images_dossier":nbre,"emplacement":emplacement,"date_creation_dossier":date_creation_dossier,"date_MAJ":date_MAJ,"nom_pat":this.state.patient_lastname,"prenom_pat":this.state.patient_name})); 
 	if(categorie=="naevus"){
 	  that.props.navigator.push({
 		  component: GestionFichier
@@ -128,7 +127,7 @@ export default class gestionNaevus extends Component {
 					<Row><Text style={{color: "#9491AD",marginLeft:5,marginBottom:0,fontSize:15,fontFamily: 'Roboto'}}>Téléphone : {this.state.patient_tel}</Text></Row>
 				</Grid>
 			</ListItem>	
-			<Text style={{color:'#29235c',margin:10,marginLeft:22,fontSize:18,fontFamily:'Roboto'}}>Les dossiers médicaux </Text>
+			<Text style={{color:'#29235c',margin:10,marginLeft:22,fontSize:18,fontFamily:'Roboto'}}>Les motifs de consultation </Text>
 			<ListView dataSource={this.state.dataSource}
 			  enableEmptySections={true}             
 			  renderRow={(rowData) => 
@@ -140,7 +139,7 @@ export default class gestionNaevus extends Component {
 						  <Image style={{width:65,height:60, marginTop:10}} source={{uri: 'icdossier'}}/>
 						</Col>
 						<Col style={{width:250,marginLeft:8, margin:10}}>
-						  <Text style={styles.listViewTitle}> Dossier {rowData.emplacement}</Text> 
+						  <Text style={styles.listViewTitle}> Emplacement {rowData.emplacement}</Text> 
 						  <Text style={styles.listViewText1}>Nombre d'image: <Text style={styles.listViewText2}>{rowData.nombre_images_dossier}</Text></Text>							
 						  <Text style={styles.listViewText1}>Catégorie: <Text style={styles.listViewText2}>{rowData.categorie_id}</Text></Text>							
 						  <Text style={styles.listViewText1}>Date de création: <Text style={styles.listViewText2}>{rowData.date_creation_dossier.substring(0,24)}</Text></Text>
@@ -151,13 +150,6 @@ export default class gestionNaevus extends Component {
 				  </ListItem>
 				</List>
 			} style={{backgroundColor: 'white'}}/>		
-			<List style={{backgroundColor: 'white',height:100}}>
-				<ListItem>
-					<Button style={{height:120}} onPress={this.nouveau_dossier.bind(this)}transparent>
-					  <Icon name="plus-square-o" style={{color: '#29235c', fontSize: 60, width:70,marginLeft: (window.width/2)-50}}/> 	
-					</Button>
-				</ListItem>
-			</List>
 		</View>
 	  </ScrollView>   
 	</View>

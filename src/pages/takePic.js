@@ -13,11 +13,12 @@ import {
   AsyncStorage,
   Platform
 } from 'react-native';
-import UploadFormDynamique from './uploadFormDynamique';
-import UploadForm from './uploadForm';
+
 import Camera from 'react-native-camera';
 
 const window = Dimensions.get('window');
+import RechercheP from './rechercheP';
+
 export default class takePic extends Component {
   constructor(props) {
     super(props);
@@ -45,19 +46,9 @@ export default class takePic extends Component {
   this.camera.capture()
     .then(({path}) => {
 		AsyncStorage.setItem('path', path);// create Blob from file path
-		AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn)=>{
-		  const arr=JSON.parse(med_pat_file_locationn);
-		  if(arr.categorie=="naevus"){
 			this.props.navigator.push({
-			  component: UploadForm
-			}); 
-		  }else{
-			AsyncStorage.setItem('path', path);
-			this.props.navigator.push({
-			  component: UploadFormDynamique
-			}); 
-		  }
-		});
+			    component: RechercheP
+			});     
     })
   } 
   startRecording() {

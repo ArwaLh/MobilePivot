@@ -21,8 +21,7 @@ import {Button} from 'native-base';
 import firebase from 'firebase';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 import Signup from './signup';
-import GestionPatient from './gestionPatient';
-import Categories from './categories';
+import TakePic from './takePic';
 const window = Dimensions.get('window');
 export default class login extends Component {
   constructor(props){
@@ -103,7 +102,7 @@ export default class login extends Component {
                 )
                 alert("Connecté avec les permissions: " + result.grantedPermissions);
 				this.props.navigator.push({
-				  component: GestionPatient
+				  component: TakePic
 				});
               }
             }
@@ -130,24 +129,12 @@ export default class login extends Component {
 			uid = user_data.uid;
 		  }	
 		  if(emailVerified){
-			this.itemsRef.child('categories').child(snapshot.key).once("value", (snap)=> {
-				if(Object.keys(snap.val()).length==1){
-					this.props.navigator.push({ 
-					  component: GestionPatient
-					});
-				}else{
-					this.props.navigator.push({
-					  component: Categories
-					});
-				}
-			});
-			}else{
-				alert("Email n'est pas verifié.");
+			 	this.props.navigator.push({
+				component: TakePic
+				});
 			}
 			})
 		  }).catch(function(error) {
-			  localStorage.setItem('error_login', true);
-			  that.setState({error_login: true});
 			  //switch cases of authentication errors
 				switch (error.code) {
 				case "auth/invalid-email":

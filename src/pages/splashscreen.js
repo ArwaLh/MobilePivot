@@ -40,10 +40,10 @@ export default class splashscreen extends Component {
 				<Button
 					onPress={this.didacticiel.bind(this)}
 					style={{width:200,height:50,marginLeft:(window.width/2)-100,marginTop:0,marginBottom:15}}
-					transparent><Text style={{color: 'white'}}>DIDACTICIEL</Text></Button>
+				   	transparent><Text style={{color: 'white'}}>DIDACTICIEL</Text></Button>
 			</View>
 		</Image>
-	  </View>
+	  </View>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 	);
   }
 }

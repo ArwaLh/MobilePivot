@@ -17,9 +17,10 @@ import {
 
 import HeaderSearch from '../components/headerSearch';
 import styles from '../styles/common-styles.js';
+import Categories from './categories';
+import GestionNaevus from './gestionNaevus';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {Button,List, ListItem,} from 'native-base';
-import GestionNaevus from './gestionNaevus';
 import firebase from 'firebase';
 import Autocomplete from 'react-native-autocomplete-input';
 
@@ -27,37 +28,38 @@ export default class rechercheP extends Component {
   constructor(props){
     super(props);
 	this.itemsRef = firebase.database().ref();
-	AsyncStorage.multiRemove(["patient_id","medecin_patient"]);
 	this.state = {
 	  patients_array: [],
 	  query: '',
-	  id: ''
+	  id: '',
+	  path: ''
 	};
 	this.goBack = this.goBack.bind(this);
-	this.gestionNaevus = this.gestionNaevus.bind(this);
-  }
-  gestionNaevus(patient_id,nom_pat,prenom_pat){
-	this.setState({ query: nom_pat+" "+prenom_pat});
-	if (this.state.query === '') {
-	  return [];//do nothing whenever the query is empty
-	}
-	AsyncStorage.removeItem("medecin_patient");
-	AsyncStorage.setItem("medecin_patient",JSON.stringify({"id_patient":patient_id,"id_medecin":this.state.username_med,"categorie":this.state.id,"nom_pat":nom_pat,"prenom_pat":prenom_pat}));
-	this.props.navigator.push({
-       component: GestionNaevus
-    }); 
   }
   goBack() {
 	this.props.navigator.pop();
 	return true; // do not exit app
   }
+  categories(_key){
+	let that=this;
+	AsyncStorage.getItem('medecin_username').then((id_medecin) => {
+	that.itemsRef.child("medecins").child(id_medecin).child("patients").child(_key).child("dossier_medical").once('value', function(snapshot) {
+	if(Object.values(Object.values(snapshot.val())[0].motifs).length === 1){// if plus qu'une motif de consultation
+	  that.props.navigator.push({
+       component: Categories
+      }); 
+	}else{// if un seul motif de consultation
+	AsyncStorage.removeItem("med_pat_file_location");
+	AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":id_medecin,"id_patient":_key,"id_dossier":Object.keys(snapshot.val())[0],"nombre_images_dossier":Object.values(snapshot.val())[0].nombre_images_dossier,"emplacement":Object.values(snapshot.val())[0].emplacement}));
+	  that.props.navigator.push({
+       component: GestionNaevus
+      }); 
+	}
+	}); 
+	});
+  }
   componentDidMount(){
 	let that=this;
-	AsyncStorage.getItem('id').then((idd) => {//recherche par l'id du categorie
-	  that.setState({
-		id: idd
-	 });
-	});
 	AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {//asynchronous storage for medecin id
 	  that.setState({
 			username_med:medecin_usernamee
@@ -102,7 +104,7 @@ export default class rechercheP extends Component {
 		Ajouter et modifier des nouvelles données dans le dossier medical du patient
 		</Text>
 		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'#29235c',margin:7,marginLeft:25,marginRight:25}}>
-		 Afin de modifier le dossier médical du patient existant:
+		 Afin de modifier le dossier médical  du patient existant:
 		</Text>
 		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'#29235c',margin:7,marginLeft:25,marginRight:25}}>
 		 -Saisissez le nom et prénom du patient {"\n"}
@@ -121,7 +123,7 @@ export default class rechercheP extends Component {
 		  renderItem={({ _key,nom_pat,prenom_pat,telephone_patient }) => (
 			<List>
 			  <ListItem style={{height:60}}>
-				<Button onPress={this.gestionNaevus.bind(this,_key,nom_pat,prenom_pat)} transparent>
+				<Button onPress={this.categories.bind(this, _key)} transparent>
 				  <Text style={styles.itemText}>
 					M./Mme {nom_pat} {prenom_pat}
 				  </Text>
