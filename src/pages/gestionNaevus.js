@@ -101,7 +101,6 @@ export default class gestionNaevus extends Component {
   }
   gestionF(id,nbre,emplacement,date_creation_dossier,date_MAJ,categorie){
 	let that = this;
-	alert(this.state.dossier_id)
 	AsyncStorage.removeItem("med_pat_file_location");
 	AsyncStorage.setItem("med_pat_file_location",JSON.stringify({"id_medecin":this.state.medecin_id,"id_dossier": this.state.dossier_id,"id_patient":this.state.patient_id,"nombre_images_dossier":this.state.nombre_images_dossier,"emplacement":this.state.emplacement,"nom_pat":this.state.patient_lastname,"prenom_pat":this.state.patient_name, "motif": id})); 
 

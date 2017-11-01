@@ -31,7 +31,7 @@ import firebase from 'firebase';
 export default class categories extends Component {
   constructor(props){
 	super(props);
-	this.itemsRef = firebase.database().ref("categories");
+	this.itemsRef = firebase.database().ref();
 	const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 	this.state={
 	  medecin_id:"",
@@ -42,21 +42,21 @@ export default class categories extends Component {
 	this.props.navigator.pop();
 	return true;
   }
-  gestionP(id){
+  gestionP(motif){
 	let that = this;
  	AsyncStorage.getItem('med_pat_file_location').then((patient_medecin_arrayy) => {
 		const arr=JSON.parse(patient_medecin_arrayy);
-		that.itemsRef.child("medecins").child(arr.id_medecin).child("patients").child(arr.id_patient).child("dossier_medical").child(arr.id_dossier).child("motifs").child(arr.motif).update({
-			categorie: id
-		});  
+		AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":arr.id_medecin,"id_patient":arr.id_patient,"id_dossier":arr.id_dossier,"nombre_images_dossier":arr.nombre_images_dossier,"nombre_images_motif":arr.nombre_images_motif,"emplacement":arr.emplacement,"id_motif": arr.id_motif, "motif": motif})); 
+		/** update motif de consultation in firebase database */
+		that.itemsRef.child("medecins").child(arr.id_medecin).child("patients").child(arr.id_patient).child("dossier_medical").child(arr.id_dossier).child("motifs").child(arr.id_motif).update({motif: motif});
  		that.props.navigator.push({ 
-			 component: UploadForm
+			component: UploadForm
 		}); 
 	});
   }	 
   componentDidMount(){
 	AsyncStorage.getItem('medecin_username').then((medecin_id)=>{
-	  this.itemsRef.child(medecin_id).on('value', (snap) => {
+	  this.itemsRef.child("categories").child(medecin_id).on('value', (snap) => {
 	  //mapping
 	  let array_cat=[];		
 	  let items=[];

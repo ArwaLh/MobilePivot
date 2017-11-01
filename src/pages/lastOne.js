@@ -20,6 +20,8 @@ import Hr from 'react-native-hr';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 import {Button} from 'native-base';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import TakePic from './takePic';
+
 const window = Dimensions.get('window');
 export default class lastOne extends Component {
   constructor(props){
@@ -27,12 +29,12 @@ export default class lastOne extends Component {
  }	
    gestionF(){  
 	this.props.navigator.push({ 
-		 component: GestionFichier
+		 component: TakePic
 	});
-	    AsyncStorage.getItem('id').then((idd)=>{
+/* 	    AsyncStorage.getItem('id').then((idd)=>{
 		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(array_all);		  
 		  alert("Upload Terminé",downloadURL);
-		});   
+		});    */
   }
   gestionP(){  
 	this.props.navigator.push({ 

@@ -51,6 +51,7 @@ export default class validMeta extends Component {
 		progress_text_value: 0,
 		medecin_id: '',
 		patient_id: '',
+		motif_id: '',
 		downloadURL:""
 	}
 	this.validate=this.validate.bind(this);
@@ -74,8 +75,9 @@ export default class validMeta extends Component {
 		dossier_id: arr.id_dossier,
 		medecin_id: arr.id_medecin,
 		patient_id: arr.id_patient,
-		category_id: arr.categorie
+		motif_id: arr.id_motif
 	  });
+	  
 	});	
 	AsyncStorage.getItem('path').then((pathUp) => {                                                   
 	  this.setState({
@@ -90,8 +92,9 @@ export default class validMeta extends Component {
 	let id_medecin=this.state.medecin_id;
 	let id_patient=this.state.patient_id;
 	let id_dossier=this.state.dossier_id;
-	let id_category=this.state.category_id;
+	let id_motif=this.state.motif_id;
 	let my_array=this.state.array;
+
 	/*-----upload to firebase storage method ----*/
 	firebase.auth()
 	  .signInWithEmailAndPassword(EMAIL, PASSWORD)
@@ -107,8 +110,8 @@ export default class validMeta extends Component {
 	  .build(rnfbURI, { type : 'image/jpg;'})
 	  .then((blob) => {
 	  var uploadTask= firebase.storage()// upload image using Firebase SDK 
-		.ref()
-		.child('medecins'+'_'+this.state.medecin_id).child('patients'+'_'+this.state.patient_id).child('categories'+'_'+id_category).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images'+'_'+this.state.category_id)
+		.ref() 
+		.child('medecins'+'_'+this.state.medecin_id).child('patients'+'_'+this.state.patient_id).child('dossier_medical'+'_'+this.state.dossier_id).child('motifs'+'_'+this.state.motif_id).child('images'+'_'+this.state.motif_id)
 		.child(testImageName.substring(0,44).replace(/\s/g, "_"))
 		.put(blob, {contentType : 'image/jpg'});
 		uploadTask.on('state_changed', function(snapshot){
@@ -123,10 +126,9 @@ export default class validMeta extends Component {
 			let downloadURL = uploadTask.snapshot.downloadURL;
 			
 			/*-----Add to firebase databse method ----*/	
-		let compte_rendu=new Date();//and store image name
+		let compte_rendu=new Date();/** and store image name */
 		let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
-		AsyncStorage.getItem('id').then((idd)=>{
-		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set({ 
+		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).child('images').child(image_id).set({ 
 			date_compte_rendu_consultation: compte_rendu.toString(),
 			bords:my_array.bords,
 			couleur:my_array.couleur,
@@ -138,24 +140,32 @@ export default class validMeta extends Component {
 			suspicion:my_array.suspicion,
 			imageName:image_id
 		  })
-		  if(my_array.emplacement=="null"){
-			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //upadet medical folder data
+		  if(my_array.emplacement === null){
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //upadet medical folder data
 				date_MAJ_dossier: compte_rendu.toString(),
 				nombre_images_dossier: my_array.nombre_images_dossier+1
 		    });
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //upadet medical folder data
+				date_MAJ_motif: compte_rendu.toString(),
+				nombre_images_motif: my_array.nombre_images_dossier+1
+		    });
 		  }else{
-			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //upadet medical folder data
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //upadet medical folder data
 				date_MAJ_dossier: compte_rendu.toString(),
 				nombre_images_dossier: my_array.nombre_images_dossier+1,
 				emplacement: my_array.emplacement
 			});
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //upadet medical folder data
+				date_MAJ_motif: compte_rendu.toString(),
+				nombre_images_motif: my_array.nombre_images_motif+1,
+				emplacement: my_array.emplacement
+		    });
 		  }	
 		  alert("Upload terminé",downloadURL);
 		  that.props.navigator.push({
 			 component: LastOne
 		  }); 
-		});//end successful function
-		});//end getItem id category
+		});/** end getItem id category */
 		})
   }
   render() {

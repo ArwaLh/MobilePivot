@@ -72,6 +72,7 @@ export default class uploadForm extends Component {
   componentDidMount(){
 	AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
 	  const array=JSON.parse(med_pat_file_locationn);
+	  alert(array.nombre_images_motif)
 	  this.setState({ 
 		med_pat_file:array,
 		dossier_id: array.id_dossier,
@@ -121,8 +122,10 @@ export default class uploadForm extends Component {
 	"id_medecin":this.state.medecin_id,
 	"id_patient":this.state.patient_id,
 	"id_dossier":this.state.dossier_id,
-	"categorie":this.state.med_pat_file.categorie,
+	"motif":this.state.med_pat_file.motif,
+	"id_motif":this.state.med_pat_file.id_motif,
 	"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,
+	"nombre_images_motif":this.state.med_pat_file.nombre_images_motif,
 	"emplacement":this.state.med_pat_file.emplacement,
 	"imageURL":this.state.path,
 	'bords':this.state.selected1,
