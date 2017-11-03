@@ -38,7 +38,7 @@ export default class lastOne extends Component {
   }
   gestionP(){  
 	this.props.navigator.push({ 
-		 component: GestionPatient
+		 component: TakePic
 	});
   }
   render() {

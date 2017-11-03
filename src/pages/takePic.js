@@ -30,8 +30,7 @@ export default class takePic extends Component {
         type: Camera.constants.Type.back,
         orientation: Camera.constants.Orientation.auto,
         flashMode: Camera.constants.FlashMode.auto,
-		torchMode: 'off',
-		cameraType: 'back',
+		torchMode: 'off'
       },
       isRecording: false
     };

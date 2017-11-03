@@ -43,13 +43,13 @@ export default class categories extends Component {
 	return true;
   }
   gestionP(motif){
-	let that = this;
+	//let that = this;
  	AsyncStorage.getItem('med_pat_file_location').then((patient_medecin_arrayy) => {
 		const arr=JSON.parse(patient_medecin_arrayy);
 		AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":arr.id_medecin,"id_patient":arr.id_patient,"id_dossier":arr.id_dossier,"nombre_images_dossier":arr.nombre_images_dossier,"nombre_images_motif":arr.nombre_images_motif,"emplacement":arr.emplacement,"id_motif": arr.id_motif, "motif": motif})); 
 		/** update motif de consultation in firebase database */
-		that.itemsRef.child("medecins").child(arr.id_medecin).child("patients").child(arr.id_patient).child("dossier_medical").child(arr.id_dossier).child("motifs").child(arr.id_motif).update({motif: motif});
- 		that.props.navigator.push({ 
+		this.itemsRef.child("medecins").child(arr.id_medecin).child("patients").child(arr.id_patient).child("dossier_medical").child(arr.id_dossier).child("motifs").child(arr.id_motif).update({motif: motif});
+ 		this.props.navigator.push({ 
 			component: UploadForm
 		}); 
 	});

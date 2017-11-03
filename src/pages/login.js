@@ -1,8 +1,3 @@
-const FBSDK = require('react-native-fbsdk');
-const {
-  LoginButton,
-  AccessToken 
-} = FBSDK;
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -83,32 +78,6 @@ export default class login extends Component {
 				textStyle={{fontSize: 16, color:'#fff'}}
 				bordered>CONNEXION</Button>
 		  </View>
-			<Hr lineColor='#ffffff' text='OU' textColor='#ffffff' line={{width:10}}/>
-		  <Text style={{marginBottom:45,color:'#fff'}}>connectez vous avec votre compte facebook</Text>
-		  <LoginButton
-		  style={{height:30,width:180}}
-          publishPermissions={["publish_actions"]}
-          onLoginFinished={
-            (error, result) => {
-              if (error) {
-                alert("Connexion echouée: " + result.error);
-              } else if (result.isCancelled) {
-                alert("Connexion interrompue");
-              } else {
-				  AccessToken.getCurrentAccessToken().then(
-                  (data) => {
-                    console.log(data.accessToken.toString())
-                  }
-                )
-                alert("Connecté avec les permissions: " + result.grantedPermissions);
-				this.props.navigator.push({
-				  component: TakePic
-				});
-              }
-            }
-          }
-          onLogoutFinished={() => alert("Utilisateur deconnecté")}
-		  />
         </View>
 		</Image>
       </View>
@@ -138,24 +107,19 @@ export default class login extends Component {
 			  //switch cases of authentication errors
 				switch (error.code) {
 				case "auth/invalid-email":
-					//alert("Erreur d'authentification: e-mail invalide");
 					alert("Erreur d'authentification: e-mail invalide");
 					break;
 				case "auth/user-disabled":
-					//alert("Erreur d'authentification: utilisateur désactivé");
 					alert("Erreur d'authentification: utilisateur désactivé");
 					break;
 				case "auth/user-not-found":
-					//alert("Erreur d'authentification: utilisateur introuvable");
 					alert("Erreur d'authentification: utilisateur introuvable");
 					break;
 				case "auth/wrong-password":
-					//alert("Erreur d'authentification: mot de passe incorrect");
 					alert("Erreur d'authentification: mot de passe incorrect");
 					break;
 				default:
-					//alert("Erreur d'authentification");
-					alert("Erreur d'authentification");
+					alert("Erreur d'authentification! Vérifiez votre connexion");
 				}
 		});
   }
