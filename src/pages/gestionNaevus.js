@@ -15,6 +15,7 @@ import {
   AsyncStorage,
   View
 } from 'react-native';
+import HeaderSearch from '../components/headerSearch';
 import HeaderUp from '../components/headerUp';
 import styles from '../styles/common-styles.js';
 import { List, ListItem, Button, Grid, Col, Row} from 'native-base';
@@ -46,6 +47,7 @@ export default class gestionNaevus extends Component {
 		patient_lastname:''
 	};
 	this.gestionF=this.gestionF.bind(this);
+	this.goBack=this.goBack.bind(this);
   }
   componentDidMount(){
 	let that=this;
@@ -111,7 +113,7 @@ export default class gestionNaevus extends Component {
   render() {
     return ( 
 	<View style={{backgroundColor: 'white'}}>
-	  <HeaderUp text="Gestion des dossiers" loaded={true} onpress={this.goBack.bind(this)}/>
+	  <HeaderSearch text="Motifs de consultation" onpress={this.goBack}/>
 	  <ScrollView style={{backgroundColor: '#fff'}}>
 		<View style={{flex:1}}>
 			<ListItem style={{borderColor:'#29235c', width:340}}>

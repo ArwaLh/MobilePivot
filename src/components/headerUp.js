@@ -8,7 +8,6 @@ import {
   BackAndroid,
   View
 } from 'react-native';
-import GiftedSpinner from 'react-native-gifted-spinner';
 import {Button} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 export default class headerUp extends Component {
@@ -16,15 +15,10 @@ export default class headerUp extends Component {
     return (
       <View style={styles.header}>
 		<Button transparent onPress={this.props.onpress}>
-	  	 <Image style={{width:20,height:20,flex:1}} source={{uri: 'arrow_left'}}></Image>
+	  	 <Icon name="arrow-left" size={20} style={{width:20}} color="#fff" />
 		</Button>
         <View style={styles.header_item}>
 			<Text style={styles.header_text}>{this.props.text}</Text>
-        </View>
-		<View style={styles.header_item}>
-        {  !this.props.loaded &&
-            <GiftedSpinner />
-        }
         </View>
       </View>
     );

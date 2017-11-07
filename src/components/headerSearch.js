@@ -15,10 +15,10 @@ export default class headerSearch extends Component {
     return (
        <View style={styles.header}>
 		<Button transparent onPress={this.props.onpress}>
-	  	 <Image style={{width:20,height:20,flex:1}} source={{uri: 'arrow_left'}}></Image>
+		 <Icon name="arrow-left" size={20} style={{width:20}} color="#fff" />
 		</Button>
         <View style={styles.header_item}>
-  <Text style={styles.header_text}>{this.props.text}</Text>
+			<Text style={styles.header_text}>{this.props.text}</Text>
         </View>
       </View>
     );

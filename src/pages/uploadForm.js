@@ -19,6 +19,7 @@ import {
 } from 'react-native';
 
 import HeaderUp from '../components/headerUp';
+import HeaderSearch from '../components/headerSearch';
 import styles from '../styles/common-styles.js';
 import {Button, List, ListItem, Header, Picker} from 'native-base';
 import Slider from 'react-native-slider';
@@ -153,7 +154,7 @@ export default class uploadForm extends Component {
   render() {
     return ( 
 	<View>
-	  <HeaderUp text=" 3/4 Upload Photo" loaded={true} onpress={this.goBack.bind(this)}/>
+	  <HeaderSearch text="Upload Photo" onpress={this.goBack}/>
 	  <ScrollView>
 		<ListItem style={{marginRight:10,marginLeft:15, borderColor:'#29235c'}}>
 		  <Image style={styles.pic_cam} source={{uri:this.state.path}}/>

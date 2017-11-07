@@ -17,6 +17,7 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
+import HeaderSearch from '../components/headerSearch';
 import Header from '../components/header';
 import HeaderUp from '../components/headerUp';
 import styles from '../styles/common-styles.js';
@@ -75,7 +76,7 @@ export default class categories extends Component {
   render() {
     return (
 	<View>
-	  <HeaderUp text="Les categories" loaded={true} onpress={this.goBack.bind(this)}/>
+	  <HeaderSearch text="Les categories" onpress={this.goBack.bind(this)}/>
 	  <ListView dataSource={this.state.dataSource}
 		enableEmptySections={true}
         renderRow={(rowData) => 

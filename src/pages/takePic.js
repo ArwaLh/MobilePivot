@@ -11,7 +11,8 @@ import {
   View,
   ScrollView,
   AsyncStorage,
-  Platform
+  Platform, 
+  PermissionsAndroid 
 } from 'react-native';
 
 import Camera from 'react-native-camera';
@@ -26,7 +27,7 @@ export default class takePic extends Component {
     this.state = {
       camera: {
         aspect: Camera.constants.Aspect.stretch,
-        captureTarget: Camera.constants.CaptureTarget.CameraRoll,
+        captureTarget: Camera.constants.CaptureTarget.cameraRoll,
         type: Camera.constants.Type.back,
         orientation: Camera.constants.Orientation.auto,
         flashMode: Camera.constants.FlashMode.auto,
