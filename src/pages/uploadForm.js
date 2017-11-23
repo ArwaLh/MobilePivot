@@ -55,6 +55,7 @@ export default class uploadForm extends Component {
       height: '',
       viewHeight: 100
 	}
+	this.goBack=this.goBack.bind(this);
 	this.validMetadata=this.validMetadata.bind(this);
 	this.onValueChangeBords=this.onValueChangeBords.bind(this);
 	this.onValueChangeCouleur=this.onValueChangeCouleur.bind(this);

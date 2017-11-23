@@ -96,22 +96,15 @@ export default class rechercheP extends Component {
     const comp = (s, s2, s3) => s.toLowerCase().trim() === s2.toLowerCase().trim().substr(0,s2.toLowerCase().trim().indexOf(' ')) && s.toLowerCase().trim() === s3.toLowerCase().trim().substr(0,s3.toLowerCase().trim().indexOf(' '));
     return (
 	 <View style={styles.firstContainer}>
-		<HeaderSearch text="Rechercher un patient" onpress={this.goBack}/>
+		<HeaderSearch text="Identifier votre patient" onpress={this.goBack}/>
 		<ScrollView
 		  scrollEnabled={true}
 		  showsVerticalScrollIndicator={true}
 		  keyboardShouldPersistTaps={true}
 		  keyboardDismissMode='on-drag'>
 		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'#29235c',margin:7, marginTop:55,marginLeft:25,marginRight:25}}>
-		Ajouter et modifier des nouvelles données dans le dossier medical du patient
-		</Text>
-		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'#29235c',margin:7,marginLeft:25,marginRight:25}}>
-		 Afin de modifier le dossier médical  du patient existant:
-		</Text>
-		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'#29235c',margin:7,marginLeft:25,marginRight:25}}>
-		 -Saisissez le nom et prénom du patient {"\n"}
-		 -Sélectionnez le dossier patient
-		</Text>
+		Merci de saisir les premiéres lettres de nom de patient
+		</Text> 
 		<Autocomplete
 		  ref="autocomplete"
 		  autoCapitalize="none"

@@ -40,29 +40,7 @@ export default class FacebookApp extends Component {
 		  
 		};
 	}
-/* 	 requestCameraPermission() {
-	  try {
-		const granted =  PermissionsAndroid.request(
-		  PermissionsAndroid.PERMISSIONS.CAMERA,
-		  {
-			'title': 'Cool Photo App Camera Permission',
-			'message': 'Cool Photo App needs access to your camera ' +
-					   'so you can take awesome pictures.'
-		  }
-		)
-		if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-		  console.log("You can use the camera")
-		} else {
-		  console.log("Camera permission denied")
-		}
-	  } catch (err) {
-		console.warn(err)
-	  }
-	} */
-
-/*    componentWillMount() {
-    this.requestCameraPermission() // which always returns "You can use the camera" even if I disable camera permission access on my device
-  } */	
+ 
 	render() {
 		return (
 		  <Navigator

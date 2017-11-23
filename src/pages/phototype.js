@@ -17,7 +17,7 @@ import {
   View
 } from 'react-native';
 
-import HeaderUp from '../components/headerUp';
+import HeaderSearch from '../components/headerSearch';
 import {Button, List, ListItem, Thumbnail, Header, InputGroup, Input, Card, CardItem} from 'native-base';
 import Slider from 'react-native-slider';
 import UploadForm from './uploadForm';
@@ -110,7 +110,7 @@ export default class phototype extends Component {
   render() {
     return ( 
 	<View>
-	  <HeaderUp text="Phototype" loaded={this.state.loaded} onpress={this.goBack}/>
+	  <HeaderSearch text="Phototype" onpress={this.goBack}/>
 	  <ScrollView>	
 		<List>
 		  <ListItem  style={styles.list_Phototype}>

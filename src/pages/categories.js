@@ -52,7 +52,7 @@ export default class categories extends Component {
 		this.itemsRef.child("medecins").child(arr.id_medecin).child("patients").child(arr.id_patient).child("dossier_medical").child(arr.id_dossier).child("motifs").child(arr.id_motif).update({motif: motif});
  		this.props.navigator.push({ 
 			component: UploadForm
-		}); 
+		});      
 	});
   }	 
   componentDidMount(){
