@@ -16,7 +16,7 @@ import {
   View
 } from 'react-native';
 
-import HeaderUp from '../components/headerUp';
+import HeaderSearch from '../components/headerSearch';
 import styles from '../styles/common-styles.js';
 import {Button, List, ListItem, Header, InputGroup, Input, Card, CardItem} from 'native-base';
 import { Col, Row, Grid } from "react-native-easy-grid";
@@ -162,17 +162,16 @@ export default class validMeta extends Component {
 		    });
 		  }	
 		  alert("Upload terminé",downloadURL);
-		  that.props.navigator.push({
-			 component: LastOne
-		  }); 
 		});/** end getItem id category */
+		that.props.navigator.push({
+			 component: LastOne
+		}); 
 		})
   }
   render() {
-	  let that=this;
     return ( 
 	<View>
-	  <HeaderUp text="4/4 Données patient" loaded={this.state.loaded} onpress={this.goBack}/>
+	  <HeaderSearch text="Données patient" onpress={this.goBack}/>
 	  <ScrollView>	
 		<ListItem style={styles.list_MetaData}>   
 		  <Grid>
@@ -268,8 +267,8 @@ export default class validMeta extends Component {
 		  </Row>
 		  <Row>
 		  <Col style={{marginLeft:20,marginTop:10,marginRight:20}}>
-			<Text style={{color:"#29235c"}}>{that.state.progress_text_value}%</Text>
-			<ProgressBarAndroid progress={that.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="purple" style={{height:30}}/>
+			<Text style={{color:"#29235c"}}>{this.state.progress_text_value}%</Text>
+			<ProgressBarAndroid progress={this.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="purple" style={{height:30}}/>
 		  </Col>
 		  </Row>
 		</Grid>			

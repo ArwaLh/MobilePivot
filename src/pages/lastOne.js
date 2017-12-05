@@ -14,7 +14,7 @@ import {
   Linking,
   View
 } from 'react-native';
-import Header from '../components/header';
+import HeaderSearch from '../components/headerSearch';
 import styles from '../styles/common-styles.js';
 import Hr from 'react-native-hr';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
@@ -26,16 +26,22 @@ const window = Dimensions.get('window');
 export default class lastOne extends Component {
   constructor(props){
 	super(props);
+		this.goBack=this.goBack.bind(this);
  }	
-   gestionF(){  
+ 
+  gestionF(){  
 	this.props.navigator.push({ 
 		 component: TakePic
 	});
+  }
+  goBack() {
+	this.props.navigator.pop();
+	return true; // do not exit app
+  }
 /* 	    AsyncStorage.getItem('id').then((idd)=>{
 		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(array_all);		  
 		  alert("Upload Terminé",downloadURL);
 		});    */
-  }
   gestionP(){  
 	this.props.navigator.push({ 
 		 component: TakePic
@@ -44,8 +50,8 @@ export default class lastOne extends Component {
   render() {
     return (
 	<View>
-		<Header text="Katomi" loaded={true}/>
-		<Grid style={{height:100, width:400, marginLeft:50, marginTop:30}}> 
+		<HeaderSearch text="Katomi" onpress={this.goBack}/>
+		<Grid style={{height:100, width:400, marginLeft:50, marginTop:20}}> 
 		    <Button onPress={this.gestionF.bind(this)} style={{width: 320,height:90}} transparent>
 				<Row>
 				  <Col style={{width:65}}>
@@ -53,11 +59,11 @@ export default class lastOne extends Component {
 				  </Col>
 				  <Col style ={{width:300}}>
 					<Text style={{fontSize: 18,fontWeight:"bold", color:'#29235c'}}>Prendre une photo{"\n"}du même patient</Text> 
-				  </Col>
+				  </Col>    
 				</Row>	
 			  </Button>			        
 		</Grid>	
-		<Grid style={{height:100, width:400, marginLeft:50}}> 
+		<Grid style={{height:100, width:400, marginLeft:50, marginTop:70}}> 
 		    <Button onPress={this.gestionP.bind(this)} style={{width: 320,height:90}} transparent>
 				<Row>
 				  <Col style={{width:65}}>
@@ -69,9 +75,8 @@ export default class lastOne extends Component {
 				</Row>	
 			  </Button>			 
 		</Grid>
-		<Hr lineColor='black'  textColor='#29235c' line={{width:10}}/>	
 		<Grid>
-		  <Row style={{width:300, height:300, margin:10, marginLeft:50, marginTop:40}}>
+		  <Row style={{width:300, height:300, margin:10, marginLeft:50, marginTop:100}}>
 			<Col style={{width:100, height:50}}><Icon name="smile-o" style={{color:'#29235c', fontSize:60}} /></Col>
 			<Col style={{width:100, height:200} }><Text style={{fontFamily:'Roboto', fontSize:30, color:'#29235c', fontWeight:'bold', marginTop:10}}> OU </Text></Col>
 			<Col style={{width:100, height:50}}><Icon name="frown-o" style={{color:'#29235c',fontSize:60}} /></Col>
