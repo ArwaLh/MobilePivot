@@ -25,6 +25,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import {InputGroup, Input,Card, CardItem, List, ListItem, Button} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 import UploadForm from './uploadForm';
+import UploadFormDynamique from './uploadFormDynamique';
 import GestionNaevus from './gestionNaevus';
 const window = Dimensions.get('window');
 import firebase from 'firebase';
@@ -50,9 +51,16 @@ export default class categories extends Component {
 		AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":arr.id_medecin,"id_patient":arr.id_patient,"id_dossier":arr.id_dossier,"nombre_images_dossier":arr.nombre_images_dossier,"nombre_images_motif":arr.nombre_images_motif,"emplacement":arr.emplacement,"id_motif": arr.id_motif, "motif": motif})); 
 		/** update motif de consultation in firebase database */
 		this.itemsRef.child("medecins").child(arr.id_medecin).child("patients").child(arr.id_patient).child("dossier_medical").child(arr.id_dossier).child("motifs").child(arr.id_motif).update({motif: motif});
- 		this.props.navigator.push({ 
+        alert(motif);		
+		if(motif == "naevus"){
+			this.props.navigator.push({ 
 			component: UploadForm
-		});      
+			});
+		}else{
+		 	this.props.navigator.push({ 
+			component: UploadFormDynamique
+			});	
+		}
 	});
   }	 
   componentDidMount(){

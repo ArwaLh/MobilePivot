@@ -155,7 +155,7 @@ export default class uploadForm extends Component {
   render() {
     return ( 
 	<View>
-	  <HeaderSearch text="Upload Photo" onpress={this.goBack}/>
+	  <HeaderSearch text="Upload Photohgyghjhhh<whhhhw<hh" onpress={this.goBack}/>
 	  <ScrollView>
 		<ListItem style={{marginRight:10,marginLeft:15, borderColor:'#29235c'}}>
 		  <Image style={styles.pic_cam} source={{uri:this.state.path}}/>

@@ -504,6 +504,6 @@ module.exports = StyleSheet.create({
 	fontFamily: 'Roboto',
 	fontSize:17,
 	color:'#29235c',
-	margin:20
+	margin:15
 	}
 });

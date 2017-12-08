@@ -22,14 +22,13 @@ import {
   View
 } from 'react-native';
 
-import HeaderUp from '../components/headerUp';
+import HeaderSearch from '../components/headerSearch';
+import ValidMetaDynamic from './validMetaDynamic';
 import styles from '../styles/common-styles.js';
 import {Button, List, ListItem, Header} from 'native-base';
 import Slider from 'react-native-slider';
 import { Col, Row, Grid } from "react-native-easy-grid";
 const Item = Picker.Item;
-import ValidMetaDynamic from './validMetaDynamic';
-import NewPatientDynamic from './newPatientDynamic';
 import firebase from 'firebase';
 
 export default class uploadFormDynamique extends Component {
@@ -71,7 +70,7 @@ export default class uploadFormDynamique extends Component {
  componentDidMount(){
 	AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
 	  const array=JSON.parse(med_pat_file_locationn);
-	  this.itemsRef.child(array.id_medecin).child(array.categorie).child("criteres").on('value', (snap) => {//get the criterias list
+	  this.itemsRef.child(array.id_medecin).child(array.motif).child("criteres").on('value', (snap) => {//get the criterias list
 	    let array_cat=[];		
 	    let items=[];
 	    items=snap.val();
@@ -95,7 +94,7 @@ export default class uploadFormDynamique extends Component {
 	"id_medecin":this.state.array_all.id_medecin,
 	"id_patient":this.state.array_all.id_patient,
 	"id_dossier":this.state.array_all.id_dossier,
-	"categorie":this.state.array_all.categorie,
+	"motif":this.state.array_all.motif,
 	"nombre_images_dossier":this.state.array_all.nombre_images_dossier,
 	"emplacement":this.state.array_all.emplacement,
 	"imageURL":this.state.path,
@@ -211,7 +210,7 @@ export default class uploadFormDynamique extends Component {
     })    
     return ( 
 	<View>
-	<HeaderUp text=" 3/4 Upload Photo" loaded={this.state.loaded} onpress={this.goBack}/>
+	  <HeaderSearch text="Upload Photo" onpress={this.goBack}/>
 	<ScrollView>
 		<ListItem style={{marginRight:10,marginLeft:15, borderColor:'#29235c'}}>
 			<Image style={styles.pic_cam} source={{uri:this.state.path}}/>

@@ -18,7 +18,7 @@ import {
   View
 } from 'react-native';
 
-import HeaderUp from '../components/headerUp';
+import HeaderSearch from '../components/headerSearch';
 import styles from '../styles/common-styles.js';
 import {Button} from 'native-base';
 import { Col, Row, Grid } from "react-native-easy-grid";
@@ -99,7 +99,7 @@ export default class validMetaDynamic extends Component {
 	let my_array=this.state.array;
 	/*-----upload to firebase storage method ----*/
 	firebase.auth()
-      .signInWithEmailAndPassword(EMAIL,PASS-WORD)
+      .signInWithEmailAndPassword(EMAIL,PASSWORD)
       .catch((err) => {
 		console.log('firebase sigin failed', err)
       })
@@ -196,7 +196,7 @@ export default class validMetaDynamic extends Component {
 	let that=this;
     return ( 
 	<View>
-	  <HeaderUp text="4/4 Données patient" loaded={this.state.loaded} onpress={this.goBack}/>
+	 <HeaderSearch text="Données patient" onpress={this.goBack}/>
 	  <ScrollView>	 
 		<ListView dataSource={this.state.dataSource}
 		  showsVerticalScrollIndicator={true}
