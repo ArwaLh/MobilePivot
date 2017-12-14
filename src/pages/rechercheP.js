@@ -44,28 +44,29 @@ export default class rechercheP extends Component {
 	let that=this;
 	AsyncStorage.getItem('medecin_username').then((id_medecin) => {
 	that.itemsRef.child("medecins").child(id_medecin).child("patients").child(_key).child("dossier_medical").once('value', function(snapshot) {
-	if(Object.values(snapshot.val())[0].motifs){   
-	
-	if(Object.values(Object.values(snapshot.val())[0].motifs).length === 1){// if plus qu'une motif de consultation
-	AsyncStorage.removeItem("med_pat_file_location");
-	AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":id_medecin,"id_patient":_key,"id_dossier":Object.keys(snapshot.val())[0],"nombre_images_dossier":Object.values(snapshot.val())[0].nombre_images_dossier,"nombre_images_motif":Object.values(Object.values(snapshot.val())[0].motifs)[0].nombre_images_motif,"emplacement":Object.values(Object.values(snapshot.val())[0].motifs)[0].emplacement, "id_motif": Object.keys(Object.values(snapshot.val())[0].motifs)[0]}));
-	  that.props.navigator.push({
-       component: Categories
-      }); 
-	}else{// if un seul motif de consultation
-	AsyncStorage.removeItem("med_pat_file_location");
-	AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":id_medecin,"id_patient":_key,"id_dossier":Object.keys(snapshot.val())[0],"nombre_images_dossier":Object.values(snapshot.val())[0].nombre_images_dossier,"nombre_images_motif":Object.values(Object.values(snapshot.val())[0].motifs)[0].nombre_images_motif, "emplacement":Object.values(Object.values(snapshot.val())[0].motifs)[0].emplacement, "id_motif": Object.keys(Object.values(snapshot.val())[0].motifs)[0]}));
-	  that.props.navigator.push({
-       component: GestionNaevus
-      }); 
-	}
+	if(Object.values(snapshot.val())[0].motifs){
+		if(Object.values(Object.values(snapshot.val())[0].motifs).length === 1){// if plus qu'une motif de consultation
+		AsyncStorage.removeItem("med_pat_file_location");
+		AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":id_medecin,"id_patient":_key,"id_dossier":Object.keys(snapshot.val())[0],"nombre_images_dossier":Object.values(snapshot.val())[0].nombre_images_dossier,"nombre_images_motif":Object.values(Object.values(snapshot.val())[0].motifs)[0].nombre_images_motif,"emplacement":Object.values(Object.values(snapshot.val())[0].motifs)[0].emplacement, "id_motif": Object.keys(Object.values(snapshot.val())[0].motifs)[0]}));
+		  that.props.navigator.push({
+		   component: Categories
+		  }); 
+		}else{// if un seul motif de consultation
+		AsyncStorage.removeItem("med_pat_file_location");
+		AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":id_medecin,"id_patient":_key,"id_dossier":Object.keys(snapshot.val())[0],"nombre_images_dossier":Object.values(snapshot.val())[0].nombre_images_dossier,"nombre_images_motif":Object.values(Object.values(snapshot.val())[0].motifs)[0].nombre_images_motif, "emplacement":Object.values(Object.values(snapshot.val())[0].motifs)[0].emplacement, "id_motif": Object.keys(Object.values(snapshot.val())[0].motifs)[0]}));
+		  that.props.navigator.push({
+		   component: GestionNaevus
+		  }); 
+		}
+	}else{
+		alert("Ajouter un motif de consultation dans le dashboard!");
 	}
 	}); 
 	});
   }
   componentDidMount(){
 	let that=this;
-	AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {//asynchronous storage for medecin id
+	AsyncStorage.getItem('medecin_username').then((medecin_usernamee) => {//asynchronous storage for medecin id 
 	  that.setState({
 			username_med:medecin_usernamee
 	  }); 

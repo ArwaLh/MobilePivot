@@ -94,8 +94,10 @@ export default class uploadFormDynamique extends Component {
 	"id_medecin":this.state.array_all.id_medecin,
 	"id_patient":this.state.array_all.id_patient,
 	"id_dossier":this.state.array_all.id_dossier,
-	"motif":this.state.array_all.motif,
 	"nombre_images_dossier":this.state.array_all.nombre_images_dossier,
+	"motif":this.state.array_all.motif,
+	"id_motif":this.state.array_all.id_motif,
+	"nombre_images_motif":this.state.array_all.nombre_images_motif,
 	"emplacement":this.state.array_all.emplacement,
 	"imageURL":this.state.path,
 	}));   

@@ -58,14 +58,11 @@ export default class gestionNaevus extends Component {
 	  // get children as an array
 	  snap.forEach((child) => {
 		items.push({
-			nom_patient_dossier: child.val().nom_patient_dossier,
-			prenom_patient_dossier: child.val().prenom_patient_dossier,
-			nombre_images_dossier: child.val().nombre_images_dossier,
-			telephone_patient_dossier: child.val().telephone_patient_dossier,   
-			date_creation_dossier: child.val().date_creation_motif,
-			date_MAJ_dossier: child.val().date_MAJ_dossier,
+			nombre_images_motif: child.val().nombre_images_motif, 
+			date_creation_motif: child.val().date_creation_motif,
+			date_MAJ_motif: child.val().date_MAJ_motif,
 			emplacement: child.val().emplacement,
-			categorie: child.val().categorie_id,
+			motif: child.val().motif,
 			_key: child.key
 		});
 	  });
@@ -74,7 +71,7 @@ export default class gestionNaevus extends Component {
 		patient_id: arr.id_patient,
 		medecin_id: arr.id_medecin,
 		dossier_id: arr.id_dossier,
-		category: arr.categorie,
+		category: arr.motif,
 		emplacement: arr.emplacement,
 		nombre_images_dossier: arr.nombre_images_dossier
 	  });
@@ -92,16 +89,12 @@ export default class gestionNaevus extends Component {
 		patient_lastname:patient_a.prenom_pat
 	  });
 	});
-		AsyncStorage.getItem('id').then((idd)=>{
-		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(array_all);		  
-		  alert("Upload Terminé",downloadURL);
-		}); 
   }
   goBack() { 
 	this.props.navigator.pop();
 	return true;
   }
-  gestionF(id,nbre,emplacement,date_creation_dossier,date_MAJ,categorie){
+  gestionF(id,nbre,emplacement,date_creation_motif,date_MAJ,motif){
 	let that = this;
 	AsyncStorage.removeItem("med_pat_file_location");
 	AsyncStorage.setItem("med_pat_file_location",JSON.stringify({"id_medecin":this.state.medecin_id,"id_dossier": this.state.dossier_id,"id_patient":this.state.patient_id,"nombre_images_dossier":this.state.nombre_images_dossier,"emplacement":this.state.emplacement,"nom_pat":this.state.patient_lastname,"prenom_pat":this.state.patient_name,"id_motif": id})); 
@@ -128,17 +121,17 @@ export default class gestionNaevus extends Component {
 			  renderRow={(rowData) => 
 				<List style={{backgroundColor:'white',height:160, borderColor:'#29235c'}}>
 				  <ListItem style={{height:160, borderColor:'#29235c', width:340, paddingTop:0}}>
-				    <Button style={{height:160}} onPress={this.gestionF.bind(this,rowData._key,rowData.nombre_images_dossier,rowData.emplacement,rowData.date_creation_dossier.substring(0,24),rowData.date_MAJ_dossier.substring(0,24),rowData.categorie_id)} transparent>							
+				    <Button style={{height:160}} onPress={this.gestionF.bind(this,rowData._key,rowData.nombre_images_motif,rowData.emplacement,rowData.date_creation_motif.substring(0,24),rowData.date_MAJ_motif.substring(0,24),rowData.motif)} transparent>							
 					  <Grid>
 						<Col style={{width:70}}>
 						  <Image style={{width:65,height:60, marginTop:10}} source={{uri: 'icdossier'}}/>
 						</Col>
 						<Col style={{width:250,marginLeft:8, margin:10}}>
 						  <Text style={styles.listViewTitle}> Emplacement {rowData.emplacement}</Text> 
-						  <Text style={styles.listViewText1}>Nombre d'image: <Text style={styles.listViewText2}>{rowData.nombre_images_dossier}</Text></Text>							
-						  <Text style={styles.listViewText1}>Catégorie: <Text style={styles.listViewText2}>{rowData.categorie_id}</Text></Text>							
-						  <Text style={styles.listViewText1}>Date de création: <Text style={styles.listViewText2}>{rowData.date_creation_dossier.substring(0,24)}</Text></Text>
-						  <Text style={styles.listViewText1}>Date de derniére image: <Text style={styles.listViewText2}>{rowData.date_MAJ_dossier.substring(0,24)}</Text></Text>
+						  <Text style={styles.listViewText1}>Nombre d'image: <Text style={styles.listViewText2}>{rowData.nombre_images_motif}</Text></Text>							
+						  <Text style={styles.listViewText1}>Catégorie: <Text style={styles.listViewText2}>{rowData.motif}</Text></Text>							
+						  <Text style={styles.listViewText1}>Date de création: <Text style={styles.listViewText2}>{rowData.date_creation_motif.substring(0,24)}</Text></Text>
+						  <Text style={styles.listViewText1}>Date de derniére image: <Text style={styles.listViewText2}>{rowData.date_MAJ_motif.substring(0,24)}</Text></Text>
 						</Col>
 					  </Grid>
 				    </Button>

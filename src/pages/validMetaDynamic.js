@@ -68,12 +68,14 @@ export default class validMetaDynamic extends Component {
   componentDidMount(){
 	AsyncStorage.getItem('med_pat_file_location_image_data').then((med_pat_file_location_image_dataa) => {
 	  const arr =JSON.parse(med_pat_file_location_image_dataa);
+	  //alert(arr.nombre_images_motif);
+	  alert(arr.nombre_images_dossier);
 	  this.setState({
 		array:arr,
 		dossier_id: arr.id_dossier,
 		medecin_id: arr.id_medecin,
 		patient_id: arr.id_patient,
-		category_id: arr.categorie,
+		motif_id: arr.id_motif
 	  });
 	});	
 	AsyncStorage.getItem('valid_meta').then((valid_meta) => {//get upload form dynamique data
@@ -95,7 +97,7 @@ export default class validMetaDynamic extends Component {
 	let id_medecin=this.state.medecin_id;
 	let id_patient=this.state.patient_id;
 	let id_dossier=this.state.dossier_id;
-	let id_category=this.state.category_id;
+	let id_motif=this.state.motif_id;
 	let my_array=this.state.array;
 	/*-----upload to firebase storage method ----*/
 	firebase.auth()
@@ -113,7 +115,7 @@ export default class validMetaDynamic extends Component {
 	  .then((blob) => {
 	  var uploadTask= firebase.storage()// upload image using Firebase SDK
 		.ref()
-		.child('medecins'+'_'+this.state.medecin_id).child('patients'+'_'+this.state.patient_id).child('categories'+'_'+id_category).child('dossiers_medicaux'+'_'+this.state.dossier_id).child('images'+'_'+this.state.category_id)
+		.child('medecins'+'_'+this.state.medecin_id).child('patients'+'_'+this.state.patient_id).child('dossier_medical'+'_'+this.state.dossier_id).child('motifs'+'_'+this.state.motif_id).child('images'+'_'+this.state.motif_id)
 		.child(testImageName.substring(0,44).replace(/\s/g, "_"))
 		.put(blob, {contentType : 'image/jpg'});
 		uploadTask.on('state_changed', function(snapshot){
@@ -153,25 +155,32 @@ export default class validMetaDynamic extends Component {
 		
 		myarray=JSON.stringify(that.state.meta_arr);//merge both arrays
 		let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
-  		AsyncStorage.getItem('id').then((    )=>{
-		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(array_all);
-		  if(my_array.emplacement=="null"){
-			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //update medical folder data
+		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).child('images').child(image_id).set(array_all);
+		  if(my_array.emplacement== null){
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //update medical folder data
 				date_MAJ_dossier: compte_rendu.toString(),
-				nombre_images_dossier: my_array.nombre_images_dossier+1
+				nombre_images_dossier: (my_array.nombre_images_dossier)+1
+		    });
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //upadet medical folder data
+				date_MAJ_motif: compte_rendu.toString(),
+				nombre_images_motif: my_array.nombre_images_motif+1
 		    });
 		  }else{
-			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).update({ //update medical folder data
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //update medical folder data
 				date_MAJ_dossier: compte_rendu.toString(),
 				nombre_images_dossier: my_array.nombre_images_dossier+1,
+				emplacement: my_array.emplacement
+		    });
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //upadet medical folder data
+				date_MAJ_motif: compte_rendu.toString(),
+				nombre_images_motif: my_array.nombre_images_motif+1,
 				emplacement: my_array.emplacement
 		    });
 		  }		  
 		  alert("Upload Terminé",downloadURL);
 		  that.props.navigator.push({
 			component: LastOne
-		  });
-		});    
+		  });   
 		
 		});//end get category ID 
 	})  
