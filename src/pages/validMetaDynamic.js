@@ -68,8 +68,6 @@ export default class validMetaDynamic extends Component {
   componentDidMount(){
 	AsyncStorage.getItem('med_pat_file_location_image_data').then((med_pat_file_location_image_dataa) => {
 	  const arr =JSON.parse(med_pat_file_location_image_dataa);
-	  //alert(arr.nombre_images_motif);
-	  alert(arr.nombre_images_dossier);
 	  this.setState({
 		array:arr,
 		dossier_id: arr.id_dossier,

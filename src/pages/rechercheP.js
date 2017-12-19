@@ -59,7 +59,7 @@ export default class rechercheP extends Component {
 		  }); 
 		}
 	}else{
-		alert("Ajouter un motif de consultation dans le dashboard!");
+		alert("Vous devez ajouter un motif de consultation dans le dashboard Web pour identifier vos patients!");
 	}
 	}); 
 	});
