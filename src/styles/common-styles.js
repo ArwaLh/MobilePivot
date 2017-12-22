@@ -419,7 +419,7 @@ module.exports = StyleSheet.create({
 	backgroundColor: "#29235c",
 	width:200,
 	height:40,
-	marginLeft:30,
+	marginLeft:60,
 	marginBottom:0,
 	alignItems:'center'
   },
