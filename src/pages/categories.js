@@ -83,7 +83,7 @@ export default class categories extends Component {
   render() {
     return (
 	<View>
-	  <HeaderSearch text="Les categories" onpress={this.goBack.bind(this)}/>
+	  <HeaderSearch text="Motifs de consultation" onpress={this.goBack.bind(this)}/>
 	  <ListView dataSource={this.state.dataSource}
 		enableEmptySections={true}
         renderRow={(rowData) => 

@@ -97,7 +97,7 @@ export default class validMetaDynamic extends Component {
 	let id_dossier=this.state.dossier_id;
 	let id_motif=this.state.motif_id;
 	let my_array=this.state.array;
-	/*-----upload to firebase storage method ----*/
+	/***-----upload to firebase storage method ----*/
 	firebase.auth()
       .signInWithEmailAndPassword(EMAIL,PASSWORD)
       .catch((err) => {
@@ -126,10 +126,8 @@ export default class validMetaDynamic extends Component {
 		}, function() {
 		  blob.close();
 		  let downloadURL = uploadTask.snapshot.downloadURL;
-		  /*-----Add to firebase databse method ----*/
-		//and store image name
+		/***-----Add to firebase databse method ----*/
 		let compte_rendu=new Date();
-		//create a JSON array from a javascript array
 		let myarray_keys=[];
 		let myarray_values=[];
 		let array_all=[];		
@@ -157,21 +155,21 @@ export default class validMetaDynamic extends Component {
 		  if(my_array.emplacement== null){
 			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //update medical folder data
 				date_MAJ_dossier: compte_rendu.toString(),
-				nombre_images_dossier: (my_array.nombre_images_dossier)+1
+				nombre_images_dossier: parseInt(my_array.nombre_images_dossier)+1
 		    });
 			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //upadet medical folder data
 				date_MAJ_motif: compte_rendu.toString(),
-				nombre_images_motif: my_array.nombre_images_motif+1
+				nombre_images_motif: parseInt(my_array.nombre_images_motif)+1
 		    });
 		  }else{
 			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //update medical folder data
 				date_MAJ_dossier: compte_rendu.toString(),
-				nombre_images_dossier: my_array.nombre_images_dossier+1,
+				nombre_images_dossier: parseInt(my_array.nombre_images_dossier)+1,
 				emplacement: my_array.emplacement
 		    });
 			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //upadet medical folder data
 				date_MAJ_motif: compte_rendu.toString(),
-				nombre_images_motif: my_array.nombre_images_motif+1,
+				nombre_images_motif: parseInt(my_array.nombre_images_motif)+1,
 				emplacement: my_array.emplacement
 		    });
 		  }		  
@@ -213,7 +211,7 @@ export default class validMetaDynamic extends Component {
 		    <ProgressBarAndroid progress={that.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="purple" style={{height:60}}/>  
 		  </Row>}}/>
 		<Grid>
-		  <Row style={{marginTop:20, marginLeft:10}}>
+		  <Row style={{marginTop:20, marginLeft:25}}>
 			<Col>	
 			  <Button
 				onPress={this.validate}

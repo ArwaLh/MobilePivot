@@ -419,7 +419,7 @@ module.exports = StyleSheet.create({
 	backgroundColor: "#29235c",
 	width:200,
 	height:40,
-	marginLeft:60,
+	marginLeft:30,
 	marginBottom:0,
 	alignItems:'center'
   },
@@ -500,10 +500,11 @@ module.exports = StyleSheet.create({
 	marginBottom:15,
 	margin:20
 	},
-	upload_dynamic: {
+  upload_dynamic: {
 	fontFamily: 'Roboto',
 	fontSize:17,
 	color:'#29235c',
-	margin:15
+	margin:15,
+	width: 250
 	}
 });
