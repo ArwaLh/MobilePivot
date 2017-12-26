@@ -127,9 +127,9 @@ export default class gestionNaevus extends Component {
 						  <Image style={{width:65,height:60, marginTop:10}} source={{uri: 'icdossier'}}/>
 						</Col>
 						<Col style={{width:250,marginLeft:8, margin:10}}>
-						  <Text style={styles.listViewTitle}> Emplacement {rowData.emplacement}</Text> 
+						  <Text style={styles.listViewTitle}> Dossier {rowData.emplacement}</Text> 
 						  <Text style={styles.listViewText1}>Nombre d'image: <Text style={styles.listViewText2}>{rowData.nombre_images_motif}</Text></Text>							
-						  <Text style={styles.listViewText1}>Catégorie: <Text style={styles.listViewText2}>{rowData.motif}</Text></Text>							
+						  <Text style={styles.listViewText1}>Motif de consultation: <Text style={styles.listViewText2}>{rowData.motif}</Text></Text>							
 						  <Text style={styles.listViewText1}>Date de création: <Text style={styles.listViewText2}>{rowData.date_creation_motif.substring(0,24)}</Text></Text>
 						  <Text style={styles.listViewText1}>Date de derniére image: <Text style={styles.listViewText2}>{rowData.date_MAJ_motif.substring(0,24)}</Text></Text>
 						</Col>
