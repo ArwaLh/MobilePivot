@@ -99,7 +99,7 @@ export default class gestionNaevus extends Component {
 	AsyncStorage.removeItem("med_pat_file_location");
 	AsyncStorage.setItem("med_pat_file_location",JSON.stringify({"id_medecin":this.state.medecin_id,"id_dossier": this.state.dossier_id,"id_patient":this.state.patient_id,"nombre_images_dossier":this.state.nombre_images_dossier,"emplacement":this.state.emplacement,"nom_pat":this.state.patient_lastname,"prenom_pat":this.state.patient_name,"id_motif": id})); 
 
-	that.props.navigator.push({
+    that.props.navigator.push({
 		  component: Categories
 	});
   }
