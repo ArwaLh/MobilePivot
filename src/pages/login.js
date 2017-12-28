@@ -34,7 +34,7 @@ export default class login extends Component {
     return (
       <View style={styles.container}>
 	  <Image style={styles.image_splash} source={{uri: 'splash'}}>
-		<Image style={{marginBottom:0,marginTop:40,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={{uri: 'logo_katomi'}}></Image>
+		<Image style={{marginBottom:0,marginTop:90,marginLeft: ((window.width)/9)-15,marginRight: ((window.width)/9)-15,height:((window.width)/6)+30,width:(window.width/2)+122}} source={{uri: 'logo_katomi'}}></Image>
         <View style={styles.body_login}>
           <TextInput
             style={styles.textinput_email}
