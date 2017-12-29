@@ -157,7 +157,7 @@ export default class validMetaDynamic extends Component {
 				date_MAJ_dossier: compte_rendu.toString(),
 				nombre_images_dossier: parseInt(my_array.nombre_images_dossier)+1
 		    });
-			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //upadet medical folder data
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //update medical folder data
 				date_MAJ_motif: compte_rendu.toString(),
 				nombre_images_motif: parseInt(my_array.nombre_images_motif)+1
 		    });
@@ -167,7 +167,7 @@ export default class validMetaDynamic extends Component {
 				nombre_images_dossier: parseInt(my_array.nombre_images_dossier)+1,
 				emplacement: my_array.emplacement
 		    });
-			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //upadet medical folder data
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //update medical folder data
 				date_MAJ_motif: compte_rendu.toString(),
 				nombre_images_motif: parseInt(my_array.nombre_images_motif)+1,
 				emplacement: my_array.emplacement

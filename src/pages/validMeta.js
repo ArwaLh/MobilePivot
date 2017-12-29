@@ -142,21 +142,21 @@ export default class validMeta extends Component {
 		  })
 		  if(my_array.emplacement === null){
 			let new_number= (my_array.nombre_images_dossier)+1;
-			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //upadet medical folder data
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //update medical folder data
 				date_MAJ_dossier: compte_rendu.toString(),
 				nombre_images_dossier:new_number
 		    });
-			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //upadet medical folder data
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //update medical folder data
 				date_MAJ_motif: compte_rendu.toString(),
 				nombre_images_motif: my_array.nombre_images_motif+1
 		    });
 		  }else{
-			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //upadet medical folder data
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //update medical folder data
 				date_MAJ_dossier: compte_rendu.toString(),
 				nombre_images_dossier: my_array.nombre_images_dossier+1,
 				emplacement: my_array.emplacement
 			});
-			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //upadet medical folder data
+			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //update medical folder data
 				date_MAJ_motif: compte_rendu.toString(),
 				nombre_images_motif: my_array.nombre_images_motif+1,
 				emplacement: my_array.emplacement

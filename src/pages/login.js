@@ -55,7 +55,7 @@ export default class login extends Component {
 				placeholderTextColor="#fff"
 				underlineColorAndroid="white"
 				inlineImagePadding={0}
-			  />
+			  /> 
 			<TouchableOpacity onPress={(password) =>{
 					if(this.state.count==0){
 						this.setState({secureTextEntry: false,count:1});

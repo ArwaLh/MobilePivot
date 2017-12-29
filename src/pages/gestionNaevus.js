@@ -23,8 +23,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';import Hr from 'react-n
 const window = Dimensions.get('window');
 import firebase from 'firebase';
 import Categories from './categories';
-import GestionFichier from './gestionFichier';
-import GestionFichierDynamique from './gestionFichierDynamique';
+import UploadForm from './uploadForm';
+import UploadFormDynamique from './uploadFormDynamique';
 
 export default class gestionNaevus extends Component {
   constructor (props) {
@@ -61,7 +61,6 @@ export default class gestionNaevus extends Component {
 			nombre_images_motif: child.val().nombre_images_motif, 
 			date_creation_motif: child.val().date_creation_motif,
 			date_MAJ_motif: child.val().date_MAJ_motif,
-			emplacement: child.val().emplacement,
 			motif: child.val().motif,
 			_key: child.key
 		});
@@ -94,13 +93,37 @@ export default class gestionNaevus extends Component {
 	this.props.navigator.pop();
 	return true;
   }
-  gestionF(id,nbre,emplacement,date_creation_motif,date_MAJ,motif){
+  gestionF(id,nbre,date_creation_motif,date_MAJ,motif){         
 	let that = this;
 	AsyncStorage.removeItem("med_pat_file_location");
-	AsyncStorage.setItem("med_pat_file_location",JSON.stringify({"id_medecin":this.state.medecin_id,"id_dossier": this.state.dossier_id,"id_patient":this.state.patient_id,"nombre_images_dossier":this.state.nombre_images_dossier,"emplacement":this.state.emplacement,"nom_pat":this.state.patient_lastname,"prenom_pat":this.state.patient_name,"id_motif": id})); 
+	AsyncStorage.setItem("med_pat_file_location",JSON.stringify({"id_medecin":this.state.medecin_id,"id_dossier": this.state.dossier_id,"id_patient":this.state.patient_id,"nombre_images_dossier":this.state.nombre_images_dossier,"nom_pat":this.state.patient_lastname,"prenom_pat":this.state.patient_name,"id_motif": id,"motif": motif})); 
 
-    that.props.navigator.push({
-		  component: Categories
+		if(motif == "naevus"){
+			this.props.navigator.push({ 
+			component: UploadForm
+			});
+		}else{
+		 	this.props.navigator.push({ 
+			component: UploadFormDynamique 
+			});	
+		}
+  }
+    gestionP(motif){
+	//let that = this;
+ 	AsyncStorage.getItem('med_pat_file_location').then((patient_medecin_arrayy) => {
+		const arr=JSON.parse(patient_medecin_arrayy);
+		AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":arr.id_medecin,"id_patient":arr.id_patient,"id_dossier":arr.id_dossier,"nombre_images_dossier":arr.nombre_images_dossier,"nombre_images_motif":arr.nombre_images_motif,"emplacement":arr.emplacement,"id_motif": arr.id_motif, "motif": motif})); 
+		/** update motif de consultation in firebase database */
+		this.itemsRef.child("medecins").child(arr.id_medecin).child("patients").child(arr.id_patient).child("dossier_medical").child(arr.id_dossier).child("motifs").child(arr.id_motif).update({motif: motif});		
+		if(motif == "naevus"){
+			this.props.navigator.push({ 
+			component: UploadForm
+			});
+		}else{
+		 	this.props.navigator.push({ 
+			component: UploadFormDynamique 
+			});	
+		}
 	});
   }
   render() {
@@ -121,7 +144,7 @@ export default class gestionNaevus extends Component {
 			  renderRow={(rowData) => 
 				<List style={{backgroundColor:'white',height:160, borderColor:'#29235c'}}>
 				  <ListItem style={{height:160, borderColor:'#29235c', width:340, paddingTop:0}}>
-				    <Button style={{height:160}} onPress={this.gestionF.bind(this,rowData._key,rowData.nombre_images_motif,rowData.emplacement,rowData.date_creation_motif.substring(0,24),rowData.date_MAJ_motif.substring(0,24),rowData.motif)} transparent>							
+				    <Button style={{height:160}} onPress={this.gestionF.bind(this,rowData._key,rowData.nombre_images_motif,rowData.date_creation_motif.substring(0,24),rowData.date_MAJ_motif.substring(0,24),rowData.motif)} transparent>							
 					  <Grid>
 						<Col style={{width:70}}>
 						  <Image style={{width:65,height:60, marginTop:10}} source={{uri: 'icdossier'}}/>

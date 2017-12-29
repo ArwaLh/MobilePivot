@@ -57,7 +57,7 @@ export default class categories extends Component {
 			});
 		}else{
 		 	this.props.navigator.push({ 
-			component: UploadFormDynamique
+			component: UploadFormDynamique 
 			});	
 		}
 	});
