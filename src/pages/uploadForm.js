@@ -127,7 +127,6 @@ export default class uploadForm extends Component {
 	"id_motif":this.state.med_pat_file.id_motif,
 	"nombre_images_dossier":this.state.med_pat_file.nombre_images_dossier,
 	"nombre_images_motif":this.state.med_pat_file.nombre_images_motif,
-	"emplacement":this.state.med_pat_file.emplacement,
 	"imageURL":this.state.path,
 	'bords':this.state.selected1,
 	'couleur':this.state.selected2,

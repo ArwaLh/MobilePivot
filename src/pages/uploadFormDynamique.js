@@ -11,6 +11,7 @@ import {
   Text,
   Image,
   ScrollView,
+  SectionList,
   BackAndroid,
   AsyncStorage,
   TouchableHighlight,
@@ -35,10 +36,8 @@ export default class uploadFormDynamique extends Component {
 	constructor (props) {
 		super(props);
 		this.itemsRef = firebase.database().ref("categories");
-		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
 		  medecin_id:"",
-		  dataSource: ds.cloneWithRows(['row 1', 'row 2']),
 		  loaded:true,
 		  dossier_id: '',
 		  medecin_id: '',
@@ -56,10 +55,14 @@ export default class uploadFormDynamique extends Component {
 		  med_pat_file:{},
 		  my_textinput_array:[],
 		}
+		AsyncStorage.removeItem('valid_meta');
 		this.goBack = this.goBack.bind(this);
 		this.validMetadataDynamic = this.validMetadataDynamic.bind(this);
 	}
  componentWillMount(){
+	 AsyncStorage.removeItem('valid_meta');
+	 this.setState({criteres_values:[]});
+	 alert(this.state.criteres_values)
 	AsyncStorage.getItem('path').then((pathUp) => {                                                   
 	  this.setState({
 		path:pathUp
@@ -68,6 +71,9 @@ export default class uploadFormDynamique extends Component {
 	});
   }
  componentDidMount(){
+	AsyncStorage.removeItem('valid_meta');
+	// this.setState({criteres_values:[]});
+	alert(this.state.criteres_values)
 	AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
 	  const array=JSON.parse(med_pat_file_locationn);
 	  this.itemsRef.child(array.id_medecin).child(array.motif).child("criteres").on('value', (snap) => {//get the criterias list
@@ -81,14 +87,32 @@ export default class uploadFormDynamique extends Component {
 	    }
 	    this.setState({
 			array_all:array,
-			dataSource: this.state.dataSource.cloneWithRows(array_cat),
 			my_textinput_array:array_cat,
 			list_length:array_cat.length
 	    });
 	  });
 	});
   }
+/*   removeDuplicates( arr, prop ) {
+  var obj = {};
+  for ( var i = 0, len = arr.length; i < len; i++ ){
+    if(!obj[arr[i][prop]]) obj[arr[i][prop]] = arr[i];
+  }
+  var newArr = [];
+  for ( var key in obj ) newArr.push(obj[key]);
+  return newArr;
+  } */
 		
+  /*removeDuplicates(arr){
+    let unique_array = []
+    for(let i = 0;i < arr.length; i++){
+		alert(arr.indexOf(arr[i]["criteria_name"]));
+        if(unique_array.indexOf(arr[i]["criteria_name"]) == -1){
+            unique_array.push(arr[i])
+        }
+    }
+    return unique_array
+  }*/
   validMetadataDynamic(){	
 	AsyncStorage.setItem('med_pat_file_location_image_data', JSON.stringify({
 	"id_medecin":this.state.array_all.id_medecin,
@@ -98,11 +122,21 @@ export default class uploadFormDynamique extends Component {
 	"motif":this.state.array_all.motif,
 	"id_motif":this.state.array_all.id_motif,
 	"nombre_images_motif":this.state.array_all.nombre_images_motif,
-	"emplacement":this.state.array_all.emplacement,
-	"imageURL":this.state.path,
-	}));   
-	AsyncStorage.removeItem('valid_meta');   
-	AsyncStorage.setItem('valid_meta', JSON.stringify(this.state.criteres_values));   
+	"imageURL":this.state.path
+	})); 
+ 
+	
+	//let arr= this.removeDuplicates(this.state.criteres_values);
+	//alert(arr)
+	//alert(JSON.stringify(this.state.criteres_values))
+	//alert(JSON.stringify(result[0]))
+	//alert(JSON.stringify(arr.length));
+	/*if(this.state.criteres_values.length !== this.state.my_textinput_array.length){
+		AsyncStorage.removeItem('valid_meta');   
+		AsyncStorage.setItem('valid_meta', JSON.stringify(this.state.criteres_values)); 
+	}else{ */
+		AsyncStorage.removeItem('valid_meta');   
+		AsyncStorage.setItem('valid_meta', JSON.stringify(this.state.criteres_values)); 
 	  this.props.navigator.push({
 		component: ValidMetaDynamic
 	  }); 
@@ -114,7 +148,8 @@ export default class uploadFormDynamique extends Component {
 	this.props.navigator.pop();
 	return true;
   }
-  render() {  
+  render() {
+	  
 	 let items_names=new Array(this.state.list_length);
 	for (var i = 0; i< this.state.list_length; i++){
 		items_names[i]="";
@@ -127,7 +162,7 @@ export default class uploadFormDynamique extends Component {
 			<Grid>
 			  <Row>
 				<Col>  
-					<Text style={styles.upload_dynamic}> {data.key}</Text>
+					<Text style={styles.upload_dynamic}> {data.key.replace(/_/g , " ")}</Text>
 				</Col>
 				<Col style={{ marginLeft:80}}>	
                    <Picker 
@@ -139,6 +174,9 @@ export default class uploadFormDynamique extends Component {
 							items_names[i]=value;
 							const criteres_values = this.state.criteres_values;
 							const criteria_name=data.key;
+							/*if(criteres_values_bool["criteria_name"] === data.key){
+								alert(data.key)
+							}*/
 							criteres_values.push({"criteria_name":criteria_name,"value":items_names[i]});
 							this.setState({criteres_values:criteres_values});
 							}}>   
@@ -152,19 +190,22 @@ export default class uploadFormDynamique extends Component {
 			<Grid>
 			  <Row>
 				<Col>  
-					<Text style={styles.upload_dynamic}> {data.key}</Text>
+					<Text style={styles.upload_dynamic}> {data.key.replace(/_/g , " ")}</Text>
 				</Col>
 				<Col style={{ marginLeft:80}}>	
 				  <TextInput
-					placeholder={data.key}
+					placeholder={data.key.replace(/_/g , " ")}
 					key={items_names[i]}
 					style={{width:100, textAlign :"left"}}
 					keyboardType='numbers-and-punctuation'
 					value={items_names[i]}
 					blurOnSubmit={true}
-					onSubmitEditing={(text2) => {
+					onSubmitEditing={() => {
 						const criteres_values = this.state.criteres_values;
 						const criteria_name=data.key;
+						/*if(criteres_values_num["criteria_name"] === data.key){
+							alert(data.key)
+						}*/
 						criteres_values.push({"criteria_name":criteria_name,"value":items_names[i]});
 						this.setState({criteres_values:criteres_values});
 						}}
@@ -181,18 +222,21 @@ export default class uploadFormDynamique extends Component {
 			<Grid>
 			  <Row>
 				<Col>
-					<Text style={styles.upload_dynamic}>{data.key}</Text>
+					<Text style={styles.upload_dynamic}>{data.key.replace(/_/g , " ")}</Text>
 				</Col>
 				<Col style={{ marginLeft:80}}>
 					<TextInput
-						placeholder={data.key}
+						placeholder={data.key.replace(/_/g , " ")}
 						key={items_names[i]}
 						keyboardType="default"
 						value={items_names[i]}
 						blurOnSubmit={true}
-						onSubmitEditing={(text) => {
+						onSubmitEditing={() => {
 							const criteres_values = this.state.criteres_values;
 							const criteria_name=data.key;
+							/*if(criteres_values_text["criteria_name"] === data.key){
+								alert(data.key)
+							}*/
 							criteres_values.push({"criteria_name":criteria_name,"value":items_names[i]});
 							this.setState({criteres_values:criteres_values});
 						}}

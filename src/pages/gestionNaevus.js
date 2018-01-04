@@ -96,10 +96,10 @@ export default class gestionNaevus extends Component {
   gestionF(id,nbre,date_creation_motif,date_MAJ,motif){         
 	let that = this;
 	AsyncStorage.removeItem("med_pat_file_location");
-	AsyncStorage.setItem("med_pat_file_location",JSON.stringify({"id_medecin":this.state.medecin_id,"id_dossier": this.state.dossier_id,"id_patient":this.state.patient_id,"nombre_images_dossier":this.state.nombre_images_dossier,"nom_pat":this.state.patient_lastname,"prenom_pat":this.state.patient_name,"id_motif": id,"motif": motif})); 
+	AsyncStorage.setItem("med_pat_file_location",JSON.stringify({"id_medecin":this.state.medecin_id,"id_dossier": this.state.dossier_id,"id_patient":this.state.patient_id,"nombre_images_dossier":this.state.nombre_images_dossier,"nombre_images_motif":nbre,"nom_pat":this.state.patient_lastname,"prenom_pat":this.state.patient_name,"id_motif": id,"motif": motif})); 
 
 		if(motif == "naevus"){
-			this.props.navigator.push({ 
+			this.props.navigator.push({     
 			component: UploadForm
 			});
 		}else{
@@ -108,24 +108,7 @@ export default class gestionNaevus extends Component {
 			});	
 		}
   }
-    gestionP(motif){
-	//let that = this;
- 	AsyncStorage.getItem('med_pat_file_location').then((patient_medecin_arrayy) => {
-		const arr=JSON.parse(patient_medecin_arrayy);
-		AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":arr.id_medecin,"id_patient":arr.id_patient,"id_dossier":arr.id_dossier,"nombre_images_dossier":arr.nombre_images_dossier,"nombre_images_motif":arr.nombre_images_motif,"emplacement":arr.emplacement,"id_motif": arr.id_motif, "motif": motif})); 
-		/** update motif de consultation in firebase database */
-		this.itemsRef.child("medecins").child(arr.id_medecin).child("patients").child(arr.id_patient).child("dossier_medical").child(arr.id_dossier).child("motifs").child(arr.id_motif).update({motif: motif});		
-		if(motif == "naevus"){
-			this.props.navigator.push({ 
-			component: UploadForm
-			});
-		}else{
-		 	this.props.navigator.push({ 
-			component: UploadFormDynamique 
-			});	
-		}
-	});
-  }
+
   render() {
     return ( 
 	<View style={{backgroundColor: 'white'}}>

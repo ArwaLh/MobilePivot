@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Text,
   ListView,
+  SectionList,
   Platform,
   AsyncStorage,
   ScrollView,
@@ -58,16 +59,23 @@ export default class validMetaDynamic extends Component {
 		patient_id: '',
 		downloadURL:""
 	}
+	//alert(this.state.dataSource)
 	this.validate=this.validate.bind(this);
 	this.goBack=this.goBack.bind(this);
+	this.renderRow = this.renderRow.bind(this)
   }
   goBack() {
+	AsyncStorage.removeItem('valid_meta');
 	this.props.navigator.pop();
 	return true; // do not exit app
+  }
+  componentWillMount(){
+	//alert(Object.values(this.state.dataSource));
   }
   componentDidMount(){
 	AsyncStorage.getItem('med_pat_file_location_image_data').then((med_pat_file_location_image_dataa) => {
 	  const arr =JSON.parse(med_pat_file_location_image_dataa);
+	  alert(arr.nombre_images_motif)
 	  this.setState({
 		array:arr,
 		dossier_id: arr.id_dossier,
@@ -75,9 +83,27 @@ export default class validMetaDynamic extends Component {
 		patient_id: arr.id_patient,
 		motif_id: arr.id_motif
 	  });
+	  
 	});	
 	AsyncStorage.getItem('valid_meta').then((valid_meta) => {//get upload form dynamique data
 	  const array =JSON.parse(valid_meta);
+/* 	  	
+	  //sort everything here
+	  var result = array.reduce((unique, o) => {
+		//alert(o["value"])
+		if(!unique.find(obj => obj["criteria_name"] === o["criteria_name"] )) { //when you don't find them push
+		unique.push(o);
+		}
+		return unique;
+		},[]);
+		//alert(result.length)
+		for(let i =0; i< result.length; i++){
+			if(array.indexOf(result[i])> -1){
+			let arra=array.splice(1,array.indexOf(result[i]));
+			//alert(this.state.criteres_values)
+			}
+		}
+	  alert(result.length) */
 	  this.setState({
 		meta_arr:array,
 		dataSource: this.state.dataSource.cloneWithRows(array)
@@ -149,10 +175,10 @@ export default class validMetaDynamic extends Component {
 		obj+=JSON.stringify("date_compte_rendu_consultation")+":"+JSON.stringify(compte_rendu.toString())+"}";
 		array_all=JSON.parse(obj);
 		
-		myarray=JSON.stringify(that.state.meta_arr);//merge both arrays
+		myarray=JSON.stringify(that.state.meta_arr);// merge both arrays
 		let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
 		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).child('images').child(image_id).set(array_all);
-		  if(my_array.emplacement== null){
+		  if(my_array.emplacement== null || my_array.emplacement ==  undefined){
 			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //update medical folder data
 				date_MAJ_dossier: compte_rendu.toString(),
 				nombre_images_dossier: parseInt(my_array.nombre_images_dossier)+1
@@ -161,6 +187,7 @@ export default class validMetaDynamic extends Component {
 				date_MAJ_motif: compte_rendu.toString(),
 				nombre_images_motif: parseInt(my_array.nombre_images_motif)+1
 		    });
+			
 		  }else{
 			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //update medical folder data
 				date_MAJ_dossier: compte_rendu.toString(),
@@ -177,7 +204,6 @@ export default class validMetaDynamic extends Component {
 		  that.props.navigator.push({
 			component: LastOne
 		  });   
-		
 		});//end get category ID 
 	})  
   }
@@ -198,17 +224,17 @@ export default class validMetaDynamic extends Component {
    );
   }
   render() {
-	let that=this;
+	//alert(this.state.meta_arr);
     return ( 
 	<View>
 	 <HeaderSearch text="Données patient" onpress={this.goBack}/>
 	  <ScrollView>	 
 		<ListView dataSource={this.state.dataSource}
 		  showsVerticalScrollIndicator={true}
-		  renderRow={this.renderRow.bind(this)} style={{backgroundColor: 'white'}}
+		  renderRow={this.renderRow} style={{backgroundColor: 'white'}}
 		  renderFooter={()=>{ <Row style={{margin:10}}>
-			<Text style={{color:"#29235c"}}>{that.state.progress_text_value}%</Text>
-		    <ProgressBarAndroid progress={that.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="purple" style={{height:60}}/>  
+			<Text style={{color:"#29235c"}}>{this.state.progress_text_value}%</Text>
+		    <ProgressBarAndroid progress={this.state.progress_bar_value} styleAttr="Horizontal" indeterminate={false} color="purple" style={{height:60}}/>  
 		  </Row>}}/>
 		<Grid>
 		  <Row style={{marginTop:20, marginLeft:25}}>
@@ -219,7 +245,6 @@ export default class validMetaDynamic extends Component {
 				textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
 			</Col>
 		  </Row>
-		 
 		</Grid>						
 	  </ScrollView>   
 	</View>
