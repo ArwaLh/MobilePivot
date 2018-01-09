@@ -38,11 +38,8 @@ export default class lastOne extends Component {
 	this.props.navigator.pop();
 	return true; // do not exit app
   }
-/* 	    AsyncStorage.getItem('id').then((idd)=>{
-		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossiers_medicaux').child(id_dossier).child('images').child(image_id).set(array_all);		  
-		  alert("Upload Terminé",downloadURL);
-		});    */
   gestionP(){  
+  this.props.navigator.pop();
 	this.props.navigator.push({ 
 		 component: TakePic
 	});

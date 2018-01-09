@@ -62,7 +62,6 @@ export default class uploadFormDynamique extends Component {
  componentWillMount(){
 	 AsyncStorage.removeItem('valid_meta');
 	 this.setState({criteres_values:[]});
-	 alert(this.state.criteres_values)
 	AsyncStorage.getItem('path').then((pathUp) => {                                                   
 	  this.setState({
 		path:pathUp
@@ -73,7 +72,6 @@ export default class uploadFormDynamique extends Component {
  componentDidMount(){
 	AsyncStorage.removeItem('valid_meta');
 	// this.setState({criteres_values:[]});
-	alert(this.state.criteres_values)
 	AsyncStorage.getItem('med_pat_file_location').then((med_pat_file_locationn) => {
 	  const array=JSON.parse(med_pat_file_locationn);
 	  this.itemsRef.child(array.id_medecin).child(array.motif).child("criteres").on('value', (snap) => {//get the criterias list

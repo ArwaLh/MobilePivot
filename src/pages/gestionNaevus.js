@@ -94,10 +94,8 @@ export default class gestionNaevus extends Component {
 	return true;
   }
   gestionF(id,nbre,date_creation_motif,date_MAJ,motif){         
-	let that = this;
 	AsyncStorage.removeItem("med_pat_file_location");
 	AsyncStorage.setItem("med_pat_file_location",JSON.stringify({"id_medecin":this.state.medecin_id,"id_dossier": this.state.dossier_id,"id_patient":this.state.patient_id,"nombre_images_dossier":this.state.nombre_images_dossier,"nombre_images_motif":nbre,"nom_pat":this.state.patient_lastname,"prenom_pat":this.state.patient_name,"id_motif": id,"motif": motif})); 
-
 		if(motif == "naevus"){
 			this.props.navigator.push({     
 			component: UploadForm

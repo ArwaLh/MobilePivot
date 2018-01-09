@@ -14,7 +14,6 @@ import {
   AsyncStorage,
   PermissionsAndroid
 } from 'react-native';
-
 import SplashScreen from './src/pages/splashscreen';
 import Login from './src/pages/login';
 import firebase from 'firebase';
