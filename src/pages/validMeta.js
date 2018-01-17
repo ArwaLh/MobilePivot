@@ -70,6 +70,7 @@ export default class validMeta extends Component {
   componentDidMount(){
 	AsyncStorage.getItem('med_pat_file_location_image_data').then((med_pat_file_location_image_dataa) => {
 	  const arr =JSON.parse(med_pat_file_location_image_dataa);
+	    alert(arr.nombre_images_dossier)
 	  this.setState({
 		array:arr,
 		dossier_id: arr.id_dossier,
@@ -141,24 +142,24 @@ export default class validMeta extends Component {
 			imageName:image_id
 		  })
 		  if(my_array.emplacement === null){
-			let new_number= (my_array.nombre_images_dossier)+1;
+			let new_number= parseInt(my_array.nombre_images_dossier)+1;
 			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //update medical folder data
 				date_MAJ_dossier: compte_rendu.toString(),
 				nombre_images_dossier:new_number
 		    });
 			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //update medical folder data
 				date_MAJ_motif: compte_rendu.toString(),
-				nombre_images_motif: my_array.nombre_images_motif+1
+				nombre_images_motif: parseInt(my_array.nombre_images_dossier)+1
 		    });
 		  }else{
 			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //update medical folder data
 				date_MAJ_dossier: compte_rendu.toString(),
-				nombre_images_dossier: my_array.nombre_images_dossier+1,
+				nombre_images_dossier: parseInt(my_array.nombre_images_dossier)+1,
 				emplacement: my_array.emplacement
 			});
 			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //update medical folder data
 				date_MAJ_motif: compte_rendu.toString(),
-				nombre_images_motif: my_array.nombre_images_motif+1,
+				nombre_images_motif: parseInt(my_array.nombre_images_motif)+1,
 				emplacement: my_array.emplacement
 		    });
 		  }	

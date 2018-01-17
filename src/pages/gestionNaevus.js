@@ -65,6 +65,7 @@ export default class gestionNaevus extends Component {
 			_key: child.key
 		});
 	  });
+	  alert(arr.nombre_images_dossier)
 	  that.setState({
 		dataSource: that.state.dataSource.cloneWithRows(items),
 		patient_id: arr.id_patient,
