@@ -173,7 +173,7 @@ export default class validMetaDynamic extends Component {
 		for (var i =0; i < myarray_values.length;i++){
 		  obj+=JSON.stringify(myarray_keys[i])+":"+JSON.stringify(myarray_values[i])+",";
 		}
-		obj+=JSON.stringify("date_compte_rendu_consultation")+":"+JSON.stringify(compte_rendu.toString())+"}";
+		obj+=JSON.stringify("date_compte_rendu_consultation")+":"+JSON.stringify(compte_rendu.toString())+","+JSON.stringify("imageName")+":"+JSON.stringify(testImageName.substring(0,44).replace(/\s/g, "_"))+"}";
 		array_all=JSON.parse(obj);
 		
 		myarray=JSON.stringify(that.state.meta_arr);// merge both arrays
