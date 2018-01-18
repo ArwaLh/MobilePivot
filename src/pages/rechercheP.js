@@ -47,7 +47,6 @@ export default class rechercheP extends Component {
 	if(Object.values(snapshot.val())[0].motifs){
 		AsyncStorage.removeItem("med_pat_file_location");
 		AsyncStorage.setItem('med_pat_file_location', JSON.stringify({"id_medecin":id_medecin,"id_patient":_key,"id_dossier":Object.keys(snapshot.val())[0],"nombre_images_dossier":Object.values(snapshot.val())[0].nombre_images_dossier,"nombre_images_motif":Object.values(Object.values(snapshot.val())[0].motifs)[0].nombre_images_motif, "emplacement":Object.values(Object.values(snapshot.val())[0].motifs)[0].emplacement, "id_motif": Object.keys(Object.values(snapshot.val())[0].motifs)[0]}));
-	 alert(nombre_images_dossier)
 		  that.props.navigator.push({
 		   component: GestionNaevus
 		  }); 

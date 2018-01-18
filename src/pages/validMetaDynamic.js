@@ -75,7 +75,6 @@ export default class validMetaDynamic extends Component {
   componentDidMount(){
 	AsyncStorage.getItem('med_pat_file_location_image_data').then((med_pat_file_location_image_dataa) => {
 	  const arr =JSON.parse(med_pat_file_location_image_dataa);
-	  alert(arr.nombre_images_motif)
 	  this.setState({
 		array:arr,
 		dossier_id: arr.id_dossier,
@@ -123,6 +122,8 @@ export default class validMetaDynamic extends Component {
 	let id_dossier=this.state.dossier_id;
 	let id_motif=this.state.motif_id;
 	let my_array=this.state.array;
+	//alert(my_array.nombre_images_motif)
+	//alert(my_array.nombre_images_dossier)
 	/***-----upload to firebase storage method ----*/
 	firebase.auth()
       .signInWithEmailAndPassword(EMAIL,PASSWORD)
@@ -178,7 +179,6 @@ export default class validMetaDynamic extends Component {
 		myarray=JSON.stringify(that.state.meta_arr);// merge both arrays
 		let image_id=testImageName.substring(0,44).replace(/\s/g, "_");
 		  that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).child('images').child(image_id).set(array_all);
-		  if(my_array.emplacement== null || my_array.emplacement ==  undefined){
 			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //update medical folder data
 				date_MAJ_dossier: compte_rendu.toString(),
 				nombre_images_dossier: parseInt(my_array.nombre_images_dossier)+1
@@ -186,20 +186,7 @@ export default class validMetaDynamic extends Component {
 			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //update medical folder data
 				date_MAJ_motif: compte_rendu.toString(),
 				nombre_images_motif: parseInt(my_array.nombre_images_motif)+1
-		    });
-			
-		  }else{
-			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //update medical folder data
-				date_MAJ_dossier: compte_rendu.toString(),
-				nombre_images_dossier: parseInt(my_array.nombre_images_dossier)+1,
-				emplacement: my_array.emplacement
-		    });
-			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).child("motifs").child(id_motif).update({ //update medical folder data
-				date_MAJ_motif: compte_rendu.toString(),
-				nombre_images_motif: parseInt(my_array.nombre_images_motif)+1,
-				emplacement: my_array.emplacement
-		    });
-		  }		  
+		    });	  
 		  alert("Upload Terminé",downloadURL);
 		  that.props.navigator.push({
 			component: LastOne
