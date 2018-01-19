@@ -140,7 +140,7 @@ export default class validMeta extends Component {
 			phototype:my_array.phototype,
 			SED:my_array.sed,
 			suspicion:my_array.suspicion,
-			imageName:image_id
+			imageName:image_id       
 		  })
 			that.itemsRef.child('medecins').child(id_medecin).child('patients').child(id_patient).child('dossier_medical').child(id_dossier).update({ //update medical folder data
 				date_MAJ_dossier: compte_rendu.toString(),
