@@ -14,6 +14,7 @@ import {
   Platform,
   AsyncStorage,
   ScrollView,
+  ActivityIndicator,
   ProgressBarAndroid,
   TextInput,
   View
@@ -232,7 +233,8 @@ export default class validMetaDynamic extends Component {
 				textStyle={{fontSize: 15, color:'#fff'}}>Envoyer</Button>
 			</Col>
 		  </Row>
-		</Grid>						
+		</Grid>	
+		   <ActivityIndicator size="large" color="#29235c" />
 	  </ScrollView>   
 	</View>
     );
