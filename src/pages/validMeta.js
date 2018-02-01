@@ -70,7 +70,7 @@ export default class validMeta extends Component {
   componentDidMount(){
 	AsyncStorage.getItem('med_pat_file_location_image_data').then((med_pat_file_location_image_dataa) => {
 	  const arr =JSON.parse(med_pat_file_location_image_dataa);
-	    alert(arr.id_motif)
+	   // alert(arr.id_motif)
 	  this.setState({
 		array:arr,
 		dossier_id: arr.id_dossier,
@@ -95,7 +95,7 @@ export default class validMeta extends Component {
 	let id_dossier=this.state.dossier_id;
 	let id_motif=this.state.motif_id;
 	let my_array=this.state.array;
-	alert(my_array.nombre_images_motif)
+	//alert(my_array.nombre_images_motif)
 	//alert(my_array.nombre_images_dossier)
 	/*-----upload to firebase storage method ----*/
 	firebase.auth()

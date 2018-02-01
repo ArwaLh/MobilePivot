@@ -43,7 +43,7 @@ module.exports = StyleSheet.create({
   textinput_email: {
     height: 50,
 	width: 270,
-	marginTop: 10,
+	marginTop: 55,
 	marginBottom: 10,
 	color: "#fff",
 	fontFamily: 'Roboto',
