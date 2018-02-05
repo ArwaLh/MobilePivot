@@ -101,6 +101,8 @@ export default class login extends Component {
 			 	this.props.navigator.push({
 				component: TakePic
 				});
+			}else{
+				alert("Vérifier votre boîte de réception et confirmer votre e-mail")
 			}
 			})
 		  }).catch(function(error) {
