@@ -99,7 +99,7 @@ export default class rechercheP extends Component {
 		  keyboardShouldPersistTaps={true}
 		  keyboardDismissMode='on-drag'>
 		<Text style={{fontFamily: 'Roboto', fontSize:14,color:'#29235c',margin:7, marginTop:55,marginLeft:25,marginRight:25}}>
-		Merci de saisir les premiéres lettres de nom de patient
+		Merci de saisir les premières lettres de nom de patient
 		</Text> 
 		<Autocomplete
 		  ref="autocomplete"
