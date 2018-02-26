@@ -20,7 +20,7 @@ import Hr from 'react-native-hr';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 import {Button} from 'native-base';
 import { Col, Row, Grid } from "react-native-easy-grid";
-import TakePic from './takePic';
+import TakePic from './rechercheP';
 
 const window = Dimensions.get('window');
 export default class lastOne extends Component {
@@ -48,18 +48,6 @@ export default class lastOne extends Component {
     return (
 	<View>
 		<HeaderSearch text="Katomi" onpress={this.goBack}/>
-		<Grid style={{height:100, width:400, marginLeft:35, marginTop:20}}> 
-		    <Button onPress={this.gestionF.bind(this)} style={{width: 320,height:90, marginTop:50}} transparent>
-				<Row>
-				  <Col style={{width:65}}>
-					<Icon name="camera" style={{color:'#29235c', fontSize:50}} />
-				  </Col>
-				  <Col style ={{width:300, marginTop:13}}>
-					<Text style={{fontSize: 18,fontWeight:"bold", color:'#29235c'}}>Prendre une autre photo</Text> 
-				  </Col>    
-				</Row>	
-			  </Button>			        
-		</Grid>	
 		<Grid>
 		  <Row style={{width:300, height:300, margin:10, marginLeft:50, marginTop:220}}>
 			<Col style={{width:100, height:50}}><Icon name="smile-o" style={{color:'#29235c', fontSize:60}} /></Col>
@@ -75,6 +63,9 @@ export default class lastOne extends Component {
 			onPress={() => Linking.openURL('https://katomi.co/')}>
 		  ACCEDER AU SITE KATOMI 
 		</Text>
+		<Button onPress={this.gestionF.bind(this)} style={{width: 320,height:90, marginTop:50}} transparent>
+					<Text style={{fontSize: 18,fontWeight:"bold", color:'#29235c'}}>Prendre une autre photo</Text> 
+	    </Button>	
      </View>
     );
   }

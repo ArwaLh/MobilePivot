@@ -8,23 +8,54 @@ import {
 } from 'react-native';
 import Didacticiel from './didacticiel';
 import Login from './login';
+import TakePic from './takePic';
 import styles from '../styles/common-styles.js';
 import {Button} from 'native-base';
+import firebase from 'firebase';
 
 const window = Dimensions.get('window');
 
 export default class splashscreen extends Component {
   constructor(props){
 	super(props);
+	this.state = {
+		  loading: true,
+		  authenticated: false,
+		  btnText: "",
+		  logout: ""
+		};
   }
-  demarrer(){
-	this.props.navigator.push({
-		component: Login
-	});
+  demarrer(){     
+	if (this.state.authenticated && this.state.btnText === "DEMARRER") {
+		this.props.navigator.push({
+			component: TakePic
+		});
+	}else if (!this.state.authenticated && this.state.btnText === "CONNEXION") {
+		this.props.navigator.push({
+			component: Login
+		});
+	}
   }
   didacticiel(){
-	this.props.navigator.push({
-		component: Didacticiel
+	if (this.state.logout === "DECONNEXION") {
+		firebase.auth().signOut().then(function() {
+		  // Sign-out successful.
+		  alert("DECONNEXION TERMINEE")
+		}).catch(function(error) {
+		  // An error happened.
+		  alert("DECONNEXION ECHOUEE")
+		});
+	}else{
+		alert("VEUILLEZ VOUS CONNECTER!")
+	}
+  }
+  componentDidMount() {
+	firebase.auth().onAuthStateChanged((user) => {
+		if (user) {
+			this.setState({ loading: false, authenticated: true, btnText: "DEMARRER", logout: "DECONNEXION"});
+		} else {
+			this.setState({ loading: false, authenticated: false, btnText: "CONNEXION", logout: "" });
+		}
 	});
   }
   render() {
@@ -36,11 +67,11 @@ export default class splashscreen extends Component {
 				<Button
 					onPress={this.demarrer.bind(this)}
 					style={{width:200,height:50,marginLeft:(window.width/2)-100,marginTop:190,marginBottom:1,borderColor: 'white'}}
-					bordered><Text style={{color: 'white'}}>DEMARRER</Text></Button>      
+					bordered><Text style={{color: 'white'}}>{this.state.btnText}</Text></Button>      
 				<Button
 					onPress={this.didacticiel.bind(this)}
 					style={{width:200,height:50,marginLeft:(window.width/2)-100,marginTop:0,marginBottom:15}}
-				   	transparent><Text style={{color: 'white'}}>DIDACTICIEL</Text></Button>
+				   	transparent><Text style={{color: 'white'}}>{this.state.logout}</Text></Button>
 			</View>
 		</Image>
 	  </View>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           

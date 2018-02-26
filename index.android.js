@@ -35,28 +35,37 @@ export default class FacebookApp extends Component {
 		super(props);
 		this.state = {
 		  component: null,
-		  loaded: false,
-		  
+		  loaded: false  
 		};
 	}
+	// componentDidMount() {
+		// firebase.auth().onAuthStateChanged((user) => {
+			// alert(user)
+		  // if (user) {
+			// this.setState({ loading: false, authenticated: true });
+		  // } else {
+			// this.setState({ loading: false, authenticated: false });
+		  // }
+		// });
+	// }
  
 	render() {
-		return (
-		  <Navigator
-			  initialRoute={{component: SplashScreen}}
-			  configureScene={(route) => {
-				return {
-					...Navigator.SceneConfigs.HorizontalSwipeJump,
-					gestures: {},
-				};
-			  }}
-			  renderScene={(route, navigator) => {
-				if(route.component){
-				  return React.createElement(route.component, { navigator });
-				}
-			  }}
-			/>
-		);
+			return (
+			  <Navigator
+				  initialRoute={{component: SplashScreen}}
+				  configureScene={(route) => {
+					return {
+						...Navigator.SceneConfigs.HorizontalSwipeJump,
+						gestures: {},
+					};
+				  }}
+				  renderScene={(route, navigator) => {
+					if(route.component){
+					  return React.createElement(route.component, { navigator });
+					}
+				  }}
+				/>
+			);
 	}
 	
 }
