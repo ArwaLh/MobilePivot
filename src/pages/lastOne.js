@@ -28,28 +28,17 @@ export default class lastOne extends Component {
 	super(props);
 		this.goBack=this.goBack.bind(this);
  }	
- 
-  gestionF(){  
-	this.props.navigator.push({ 
-		 component: TakePic
-	});
-  }
   goBack() {
 	this.props.navigator.pop();
 	return true; // do not exit app
   }
-  gestionP(){  
-  this.props.navigator.pop();
-	this.props.navigator.push({ 
-		 component: TakePic
-	});
-  }
+  
   render() {
     return (
 	<View>
 		<HeaderSearch text="Katomi" onpress={this.goBack}/>
 		<Grid>
-		  <Row style={{width:300, height:300, margin:10, marginLeft:50, marginTop:220}}>
+		  <Row style={{width:300, height:300, marginLeft:50, marginTop:130}}>
 			<Col style={{width:100, height:50}}><Icon name="smile-o" style={{color:'#29235c', fontSize:60}} /></Col>
 			<Col style={{width:100, height:200} }><Text style={{fontFamily:'Roboto', fontSize:30, color:'#29235c', fontWeight:'bold', marginTop:10}}> OU </Text></Col>
 			<Col style={{width:100, height:50}}><Icon name="frown-o" style={{color:'#29235c',fontSize:60}} /></Col>
@@ -63,9 +52,6 @@ export default class lastOne extends Component {
 			onPress={() => Linking.openURL('https://katomi.co/')}>
 		  ACCEDER AU SITE KATOMI 
 		</Text>
-		<Button onPress={this.gestionF.bind(this)} style={{width: 320,height:90, marginTop:50}} transparent>
-					<Text style={{fontSize: 18,fontWeight:"bold", color:'#29235c'}}>Prendre une autre photo</Text> 
-	    </Button>	
      </View>
     );
   }
